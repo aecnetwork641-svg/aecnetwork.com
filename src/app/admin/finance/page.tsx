@@ -47,7 +47,7 @@ export default async function AdminFinancePage() {
           { title: "Expense Tracking", href: "/finance/expenses", desc: "Monitor utility, vendor, and operations outlays." },
           { title: "Financial Reports", href: "/finance/reports", desc: "Daily collections and balance statements." }
         ].map((item) => (
-          <Link key={item.title} href={item.href} className="card hover:border-aec-blue transition-colors">
+          <Link key={item.title} href={item.href as any} className="card hover:border-aec-teal transition-colors">
             <h3 className="font-bold text-aec-navy text-sm">{item.title}</h3>
             <p className="mt-1 text-xs text-aec-navy/70">{item.desc}</p>
             <span className="mt-3 inline-block text-xs font-semibold text-aec-blue">

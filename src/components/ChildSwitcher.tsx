@@ -26,7 +26,7 @@ export default function ChildSwitcher({
   function onChange(id: string) {
     const params = new URLSearchParams(searchParams.toString());
     params.set("child", id);
-    router.push(`${pathname}?${params.toString()}`);
+    router.push(`${pathname}?${params.toString()}` as any);
   }
 
   return (

@@ -183,8 +183,8 @@ export default async function AdminDashboard() {
           ].map((m) => (
             <Link
               key={m.title}
-              href={m.href}
-              className="card hover:border-aec-blue transition-colors flex flex-col justify-between"
+              href={m.href as any}
+              className="card hover:border-aec-teal transition-colors flex flex-col justify-between"
             >
               <div>
                 <h3 className="font-bold text-aec-navy text-sm">{m.title}</h3>

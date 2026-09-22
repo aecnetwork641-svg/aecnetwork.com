@@ -61,8 +61,8 @@ export default async function AdminReportsPage() {
               <p className="mt-1 text-xs text-aec-navy/70 leading-relaxed">{rep.desc}</p>
             </div>
             <Link
-              href={rep.href}
-              className="mt-4 inline-block text-xs font-semibold text-aec-blue hover:underline"
+              href={rep.href as any}
+              className="mt-4 inline-block text-xs font-semibold text-aec-teal hover:underline"
             >
               View Statement &rarr;
             </Link>
