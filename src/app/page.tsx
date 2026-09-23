@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 
 const PROGRAMS = [
   {
@@ -79,69 +78,82 @@ export default function HomePage() {
   return (
     <div className="flex flex-col gap-16 md:gap-24">
       {/* 1. HERO SECTION */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#1a0305] via-[#2a0508] to-aec-cream/20 pt-4 pb-12 lg:pt-6 lg:pb-16 text-white border-b border-aec-navy/10">
-        <div className="container-aec">
-          {/* Main Full-Width Hero Banner */}
-          <div className="relative overflow-hidden rounded-2xl md:rounded-3xl shadow-2xl border border-red-950/40 bg-black/40">
-            <div className="relative aspect-[16/9] sm:aspect-[21/9] md:aspect-[16/9] w-full">
-              <Image
-                src="/images/aec-hero-banner.jpg"
-                alt="AEC Network - Connecting Learners with Professional, Islamic & Academic Education Worldwide"
-                fill
-                priority
-                sizes="(max-width: 1280px) 100vw, 1280px"
-                className="object-cover object-center"
-              />
+      <section className="relative overflow-hidden border-b border-aec-navy/10 bg-gradient-to-b from-aec-cream via-white to-aec-cream/30 py-16 lg:py-24">
+        <div className="container-aec grid items-center gap-12 lg:grid-cols-12">
+          <div className="lg:col-span-7">
+            <div className="inline-flex items-center gap-2 rounded-full border border-aec-teal/30 bg-aec-teal/5 px-3.5 py-1 text-xs font-semibold text-aec-teal mb-6">
+              <span className="h-2 w-2 rounded-full bg-aec-teal animate-pulse" />
+              Online Education & Academic Excellence
             </div>
-          </div>
-
-          {/* Quick Action CTAs & Highlights Bar below banner */}
-          <div className="mt-8 grid grid-cols-1 md:grid-cols-12 gap-6 items-center bg-white rounded-2xl p-6 sm:p-8 shadow-xl border border-aec-navy/10 text-aec-navy">
-            <div className="md:col-span-7">
-              <div className="inline-flex items-center gap-2 rounded-full border border-aec-teal/30 bg-aec-teal/5 px-3.5 py-1 text-xs font-semibold text-aec-teal mb-3">
-                <span className="h-2 w-2 rounded-full bg-aec-teal animate-pulse" />
-                Connecting Learners Worldwide
-              </div>
-              <h2 className="font-display text-2xl sm:text-3xl font-extrabold tracking-tight text-aec-navy">
-                Start Your Educational Journey Today
-              </h2>
-              <p className="mt-2 text-sm sm:text-base text-aec-navy/75 leading-relaxed">
-                Structured online education, vetted faculty, personalized tutoring, and academic excellence in Islamic Studies, Languages, and School Subjects.
-              </p>
-            </div>
-
-            <div className="md:col-span-5 flex flex-col sm:flex-row md:flex-col lg:flex-row gap-3">
-              <Link href="/admissions/free-trial" className="btn-primary text-center text-sm px-6 py-3.5 shadow-md hover:shadow-lg w-full">
+            <h1 className="font-display text-4xl font-extrabold tracking-tight text-aec-navy sm:text-5xl lg:text-6xl leading-[1.1]">
+              Learn. Grow. Achieve. <br />
+              <span className="text-aec-teal">With AEC Network.</span>
+            </h1>
+            <p className="mt-6 max-w-2xl text-lg text-aec-navy/75 leading-relaxed">
+              AEC provides structured online education, certified educators, personalized tutoring,
+              and comprehensive academic support for students worldwide. Experience dedicated instruction
+              built around your child&apos;s potential.
+            </p>
+            <div className="mt-8 flex flex-wrap items-center gap-4">
+              <Link href="/admissions/free-trial" className="btn-primary text-base px-7 py-3.5 shadow-md hover:shadow-lg">
                 Start Your Free Trial
               </Link>
-              <a
-                href="https://wa.me/923435999397"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-600 px-6 py-3.5 text-sm font-semibold text-white shadow-md transition hover:bg-emerald-700 w-full"
-              >
-                <span>WhatsApp Advisory</span>
-              </a>
+              <Link href="/programs" className="btn-secondary text-base px-7 py-3.5">
+                Explore Programs
+              </Link>
+            </div>
+            <div className="mt-10 grid grid-cols-3 gap-6 border-t border-aec-navy/10 pt-6">
+              <div>
+                <p className="font-display text-sm font-bold text-aec-navy">Vetted Faculty</p>
+                <p className="text-xs text-aec-navy/60 mt-0.5">Subject specialists</p>
+              </div>
+              <div>
+                <p className="font-display text-sm font-bold text-aec-navy">Flexible Pacing</p>
+                <p className="text-xs text-aec-navy/60 mt-0.5">1-on-1 & group classes</p>
+              </div>
+              <div>
+                <p className="font-display text-sm font-bold text-aec-navy">Parent Portal</p>
+                <p className="text-xs text-aec-navy/60 mt-0.5">Live attendance & reports</p>
+              </div>
             </div>
           </div>
 
-          {/* Key Value Points */}
-          <div className="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm p-4 text-center">
-              <p className="font-display text-sm font-bold text-white">Vetted Scholars & Faculty</p>
-              <p className="text-xs text-white/70 mt-1">Certified Quran & Subject Specialists</p>
-            </div>
-            <div className="rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm p-4 text-center">
-              <p className="font-display text-sm font-bold text-white">Flexible 1-on-1 & Groups</p>
-              <p className="text-xs text-white/70 mt-1">Personalized Timetables Worldwide</p>
-            </div>
-            <div className="rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm p-4 text-center">
-              <p className="font-display text-sm font-bold text-white">Academic Support</p>
-              <p className="text-xs text-white/70 mt-1">School Subjects, STEM & Languages</p>
-            </div>
-            <div className="rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm p-4 text-center">
-              <p className="font-display text-sm font-bold text-white">Parent Portal</p>
-              <p className="text-xs text-white/70 mt-1">Live Attendance & Regular Reports</p>
+          <div className="lg:col-span-5">
+            <div className="relative rounded-2xl border border-aec-navy/10 bg-white p-6 shadow-xl">
+              <div className="flex items-center justify-between border-b border-aec-navy/10 pb-4">
+                <div className="flex items-center gap-2">
+                  <div className="h-3 w-3 rounded-full bg-rose-400" />
+                  <div className="h-3 w-3 rounded-full bg-amber-400" />
+                  <div className="h-3 w-3 rounded-full bg-emerald-400" />
+                </div>
+                <span className="badge badge-neutral text-xs">AEC Learning Suite</span>
+              </div>
+              <div className="mt-6 space-y-4">
+                <div className="rounded-xl border border-aec-teal/20 bg-aec-teal/5 p-4">
+                  <p className="text-xs font-semibold text-aec-teal uppercase tracking-wider">Live Class Schedule</p>
+                  <p className="mt-1 font-semibold text-aec-navy">Quranic Foundations & Tajweed</p>
+                  <p className="text-xs text-aec-navy/60 mt-0.5">Assigned Instructor • Mon, Wed, Fri</p>
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="rounded-xl border border-aec-navy/10 bg-aec-cream/50 p-3.5">
+                    <p className="text-xs text-aec-navy/60">Attendance Rate</p>
+                    <p className="font-display text-xl font-bold text-aec-navy mt-1">98%</p>
+                    <span className="text-[11px] text-emerald-600 font-medium">Regular Attendance</span>
+                  </div>
+                  <div className="rounded-xl border border-aec-navy/10 bg-aec-cream/50 p-3.5">
+                    <p className="text-xs text-aec-navy/60">Course Modules</p>
+                    <p className="font-display text-xl font-bold text-aec-navy mt-1">12 / 16</p>
+                    <span className="text-[11px] text-aec-teal font-medium">Active Progress</span>
+                  </div>
+                </div>
+                <div className="rounded-xl border border-aec-navy/10 bg-white p-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-semibold text-aec-navy">Next Evaluation Milestone</span>
+                    <span className="badge badge-info text-[11px]">Upcoming</span>
+                  </div>
+                  <p className="text-xs text-aec-navy/70 mt-1">Tajweed Oral Recitation Assessment</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
