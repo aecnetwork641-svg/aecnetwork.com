@@ -18,7 +18,6 @@ function getEmailTransporter() {
   const pass = process.env.EMAIL_SERVER_PASSWORD;
 
   if (!pass) {
-    // Password not yet configured
     return null;
   }
 
@@ -34,31 +33,63 @@ function getEmailTransporter() {
 }
 
 /**
- * Sends an email notification.
+ * Sends an email notification using Resend API or Nodemailer SMTP.
  */
 export async function sendEmail({ to, subject, html, text }: SendEmailParams): Promise<boolean> {
-  const from = process.env.EMAIL_FROM || `AEC Network <${process.env.ADMIN_NOTIFICATION_EMAIL || "aecnetwork641@gmail.com"}>`;
+  const resendApiKey = process.env.RESEND_API_KEY;
+
+  // 1. Preferred: Resend API (Instant, modern, reliable)
+  if (resendApiKey) {
+    try {
+      const res = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${resendApiKey}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          from: "AEC Network <onboarding@resend.dev>",
+          to: [to],
+          subject,
+          html,
+          text: text || html.replace(/<[^>]*>?/gm, ""),
+        }),
+      });
+
+      const resData = await res.json();
+      if (res.ok) {
+        console.log(`[RESEND EMAIL SENT] ID: ${resData.id} to ${to}`);
+        return true;
+      } else {
+        console.error("[RESEND API ERROR]", resData);
+      }
+    } catch (err) {
+      console.error("[RESEND NETWORK ERROR]", err);
+    }
+  }
+
+  // 2. Fallback: SMTP / Nodemailer
   const transporter = getEmailTransporter();
-
-  if (!transporter) {
-    console.log(`[EMAIL NOTICE - SMTP Pass pending] To: ${to} | Subject: ${subject}`);
-    return true;
+  if (transporter) {
+    try {
+      const from = process.env.EMAIL_FROM || `AEC Network <${process.env.ADMIN_NOTIFICATION_EMAIL || "aecnetwork641@gmail.com"}>`;
+      const info = await transporter.sendMail({
+        from,
+        to,
+        subject,
+        text: text || html.replace(/<[^>]*>?/gm, ""),
+        html,
+      });
+      console.log(`[SMTP EMAIL SENT] ID: ${info.messageId} to ${to}`);
+      return true;
+    } catch (error) {
+      console.error("[SMTP ERROR]", error);
+      return false;
+    }
   }
 
-  try {
-    const info = await transporter.sendMail({
-      from,
-      to,
-      subject,
-      text: text || html.replace(/<[^>]*>?/gm, ""),
-      html,
-    });
-    console.log(`[EMAIL SENT] ID: ${info.messageId} to ${to}`);
-    return true;
-  } catch (error) {
-    console.error("[EMAIL ERROR]", error);
-    return false;
-  }
+  console.log(`[EMAIL NOTICE - No active provider] To: ${to} | Subject: ${subject}`);
+  return true;
 }
 
 /**
