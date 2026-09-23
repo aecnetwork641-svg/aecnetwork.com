@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AICounselorWidget from "@/components/AICounselorWidget";
+import WhatsAppFloatingButton from "@/components/WhatsAppFloatingButton";
 
 export const metadata: Metadata = {
   title: "AEC Network — Learn. Grow. Achieve.",
@@ -16,9 +17,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="flex min-h-screen flex-col font-sans antialiased">
         <Navbar />
         <main className="flex-1">{children}</main>
+        <WhatsAppFloatingButton />
         <AICounselorWidget />
         <Footer />
       </body>
     </html>
   );
 }
+
