@@ -1,51 +1,50 @@
 import PortalShell from "@/components/PortalShell";
-import ScopedDataNote from "@/components/ScopedDataNote";
 import { STUDENT_NAV } from "../_nav";
-import { getCurrentStudentScope } from "@/lib/scoped-queries";
-import { prisma } from "@/lib/prisma";
+import { DEMO_RESULTS, DEMO_STUDENT } from "@/lib/student-demo-data";
 
-export default async function StudentResultsPage() {
-  const scope = await getCurrentStudentScope();
-
-  const results = scope
-    ? await prisma.result.findMany({
-        where: { studentId: scope.studentId },
-        include: { exam: { include: { course: true } } },
-        orderBy: { id: "desc" }
-      })
-    : [];
-
+export default function StudentResultsPage() {
   return (
-    <PortalShell role="Student Portal" navItems={STUDENT_NAV} title="Results">
-      <div className="card">
-        <p className="font-semibold text-aec-navy">Your Exam Results</p>
-        {!scope && <p className="mt-2 text-sm text-aec-navy/50">Sign in as a student to view this page.</p>}
-        {scope && results.length === 0 && (
-          <p className="mt-2 text-sm text-aec-navy/50">No results recorded yet.</p>
-        )}
-        {results.length > 0 && (
-          <table className="mt-4 w-full text-left text-sm">
-            <thead>
-              <tr className="text-aec-navy/50">
-                <th className="py-2">Course</th>
-                <th className="py-2">Exam</th>
-                <th className="py-2">Score</th>
-                <th className="py-2">Grade</th>
-              </tr>
-            </thead>
-            <tbody>
-              {results.map((r) => (
-                <tr key={r.id} className="border-t border-aec-navy/5">
-                  <td className="py-2">{r.exam.course.title}</td>
-                  <td className="py-2">{r.exam.title}</td>
-                  <td className="py-2">{r.score}/{r.exam.maxScore}</td>
-                  <td className="py-2">{r.grade ?? "—"}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-        <ScopedDataNote text="Only results tied to your own Student.id are queried." />
+    <PortalShell role="Student Portal" navItems={STUDENT_NAV} title="Academic Results & Marksheets">
+      {/* GPA Summary Card */}
+      <div className="rounded-2xl bg-aec-navy p-6 text-white shadow-md mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <span className="text-xs font-semibold text-aec-gold uppercase tracking-wider">Overall Academic Record</span>
+          <h2 className="font-display text-2xl font-bold mt-1">Cumulative GPA: {DEMO_STUDENT.gpa} / 4.0</h2>
+          <p className="text-xs text-white/70 mt-1">Grade: <strong className="text-white">{DEMO_STUDENT.overallGrade}</strong> • Status: <span className="text-emerald-400 font-semibold">Distinction Pass</span></p>
+        </div>
+        <button
+          onClick={() => {}}
+          className="rounded-xl bg-aec-gold text-aec-navy font-bold text-xs px-5 py-2.5 hover:bg-aec-gold/90 transition shadow"
+        >
+          Download PDF Marksheet
+        </button>
+      </div>
+
+      {/* Results List */}
+      <div className="space-y-4">
+        {DEMO_RESULTS.map((res) => (
+          <div key={res.id} className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4 mb-4">
+              <div>
+                <span className="text-[10px] font-bold uppercase tracking-wider bg-slate-100 text-slate-700 px-2.5 py-0.5 rounded-full">
+                  {res.term}
+                </span>
+                <h3 className="font-display text-base font-bold text-slate-900 mt-1">{res.course}</h3>
+                <p className="text-xs text-slate-500">{res.examTitle} • Date: {res.date}</p>
+              </div>
+
+              <div className="sm:text-right">
+                <span className="text-2xl font-black text-emerald-600">{res.score}%</span>
+                <span className="block text-xs font-bold text-slate-700">Grade {res.grade}</span>
+              </div>
+            </div>
+
+            <div className="bg-slate-50 p-3.5 rounded-lg border border-slate-100 text-xs text-slate-700">
+              <span className="font-bold text-slate-900">Evaluator Remarks: </span>
+              <span className="italic">{res.remarks}</span>
+            </div>
+          </div>
+        ))}
       </div>
     </PortalShell>
   );

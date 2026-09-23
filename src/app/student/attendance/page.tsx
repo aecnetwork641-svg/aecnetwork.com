@@ -1,63 +1,70 @@
 import PortalShell from "@/components/PortalShell";
-import ScopedDataNote from "@/components/ScopedDataNote";
 import { STUDENT_NAV } from "../_nav";
-import { getCurrentStudentScope } from "@/lib/scoped-queries";
-import { prisma } from "@/lib/prisma";
+import { DEMO_ATTENDANCE, DEMO_STUDENT } from "@/lib/student-demo-data";
 
-export default async function StudentAttendancePage() {
-  const scope = await getCurrentStudentScope();
-
-  // Real scoped query: the WHERE clause always includes this student's own
-  // id, resolved server-side from the session — never from a URL/query param.
-  const records = scope
-    ? await prisma.attendance.findMany({
-        where: { studentId: scope.studentId },
-        orderBy: { date: "desc" },
-        take: 20,
-        include: { class: true }
-      })
-    : [];
-
-  const total = records.length;
-  const present = records.filter((r) => r.status === "present").length;
-  const rate = total > 0 ? Math.round((present / total) * 100) : null;
-
+export default function StudentAttendancePage() {
   return (
-    <PortalShell role="Student Portal" navItems={STUDENT_NAV} title="Attendance">
-      <div className="card">
-        <p className="text-xs text-aec-navy/50">Attendance Rate</p>
-        <p className="mt-1 text-2xl font-bold text-aec-navy">{rate !== null ? `${rate}%` : "—"}</p>
-        <ScopedDataNote text="Computed only from your own Attendance rows." />
+    <PortalShell role="Student Portal" navItems={STUDENT_NAV} title="Attendance Records & Logs">
+      {/* Attendance Stats */}
+      <div className="grid gap-4 sm:grid-cols-3 mb-6">
+        <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+          <p className="text-xs font-semibold uppercase text-slate-500">Overall Attendance</p>
+          <p className="text-2xl font-bold text-emerald-600 mt-1">{DEMO_STUDENT.attendanceRate}%</p>
+          <p className="text-xs text-slate-500 mt-1">24 attended / 25 scheduled</p>
+        </div>
+        <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+          <p className="text-xs font-semibold uppercase text-slate-500">Late / Rescheduled</p>
+          <p className="text-2xl font-bold text-amber-600 mt-1">1 Session</p>
+          <p className="text-xs text-slate-500 mt-1">Within permissible window</p>
+        </div>
+        <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+          <p className="text-xs font-semibold uppercase text-slate-500">Excused Leaves</p>
+          <p className="text-2xl font-bold text-sky-600 mt-1">1 Session</p>
+          <p className="text-xs text-slate-500 mt-1">Pre-approved by parent</p>
+        </div>
       </div>
 
-      <div className="card mt-6">
-        <p className="font-semibold text-aec-navy">Recent Records</p>
-        {!scope && (
-          <p className="mt-2 text-sm text-aec-navy/50">Sign in as a student to view this page.</p>
-        )}
-        {scope && records.length === 0 && (
-          <p className="mt-2 text-sm text-aec-navy/50">No attendance records yet.</p>
-        )}
-        {records.length > 0 && (
-          <table className="mt-4 w-full text-left text-sm">
-            <thead>
-              <tr className="text-aec-navy/50">
-                <th className="py-2">Date</th>
-                <th className="py-2">Class</th>
-                <th className="py-2">Status</th>
+      {/* Attendance Log Table */}
+      <div className="rounded-xl border border-slate-200 bg-white overflow-hidden shadow-sm">
+        <div className="p-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+          <h3 className="font-display text-sm font-bold text-slate-900">Recent Class Attendance Log</h3>
+          <span className="text-xs text-slate-500">September 2026</span>
+        </div>
+
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-xs">
+            <thead className="bg-slate-100 text-slate-600 uppercase font-semibold text-[10px] tracking-wider">
+              <tr>
+                <th className="p-3">Date</th>
+                <th className="p-3">Course / Subject</th>
+                <th className="p-3">Class Time</th>
+                <th className="p-3">Status</th>
               </tr>
             </thead>
-            <tbody>
-              {records.map((r) => (
-                <tr key={r.id} className="border-t border-aec-navy/5">
-                  <td className="py-2">{r.date.toDateString()}</td>
-                  <td className="py-2">{r.class.name}</td>
-                  <td className="py-2 capitalize">{r.status}</td>
+            <tbody className="divide-y divide-slate-100 text-slate-700">
+              {DEMO_ATTENDANCE.map((row, idx) => (
+                <tr key={idx} className="hover:bg-slate-50">
+                  <td className="p-3 font-medium text-slate-900">{row.date}</td>
+                  <td className="p-3 font-semibold text-aec-navy">{row.course}</td>
+                  <td className="p-3 text-slate-500">{row.time}</td>
+                  <td className="p-3">
+                    <span
+                      className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
+                        row.status === "Present"
+                          ? "bg-emerald-100 text-emerald-800"
+                          : row.status.includes("Late")
+                          ? "bg-amber-100 text-amber-800"
+                          : "bg-sky-100 text-sky-800"
+                      }`}
+                    >
+                      {row.status}
+                    </span>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
-        )}
+        </div>
       </div>
     </PortalShell>
   );
