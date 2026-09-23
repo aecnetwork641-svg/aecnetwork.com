@@ -1,66 +1,35 @@
 import PortalShell from "@/components/PortalShell";
-import ChildSwitcher from "@/components/ChildSwitcher";
-import ScopedDataNote from "@/components/ScopedDataNote";
 import { PARENT_NAV } from "../_nav";
-import { getCurrentParentScope } from "@/lib/scoped-queries";
-import { prisma } from "@/lib/prisma";
+import { DEMO_RESULTS } from "@/lib/student-demo-data";
 
-export default async function ParentResultsPage({
-  searchParams
-}: {
-  searchParams: { child?: string };
-}) {
-  const scope = await getCurrentParentScope(searchParams.child);
-
-  const results =
-    scope?.selectedChild
-      ? await prisma.result.findMany({
-          where: { studentId: scope.selectedChild.id },
-          include: { exam: { include: { course: true } } },
-          orderBy: { id: "desc" }
-        })
-      : [];
-
+export default function ParentResultsPage() {
   return (
-    <PortalShell role="Parent Portal" navItems={PARENT_NAV} title="Results">
-      {!scope && <div className="card"><p className="text-sm text-aec-navy/50">Sign in as a parent to view this page.</p></div>}
-      {scope && (
-        <>
-          <ChildSwitcher
-            items={scope.children.map((c) => ({ id: c.id, name: c.user.name }))}
-            selectedId={scope.selectedChild?.id ?? ""}
-          />
-          <div className="card">
-            <p className="font-semibold text-aec-navy">
-              {scope.selectedChild?.user.name ?? "No child selected"}'s Results
-            </p>
-            {results.length === 0 && <p className="mt-2 text-sm text-aec-navy/50">No results yet.</p>}
-            {results.length > 0 && (
-              <table className="mt-4 w-full text-left text-sm">
-                <thead>
-                  <tr className="text-aec-navy/50">
-                    <th className="py-2">Course</th>
-                    <th className="py-2">Exam</th>
-                    <th className="py-2">Score</th>
-                    <th className="py-2">Grade</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {results.map((r) => (
-                    <tr key={r.id} className="border-t border-aec-navy/5">
-                      <td className="py-2">{r.exam.course.title}</td>
-                      <td className="py-2">{r.exam.title}</td>
-                      <td className="py-2">{r.score}/{r.exam.maxScore}</td>
-                      <td className="py-2">{r.grade ?? "—"}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            )}
-            <ScopedDataNote text="Only results for a child linked to your account are queried." />
+    <PortalShell role="Parent Portal" navItems={PARENT_NAV} title="Exam Results & Marksheets">
+      <div className="space-y-4">
+        {DEMO_RESULTS.map((res) => (
+          <div key={res.id} className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-4 mb-4">
+              <div>
+                <span className="text-[10px] font-bold uppercase tracking-wider bg-slate-100 text-slate-700 px-2.5 py-0.5 rounded-full">
+                  {res.term} • Abdullah Akbar
+                </span>
+                <h3 className="font-display text-base font-bold text-slate-900 mt-1">{res.course}</h3>
+                <p className="text-xs text-slate-500">{res.examTitle}</p>
+              </div>
+
+              <div className="sm:text-right">
+                <span className="text-2xl font-black text-emerald-600">{res.score}%</span>
+                <span className="block text-xs font-bold text-slate-700">Grade {res.grade}</span>
+              </div>
+            </div>
+
+            <div className="bg-slate-50 p-3.5 rounded-lg border border-slate-100 text-xs text-slate-700">
+              <span className="font-bold text-slate-900">Instructor Evaluation: </span>
+              <span className="italic">{res.remarks}</span>
+            </div>
           </div>
-        </>
-      )}
+        ))}
+      </div>
     </PortalShell>
   );
 }

@@ -1,97 +1,50 @@
 import PortalShell from "@/components/PortalShell";
-import ScopedDataNote from "@/components/ScopedDataNote";
 import { TEACHER_NAV } from "../_nav";
-import { getCurrentTeacherScope } from "@/lib/scoped-queries";
-import { prisma } from "@/lib/prisma";
+import { DEMO_TEACHER_STUDENTS } from "@/lib/teacher-demo-data";
 
-interface Props {
-  searchParams: { examId?: string };
-}
-
-export default async function TeacherResultsPage({ searchParams }: Props) {
-  const scope = await getCurrentTeacherScope();
-
-  const classes = scope
-    ? await prisma.class.findMany({
-        where: { teacherId: scope.teacherId },
-        select: { courseId: true }
-      })
-    : [];
-
-  const courseIds = classes.map((c) => c.courseId);
-
-  const results = scope
-    ? await prisma.result.findMany({
-        where: {
-          exam: {
-            courseId: { in: courseIds },
-            ...(searchParams.examId ? { id: searchParams.examId } : {})
-          }
-        },
-        include: {
-          exam: { include: { course: true } },
-          student: { include: { user: true } }
-        },
-        orderBy: { exam: { date: "desc" } }
-      })
-    : [];
-
+export default function TeacherResultsPage() {
   return (
-    <PortalShell role="Teacher Portal" navItems={TEACHER_NAV} title="Exam Results & Grades">
-      <div className="flex items-center justify-between">
-        <p className="text-sm text-aec-navy/70">
-          Official exam results, scores, letter grades, and academic remarks.
-        </p>
-        <ScopedDataNote text="Strict Scoped Access: Only results for courses you instruct are displayed." />
-      </div>
+    <PortalShell role="Teacher Portal" navItems={TEACHER_NAV} title="Student Grades & Marksheet Roster">
+      <div className="rounded-xl border border-slate-200 bg-white overflow-hidden shadow-sm">
+        <div className="p-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+          <h3 className="font-display text-sm font-bold text-slate-900">Official Term Gradebook</h3>
+          <span className="text-xs text-slate-500">Term 2 Results Logged</span>
+        </div>
 
-      <div className="card mt-6">
-        {results.length === 0 ? (
-          <p className="py-8 text-center text-sm text-aec-navy/50">
-            No exam results recorded for your courses.
-          </p>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm">
-              <thead>
-                <tr className="border-b border-aec-navy/10 text-xs uppercase text-aec-navy/50">
-                  <th className="py-3 px-2">Student</th>
-                  <th className="py-3 px-2">Exam</th>
-                  <th className="py-3 px-2">Course</th>
-                  <th className="py-3 px-2">Score</th>
-                  <th className="py-3 px-2">Grade</th>
-                  <th className="py-3 px-2">Remarks</th>
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-xs">
+            <thead className="bg-slate-100 text-slate-600 uppercase font-semibold text-[10px] tracking-wider">
+              <tr>
+                <th className="p-3">Student Name</th>
+                <th className="p-3">Program</th>
+                <th className="p-3">Attendance %</th>
+                <th className="p-3">Score / Grade</th>
+                <th className="p-3">Status</th>
+                <th className="p-3 text-right">Action</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100 text-slate-700">
+              {DEMO_TEACHER_STUDENTS.map((st) => (
+                <tr key={st.id} className="hover:bg-slate-50">
+                  <td className="p-3 font-semibold text-slate-900">{st.name}</td>
+                  <td className="p-3 text-aec-navy">{st.program}</td>
+                  <td className="p-3 font-bold text-emerald-600">{st.attendance}</td>
+                  <td className="p-3 font-black text-slate-900">{st.grade}</td>
+                  <td className="p-3">
+                    <span className="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full">
+                      Passed (Distinction)
+                    </span>
+                  </td>
+                  <td className="p-3 text-right">
+                    <button onClick={() => {}} className="text-aec-navy font-bold hover:underline">
+                      Edit Marks
+                    </button>
+                  </td>
                 </tr>
-              </thead>
-              <tbody className="divide-y divide-aec-navy/5">
-                {results.map((r) => (
-                  <tr key={r.id} className="hover:bg-aec-navy/[0.02]">
-                    <td className="py-3 px-2 font-medium text-aec-navy">
-                      {r.student.user.name}
-                    </td>
-                    <td className="py-3 px-2 text-xs font-semibold text-aec-navy">
-                      {r.exam.title}
-                    </td>
-                    <td className="py-3 px-2 text-xs text-aec-navy/60">
-                      {r.exam.course.title}
-                    </td>
-                    <td className="py-3 px-2 font-bold text-aec-navy">
-                      {r.score} / {r.exam.maxScore}
-                    </td>
-                    <td className="py-3 px-2">
-                      <span className="rounded bg-emerald-50 px-2 py-0.5 text-xs font-bold text-emerald-700">
-                        {r.grade || "Pass"}
-                      </span>
-                    </td>
-                    <td className="py-3 px-2 text-xs text-aec-navy/70 italic">
-                      {r.remarks || "Satisfactory academic performance"}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </PortalShell>
   );

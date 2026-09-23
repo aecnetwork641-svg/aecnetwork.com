@@ -1,73 +1,63 @@
 import PortalShell from "@/components/PortalShell";
-import ScopedDataNote from "@/components/ScopedDataNote";
 import { TEACHER_NAV } from "../_nav";
-import { getCurrentTeacherScope } from "@/lib/scoped-queries";
-import { prisma } from "@/lib/prisma";
 
-export default async function TeacherResourcesPage() {
-  const scope = await getCurrentTeacherScope();
-
-  const classes = scope
-    ? await prisma.class.findMany({
-        where: { teacherId: scope.teacherId },
-        select: { courseId: true }
-      })
-    : [];
-
-  const courseIds = classes.map((c) => c.courseId);
-
-  const resources = await prisma.resource.findMany({
-    where: {
-      OR: [
-        { isPublic: true },
-        { courseId: { in: courseIds } }
-      ]
+export default function TeacherResourcesPage() {
+  const materials = [
+    {
+      id: "res-1",
+      title: "Al-Jazariyyah Tajweed Reference Guide & Diagrams",
+      type: "PDF Document (4.2 MB)",
+      subject: "Quran & Tajweed",
+      downloads: 142,
     },
-    include: { course: true },
-    orderBy: { createdAt: "desc" }
-  });
+    {
+      id: "res-2",
+      title: "Noorani Qaida Animated Interactive Flipbook",
+      type: "Interactive PPTX (18 MB)",
+      subject: "Noorani Qaida",
+      downloads: 320,
+    },
+    {
+      id: "res-3",
+      title: "Spoken Arabic Dialogue Flashcards & Audio Set",
+      type: "Audio / ZIP (24 MB)",
+      subject: "Arabic Language",
+      downloads: 88,
+    },
+  ];
 
   return (
-    <PortalShell role="Teacher Portal" navItems={TEACHER_NAV} title="Teaching & Academic Resources">
-      <div className="flex items-center justify-between">
-        <p className="text-sm text-aec-navy/70">
-          Syllabi, course guides, worksheets, and instructional materials.
-        </p>
-        <ScopedDataNote text="Showing public academy assets and resources for your assigned courses." />
-      </div>
-
-      <div className="card mt-6">
-        {resources.length === 0 ? (
-          <p className="py-12 text-center text-sm text-aec-navy/50">
-            No instructional resources currently uploaded.
-          </p>
-        ) : (
-          <div className="divide-y divide-aec-navy/5">
-            {resources.map((r) => (
-              <div key={r.id} className="py-3 flex items-center justify-between">
-                <div>
-                  <div className="flex items-center gap-2">
-                    <p className="font-semibold text-xs text-aec-navy">{r.title}</p>
-                    <span className="rounded bg-aec-navy/10 px-2 py-0.5 text-[10px] font-medium uppercase text-aec-navy">
-                      {r.type}
-                    </span>
-                  </div>
-                  {r.course && (
-                    <p className="text-xs text-aec-navy/50">{r.course.title}</p>
-                  )}
-                </div>
-                <a
-                  href={r.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="rounded bg-aec-navy px-3 py-1.5 text-xs font-medium text-white hover:bg-aec-navy/90"
-                >
-                  View Material
-                </a>
-              </div>
-            ))}
+    <PortalShell role="Teacher Portal" navItems={TEACHER_NAV} title="Teaching Materials & Lesson Plans">
+      <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm mb-6">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4 mb-4">
+          <div>
+            <h2 className="font-display text-base font-bold text-slate-900">Faculty Resource Library</h2>
+            <p className="text-xs text-slate-500">Official syllabus slide decks, audio pronunciation guides, and lesson plans.</p>
           </div>
-        )}
+          <button onClick={() => {}} className="btn-primary text-xs px-4 py-2 self-start sm:self-auto">
+            + Upload Teaching Material
+          </button>
+        </div>
+
+        <div className="space-y-3">
+          {materials.map((m) => (
+            <div key={m.id} className="p-4 rounded-xl border border-slate-200 bg-slate-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div className="flex items-center gap-3">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-aec-navy text-white text-sm font-bold">
+                  📚
+                </span>
+                <div>
+                  <h4 className="text-xs font-bold text-slate-900">{m.title}</h4>
+                  <p className="text-[11px] text-slate-500">{m.subject} • {m.type}</p>
+                </div>
+              </div>
+
+              <button onClick={() => {}} className="btn-primary text-xs px-4 py-2 self-start sm:self-auto">
+                Download Resource
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
     </PortalShell>
   );

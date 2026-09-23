@@ -1,105 +1,47 @@
 import PortalShell from "@/components/PortalShell";
-import ScopedDataNote from "@/components/ScopedDataNote";
 import { TEACHER_NAV } from "../_nav";
-import { getCurrentTeacherScope } from "@/lib/scoped-queries";
-import { prisma } from "@/lib/prisma";
+import { DEMO_TEACHER } from "@/lib/teacher-demo-data";
 
-export default async function TeacherProfilePage() {
-  const scope = await getCurrentTeacherScope();
-
-  const teacher = scope
-    ? await prisma.teacher.findUnique({
-        where: { id: scope.teacherId },
-        include: {
-          user: true,
-          classes: { include: { course: true } },
-          coursesTaught: true
-        }
-      })
-    : null;
-
+export default function TeacherProfilePage() {
   return (
-    <PortalShell role="Teacher Portal" navItems={TEACHER_NAV} title="My Profile">
-      <div className="card max-w-4xl">
-        <div className="flex items-start gap-6 border-b border-aec-navy/10 pb-6">
-          <div className="h-20 w-20 rounded-full bg-aec-navy/10 flex items-center justify-center text-aec-navy font-bold text-2xl">
-            {teacher?.user.name ? teacher.user.name[0] : "T"}
+    <PortalShell role="Teacher Portal" navItems={TEACHER_NAV} title="Teacher Faculty Profile">
+      <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm mb-6">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 border-b border-slate-100 pb-6 mb-6">
+          <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-aec-navy text-aec-gold text-3xl font-bold shadow-md">
+            {DEMO_TEACHER.name.charAt(0)}
           </div>
           <div>
-            <h2 className="text-xl font-bold text-aec-navy">
-              {teacher?.user.name ?? "Teacher Profile"}
-            </h2>
-            <p className="text-sm text-aec-navy/60">
-              Teacher Code: {teacher?.teacherCode ?? "DEMO-T01"}
+            <h2 className="font-display text-xl font-bold text-slate-900">{DEMO_TEACHER.name}</h2>
+            <p className="text-xs text-slate-500 mt-0.5">
+              Faculty Code: <span className="font-mono font-bold text-aec-navy">{DEMO_TEACHER.code}</span>
             </p>
-            <p className="text-xs text-aec-navy/40">
-              Email: {teacher?.user.email ?? "teacher@example.com"}
-            </p>
-            <div className="mt-2 inline-flex items-center rounded-full bg-emerald-50 px-2.5 py-0.5 text-xs font-medium text-emerald-700">
-              Active Instructor
-            </div>
+            <p className="text-xs text-slate-600 mt-1">{DEMO_TEACHER.title}</p>
           </div>
         </div>
 
-        <div className="mt-6 grid gap-6 sm:grid-cols-2">
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-aec-navy/50">
-              Academic Specialties & Subjects
-            </h3>
-            <div className="mt-2 flex flex-wrap gap-1.5">
-              {(teacher?.specialties && teacher.specialties.length > 0
-                ? teacher.specialties
-                : ["Quran Recitation", "Tajweed", "Arabic Language", "Islamic Studies"]
-              ).map((s) => (
-                <span key={s} className="rounded bg-aec-blue/10 px-2.5 py-1 text-xs font-medium text-aec-navy">
-                  {s}
+        <div className="grid gap-6 sm:grid-cols-2 text-xs">
+          <div className="space-y-4">
+            <h3 className="font-bold text-sm text-slate-900 border-b pb-1">Faculty Credentials</h3>
+            <div>
+              <span className="text-slate-400 block uppercase font-semibold text-[10px]">Email Address</span>
+              <span className="font-medium text-slate-800 text-sm">{DEMO_TEACHER.email}</span>
+            </div>
+            <div>
+              <span className="text-slate-400 block uppercase font-semibold text-[10px]">Contact Phone</span>
+              <span className="font-medium text-slate-800 text-sm">{DEMO_TEACHER.phone}</span>
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <h3 className="font-bold text-sm text-slate-900 border-b pb-1">Specializations & Subjects</h3>
+            <div className="flex flex-wrap gap-2">
+              {DEMO_TEACHER.specialties.map((sp, idx) => (
+                <span key={idx} className="bg-aec-navy/10 text-aec-navy px-3 py-1 rounded-full font-semibold text-xs">
+                  {sp}
                 </span>
               ))}
             </div>
           </div>
-
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-aec-navy/50">
-              Teaching Mode & Availability
-            </h3>
-            <div className="mt-2 space-y-1 text-xs text-aec-navy/80">
-              <p><span className="font-semibold text-aec-navy">Delivery Mode:</span> One-to-one & Cohort Group Sessions</p>
-              <p><span className="font-semibold text-aec-navy">Weekly Schedule:</span> Flexible morning & evening slots</p>
-              <p><span className="font-semibold text-aec-navy">Timezone:</span> UTC / Local</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-6 border-t border-aec-navy/10 pt-6">
-          <h3 className="text-sm font-semibold uppercase tracking-wider text-aec-navy/50">
-            Professional Bio & Qualifications
-          </h3>
-          <p className="mt-2 text-sm leading-relaxed text-aec-navy/80">
-            {teacher?.bio ??
-              "Qualified instructor dedicated to structured and supportive learning at AEC Network. Background in classical Arabic pedagogy, Tajweed methodologies, and student-centered curriculum delivery."}
-          </p>
-        </div>
-
-        <div className="mt-6 border-t border-aec-navy/10 pt-6">
-          <h3 className="text-sm font-semibold uppercase tracking-wider text-aec-navy/50">
-            Assigned Courses
-          </h3>
-          <div className="mt-3 divide-y divide-aec-navy/5">
-            {teacher?.classes && teacher.classes.length > 0 ? (
-              teacher.classes.map((c) => (
-                <div key={c.id} className="py-2 text-sm flex justify-between">
-                  <span className="font-medium text-aec-navy">{c.name}</span>
-                  <span className="text-xs text-aec-navy/60">{c.course.title}</span>
-                </div>
-              ))
-            ) : (
-              <p className="text-xs text-aec-navy/50">No classes currently assigned.</p>
-            )}
-          </div>
-        </div>
-
-        <div className="mt-6">
-          <ScopedDataNote text="Teacher qualifications and credentials are authenticated and managed by Academic Administration." />
         </div>
       </div>
     </PortalShell>

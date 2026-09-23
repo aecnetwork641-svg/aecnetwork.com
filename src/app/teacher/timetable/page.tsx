@@ -1,84 +1,54 @@
 import PortalShell from "@/components/PortalShell";
-import ScopedDataNote from "@/components/ScopedDataNote";
 import { TEACHER_NAV } from "../_nav";
-import { getCurrentTeacherScope } from "@/lib/scoped-queries";
-import { prisma } from "@/lib/prisma";
+import { DEMO_TIMETABLE } from "@/lib/student-demo-data";
 
-const DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-
-export default async function TeacherTimetablePage() {
-  const scope = await getCurrentTeacherScope();
-
-  const classes = scope
-    ? await prisma.class.findMany({
-        where: { teacherId: scope.teacherId },
-        include: {
-          course: true,
-          timetableSlots: true
-        }
-      })
-    : [];
-
-  // Group slots by day
-  const slotsByDay: Record<number, { class: typeof classes[0]; slot: typeof classes[0]["timetableSlots"][0] }[]> = {};
-  for (let i = 0; i < 7; i++) {
-    slotsByDay[i] = [];
-  }
-
-  classes.forEach((c) => {
-    c.timetableSlots.forEach((slot) => {
-      slotsByDay[slot.dayOfWeek]?.push({ class: c, slot });
-    });
-  });
+export default function TeacherTimetablePage() {
+  const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
   return (
-    <PortalShell role="Teacher Portal" navItems={TEACHER_NAV} title="Teaching Timetable">
-      <div className="flex items-center justify-between">
-        <p className="text-sm text-aec-navy/70">
-          Your scheduled weekly instructional timetable.
+    <PortalShell role="Teacher Portal" navItems={TEACHER_NAV} title="Teacher Weekly Duty Timetable">
+      <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm mb-6">
+        <h2 className="font-display text-base font-bold text-slate-900 mb-1">Ustadh Muhammad Qasim — Weekly Roster</h2>
+        <p className="text-xs text-slate-500">
+          Showing all assigned 1-on-1 time slots (PKT / UTC+5).
         </p>
-        <ScopedDataNote text="Filtered strictly to classes assigned to your teacher account." />
-      </div>
 
-      <div className="mt-6 grid gap-4 lg:grid-cols-7">
-        {DAYS.map((dayName, dayIndex) => {
-          const daySlots = slotsByDay[dayIndex] || [];
-          return (
-            <div key={dayName} className="card p-3">
-              <div className="border-b border-aec-navy/10 pb-2 text-center">
-                <p className="text-xs font-bold uppercase tracking-wider text-aec-navy">{dayName}</p>
-                <p className="text-[10px] text-aec-navy/50">{daySlots.length} sessions</p>
-              </div>
+        <div className="mt-6 space-y-4">
+          {days.map((day) => {
+            const slots = DEMO_TIMETABLE.filter((t) => t.day === day && t.teacher.includes("Qasim"));
+            return (
+              <div key={day} className="rounded-xl border border-slate-200/80 overflow-hidden">
+                <div className="bg-slate-50 px-4 py-2.5 border-b border-slate-200/80 flex items-center justify-between">
+                  <span className="font-bold text-xs uppercase tracking-wider text-aec-navy">{day}</span>
+                  <span className="text-[11px] font-medium text-slate-500">
+                    {slots.length > 0 ? `${slots.length} Session${slots.length > 1 ? "s" : ""}` : "No classes assigned"}
+                  </span>
+                </div>
 
-              <div className="mt-3 space-y-2">
-                {daySlots.length === 0 ? (
-                  <p className="py-4 text-center text-xs text-aec-navy/30 italic">No classes</p>
-                ) : (
-                  daySlots.map(({ class: c, slot }) => (
-                    <div
-                      key={slot.id}
-                      className="rounded border border-aec-blue/20 bg-aec-blue/5 p-2 text-xs"
-                    >
-                      <p className="font-semibold text-aec-navy">{slot.startTime} - {slot.endTime}</p>
-                      <p className="font-medium text-aec-blue truncate">{c.name}</p>
-                      <p className="text-[10px] text-aec-navy/60 truncate">{c.course.title}</p>
-                      {c.meetingLink && (
-                        <a
-                          href={c.meetingLink}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="mt-1 block text-[10px] text-aec-navy font-semibold underline hover:text-aec-blue"
-                        >
-                          Join Class
-                        </a>
-                      )}
+                <div className="p-4 bg-white">
+                  {slots.length > 0 ? (
+                    <div className="grid gap-3 sm:grid-cols-2">
+                      {slots.map((s, idx) => (
+                        <div key={idx} className="p-3 rounded-lg border border-slate-100 bg-slate-50/50">
+                          <div className="flex items-center justify-between text-xs">
+                            <span className="font-bold text-slate-900">{s.course}</span>
+                            <span className="text-[10px] font-semibold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded">
+                              {s.platform}
+                            </span>
+                          </div>
+                          <p className="text-xs text-slate-600 mt-1">Student: Abdullah Akbar</p>
+                          <p className="text-xs font-semibold text-aec-navy mt-1.5">⏰ {s.time}</p>
+                        </div>
+                      ))}
                     </div>
-                  ))
-                )}
+                  ) : (
+                    <p className="text-xs text-slate-400 italic">No assigned sessions</p>
+                  )}
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </PortalShell>
   );

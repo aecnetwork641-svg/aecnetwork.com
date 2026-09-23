@@ -1,105 +1,56 @@
 import PortalShell from "@/components/PortalShell";
-import ScopedDataNote from "@/components/ScopedDataNote";
 import { TEACHER_NAV } from "../_nav";
-import { getCurrentTeacherScope } from "@/lib/scoped-queries";
-import { prisma } from "@/lib/prisma";
-import Link from "next/link";
+import { DEMO_TEACHER_CLASSES } from "@/lib/teacher-demo-data";
 
-export default async function TeacherClassesPage() {
-  const scope = await getCurrentTeacherScope();
-
-  const classes = scope
-    ? await prisma.class.findMany({
-        where: { teacherId: scope.teacherId },
-        include: {
-          course: true,
-          enrollments: { include: { student: { include: { user: true } } } },
-          timetableSlots: true,
-          sections: true
-        }
-      })
-    : [];
-
+export default function TeacherClassesPage() {
   return (
-    <PortalShell role="Teacher Portal" navItems={TEACHER_NAV} title="My Classes">
-      <div className="flex items-center justify-between">
-        <div>
-          <p className="text-sm text-aec-navy/70">
-            All active class cohorts assigned to you.
-          </p>
-        </div>
-        <ScopedDataNote text="Strictly scoped: You can only view classes assigned to your teacher account." />
-      </div>
+    <PortalShell role="Teacher Portal" navItems={TEACHER_NAV} title="Teacher Live Classes & Launch Deck">
+      <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm mb-6">
+        <h2 className="font-display text-base font-bold text-slate-900 mb-1">Scheduled Teaching Sessions</h2>
+        <p className="text-xs text-slate-500">
+          Click &ldquo;Start Session&rdquo; to launch Google Meet / Zoom with student audio-video.
+        </p>
 
-      <div className="mt-6 grid gap-6 md:grid-cols-2">
-        {classes.length === 0 ? (
-          <div className="card col-span-2 py-12 text-center text-sm text-aec-navy/50">
-            No classes assigned. Contact your Academic Head to enroll students or allocate a new class cohort.
-          </div>
-        ) : (
-          classes.map((c) => (
-            <div key={c.id} className="card flex flex-col justify-between">
-              <div>
-                <div className="flex items-start justify-between">
-                  <div>
-                    <h3 className="text-lg font-bold text-aec-navy">{c.name}</h3>
-                    <p className="text-xs font-medium text-aec-blue">{c.course.title}</p>
+        <div className="mt-6 space-y-4">
+          {DEMO_TEACHER_CLASSES.map((cls) => (
+            <div
+              key={cls.id}
+              className={`p-5 rounded-xl border transition ${
+                cls.status === "live_now"
+                  ? "border-emerald-500/50 bg-emerald-50/40"
+                  : "border-slate-200 bg-slate-50/50"
+              }`}
+            >
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs font-bold text-slate-900">{cls.studentName}</span>
+                    <span className="font-mono text-[10px] bg-slate-200 text-slate-700 px-2 py-0.5 rounded">
+                      {cls.studentCode}
+                    </span>
+                    <span className="text-xs text-slate-500">({cls.meetingPlatform})</span>
                   </div>
-                  <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700">
-                    {c.status}
-                  </span>
+                  <h3 className="font-display text-base font-bold text-aec-navy mt-1">{cls.subject}</h3>
+                  <p className="text-xs text-slate-600 mt-0.5"><strong>Today's Topic:</strong> {cls.lessonTopic}</p>
+                  <p className="text-xs font-semibold text-emerald-800 mt-1">⏰ Scheduled: {cls.time}</p>
                 </div>
 
-                <div className="mt-4 space-y-2 text-xs text-aec-navy/80">
-                  <p>
-                    <span className="font-semibold text-aec-navy">Enrolled Cohort:</span> {c.enrollments.length} Students (Capacity: {c.capacity})
-                  </p>
-                  <p>
-                    <span className="font-semibold text-aec-navy">Platform:</span> {c.meetingPlatform}
-                  </p>
-                  <p>
-                    <span className="font-semibold text-aec-navy">Timezone:</span> {c.timezone}
-                  </p>
-                  {c.timetableSlots.length > 0 && (
-                    <div className="mt-2 rounded bg-aec-navy/5 p-2 text-xs">
-                      <p className="font-semibold text-aec-navy">Scheduled Timetable:</p>
-                      {c.timetableSlots.map((s) => (
-                        <p key={s.id} className="text-aec-navy/70">
-                          Day {s.dayOfWeek}: {s.startTime} - {s.endTime}
-                        </p>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              <div className="mt-6 flex flex-wrap items-center gap-2 border-t border-aec-navy/10 pt-4">
-                <Link
-                  href={`/teacher/attendance?classId=${c.id}`}
-                  className="rounded bg-aec-blue px-3 py-1.5 text-xs font-medium text-white hover:bg-aec-blue/90"
-                >
-                  Mark Attendance
-                </Link>
-                <Link
-                  href={`/teacher/students?classId=${c.id}`}
-                  className="rounded bg-aec-navy/10 px-3 py-1.5 text-xs font-medium text-aec-navy hover:bg-aec-navy/20"
-                >
-                  View Students ({c.enrollments.length})
-                </Link>
-                {c.meetingLink && (
+                <div className="flex items-center gap-3">
                   <a
-                    href={c.meetingLink}
+                    href={cls.joinUrl}
                     target="_blank"
-                    rel="noreferrer"
-                    className="rounded border border-aec-navy/20 px-3 py-1.5 text-xs font-medium text-aec-navy hover:bg-aec-navy/5"
+                    rel="noopener noreferrer"
+                    className={`btn-primary text-xs px-5 py-2.5 ${
+                      cls.status === "live_now" ? "bg-emerald-600 hover:bg-emerald-700" : ""
+                    }`}
                   >
-                    Open Meeting Link
+                    Start Session
                   </a>
-                )}
+                </div>
               </div>
             </div>
-          ))
-        )}
+          ))}
+        </div>
       </div>
     </PortalShell>
   );

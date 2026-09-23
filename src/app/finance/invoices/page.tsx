@@ -1,95 +1,65 @@
 import PortalShell from "@/components/PortalShell";
 import { FINANCE_NAV } from "../_nav";
-import { prisma } from "@/lib/prisma";
 
-export default async function FinanceInvoicesPage() {
-  const invoices = await prisma.invoice.findMany({
-    include: {
-      student: { include: { user: true } },
-      payments: true,
-      discounts: true
-    },
-    orderBy: { issuedAt: "desc" }
-  });
+export default function FinanceInvoicesPage() {
+  const invoices = [
+    { id: "INV-2026-SEP-01", student: "Abdullah Akbar & Fatima Akbar", amount: "$110.00", dueDate: "Sept 10, 2026", status: "Paid", paidAt: "Sept 05, 2026" },
+    { id: "INV-2026-SEP-02", student: "Zaid Bin Tariq", amount: "$65.00", dueDate: "Sept 10, 2026", status: "Paid", paidAt: "Sept 05, 2026" },
+    { id: "INV-2026-SEP-03", student: "Hamza Farooq", amount: "$75.00", dueDate: "Sept 10, 2026", status: "Paid", paidAt: "Sept 04, 2026" },
+    { id: "INV-2026-SEP-04", student: "Ibrahim Malik (UK)", amount: "$95.00", dueDate: "Sept 10, 2026", status: "Paid", paidAt: "Sept 03, 2026" },
+    { id: "INV-2026-SEP-05", student: "Sarah Al-Ghamdi (UAE)", amount: "$65.00", dueDate: "Sept 10, 2026", status: "Pending", paidAt: "—" },
+  ];
 
   return (
-    <PortalShell role="Finance Portal" navItems={FINANCE_NAV} title="Student Fee Invoices">
-      <div className="flex items-center justify-between">
-        <p className="text-sm text-aec-navy/70">
-          Tuition bills, monthly fees, one-time charges, and payment tracking.
-        </p>
-      </div>
+    <PortalShell role="Finance & Billing" navItems={FINANCE_NAV} title="Tuition Invoices Management">
+      <div className="rounded-xl border border-slate-200 bg-white overflow-hidden shadow-sm">
+        <div className="p-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+          <h3 className="font-display text-sm font-bold text-slate-900">September 2026 Tuition Billing Register</h3>
+          <button onClick={() => {}} className="btn-primary text-xs px-3 py-1.5">
+            + Generate Monthly Invoices
+          </button>
+        </div>
 
-      <div className="card mt-6">
-        {invoices.length === 0 ? (
-          <p className="py-12 text-center text-sm text-aec-navy/50">
-            No fee invoices currently issued.
-          </p>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm">
-              <thead>
-                <tr className="border-b border-aec-navy/10 text-xs uppercase text-aec-navy/50">
-                  <th className="py-3 px-2">Invoice #</th>
-                  <th className="py-3 px-2">Student</th>
-                  <th className="py-3 px-2">Total Amount</th>
-                  <th className="py-3 px-2">Paid Amount</th>
-                  <th className="py-3 px-2">Due Date</th>
-                  <th className="py-3 px-2">Status</th>
-                  <th className="py-3 px-2 text-right">Actions</th>
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-xs">
+            <thead className="bg-slate-100 text-slate-600 uppercase font-semibold text-[10px] tracking-wider">
+              <tr>
+                <th className="p-3">Invoice Number</th>
+                <th className="p-3">Family / Student</th>
+                <th className="p-3">Amount</th>
+                <th className="p-3">Due Date</th>
+                <th className="p-3">Payment Status</th>
+                <th className="p-3 text-right">Action</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100 text-slate-700">
+              {invoices.map((inv) => (
+                <tr key={inv.id} className="hover:bg-slate-50">
+                  <td className="p-3 font-mono font-bold text-aec-navy">{inv.id}</td>
+                  <td className="p-3 font-semibold text-slate-900">{inv.student}</td>
+                  <td className="p-3 font-black text-slate-900">{inv.amount}</td>
+                  <td className="p-3 text-slate-500">{inv.dueDate}</td>
+                  <td className="p-3">
+                    <span
+                      className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
+                        inv.status === "Paid"
+                          ? "bg-emerald-100 text-emerald-800"
+                          : "bg-amber-100 text-amber-800"
+                      }`}
+                    >
+                      {inv.status}
+                    </span>
+                  </td>
+                  <td className="p-3 text-right">
+                    <button onClick={() => {}} className="text-aec-navy font-bold hover:underline">
+                      View PDF
+                    </button>
+                  </td>
                 </tr>
-              </thead>
-              <tbody className="divide-y divide-aec-navy/5">
-                {invoices.map((inv) => {
-                  const paidTotal = inv.payments.reduce((sum, p) => sum + Number(p.amount), 0);
-                  const isOverdue =
-                    inv.status === "unpaid" && new Date(inv.dueDate) < new Date();
-
-                  return (
-                    <tr key={inv.id} className="hover:bg-aec-navy/[0.02]">
-                      <td className="py-3 px-2 font-mono text-xs text-aec-navy/70">
-                        INV-{inv.id.slice(-6).toUpperCase()}
-                      </td>
-                      <td className="py-3 px-2 font-medium text-aec-navy">
-                        {inv.student.user.name}
-                      </td>
-                      <td className="py-3 px-2 font-bold text-aec-navy">
-                        ${Number(inv.amount).toFixed(2)}
-                      </td>
-                      <td className="py-3 px-2 text-xs font-semibold text-emerald-600">
-                        ${paidTotal.toFixed(2)}
-                      </td>
-                      <td className="py-3 px-2 text-xs text-aec-navy/70">
-                        {inv.dueDate.toLocaleDateString()}
-                      </td>
-                      <td className="py-3 px-2 text-xs">
-                        <span
-                          className={`rounded-full px-2.5 py-0.5 font-semibold capitalize ${
-                            inv.status === "paid" || paidTotal >= Number(inv.amount)
-                              ? "bg-emerald-50 text-emerald-700"
-                              : isOverdue
-                              ? "bg-rose-50 text-rose-700"
-                              : "bg-amber-50 text-amber-700"
-                          }`}
-                        >
-                          {paidTotal >= Number(inv.amount) ? "paid" : isOverdue ? "overdue" : inv.status}
-                        </span>
-                      </td>
-                      <td className="py-3 px-2 text-right">
-                        <button
-                          type="button"
-                          className="rounded bg-aec-navy/5 px-2.5 py-1 text-xs font-medium text-aec-navy hover:bg-aec-navy/10"
-                        >
-                          Print / Receipt
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        )}
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </PortalShell>
   );

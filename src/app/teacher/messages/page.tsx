@@ -1,120 +1,96 @@
+"use client";
+
+import { useState } from "react";
 import PortalShell from "@/components/PortalShell";
-import ScopedDataNote from "@/components/ScopedDataNote";
 import { TEACHER_NAV } from "../_nav";
-import { getCurrentTeacherScope } from "@/lib/scoped-queries";
-import { prisma } from "@/lib/prisma";
 
-export default async function TeacherMessagesPage() {
-  const scope = await getCurrentTeacherScope();
+export default function TeacherMessagesPage() {
+  const [messages, setMessages] = useState([
+    {
+      id: "tmsg-1",
+      sender: "Abdullah Akbar (Student)",
+      text: "Assalam-o-Alaikum Ustadh. I have submitted my Surah Al-Mulk recitation audio. Please evaluate when convenient.",
+      time: "Today at 10:30 AM",
+      isStudent: true,
+    },
+    {
+      id: "tmsg-2",
+      sender: "You",
+      text: "Wa alaykum assalam Abdullah. Excellent, I am reviewing your recording now.",
+      time: "Today at 11:00 AM",
+      isStudent: false,
+    },
+  ]);
 
-  // Find messages where this user is sender or receiver
-  const messages = scope
-    ? await prisma.message.findMany({
-        where: {
-          OR: [
-            { senderId: scope.userId },
-            { receiverId: scope.userId }
-          ]
-        },
-        include: {
-          sender: true,
-          receiver: true
-        },
-        orderBy: { createdAt: "desc" },
-        take: 30
-      })
-    : [];
+  const [input, setInput] = useState("");
+
+  const handleSend = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!input.trim()) return;
+
+    setMessages([
+      ...messages,
+      {
+        id: "tmsg-" + Date.now(),
+        sender: "You",
+        text: input.trim(),
+        time: "Just now",
+        isStudent: false,
+      },
+    ]);
+    setInput("");
+  };
 
   return (
-    <PortalShell role="Teacher Portal" navItems={TEACHER_NAV} title="Messages & Direct Communication">
-      <div className="flex items-center justify-between">
-        <p className="text-sm text-aec-navy/70">
-          Direct messaging with your assigned students, their parents, and academic administration.
-        </p>
-        <ScopedDataNote text="Conversations are private and scoped strictly to your account." />
-      </div>
-
-      <div className="mt-6 grid gap-6 lg:grid-cols-3">
-        <div className="card lg:col-span-1">
-          <h3 className="font-bold text-aec-navy text-sm border-b border-aec-navy/10 pb-3">
-            Inbox Threads
-          </h3>
-          {messages.length === 0 ? (
-            <p className="py-8 text-center text-xs text-aec-navy/50">No active message threads.</p>
-          ) : (
-            <div className="mt-2 divide-y divide-aec-navy/5">
-              {messages.map((m) => {
-                const isSentByMe = m.senderId === scope?.userId;
-                const contact = isSentByMe ? m.receiver : m.sender;
-                return (
-                  <div key={m.id} className="py-2.5 hover:bg-aec-navy/5 p-2 rounded cursor-pointer">
-                    <div className="flex items-center justify-between">
-                      <p className="font-semibold text-xs text-aec-navy">{contact.name}</p>
-                      <span className="text-[10px] text-aec-navy/40">
-                        {m.createdAt.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
-                      </span>
-                    </div>
-                    <p className="text-xs text-aec-navy/60 truncate mt-0.5">{m.body}</p>
-                  </div>
-                );
-              })}
-            </div>
-          )}
-        </div>
-
-        <div className="card lg:col-span-2 flex flex-col justify-between">
+    <PortalShell role="Teacher Portal" navItems={TEACHER_NAV} title="Student & Parent Communications">
+      <div className="rounded-2xl border border-slate-200 bg-white overflow-hidden shadow-sm flex flex-col h-[540px]">
+        {/* Chat Header */}
+        <div className="bg-aec-navy p-4 text-white flex items-center justify-between">
           <div>
-            <h3 className="font-bold text-aec-navy text-sm border-b border-aec-navy/10 pb-3">
-              Conversation Thread
-            </h3>
-            {messages.length === 0 ? (
-              <div className="py-16 text-center text-sm text-aec-navy/50">
-                Select a contact or send a message to an assigned student or parent.
-              </div>
-            ) : (
-              <div className="mt-4 space-y-3 max-h-[400px] overflow-y-auto p-2">
-                {messages.slice().reverse().map((m) => {
-                  const isSentByMe = m.senderId === scope?.userId;
-                  return (
-                    <div
-                      key={m.id}
-                      className={`flex flex-col ${isSentByMe ? "items-end" : "items-start"}`}
-                    >
-                      <span className="text-[10px] text-aec-navy/40 mb-0.5">
-                        {isSentByMe ? "You" : m.sender.name} &bull; {m.createdAt.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
-                      </span>
-                      <div
-                        className={`rounded-lg px-3 py-2 text-xs max-w-md ${
-                          isSentByMe
-                            ? "bg-aec-navy text-white"
-                            : "bg-aec-navy/10 text-aec-navy"
-                        }`}
-                      >
-                        {m.body}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
+            <h3 className="font-display text-sm font-bold">Student Chat: Abdullah Akbar</h3>
+            <p className="text-[11px] text-white/70">Quran Recitation & Applied Tajweed</p>
           </div>
-
-          <div className="mt-6 border-t border-aec-navy/10 pt-4">
-            <div className="flex gap-2">
-              <input
-                type="text"
-                placeholder="Type a message to student or parent..."
-                className="flex-1 rounded border border-aec-navy/20 px-3 py-2 text-xs text-aec-navy focus:border-aec-blue focus:outline-none"
-              />
-              <button
-                type="button"
-                className="rounded bg-aec-blue px-4 py-2 text-xs font-semibold text-white hover:bg-aec-blue/90"
-              >
-                Send
-              </button>
-            </div>
-          </div>
+          <a
+            href="https://wa.me/923435999397"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-xl bg-[#25D366] text-white px-3 py-1.5 text-xs font-bold transition flex items-center gap-1.5"
+          >
+            <span>WhatsApp Contact</span>
+          </a>
         </div>
+
+        {/* Message Thread */}
+        <div className="flex-1 p-4 overflow-y-auto space-y-4 bg-slate-50/50">
+          {messages.map((m) => (
+            <div key={m.id} className={`flex flex-col ${m.isStudent ? "items-start" : "items-end"}`}>
+              <div className="text-[10px] text-slate-400 mb-1 px-1">{m.sender} • {m.time}</div>
+              <div
+                className={`p-3.5 rounded-2xl max-w-[80%] text-xs leading-relaxed shadow-sm ${
+                  m.isStudent
+                    ? "bg-white text-slate-900 border border-slate-200"
+                    : "bg-aec-navy text-white"
+                }`}
+              >
+                {m.text}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Input */}
+        <form onSubmit={handleSend} className="p-3 bg-white border-t border-slate-200 flex gap-2">
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Type guidance message to student/parent..."
+            className="flex-1 rounded-xl border border-slate-200 px-4 py-2.5 text-xs text-slate-900 focus:border-aec-navy focus:outline-none"
+          />
+          <button type="submit" className="btn-primary text-xs px-5 py-2.5">
+            Send Reply
+          </button>
+        </form>
       </div>
     </PortalShell>
   );

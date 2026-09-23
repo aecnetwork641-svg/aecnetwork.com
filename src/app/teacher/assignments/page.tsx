@@ -1,95 +1,101 @@
+"use client";
+
+import { useState } from "react";
 import PortalShell from "@/components/PortalShell";
-import ScopedDataNote from "@/components/ScopedDataNote";
 import { TEACHER_NAV } from "../_nav";
-import { getCurrentTeacherScope } from "@/lib/scoped-queries";
-import { prisma } from "@/lib/prisma";
+import { DEMO_PENDING_GRADING } from "@/lib/teacher-demo-data";
 
-export default async function TeacherAssignmentsPage() {
-  const scope = await getCurrentTeacherScope();
+export default function TeacherAssignmentsPage() {
+  const [evaluatingId, setEvaluatingId] = useState<string | null>(null);
+  const [score, setScore] = useState<string>("48");
+  const [remarks, setRemarks] = useState<string>("MashaAllah excellent recitation with clear Tajweed rules.");
+  const [success, setSuccess] = useState(false);
 
-  const classes = scope
-    ? await prisma.class.findMany({
-        where: { teacherId: scope.teacherId },
-        select: { courseId: true }
-      })
-    : [];
-
-  const courseIds = classes.map((c) => c.courseId);
-
-  const assignments = scope
-    ? await prisma.assignment.findMany({
-        where: { courseId: { in: courseIds } },
-        include: {
-          course: true,
-          submissions: { include: { student: { include: { user: true } } } }
-        },
-        orderBy: { dueDate: "asc" }
-      })
-    : [];
+  const handleGradeSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setEvaluatingId(null);
+    setSuccess(true);
+    setTimeout(() => setSuccess(false), 5000);
+  };
 
   return (
-    <PortalShell role="Teacher Portal" navItems={TEACHER_NAV} title="Course Assignments">
-      <div className="flex items-center justify-between">
-        <p className="text-sm text-aec-navy/70">
-          Assignments, due dates, and student submissions for your assigned courses.
+    <PortalShell role="Teacher Portal" navItems={TEACHER_NAV} title="Student Homework Submissions & Grading Deck">
+      {success && (
+        <div className="mb-6 rounded-xl bg-emerald-50 border border-emerald-200 p-4 text-xs font-semibold text-emerald-800">
+          ✅ Student marks and evaluation remarks have been recorded and sent to student/parent notifications!
+        </div>
+      )}
+
+      <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm mb-6">
+        <h2 className="font-display text-base font-bold text-slate-900 mb-1">Homework Submissions Waiting for Evaluation</h2>
+        <p className="text-xs text-slate-500">
+          Review audio recordings, essays, and worksheets. Provide constructive feedback.
         </p>
-        <ScopedDataNote text="Only assignments for courses you teach are accessible." />
-      </div>
 
-      <div className="mt-6 space-y-6">
-        {assignments.length === 0 ? (
-          <div className="card py-12 text-center text-sm text-aec-navy/50">
-            No active assignments created for your courses.
-          </div>
-        ) : (
-          assignments.map((a) => (
-            <div key={a.id} className="card">
-              <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between border-b border-aec-navy/10 pb-3">
+        <div className="mt-6 space-y-4">
+          {DEMO_PENDING_GRADING.map((item) => (
+            <div key={item.id} className="p-5 rounded-xl border border-slate-200 bg-slate-50/50">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div>
-                  <h3 className="font-bold text-aec-navy text-base">{a.title}</h3>
-                  <p className="text-xs text-aec-blue font-medium">{a.course.title}</p>
+                  <span className="text-[10px] font-bold uppercase tracking-wider bg-aec-navy/10 text-aec-navy px-2.5 py-0.5 rounded-full">
+                    {item.course}
+                  </span>
+                  <h3 className="font-display text-sm font-bold text-slate-900 mt-2">{item.title}</h3>
+                  <p className="text-xs text-slate-600 mt-0.5">Student: <strong>{item.student}</strong> • {item.type}</p>
+                  <p className="text-[11px] text-slate-400 mt-0.5">Submitted: {item.submittedDate}</p>
                 </div>
-                <div className="text-right text-xs">
-                  <p className="font-semibold text-aec-navy">Due: {a.dueDate.toDateString()}</p>
-                  <p className="text-aec-navy/50">Max Score: {a.maxScore} pts</p>
+
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => setEvaluatingId(item.id)}
+                    className="btn-primary text-xs px-4 py-2"
+                  >
+                    Grade & Add Feedback
+                  </button>
                 </div>
               </div>
 
-              <p className="mt-3 text-xs text-aec-navy/80">{a.description}</p>
-
-              {/* Submissions breakdown */}
-              <div className="mt-4 border-t border-aec-navy/5 pt-3">
-                <p className="text-xs font-semibold text-aec-navy">
-                  Submissions ({a.submissions.length})
-                </p>
-                {a.submissions.length === 0 ? (
-                  <p className="mt-2 text-xs text-aec-navy/40 italic">No submissions submitted yet.</p>
-                ) : (
-                  <div className="mt-2 divide-y divide-aec-navy/5">
-                    {a.submissions.map((sub) => (
-                      <div key={sub.id} className="py-2 flex items-center justify-between text-xs">
-                        <div>
-                          <span className="font-medium text-aec-navy">{sub.student.user.name}</span>
-                          <span className="ml-2 text-aec-navy/50">
-                            Turned in {sub.submittedAt.toLocaleDateString()}
-                          </span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <span className="font-semibold text-aec-navy">
-                            {sub.score !== null ? `${sub.score}/${a.maxScore}` : "Ungraded"}
-                          </span>
-                          {sub.feedback && (
-                            <span className="text-aec-navy/60 italic text-[11px]">&quot;{sub.feedback}&quot;</span>
-                          )}
-                        </div>
-                      </div>
-                    ))}
+              {/* Grading Form Drawer */}
+              {evaluatingId === item.id && (
+                <form onSubmit={handleGradeSubmit} className="mt-4 pt-4 border-t border-slate-200 bg-white p-4 rounded-xl space-y-3">
+                  <h4 className="text-xs font-bold text-slate-900">Grading for {item.student}</h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label className="block text-[11px] font-semibold text-slate-600 mb-1">Score (Out of 50):</label>
+                      <input
+                        type="number"
+                        max="50"
+                        min="0"
+                        value={score}
+                        onChange={(e) => setScore(e.target.value)}
+                        className="w-full text-xs p-2 rounded-lg border border-slate-200"
+                        required
+                      />
+                    </div>
                   </div>
-                )}
-              </div>
+                  <div>
+                    <label className="block text-[11px] font-semibold text-slate-600 mb-1">Teacher Feedback / Remarks:</label>
+                    <textarea
+                      rows={3}
+                      value={remarks}
+                      onChange={(e) => setRemarks(e.target.value)}
+                      className="w-full text-xs p-2 rounded-lg border border-slate-200"
+                      required
+                    />
+                  </div>
+                  <div className="flex gap-2">
+                    <button type="submit" className="btn-primary text-xs px-4 py-2">
+                      Submit Marks & Feedback
+                    </button>
+                    <button type="button" onClick={() => setEvaluatingId(null)} className="text-xs text-slate-500 hover:text-slate-800 px-3 py-2">
+                      Cancel
+                    </button>
+                  </div>
+                </form>
+              )}
             </div>
-          ))
-        )}
+          ))}
+        </div>
       </div>
     </PortalShell>
   );

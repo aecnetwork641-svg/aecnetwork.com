@@ -121,15 +121,15 @@ export default function StudentDashboard() {
                     </span>
                   </div>
                   <h3 className="font-display text-lg font-bold text-slate-900 mt-1">
-                    {DEMO_TODAYS_CLASSES[0].courseTitle}
+                    {DEMO_TODAYS_CLASSES[0]?.courseTitle}
                   </h3>
                   <p className="text-xs text-slate-600 mt-1">
-                    Instructor: <strong className="text-slate-800">{DEMO_TODAYS_CLASSES[0].instructor}</strong> • Time: <span className="font-semibold text-emerald-700">{DEMO_TODAYS_CLASSES[0].time}</span>
+                    Instructor: <strong className="text-slate-800">{DEMO_TODAYS_CLASSES[0]?.instructor}</strong> • Time: <span className="font-semibold text-emerald-700">{DEMO_TODAYS_CLASSES[0]?.time}</span>
                   </p>
                 </div>
 
                 <a
-                  href={DEMO_TODAYS_CLASSES[0].joinUrl}
+                  href={DEMO_TODAYS_CLASSES[0]?.joinUrl || "https://zoom.us"}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-3 text-sm font-bold shadow-md hover:shadow-lg transition duration-200"

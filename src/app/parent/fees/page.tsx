@@ -1,74 +1,65 @@
 import PortalShell from "@/components/PortalShell";
-import ChildSwitcher from "@/components/ChildSwitcher";
-import ScopedDataNote from "@/components/ScopedDataNote";
 import { PARENT_NAV } from "../_nav";
-import { getCurrentParentScope } from "@/lib/scoped-queries";
-import { prisma } from "@/lib/prisma";
+import { DEMO_PARENT_INVOICES } from "@/lib/parent-demo-data";
 
-export default async function ParentFeesPage({
-  searchParams
-}: {
-  searchParams: { child?: string };
-}) {
-  const scope = await getCurrentParentScope(searchParams.child);
-
-  const invoices =
-    scope?.selectedChild
-      ? await prisma.invoice.findMany({
-          where: { studentId: scope.selectedChild.id },
-          include: { payments: true },
-          orderBy: { dueDate: "desc" }
-        })
-      : [];
-
-  const outstanding = invoices
-    .filter((i) => i.status !== "paid" && i.status !== "cancelled")
-    .reduce((sum, i) => sum + Number(i.amount), 0);
-
+export default function ParentFeesPage() {
   return (
-    <PortalShell role="Parent Portal" navItems={PARENT_NAV} title="Fees & Payments">
-      {!scope && <div className="card"><p className="text-sm text-aec-navy/50">Sign in as a parent to view this page.</p></div>}
-      {scope && (
-        <>
-          <ChildSwitcher
-            items={scope.children.map((c) => ({ id: c.id, name: c.user.name }))}
-            selectedId={scope.selectedChild?.id ?? ""}
-          />
+    <PortalShell role="Parent Portal" navItems={PARENT_NAV} title="Family Tuition & Invoices">
+      {/* Account Balance */}
+      <div className="rounded-2xl border border-emerald-200 bg-emerald-50/70 p-6 shadow-sm mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <span className="text-xs font-semibold uppercase text-emerald-800">Family Account Billing</span>
+          <h2 className="font-display text-2xl font-bold text-slate-900 mt-1">Outstanding Balance: $0.00</h2>
+          <p className="text-xs text-slate-600 mt-1">
+            All child tuition fees for the active month are paid. Next cycle invoice generates on <strong>October 01, 2026</strong>.
+          </p>
+        </div>
 
-          <div className="card">
-            <p className="text-xs text-aec-navy/50">Outstanding Balance</p>
-            <p className="mt-1 text-2xl font-bold text-aec-navy">{outstanding.toFixed(2)}</p>
-            <ScopedDataNote text="Sum of only this child's unpaid/overdue invoices." />
-          </div>
+        <a
+          href="https://wa.me/923435999397"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="rounded-xl bg-aec-navy text-white px-5 py-2.5 text-xs font-bold hover:bg-aec-navy/90 transition shadow-sm text-center"
+        >
+          Billing Support (WhatsApp)
+        </a>
+      </div>
 
-          <div className="card mt-6">
-            <p className="font-semibold text-aec-navy">Invoices & Payments</p>
-            {invoices.length === 0 && <p className="mt-2 text-sm text-aec-navy/50">No invoices yet.</p>}
-            {invoices.length > 0 && (
-              <table className="mt-4 w-full text-left text-sm">
-                <thead>
-                  <tr className="text-aec-navy/50">
-                    <th className="py-2">Due Date</th>
-                    <th className="py-2">Amount</th>
-                    <th className="py-2">Status</th>
-                    <th className="py-2">Payments</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {invoices.map((i) => (
-                    <tr key={i.id} className="border-t border-aec-navy/5">
-                      <td className="py-2">{i.dueDate.toDateString()}</td>
-                      <td className="py-2">{Number(i.amount).toFixed(2)} {i.currency}</td>
-                      <td className="py-2 capitalize">{i.status}</td>
-                      <td className="py-2">{i.payments.length}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            )}
-          </div>
-        </>
-      )}
+      {/* Invoices */}
+      <div className="rounded-xl border border-slate-200 bg-white overflow-hidden shadow-sm">
+        <div className="p-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+          <h3 className="font-display text-sm font-bold text-slate-900">Paid Invoices & Payment Slips</h3>
+          <span className="text-xs text-slate-500">Official Receipts</span>
+        </div>
+
+        <div className="divide-y divide-slate-100">
+          {DEMO_PARENT_INVOICES.map((inv) => (
+            <div key={inv.id} className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-slate-50">
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="font-mono text-xs font-bold text-aec-navy">{inv.id}</span>
+                  <span className="rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5">
+                    {inv.status}
+                  </span>
+                </div>
+                <h4 className="text-xs font-bold text-slate-900 mt-1">{inv.childName} — {inv.month}</h4>
+                <p className="text-[11px] text-slate-500">Paid on: {inv.paidDate} via {inv.method}</p>
+              </div>
+
+              <div className="sm:text-right">
+                <span className="text-sm font-bold text-slate-900">{inv.tuitionFee}</span>
+                <span className="text-xs text-slate-500 block">({inv.pkrAmount})</span>
+                <button
+                  onClick={() => {}}
+                  className="mt-1 text-xs font-semibold text-aec-navy hover:underline"
+                >
+                  Download Receipt PDF &rarr;
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </PortalShell>
   );
 }

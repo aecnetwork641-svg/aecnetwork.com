@@ -1,104 +1,54 @@
 import PortalShell from "@/components/PortalShell";
 import { HR_NAV } from "../_nav";
-import { prisma } from "@/lib/prisma";
 
-export default async function HRPayrollPage() {
-  const payslips = await prisma.payslip.findMany({
-    include: {
-      employee: {
-        include: { user: true, department: true, salaryComponents: true }
-      }
-    },
-    orderBy: { issuedAt: "desc" }
-  });
-
-  const totalDisbursed = payslips.reduce((sum, p) => sum + Number(p.netAmount), 0);
-  const totalDeductions = payslips.reduce((sum, p) => sum + Number(p.deductions), 0);
-  const totalAllowances = payslips.reduce((sum, p) => sum + Number(p.allowances), 0);
+export default function HRPayrollPage() {
+  const payslips = [
+    { id: "PAY-2026-SEP-09", employee: "Ustadh Muhammad Qasim", hoursTaught: "48 Hours", gross: "$960.00", net: "$960.00", status: "Settled", date: "Sept 01, 2026" },
+    { id: "PAY-2026-SEP-12", employee: "Ustadh Tariq Al-Mansoor", hoursTaught: "36 Hours", gross: "$720.00", net: "$720.00", status: "Settled", date: "Sept 01, 2026" },
+    { id: "PAY-2026-SEP-15", employee: "Ustaza Maryam Bint Bilal", hoursTaught: "32 Hours", gross: "$640.00", net: "$640.00", status: "Settled", date: "Sept 01, 2026" },
+    { id: "PAY-2026-SEP-18", employee: "Sister Amina Siddiqui", hoursTaught: "28 Hours", gross: "$560.00", net: "$560.00", status: "Settled", date: "Sept 01, 2026" },
+  ];
 
   return (
-    <PortalShell role="HR Management Portal" navItems={HR_NAV} title="Payroll & Compensation">
-      <div className="flex items-center justify-between">
-        <p className="text-sm text-aec-navy/70">
-          Salary structures, allowances, tax & leave deductions, and net disbursed payroll.
-        </p>
-      </div>
-
-      <div className="mt-6 grid gap-4 sm:grid-cols-3">
-        <div className="card">
-          <p className="text-xs font-semibold uppercase text-aec-navy/50">Total Net Disbursed</p>
-          <p className="mt-1 text-2xl font-bold text-emerald-600">${totalDisbursed.toLocaleString()}</p>
-        </div>
-        <div className="card">
-          <p className="text-xs font-semibold uppercase text-aec-navy/50">Allowances & Bonuses</p>
-          <p className="mt-1 text-2xl font-bold text-aec-blue">${totalAllowances.toLocaleString()}</p>
-        </div>
-        <div className="card">
-          <p className="text-xs font-semibold uppercase text-aec-navy/50">Applied Deductions</p>
-          <p className="mt-1 text-2xl font-bold text-rose-600">${totalDeductions.toLocaleString()}</p>
-        </div>
-      </div>
-
-      <div className="card mt-6">
-        <div className="flex items-center justify-between border-b border-aec-navy/10 pb-3">
-          <h3 className="font-bold text-aec-navy text-sm">Monthly Payroll Registers</h3>
-          <span className="rounded bg-rose-50 px-2 py-0.5 text-[11px] font-semibold text-rose-700">
-            Confidential — HR/Finance Only
-          </span>
+    <PortalShell role="HR & Payroll" navItems={HR_NAV} title="Faculty Compensation & Payroll Ledger">
+      <div className="rounded-xl border border-slate-200 bg-white overflow-hidden shadow-sm">
+        <div className="p-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+          <h3 className="font-display text-sm font-bold text-slate-900">September 2026 Faculty Payroll Register</h3>
+          <button onClick={() => {}} className="btn-primary text-xs px-3 py-1.5">
+            + Run Payroll Cycle
+          </button>
         </div>
 
-        {payslips.length === 0 ? (
-          <p className="py-12 text-center text-sm text-aec-navy/50">
-            No payroll registers processed for the active cycle.
-          </p>
-        ) : (
-          <div className="overflow-x-auto mt-2">
-            <table className="w-full text-left text-sm">
-              <thead>
-                <tr className="border-b border-aec-navy/10 text-xs uppercase text-aec-navy/50">
-                  <th className="py-3 px-2">Employee</th>
-                  <th className="py-3 px-2">Department</th>
-                  <th className="py-3 px-2">Period</th>
-                  <th className="py-3 px-2">Gross Base</th>
-                  <th className="py-3 px-2">Allowances</th>
-                  <th className="py-3 px-2">Deductions</th>
-                  <th className="py-3 px-2">Net Salary</th>
-                  <th className="py-3 px-2 text-right">Status</th>
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-xs">
+            <thead className="bg-slate-100 text-slate-600 uppercase font-semibold text-[10px] tracking-wider">
+              <tr>
+                <th className="p-3">Payslip ID</th>
+                <th className="p-3">Faculty Member</th>
+                <th className="p-3">Teaching Hours</th>
+                <th className="p-3">Net Compensation</th>
+                <th className="p-3">Status</th>
+                <th className="p-3">Disbursed Date</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100 text-slate-700">
+              {payslips.map((p) => (
+                <tr key={p.id} className="hover:bg-slate-50">
+                  <td className="p-3 font-mono font-bold text-aec-navy">{p.id}</td>
+                  <td className="p-3 font-bold text-slate-900">{p.employee}</td>
+                  <td className="p-3 text-slate-600">{p.hoursTaught}</td>
+                  <td className="p-3 font-black text-emerald-600">{p.net}</td>
+                  <td className="p-3">
+                    <span className="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded-full">
+                      {p.status}
+                    </span>
+                  </td>
+                  <td className="p-3 text-slate-500">{p.date}</td>
                 </tr>
-              </thead>
-              <tbody className="divide-y divide-aec-navy/5">
-                {payslips.map((p) => (
-                  <tr key={p.id} className="hover:bg-aec-navy/[0.02]">
-                    <td className="py-3 px-2 font-medium text-aec-navy">{p.employee.user.name}</td>
-                    <td className="py-3 px-2 text-xs text-aec-navy/60">
-                      {p.employee.department?.name || "General"}
-                    </td>
-                    <td className="py-3 px-2 text-xs text-aec-navy/70">
-                      {p.periodStart.toLocaleDateString()} &mdash; {p.periodEnd.toLocaleDateString()}
-                    </td>
-                    <td className="py-3 px-2 font-mono text-xs text-aec-navy">
-                      ${Number(p.grossAmount).toFixed(2)}
-                    </td>
-                    <td className="py-3 px-2 font-mono text-xs text-emerald-600">
-                      +${Number(p.allowances).toFixed(2)}
-                    </td>
-                    <td className="py-3 px-2 font-mono text-xs text-rose-600">
-                      -${Number(p.deductions).toFixed(2)}
-                    </td>
-                    <td className="py-3 px-2 font-mono text-xs font-bold text-aec-navy">
-                      ${Number(p.netAmount).toFixed(2)}
-                    </td>
-                    <td className="py-3 px-2 text-right text-xs">
-                      <span className="rounded bg-emerald-50 px-2 py-0.5 font-bold uppercase text-emerald-700">
-                        {p.status}
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </PortalShell>
   );

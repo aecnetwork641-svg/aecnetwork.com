@@ -1,75 +1,49 @@
 import PortalShell from "@/components/PortalShell";
-import ScopedDataNote from "@/components/ScopedDataNote";
 import { TEACHER_NAV } from "../_nav";
-import { getCurrentTeacherScope } from "@/lib/scoped-queries";
-import { prisma } from "@/lib/prisma";
-import Link from "next/link";
 
-export default async function TeacherExamsPage() {
-  const scope = await getCurrentTeacherScope();
-
-  const classes = scope
-    ? await prisma.class.findMany({
-        where: { teacherId: scope.teacherId },
-        select: { courseId: true }
-      })
-    : [];
-
-  const courseIds = classes.map((c) => c.courseId);
-
-  const exams = scope
-    ? await prisma.exam.findMany({
-        where: { courseId: { in: courseIds } },
-        include: {
-          course: true,
-          results: { include: { student: { include: { user: true } } } }
-        },
-        orderBy: { date: "asc" }
-      })
-    : [];
+export default function TeacherExamsPage() {
+  const exams = [
+    {
+      id: "tex-1",
+      title: "Term 3 Comprehensive Oral Recitation Exam",
+      date: "October 15, 2026",
+      course: "Quran Recitation & Applied Tajweed",
+      assignedStudents: 18,
+      status: "Scheduled",
+    },
+    {
+      id: "tex-2",
+      title: "Spoken Arabic Mid-Term Oral Dialogue",
+      date: "October 22, 2026",
+      course: "Spoken Arabic Foundations",
+      assignedStudents: 12,
+      status: "Scheduled",
+    },
+  ];
 
   return (
-    <PortalShell role="Teacher Portal" navItems={TEACHER_NAV} title="Exams Management">
-      <div className="flex items-center justify-between">
-        <p className="text-sm text-aec-navy/70">
-          Midterm and final course examinations for your teaching cohorts.
-        </p>
-        <ScopedDataNote text="Only exams for your assigned courses are accessible." />
-      </div>
+    <PortalShell role="Teacher Portal" navItems={TEACHER_NAV} title="Formal Examinations & Scheduling">
+      <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm mb-6">
+        <h2 className="font-display text-base font-bold text-slate-900 mb-1">Assigned Exam Panels</h2>
+        <p className="text-xs text-slate-500">Conduct mid-term and final term vivas with digital rubric scoring.</p>
 
-      <div className="mt-6 space-y-6">
-        {exams.length === 0 ? (
-          <div className="card py-12 text-center text-sm text-aec-navy/50">
-            No examinations currently scheduled for your courses.
-          </div>
-        ) : (
-          exams.map((exam) => (
-            <div key={exam.id} className="card">
-              <div className="flex items-center justify-between border-b border-aec-navy/10 pb-3">
-                <div>
-                  <h3 className="font-bold text-aec-navy text-base">{exam.title}</h3>
-                  <p className="text-xs text-aec-blue font-medium">{exam.course.title}</p>
-                </div>
-                <div className="text-right text-xs">
-                  <p className="font-semibold text-aec-navy">{exam.date.toDateString()}</p>
-                  <p className="text-aec-navy/50">Max: {exam.maxScore} marks</p>
-                </div>
-              </div>
-
-              <div className="mt-4 flex items-center justify-between">
-                <span className="text-xs text-aec-navy/70">
-                  Recorded student results: <span className="font-semibold text-aec-navy">{exam.results.length}</span>
+        <div className="mt-6 space-y-3">
+          {exams.map((ex) => (
+            <div key={ex.id} className="p-4 rounded-xl border border-slate-200 bg-slate-50/50 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <span className="text-[10px] font-bold uppercase bg-slate-200 text-slate-700 px-2 py-0.5 rounded">
+                  {ex.course}
                 </span>
-                <Link
-                  href={`/teacher/results?examId=${exam.id}`}
-                  className="rounded bg-aec-blue px-3 py-1.5 text-xs font-medium text-white hover:bg-aec-blue/90"
-                >
-                  Enter / View Results
-                </Link>
+                <h4 className="text-xs font-bold text-slate-900 mt-1">{ex.title}</h4>
+                <p className="text-[11px] text-slate-500">📅 Date: {ex.date} • {ex.assignedStudents} Students Enrolled</p>
               </div>
+
+              <span className="text-xs font-semibold text-amber-800 bg-amber-100 px-3 py-1 rounded-full self-start sm:self-auto">
+                {ex.status}
+              </span>
             </div>
-          ))
-        )}
+          ))}
+        </div>
       </div>
     </PortalShell>
   );

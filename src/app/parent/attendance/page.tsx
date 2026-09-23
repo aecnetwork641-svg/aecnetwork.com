@@ -1,68 +1,69 @@
 import PortalShell from "@/components/PortalShell";
-import ChildSwitcher from "@/components/ChildSwitcher";
-import ScopedDataNote from "@/components/ScopedDataNote";
 import { PARENT_NAV } from "../_nav";
-import { getCurrentParentScope } from "@/lib/scoped-queries";
-import { prisma } from "@/lib/prisma";
+import { DEMO_PARENT } from "@/lib/parent-demo-data";
+import { DEMO_ATTENDANCE } from "@/lib/student-demo-data";
 
-export default async function ParentAttendancePage({
-  searchParams
-}: {
-  searchParams: { child?: string };
-}) {
-  const scope = await getCurrentParentScope(searchParams.child);
-
-  // The child id used below always comes from scope.selectedChild, which
-  // getCurrentParentScope() has already validated against this parent's
-  // own children — never taken directly from searchParams.child.
-  const records =
-    scope?.selectedChild
-      ? await prisma.attendance.findMany({
-          where: { studentId: scope.selectedChild.id },
-          orderBy: { date: "desc" },
-          take: 20,
-          include: { class: true }
-        })
-      : [];
-
+export default function ParentAttendancePage() {
   return (
-    <PortalShell role="Parent Portal" navItems={PARENT_NAV} title="Attendance">
-      {!scope && <div className="card"><p className="text-sm text-aec-navy/50">Sign in as a parent to view this page.</p></div>}
-      {scope && (
-        <>
-          <ChildSwitcher
-            items={scope.children.map((c) => ({ id: c.id, name: c.user.name }))}
-            selectedId={scope.selectedChild?.id ?? ""}
-          />
-          <div className="card">
-            <p className="font-semibold text-aec-navy">
-              {scope.selectedChild?.user.name ?? "No child selected"}'s Attendance
-            </p>
-            {records.length === 0 && <p className="mt-2 text-sm text-aec-navy/50">No records yet.</p>}
-            {records.length > 0 && (
-              <table className="mt-4 w-full text-left text-sm">
-                <thead>
-                  <tr className="text-aec-navy/50">
-                    <th className="py-2">Date</th>
-                    <th className="py-2">Class</th>
-                    <th className="py-2">Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {records.map((r) => (
-                    <tr key={r.id} className="border-t border-aec-navy/5">
-                      <td className="py-2">{r.date.toDateString()}</td>
-                      <td className="py-2">{r.class.name}</td>
-                      <td className="py-2 capitalize">{r.status}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            )}
-            <ScopedDataNote text="Only attendance for a child linked to your account is queried." />
+    <PortalShell role="Parent Portal" navItems={PARENT_NAV} title="Child Attendance & Absence Reports">
+      <div className="grid gap-6 md:grid-cols-2 mb-6">
+        {DEMO_PARENT.children.map((child) => (
+          <div key={child.id} className="p-5 rounded-2xl border border-slate-200 bg-white shadow-sm flex items-center justify-between">
+            <div>
+              <h3 className="font-bold text-sm text-slate-900">{child.name}</h3>
+              <p className="text-xs text-slate-500">{child.enrolledProgram}</p>
+              <p className="text-xs text-emerald-600 font-semibold mt-1">Attendance: {child.attendanceRate}% (Regular)</p>
+            </div>
+            <div className="h-12 w-12 rounded-full border-4 border-emerald-500 flex items-center justify-center text-xs font-bold text-slate-900">
+              {child.attendanceRate}%
+            </div>
           </div>
-        </>
-      )}
+        ))}
+      </div>
+
+      <div className="rounded-xl border border-slate-200 bg-white overflow-hidden shadow-sm">
+        <div className="p-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+          <h3 className="font-display text-sm font-bold text-slate-900">Detailed Attendance Log (September 2026)</h3>
+          <span className="text-xs text-slate-500">Live Synchronized</span>
+        </div>
+
+        <div className="overflow-x-auto">
+          <table className="w-full text-left text-xs">
+            <thead className="bg-slate-100 text-slate-600 uppercase font-semibold text-[10px] tracking-wider">
+              <tr>
+                <th className="p-3">Date</th>
+                <th className="p-3">Student</th>
+                <th className="p-3">Course / Subject</th>
+                <th className="p-3">Class Time</th>
+                <th className="p-3">Status</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-slate-100 text-slate-700">
+              {DEMO_ATTENDANCE.map((row, idx) => (
+                <tr key={idx} className="hover:bg-slate-50">
+                  <td className="p-3 font-medium text-slate-900">{row.date}</td>
+                  <td className="p-3 font-semibold text-slate-800">Abdullah Akbar</td>
+                  <td className="p-3 text-aec-navy font-medium">{row.course}</td>
+                  <td className="p-3 text-slate-500">{row.time}</td>
+                  <td className="p-3">
+                    <span
+                      className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
+                        row.status === "Present"
+                          ? "bg-emerald-100 text-emerald-800"
+                          : row.status.includes("Late")
+                          ? "bg-amber-100 text-amber-800"
+                          : "bg-sky-100 text-sky-800"
+                      }`}
+                    >
+                      {row.status}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </PortalShell>
   );
 }

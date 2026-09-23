@@ -1,69 +1,42 @@
 import PortalShell from "@/components/PortalShell";
 import { FINANCE_NAV } from "../_nav";
-import { prisma } from "@/lib/prisma";
 
-export default async function FinanceExpensesPage() {
-  const expenses = await prisma.expense.findMany({
-    orderBy: { date: "desc" }
-  });
-
-  const totalExpense = expenses.reduce((sum, e) => sum + Number(e.amount), 0);
+export default function FinanceExpensesPage() {
+  const expenses = [
+    { title: "September Faculty Payroll & Instructor Payouts", category: "Faculty Payroll", amount: "$2,650.00", date: "Sept 01, 2026", status: "Processed" },
+    { title: "Video Infrastructure & Cloud Server Hosting (Vercel/Supabase)", category: "Technology", amount: "$380.00", date: "Sept 03, 2026", status: "Paid" },
+    { title: "Curriculum Material Printing & Digital Licenses", category: "Academics", amount: "$240.00", date: "Sept 08, 2026", status: "Paid" },
+    { title: "Global Student Admissions Marketing & Outreach", category: "Admissions", amount: "$180.00", date: "Sept 12, 2026", status: "Paid" },
+  ];
 
   return (
-    <PortalShell role="Finance Portal" navItems={FINANCE_NAV} title="Expenses & Operational Outflows">
-      <div className="flex items-center justify-between">
-        <div>
-          <p className="text-sm text-aec-navy/70">
-            Institutional expenses, utility costs, software subscriptions, and administrative outlays.
-          </p>
+    <PortalShell role="Finance & Billing" navItems={FINANCE_NAV} title="Operational Expenses & Outflows">
+      <div className="rounded-xl border border-slate-200 bg-white overflow-hidden shadow-sm">
+        <div className="p-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+          <h3 className="font-display text-sm font-bold text-slate-900">Institutional Operational Outflows (September 2026)</h3>
+          <button onClick={() => {}} className="btn-primary text-xs px-3 py-1.5">
+            + Log Expense
+          </button>
         </div>
-        <div className="text-right">
-          <p className="text-xs text-aec-navy/50 font-semibold uppercase">Total Outflows</p>
-          <p className="text-xl font-bold text-rose-600">${totalExpense.toFixed(2)}</p>
-        </div>
-      </div>
 
-      <div className="card mt-6">
-        {expenses.length === 0 ? (
-          <p className="py-12 text-center text-sm text-aec-navy/50">
-            No institutional expenses recorded yet.
-          </p>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm">
-              <thead>
-                <tr className="border-b border-aec-navy/10 text-xs uppercase text-aec-navy/50">
-                  <th className="py-3 px-2">Date</th>
-                  <th className="py-3 px-2">Title</th>
-                  <th className="py-3 px-2">Category</th>
-                  <th className="py-3 px-2">Amount</th>
-                  <th className="py-3 px-2">Notes</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-aec-navy/5">
-                {expenses.map((e) => (
-                  <tr key={e.id} className="hover:bg-aec-navy/[0.02]">
-                    <td className="py-3 px-2 text-xs text-aec-navy/70">
-                      {e.date.toLocaleDateString()}
-                    </td>
-                    <td className="py-3 px-2 font-medium text-aec-navy">{e.title}</td>
-                    <td className="py-3 px-2">
-                      <span className="rounded bg-aec-navy/5 px-2 py-0.5 text-xs font-semibold uppercase text-aec-navy">
-                        {e.category}
-                      </span>
-                    </td>
-                    <td className="py-3 px-2 font-bold text-rose-600">
-                      -${Number(e.amount).toFixed(2)}
-                    </td>
-                    <td className="py-3 px-2 text-xs text-aec-navy/60 italic">
-                      {e.note || "—"}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
+        <div className="divide-y divide-slate-100">
+          {expenses.map((exp, idx) => (
+            <div key={idx} className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-slate-50">
+              <div>
+                <span className="text-[10px] font-bold uppercase bg-slate-100 text-slate-700 px-2 py-0.5 rounded">
+                  {exp.category}
+                </span>
+                <h4 className="text-xs font-bold text-slate-900 mt-1">{exp.title}</h4>
+                <p className="text-[11px] text-slate-400">Date: {exp.date}</p>
+              </div>
+
+              <div className="sm:text-right">
+                <span className="text-sm font-black text-rose-600">{exp.amount}</span>
+                <span className="block text-[10px] text-slate-500 font-semibold uppercase">{exp.status}</span>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </PortalShell>
   );

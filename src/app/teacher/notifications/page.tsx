@@ -1,56 +1,62 @@
 import PortalShell from "@/components/PortalShell";
-import ScopedDataNote from "@/components/ScopedDataNote";
 import { TEACHER_NAV } from "../_nav";
-import { getCurrentTeacherScope } from "@/lib/scoped-queries";
-import { prisma } from "@/lib/prisma";
 
-export default async function TeacherNotificationsPage() {
-  const scope = await getCurrentTeacherScope();
-
-  const notifications = scope
-    ? await prisma.notification.findMany({
-        where: { userId: scope.userId },
-        orderBy: { createdAt: "desc" },
-        take: 50
-      })
-    : [];
+export default function TeacherNotificationsPage() {
+  const notifications = [
+    {
+      id: "tnotif-1",
+      title: "New Student Assigned: Ibrahim Malik (UK)",
+      body: "Academic Administration has scheduled 1-on-1 Spoken Arabic sessions starting this week.",
+      time: "1 hour ago",
+      isRead: false,
+    },
+    {
+      id: "tnotif-2",
+      title: "New Homework Submitted by Abdullah Akbar",
+      body: "Surah Al-Mulk audio recording is ready in your grading queue.",
+      time: "3 hours ago",
+      isRead: false,
+    },
+    {
+      id: "tnotif-3",
+      title: "Monthly Faculty Payroll Generated",
+      body: "September 2026 faculty compensation statement is available in HR portal.",
+      time: "Sept 01, 2026",
+      isRead: true,
+    },
+  ];
 
   return (
-    <PortalShell role="Teacher Portal" navItems={TEACHER_NAV} title="Teacher Notifications">
-      <div className="flex items-center justify-between">
-        <p className="text-sm text-aec-navy/70">
-          Real-time system events, class assignments, schedule adjustments, and academic notices.
-        </p>
-        <ScopedDataNote text="Only notifications addressed to your user account are listed." />
-      </div>
+    <PortalShell role="Teacher Portal" navItems={TEACHER_NAV} title="Faculty Notifications & Notices">
+      <div className="rounded-xl border border-slate-200 bg-white overflow-hidden shadow-sm">
+        <div className="p-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
+          <h3 className="font-display text-sm font-bold text-slate-900">Faculty Updates & Alerts</h3>
+          <span className="text-xs font-semibold text-emerald-700 bg-emerald-100 px-2.5 py-0.5 rounded-full">
+            2 New
+          </span>
+        </div>
 
-      <div className="card mt-6">
-        {notifications.length === 0 ? (
-          <p className="py-12 text-center text-sm text-aec-navy/50">
-            No notifications at this time.
-          </p>
-        ) : (
-          <div className="divide-y divide-aec-navy/5">
-            {notifications.map((n) => (
-              <div key={n.id} className="py-3 flex items-start justify-between">
-                <div className="space-y-0.5">
-                  <div className="flex items-center gap-2">
-                    <p className="font-semibold text-xs text-aec-navy">{n.title}</p>
-                    {n.type && (
-                      <span className="rounded bg-aec-blue/10 px-2 py-0.5 text-[10px] font-medium text-aec-blue uppercase">
-                        {n.type.replace("_", " ")}
-                      </span>
-                    )}
-                  </div>
-                  <p className="text-xs text-aec-navy/80">{n.body}</p>
-                </div>
-                <span className="text-[11px] text-aec-navy/40 whitespace-nowrap ml-4">
-                  {n.createdAt.toLocaleDateString()} {n.createdAt.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
-                </span>
+        <div className="divide-y divide-slate-100">
+          {notifications.map((n) => (
+            <div
+              key={n.id}
+              className={`p-4 flex items-start gap-3.5 transition ${
+                !n.isRead ? "bg-amber-50/30" : "bg-white"
+              }`}
+            >
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-aec-navy/10 text-aec-navy text-xs font-bold mt-0.5">
+                🔔
               </div>
-            ))}
-          </div>
-        )}
+              <div className="flex-1">
+                <div className="flex items-center justify-between">
+                  <h4 className="text-xs font-bold text-slate-900">{n.title}</h4>
+                  <span className="text-[10px] text-slate-400">{n.time}</span>
+                </div>
+                <p className="text-xs text-slate-600 mt-1 leading-relaxed">{n.body}</p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </PortalShell>
   );
