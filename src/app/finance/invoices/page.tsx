@@ -1,3 +1,5 @@
+"use client";
+
 import PortalShell from "@/components/PortalShell";
 import { FINANCE_NAV } from "../_nav";
 

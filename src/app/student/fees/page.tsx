@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import PortalShell from "@/components/PortalShell";
 import { STUDENT_NAV } from "../_nav";

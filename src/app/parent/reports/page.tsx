@@ -1,3 +1,5 @@
+"use client";
+
 import PortalShell from "@/components/PortalShell";
 import { PARENT_NAV } from "../_nav";
 import { DEMO_PARENT } from "@/lib/parent-demo-data";

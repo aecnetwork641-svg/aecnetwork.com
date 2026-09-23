@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import PortalShell from "@/components/PortalShell";
 import { HR_NAV } from "./_nav";

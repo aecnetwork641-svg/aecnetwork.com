@@ -1,3 +1,5 @@
+"use client";
+
 import PortalShell from "@/components/PortalShell";
 import { STUDENT_NAV } from "../_nav";
 import { DEMO_RESULTS, DEMO_STUDENT } from "@/lib/student-demo-data";

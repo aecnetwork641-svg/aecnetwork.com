@@ -1,3 +1,5 @@
+"use client";
+
 import PortalShell from "@/components/PortalShell";
 import { ACADEMIC_NAV } from "../_nav";
 
