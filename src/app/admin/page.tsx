@@ -36,63 +36,65 @@ export default async function AdminDashboard() {
   let tasksCount = 9;
   let notificationsCount = 14;
 
-  try {
-    const [
-      dbTotalStudents,
-      dbActiveStudents,
-      dbTotalTeachers,
-      dbTotalEmployees,
-      dbTotalCourses,
-      dbTotalClasses,
-      dbTotalLeads,
-      dbTotalApplications,
-      dbTotalAttendances,
-      dbPresentAttendances,
-      invoices,
-      payments,
-      expenses,
-      dbPendingLeaves,
-      dbTasksCount,
-      dbNotificationsCount
-    ] = await Promise.all([
-      prisma.student.count(),
-      prisma.student.count(),
-      prisma.teacher.count(),
-      prisma.employee.count(),
-      prisma.course.count(),
-      prisma.class.count(),
-      prisma.lead.count(),
-      prisma.admissionApplication.count(),
-      prisma.attendance.count(),
-      prisma.attendance.count({ where: { status: "present" } }),
-      prisma.invoice.findMany(),
-      prisma.payment.findMany(),
-      prisma.expense.findMany(),
-      prisma.leaveRequest.count({ where: { status: "pending" } }),
-      prisma.task.count(),
-      prisma.notification.count()
-    ]);
+  if (process.env.DATABASE_URL) {
+    try {
+      const [
+        dbTotalStudents,
+        dbActiveStudents,
+        dbTotalTeachers,
+        dbTotalEmployees,
+        dbTotalCourses,
+        dbTotalClasses,
+        dbTotalLeads,
+        dbTotalApplications,
+        dbTotalAttendances,
+        dbPresentAttendances,
+        invoices,
+        payments,
+        expenses,
+        dbPendingLeaves,
+        dbTasksCount,
+        dbNotificationsCount
+      ] = await Promise.all([
+        prisma.student.count(),
+        prisma.student.count(),
+        prisma.teacher.count(),
+        prisma.employee.count(),
+        prisma.course.count(),
+        prisma.class.count(),
+        prisma.lead.count(),
+        prisma.admissionApplication.count(),
+        prisma.attendance.count(),
+        prisma.attendance.count({ where: { status: "present" } }),
+        prisma.invoice.findMany(),
+        prisma.payment.findMany(),
+        prisma.expense.findMany(),
+        prisma.leaveRequest.count({ where: { status: "pending" } }),
+        prisma.task.count(),
+        prisma.notification.count()
+      ]);
 
-    if (dbTotalStudents > 0) {
-      totalStudents = dbTotalStudents;
-      activeStudents = dbActiveStudents;
-      totalTeachers = dbTotalTeachers;
-      totalEmployees = dbTotalEmployees;
-      totalCourses = dbTotalCourses;
-      totalClasses = dbTotalClasses;
-      totalLeads = dbTotalLeads;
-      totalApplications = dbTotalApplications;
-      totalAttendances = dbTotalAttendances;
-      presentAttendances = dbPresentAttendances;
-      pendingLeaves = dbPendingLeaves;
-      tasksCount = dbTasksCount;
-      notificationsCount = dbNotificationsCount;
-      totalRevenue = payments.reduce((sum, p) => sum + Number(p.amount), 0);
-      pendingFees = invoices.filter((i) => i.status === "unpaid").reduce((sum, i) => sum + Number(i.amount), 0);
-      totalExpenses = expenses.reduce((sum, e) => sum + Number(e.amount), 0);
+      if (dbTotalStudents > 0) {
+        totalStudents = dbTotalStudents;
+        activeStudents = dbActiveStudents;
+        totalTeachers = dbTotalTeachers;
+        totalEmployees = dbTotalEmployees;
+        totalCourses = dbTotalCourses;
+        totalClasses = dbTotalClasses;
+        totalLeads = dbTotalLeads;
+        totalApplications = dbTotalApplications;
+        totalAttendances = dbTotalAttendances;
+        presentAttendances = dbPresentAttendances;
+        pendingLeaves = dbPendingLeaves;
+        tasksCount = dbTasksCount;
+        notificationsCount = dbNotificationsCount;
+        totalRevenue = payments.reduce((sum, p) => sum + Number(p.amount), 0);
+        pendingFees = invoices.filter((i) => i.status === "unpaid").reduce((sum, i) => sum + Number(i.amount), 0);
+        totalExpenses = expenses.reduce((sum, e) => sum + Number(e.amount), 0);
+      }
+    } catch (err) {
+      console.warn("[ADMIN_DB_FALLBACK]", err);
     }
-  } catch (err) {
-    console.error("Admin dashboard DB fallback:", err);
   }
 
   const attendanceRate =
