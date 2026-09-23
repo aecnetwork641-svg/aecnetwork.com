@@ -29,20 +29,24 @@ export async function POST(req: Request) {
     const { name, email, phone, subject, message } = parsed.data;
 
     // 1. Send Email Alert to Admin (aecnetwork641@gmail.com)
-    const adminEmail = process.env.ADMIN_NOTIFICATION_EMAIL || "aecnetwork641@gmail.com";
-    const adminHtml = generateAdminContactEmailTemplate({
-      name,
-      email,
-      phone,
-      subject,
-      message,
-    });
+    try {
+      const adminEmail = process.env.ADMIN_NOTIFICATION_EMAIL || "aecnetwork641@gmail.com";
+      const adminHtml = generateAdminContactEmailTemplate({
+        name,
+        email,
+        phone,
+        subject,
+        message,
+      });
 
-    await sendEmail({
-      to: adminEmail,
-      subject: `✉️ New Contact Inquiry: ${name} (${subject})`,
-      html: adminHtml,
-    });
+      await sendEmail({
+        to: adminEmail,
+        subject: `✉️ New Contact Inquiry: ${name} (${subject})`,
+        html: adminHtml,
+      });
+    } catch (emailErr) {
+      console.error("[CONTACT_EMAIL_WARN]", emailErr);
+    }
 
     // 2. Safely try database save (so DB latency never drops the inquiry)
     try {

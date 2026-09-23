@@ -33,36 +33,44 @@ export async function POST(req: Request) {
     const { applicantName, email, phone, programSlug, dateOfBirth, country, guardianName, notes } = parsed.data;
 
     // 1. Send Email Alert to Admin (aecnetwork641@gmail.com)
-    const adminEmail = process.env.ADMIN_NOTIFICATION_EMAIL || "aecnetwork641@gmail.com";
-    const adminHtml = generateAdminAdmissionEmailTemplate({
-      applicantName,
-      email,
-      phone,
-      programSlug,
-      dateOfBirth,
-      country,
-      guardianName,
-      notes,
-    });
-
-    await sendEmail({
-      to: adminEmail,
-      subject: `📋 New Admission Application: ${applicantName} (${programSlug})`,
-      html: adminHtml,
-    });
-
-    // 2. Send Confirmation Email to Applicant
-    if (email) {
-      const studentHtml = generateStudentConfirmationEmail({
-        fullName: applicantName,
+    try {
+      const adminEmail = process.env.ADMIN_NOTIFICATION_EMAIL || "aecnetwork641@gmail.com";
+      const adminHtml = generateAdminAdmissionEmailTemplate({
+        applicantName,
+        email,
+        phone,
         programSlug,
+        dateOfBirth,
+        country,
+        guardianName,
+        notes,
       });
 
       await sendEmail({
-        to: email,
-        subject: `Admission Application Received - AEC Network (${programSlug})`,
-        html: studentHtml,
+        to: adminEmail,
+        subject: `📋 New Admission Application: ${applicantName} (${programSlug})`,
+        html: adminHtml,
       });
+    } catch (adminEmailErr) {
+      console.error("[ADMIN_EMAIL_SEND_ERROR]", adminEmailErr);
+    }
+
+    // 2. Send Confirmation Email to Applicant
+    if (email) {
+      try {
+        const studentHtml = generateStudentConfirmationEmail({
+          fullName: applicantName,
+          programSlug,
+        });
+
+        await sendEmail({
+          to: email,
+          subject: `Admission Application Received - AEC Network (${programSlug})`,
+          html: studentHtml,
+        });
+      } catch (studentEmailErr) {
+        console.error("[STUDENT_EMAIL_SEND_NON_BLOCKING_ERROR]", studentEmailErr);
+      }
     }
 
     // 3. Database Persistence

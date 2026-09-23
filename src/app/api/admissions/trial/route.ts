@@ -29,85 +29,99 @@ export async function POST(req: Request) {
     }
 
     const { fullName, email, phone, programSlug, preferredTime, notes } = parsed.data;
+    let bookingId = `TR-${Date.now().toString().slice(-6)}`;
 
-    // 1. Save in Supabase database: TrialBooking
-    const booking = await prisma.trialBooking.create({
-      data: {
-        fullName,
-        email,
-        phone: phone || null,
-        programSlug,
-        status: "requested",
-      },
-    });
-
-    // 2. Also register as Lead in CRM for staff follow-up
-    await prisma.lead.create({
-      data: {
-        fullName,
-        email,
-        phone: phone || null,
-        subjectInterest: programSlug,
-        program: programSlug,
-        preferredSchedule: preferredTime || null,
-        notes: notes ? `Free Trial Request (${preferredTime}): ${notes}` : `Free Trial Request (${preferredTime})`,
-        source: "website_free_trial",
-        status: "trial_scheduled",
-      },
-    });
-
-    // 3. Create In-App Notification in DB for Admins
-    const adminUsers = await prisma.user.findMany({
-      where: {
-        role: { in: ["SUPER_ADMIN", "ADMIN", "ADMISSIONS_OFFICER", "COUNSELOR"] },
-        isActive: true,
-      },
-      select: { id: true },
-      take: 10,
-    });
-
-    for (const admin of adminUsers) {
-      await prisma.notification.create({
+    // 1. Save in Supabase database: TrialBooking & Lead (Safe try/catch)
+    try {
+      const booking = await prisma.trialBooking.create({
         data: {
-          userId: admin.id,
-          title: `🎓 New Free Trial Request: ${fullName}`,
-          body: `${fullName} has booked a Free Trial for "${programSlug}". Phone: ${phone || "N/A"}, Email: ${email}`,
-          type: "system",
-          channel: "in_app",
+          fullName,
+          email,
+          phone: phone || null,
+          programSlug,
+          status: "requested",
         },
       });
+      bookingId = booking.id;
+
+      // 2. Also register as Lead in CRM for staff follow-up
+      await prisma.lead.create({
+        data: {
+          fullName,
+          email,
+          phone: phone || null,
+          subjectInterest: programSlug,
+          program: programSlug,
+          preferredSchedule: preferredTime || null,
+          notes: notes ? `Free Trial Request (${preferredTime}): ${notes}` : `Free Trial Request (${preferredTime})`,
+          source: "website_free_trial",
+          status: "trial_scheduled",
+        },
+      });
+
+      // 3. Create In-App Notification in DB for Admins
+      const adminUsers = await prisma.user.findMany({
+        where: {
+          role: { in: ["SUPER_ADMIN", "ADMIN", "ADMISSIONS_OFFICER", "COUNSELOR"] },
+          isActive: true,
+        },
+        select: { id: true },
+        take: 10,
+      });
+
+      for (const admin of adminUsers) {
+        await prisma.notification.create({
+          data: {
+            userId: admin.id,
+            title: `🎓 New Free Trial Request: ${fullName}`,
+            body: `${fullName} has booked a Free Trial for "${programSlug}". Phone: ${phone || "N/A"}, Email: ${email}`,
+            type: "system",
+            channel: "in_app",
+          },
+        });
+      }
+    } catch (dbErr) {
+      console.error("[TRIAL_BOOKING_DB_NON_BLOCKING_ERROR]", dbErr);
     }
 
     // 4. Send Email Notification to Admin (aecnetwork641@gmail.com)
-    const adminEmail = process.env.ADMIN_NOTIFICATION_EMAIL || "aecnetwork641@gmail.com";
-    const adminHtml = generateAdminTrialEmailTemplate({
-      fullName,
-      email,
-      phone,
-      programSlug,
-      preferredTime,
-      notes,
-      bookingId: booking.id,
-    });
-
-    await sendEmail({
-      to: adminEmail,
-      subject: `🎓 New Free Trial Booking: ${fullName} (${programSlug})`,
-      html: adminHtml,
-    });
-
-    // 5. Send Confirmation Email to the Applicant
-    if (email) {
-      const studentHtml = generateStudentConfirmationEmail({
+    try {
+      const adminEmail = process.env.ADMIN_NOTIFICATION_EMAIL || "aecnetwork641@gmail.com";
+      const adminHtml = generateAdminTrialEmailTemplate({
         fullName,
+        email,
+        phone,
         programSlug,
+        preferredTime,
+        notes,
+        bookingId,
       });
 
       await sendEmail({
-        to: email,
-        subject: `Welcome to AEC Network - Free Trial Confirmation for ${programSlug}`,
-        html: studentHtml,
+        to: adminEmail,
+        subject: `🎓 New Free Trial Booking: ${fullName} (${programSlug})`,
+        html: adminHtml,
       });
+    } catch (adminEmailErr) {
+      console.error("[ADMIN_EMAIL_SEND_ERROR]", adminEmailErr);
+    }
+
+    // 5. Send Confirmation Email to the Applicant (Resend test tier will safely catch if not verified)
+    if (email) {
+      try {
+        const studentHtml = generateStudentConfirmationEmail({
+          fullName,
+          programSlug,
+        });
+
+        await sendEmail({
+          to: email,
+          subject: `Welcome to AEC Network - Free Trial Confirmation for ${programSlug}`,
+          html: studentHtml,
+        });
+      } catch (studentEmailErr) {
+        console.error("[STUDENT_EMAIL_SEND_NON_BLOCKING_ERROR]", studentEmailErr);
+      }
     }
 
     // 6. Generate Direct WhatsApp Link for immediate connection
@@ -119,7 +133,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({
       success: true,
-      bookingId: booking.id,
+      bookingId,
       whatsappUrl,
       message: "Trial booking submitted successfully",
     });
