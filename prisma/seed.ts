@@ -25,10 +25,10 @@ async function main() {
 
   // 1. Core Administrative Users
   const superAdmin = await prisma.user.upsert({
-    where: { email: "sohailakbar641@gmail.com" },
+    where: { email: "sohailakbar560@gmail.com" },
     update: { hashedPassword: superAdminHash, role: "SUPER_ADMIN", name: "Sohail Akbar", isActive: true },
     create: {
-      email: "sohailakbar641@gmail.com",
+      email: "sohailakbar560@gmail.com",
       name: "Sohail Akbar",
       role: "SUPER_ADMIN",
       hashedPassword: superAdminHash,
