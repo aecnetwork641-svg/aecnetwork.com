@@ -21,15 +21,17 @@ async function main() {
   console.log("🌱 Starting AEC Network database seeding...");
   const passwordHash = await bcrypt.hash("Demo@12345", 10);
 
+  const superAdminHash = await bcrypt.hash("qwe123456", 10);
+
   // 1. Core Administrative Users
   const superAdmin = await prisma.user.upsert({
-    where: { email: "admin@demo.aecnetwork.local" },
-    update: { hashedPassword: passwordHash, isActive: true },
+    where: { email: "sohailakbar641@gmail.com" },
+    update: { hashedPassword: superAdminHash, role: "SUPER_ADMIN", name: "Sohail Akbar", isActive: true },
     create: {
-      email: "admin@demo.aecnetwork.local",
-      name: "AEC Super Administrator",
+      email: "sohailakbar641@gmail.com",
+      name: "Sohail Akbar",
       role: "SUPER_ADMIN",
-      hashedPassword: passwordHash,
+      hashedPassword: superAdminHash,
       isActive: true
     }
   });

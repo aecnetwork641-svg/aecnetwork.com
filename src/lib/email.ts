@@ -399,3 +399,53 @@ export function generateStudentConfirmationEmail(data: {
   </html>
   `;
 }
+
+/**
+ * Password Reset Email Template
+ */
+export function generatePasswordResetEmailTemplate(data: {
+  name: string;
+  resetUrl: string;
+}) {
+  return `
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <meta charset="utf-8">
+    <style>
+      body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f8fafc; margin: 0; padding: 24px; }
+      .card { background: #ffffff; max-width: 600px; margin: 0 auto; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border: 1px solid #e2e8f0; }
+      .header { background-color: #0f2b48; color: #ffffff; padding: 24px; text-align: center; }
+      .content { padding: 28px 24px; color: #334155; line-height: 1.6; }
+      .btn { display: inline-block; background-color: #0f2b48; color: #ffffff !important; padding: 12px 28px; border-radius: 8px; text-decoration: none; font-weight: bold; margin: 20px 0; }
+      .footer { background-color: #f1f5f9; padding: 16px; text-align: center; font-size: 12px; color: #94a3b8; }
+      .notice { background: #fef3c7; border: 1px solid #fde68a; border-radius: 8px; padding: 12px; font-size: 13px; color: #92400e; margin-top: 16px; }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="header">
+        <h1 style="margin:0; font-size: 22px;">🔐 Password Reset Request</h1>
+      </div>
+      <div class="content">
+        <p>Dear <strong>${data.name}</strong>,</p>
+        <p>We received a request to reset the password for your <strong>AEC Network</strong> portal account.</p>
+        <p>Click the button below to choose a new password:</p>
+        <div style="text-align: center;">
+          <a href="${data.resetUrl}" class="btn" target="_blank">Reset My Password &rarr;</a>
+        </div>
+        <p style="font-size: 13px; color: #64748b;">Or copy and paste this link into your browser:<br>
+          <a href="${data.resetUrl}" style="color: #0284c7; word-break: break-all;">${data.resetUrl}</a>
+        </p>
+        <div class="notice">
+          ⚠️ <strong>Security Note:</strong> This password reset link will expire in <strong>1 hour</strong>. If you did not request a password reset, you can safely ignore this email.
+        </div>
+      </div>
+      <div class="footer">
+        © ${new Date().getFullYear()} AEC Network. All rights reserved.
+      </div>
+    </div>
+  </body>
+  </html>
+  `;
+}
