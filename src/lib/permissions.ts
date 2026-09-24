@@ -9,12 +9,16 @@ export type RoleName =
   | "SUPER_ADMIN"
   | "ADMIN"
   | "DIRECTOR"
+  | "ACADEMIC_ADMIN"
   | "ACADEMIC_HEAD"
+  | "ADMISSIONS"
   | "ADMISSIONS_OFFICER"
   | "COUNSELOR"
   | "TEACHER"
   | "SUPERVISOR"
+  | "HR"
   | "HR_MANAGER"
+  | "FINANCE"
   | "FINANCE_MANAGER"
   | "CONTENT_EDITOR"
   | "STUDENT"
@@ -26,12 +30,16 @@ export const ALL_ROLES: RoleName[] = [
   "SUPER_ADMIN",
   "ADMIN",
   "DIRECTOR",
+  "ACADEMIC_ADMIN",
   "ACADEMIC_HEAD",
+  "ADMISSIONS",
   "ADMISSIONS_OFFICER",
   "COUNSELOR",
   "TEACHER",
   "SUPERVISOR",
+  "HR",
   "HR_MANAGER",
+  "FINANCE",
   "FINANCE_MANAGER",
   "CONTENT_EDITOR",
   "STUDENT",
@@ -48,34 +56,34 @@ export const PERMISSIONS = {
   VIEW_AUDIT_LOGS: ["SUPER_ADMIN", "ADMIN", "DIRECTOR"],
 
   // Academics
-  MANAGE_ACADEMICS: ["SUPER_ADMIN", "ADMIN", "ACADEMIC_HEAD", "DIRECTOR"],
-  MANAGE_CLASSES: ["SUPER_ADMIN", "ADMIN", "ACADEMIC_HEAD"],
-  MANAGE_TIMETABLE: ["SUPER_ADMIN", "ADMIN", "ACADEMIC_HEAD"],
-  VIEW_ACADEMIC_REPORTS: ["SUPER_ADMIN", "ADMIN", "ACADEMIC_HEAD", "DIRECTOR", "SUPERVISOR"],
+  MANAGE_ACADEMICS: ["SUPER_ADMIN", "ADMIN", "ACADEMIC_ADMIN", "ACADEMIC_HEAD", "DIRECTOR"],
+  MANAGE_CLASSES: ["SUPER_ADMIN", "ADMIN", "ACADEMIC_ADMIN", "ACADEMIC_HEAD"],
+  MANAGE_TIMETABLE: ["SUPER_ADMIN", "ADMIN", "ACADEMIC_ADMIN", "ACADEMIC_HEAD"],
+  VIEW_ACADEMIC_REPORTS: ["SUPER_ADMIN", "ADMIN", "ACADEMIC_ADMIN", "ACADEMIC_HEAD", "DIRECTOR", "SUPERVISOR"],
 
   // Teacher specific
-  MARK_ATTENDANCE: ["SUPER_ADMIN", "ADMIN", "ACADEMIC_HEAD", "TEACHER"],
-  GRADE_ASSIGNMENTS: ["SUPER_ADMIN", "ADMIN", "ACADEMIC_HEAD", "TEACHER"],
-  ENTER_RESULTS: ["SUPER_ADMIN", "ADMIN", "ACADEMIC_HEAD", "TEACHER"],
+  MARK_ATTENDANCE: ["SUPER_ADMIN", "ADMIN", "ACADEMIC_ADMIN", "ACADEMIC_HEAD", "TEACHER"],
+  GRADE_ASSIGNMENTS: ["SUPER_ADMIN", "ADMIN", "ACADEMIC_ADMIN", "ACADEMIC_HEAD", "TEACHER"],
+  ENTER_RESULTS: ["SUPER_ADMIN", "ADMIN", "ACADEMIC_ADMIN", "ACADEMIC_HEAD", "TEACHER"],
 
   // Admissions & CRM
-  MANAGE_LEADS: ["SUPER_ADMIN", "ADMIN", "ADMISSIONS_OFFICER", "COUNSELOR"],
-  SCHEDULE_TRIALS: ["SUPER_ADMIN", "ADMIN", "ADMISSIONS_OFFICER", "COUNSELOR"],
-  ENROLL_STUDENTS: ["SUPER_ADMIN", "ADMIN", "ADMISSIONS_OFFICER", "ACADEMIC_HEAD"],
+  MANAGE_LEADS: ["SUPER_ADMIN", "ADMIN", "ADMISSIONS", "ADMISSIONS_OFFICER", "COUNSELOR"],
+  SCHEDULE_TRIALS: ["SUPER_ADMIN", "ADMIN", "ADMISSIONS", "ADMISSIONS_OFFICER", "COUNSELOR"],
+  ENROLL_STUDENTS: ["SUPER_ADMIN", "ADMIN", "ADMISSIONS", "ADMISSIONS_OFFICER", "ACADEMIC_ADMIN", "ACADEMIC_HEAD"],
 
   // Finance
-  ACCESS_FINANCE: ["SUPER_ADMIN", "ADMIN", "FINANCE_MANAGER", "DIRECTOR"],
-  CREATE_INVOICE: ["SUPER_ADMIN", "ADMIN", "FINANCE_MANAGER"],
-  RECORD_PAYMENT: ["SUPER_ADMIN", "ADMIN", "FINANCE_MANAGER"],
-  VIEW_FINANCIAL_REPORTS: ["SUPER_ADMIN", "ADMIN", "FINANCE_MANAGER", "DIRECTOR"],
+  ACCESS_FINANCE: ["SUPER_ADMIN", "ADMIN", "FINANCE", "FINANCE_MANAGER", "DIRECTOR"],
+  CREATE_INVOICE: ["SUPER_ADMIN", "ADMIN", "FINANCE", "FINANCE_MANAGER"],
+  RECORD_PAYMENT: ["SUPER_ADMIN", "ADMIN", "FINANCE", "FINANCE_MANAGER"],
+  VIEW_FINANCIAL_REPORTS: ["SUPER_ADMIN", "ADMIN", "FINANCE", "FINANCE_MANAGER", "DIRECTOR"],
 
   // HR & Payroll
-  ACCESS_HR: ["SUPER_ADMIN", "ADMIN", "HR_MANAGER", "DIRECTOR"],
-  MANAGE_EMPLOYEES: ["SUPER_ADMIN", "ADMIN", "HR_MANAGER"],
-  APPROVE_LEAVE_HR: ["SUPER_ADMIN", "ADMIN", "HR_MANAGER"],
-  APPROVE_LEAVE_SUPERVISOR: ["SUPER_ADMIN", "ADMIN", "SUPERVISOR", "HR_MANAGER"],
-  VIEW_PAYROLL: ["SUPER_ADMIN", "ADMIN", "HR_MANAGER", "FINANCE_MANAGER", "DIRECTOR"],
-  EDIT_SALARY: ["SUPER_ADMIN", "ADMIN", "HR_MANAGER", "DIRECTOR"],
+  ACCESS_HR: ["SUPER_ADMIN", "ADMIN", "HR", "HR_MANAGER", "DIRECTOR"],
+  MANAGE_EMPLOYEES: ["SUPER_ADMIN", "ADMIN", "HR", "HR_MANAGER"],
+  APPROVE_LEAVE_HR: ["SUPER_ADMIN", "ADMIN", "HR", "HR_MANAGER"],
+  APPROVE_LEAVE_SUPERVISOR: ["SUPER_ADMIN", "ADMIN", "SUPERVISOR", "HR", "HR_MANAGER"],
+  VIEW_PAYROLL: ["SUPER_ADMIN", "ADMIN", "HR", "HR_MANAGER", "FINANCE", "FINANCE_MANAGER", "DIRECTOR"],
+  EDIT_SALARY: ["SUPER_ADMIN", "ADMIN", "HR", "HR_MANAGER", "DIRECTOR"],
 
   // Content
   MANAGE_CONTENT: ["SUPER_ADMIN", "ADMIN", "CONTENT_EDITOR"]
@@ -95,31 +103,67 @@ export function isOneOf(role?: string | null, allowedRoles: RoleName[] = []): bo
 }
 
 /**
+ * Maps system role to its designated default portal path
+ */
+export function getRoleRedirectPath(role?: string | null): string {
+  switch (role) {
+    case "SUPER_ADMIN":
+    case "ADMIN":
+    case "DIRECTOR":
+    case "STAFF":
+      return "/admin";
+    case "ACADEMIC_ADMIN":
+    case "ACADEMIC_HEAD":
+      return "/academic";
+    case "ADMISSIONS":
+    case "ADMISSIONS_OFFICER":
+    case "COUNSELOR":
+      return "/admin/admissions";
+    case "FINANCE":
+    case "FINANCE_MANAGER":
+      return "/finance";
+    case "HR":
+    case "HR_MANAGER":
+      return "/hr";
+    case "SUPERVISOR":
+      return "/supervisor";
+    case "TEACHER":
+      return "/teacher";
+    case "PARENT":
+      return "/parent";
+    case "STUDENT":
+      return "/student";
+    default:
+      return "/login";
+  }
+}
+
+/**
  * Checks if user is authorized for academic administrative duties
  */
 export function canAccessAcademic(role?: string | null): boolean {
-  return isOneOf(role, ["SUPER_ADMIN", "ADMIN", "ACADEMIC_HEAD", "DIRECTOR"]);
+  return isOneOf(role, ["SUPER_ADMIN", "ADMIN", "ACADEMIC_ADMIN", "ACADEMIC_HEAD", "DIRECTOR"]);
 }
 
 /**
  * Checks if user can access the finance portal and billing workflows
  */
 export function canAccessFinance(role?: string | null): boolean {
-  return isOneOf(role, ["SUPER_ADMIN", "ADMIN", "FINANCE_MANAGER", "DIRECTOR"]);
+  return isOneOf(role, ["SUPER_ADMIN", "ADMIN", "FINANCE", "FINANCE_MANAGER", "DIRECTOR"]);
 }
 
 /**
  * Checks if user can access HR portal
  */
 export function canAccessHR(role?: string | null): boolean {
-  return isOneOf(role, ["SUPER_ADMIN", "ADMIN", "HR_MANAGER", "DIRECTOR"]);
+  return isOneOf(role, ["SUPER_ADMIN", "ADMIN", "HR", "HR_MANAGER", "DIRECTOR"]);
 }
 
 /**
  * Ensures ordinary staff and employees can never view salary details.
  */
 export function canAccessSalaryInfo(role?: string | null, currentUserId?: string, targetUserId?: string): boolean {
-  if (isOneOf(role, ["SUPER_ADMIN", "ADMIN", "HR_MANAGER", "FINANCE_MANAGER", "DIRECTOR"])) {
+  if (isOneOf(role, ["SUPER_ADMIN", "ADMIN", "HR", "HR_MANAGER", "FINANCE", "FINANCE_MANAGER", "DIRECTOR"])) {
     return true;
   }
   // Employee can only see their own payslip
@@ -137,7 +181,7 @@ export function canTeacherManageClass(
   currentTeacherId: string | null | undefined,
   classTeacherId: string | null | undefined
 ): boolean {
-  if (isOneOf(role, ["SUPER_ADMIN", "ADMIN", "ACADEMIC_HEAD"])) return true;
+  if (isOneOf(role, ["SUPER_ADMIN", "ADMIN", "ACADEMIC_ADMIN", "ACADEMIC_HEAD"])) return true;
   if (!currentTeacherId || !classTeacherId) return false;
   return currentTeacherId === classTeacherId;
 }

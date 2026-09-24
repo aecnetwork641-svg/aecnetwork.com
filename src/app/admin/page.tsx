@@ -1,6 +1,9 @@
 import PortalShell from "@/components/PortalShell";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
+import { getCurrentUserSession } from "@/lib/scoped-queries";
+import { redirect } from "next/navigation";
+import { isOneOf } from "@/lib/permissions";
 
 const ADMIN_NAV = [
   { label: "Dashboard", href: "/admin" },
@@ -17,117 +20,62 @@ const ADMIN_NAV = [
 ];
 
 export default async function AdminDashboard() {
-  const isDemoMode = process.env.DEMO_MODE !== "false";
-
-  let totalStudents = 48;
-  let activeStudents = 48;
-  let totalTeachers = 12;
-  let totalEmployees = 8;
-  let totalCourses = 16;
-  let totalClasses = 24;
-  let totalLeads = 38;
-  let totalApplications = 27;
-  let totalAttendances = 420;
-  let presentAttendances = 402;
-  let totalRevenue = 18450;
-  let pendingFees = 2400;
-  let totalExpenses = 4200;
-  let pendingLeaves = 2;
-  let tasksCount = 9;
-  let notificationsCount = 14;
-
-  if (process.env.DATABASE_URL) {
-    try {
-      const [
-        dbTotalStudents,
-        dbActiveStudents,
-        dbTotalTeachers,
-        dbTotalEmployees,
-        dbTotalCourses,
-        dbTotalClasses,
-        dbTotalLeads,
-        dbTotalApplications,
-        dbTotalAttendances,
-        dbPresentAttendances,
-        invoices,
-        payments,
-        expenses,
-        dbPendingLeaves,
-        dbTasksCount,
-        dbNotificationsCount
-      ] = await Promise.all([
-        prisma.student.count(),
-        prisma.student.count(),
-        prisma.teacher.count(),
-        prisma.employee.count(),
-        prisma.course.count(),
-        prisma.class.count(),
-        prisma.lead.count(),
-        prisma.admissionApplication.count(),
-        prisma.attendance.count(),
-        prisma.attendance.count({ where: { status: "present" } }),
-        prisma.invoice.findMany(),
-        prisma.payment.findMany(),
-        prisma.expense.findMany(),
-        prisma.leaveRequest.count({ where: { status: "pending" } }),
-        prisma.task.count(),
-        prisma.notification.count()
-      ]);
-
-      if (dbTotalStudents > 0) {
-        totalStudents = dbTotalStudents;
-        activeStudents = dbActiveStudents;
-        totalTeachers = dbTotalTeachers;
-        totalEmployees = dbTotalEmployees;
-        totalCourses = dbTotalCourses;
-        totalClasses = dbTotalClasses;
-        totalLeads = dbTotalLeads;
-        totalApplications = dbTotalApplications;
-        totalAttendances = dbTotalAttendances;
-        presentAttendances = dbPresentAttendances;
-        pendingLeaves = dbPendingLeaves;
-        tasksCount = dbTasksCount;
-        notificationsCount = dbNotificationsCount;
-        totalRevenue = payments.reduce((sum, p) => sum + Number(p.amount), 0);
-        pendingFees = invoices.filter((i) => i.status === "unpaid").reduce((sum, i) => sum + Number(i.amount), 0);
-        totalExpenses = expenses.reduce((sum, e) => sum + Number(e.amount), 0);
-      }
-    } catch (err) {
-      console.warn("[ADMIN_DB_FALLBACK]", err);
-    }
+  const { userId, role } = await getCurrentUserSession();
+  if (!userId || !isOneOf(role, ["SUPER_ADMIN", "ADMIN", "DIRECTOR", "STAFF", "ADMISSIONS", "ADMISSIONS_OFFICER"])) {
+    redirect("/login?error=AccessDenied");
   }
 
+  const [
+    totalStudents,
+    activeStudents,
+    totalTeachers,
+    totalEmployees,
+    totalCourses,
+    totalClasses,
+    totalLeads,
+    totalApplications,
+    totalAttendances,
+    presentAttendances,
+    invoices,
+    payments,
+    expenses,
+    pendingLeaves,
+    tasksCount,
+    notificationsCount
+  ] = await Promise.all([
+    prisma.student.count(),
+    prisma.enrollment.count({ where: { status: "active" } }),
+    prisma.teacher.count(),
+    prisma.employee.count(),
+    prisma.course.count(),
+    prisma.class.count(),
+    prisma.lead.count(),
+    prisma.admissionApplication.count(),
+    prisma.attendance.count(),
+    prisma.attendance.count({ where: { status: "present" } }),
+    prisma.invoice.findMany(),
+    prisma.payment.findMany(),
+    prisma.expense.findMany(),
+    prisma.leaveRequest.count({ where: { status: "pending" } }),
+    prisma.task.count(),
+    prisma.notification.count()
+  ]);
+
+  const totalRevenue = payments.reduce((sum, p) => sum + Number(p.amount), 0);
+  const pendingFees = invoices.filter((i) => i.status === "unpaid").reduce((sum, i) => sum + Number(i.amount), 0);
+  const totalExpenses = expenses.reduce((sum, e) => sum + Number(e.amount), 0);
+
   const attendanceRate =
-    totalAttendances > 0 ? Math.round((presentAttendances / totalAttendances) * 100) : 96;
+    totalAttendances > 0 ? Math.round((presentAttendances / totalAttendances) * 100) : 100;
 
   return (
     <PortalShell role="Super Admin Dashboard" navItems={ADMIN_NAV} title="AEC Network Administration">
-      {/* Demo Mode Notice */}
-      {isDemoMode && (
-        <div className="mb-6 rounded-md bg-amber-50 p-4 border border-amber-200 flex items-center justify-between">
-          <div>
-            <span className="rounded bg-amber-200 px-2 py-0.5 text-xs font-bold text-amber-900 uppercase mr-2">
-              Demo Mode Active
-            </span>
-            <span className="text-xs text-amber-800">
-              Sample records and metrics are visible for evaluation. In production, configure <code>DEMO_MODE=false</code>.
-            </span>
-          </div>
-          <Link
-            href="/admin/settings"
-            className="text-xs font-semibold text-amber-900 underline hover:text-amber-950"
-          >
-            Settings
-          </Link>
-        </div>
-      )}
-
       {/* Primary KPI Grid */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <div className="card">
           <p className="text-xs text-aec-navy/50 font-semibold uppercase tracking-wider">Total Students</p>
           <p className="mt-1 text-3xl font-bold text-aec-navy">{totalStudents}</p>
-          <p className="text-xs text-aec-navy/60 mt-1">{activeStudents} Active learners</p>
+          <p className="text-xs text-aec-navy/60 mt-1">{activeStudents} Active enrollments</p>
         </div>
         <div className="card">
           <p className="text-xs text-aec-navy/50 font-semibold uppercase tracking-wider">Instructors & Staff</p>
@@ -137,7 +85,7 @@ export default async function AdminDashboard() {
         <div className="card">
           <p className="text-xs text-aec-navy/50 font-semibold uppercase tracking-wider">Academics</p>
           <p className="mt-1 text-3xl font-bold text-aec-navy">{totalCourses}</p>
-          <p className="text-xs text-aec-navy/60 mt-1">{totalClasses} Active cohorts &bull; {attendanceRate !== null ? `${attendanceRate}% Att.` : "Att. pending"}</p>
+          <p className="text-xs text-aec-navy/60 mt-1">{totalClasses} Active cohorts &bull; {attendanceRate}% Attendance</p>
         </div>
         <div className="card">
           <p className="text-xs text-aec-navy/50 font-semibold uppercase tracking-wider">Net Collections</p>
@@ -195,7 +143,7 @@ export default async function AdminDashboard() {
             {
               title: "Admissions CRM",
               href: "/admin/admissions",
-              desc: "Full 9-stage pipeline from lead to active enrollment."
+              desc: "Full pipeline from lead to active enrollment."
             },
             {
               title: "Finance & Invoices",

@@ -9,7 +9,7 @@ export default function StudentClassesPage() {
       <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
-            <h2 className="font-display text-lg font-bold text-slate-900">Today's Live Sessions</h2>
+            <h2 className="font-display text-lg font-bold text-slate-900">Today&apos;s Live Sessions</h2>
             <p className="text-xs text-slate-600 mt-1">
               Join your 1-on-1 personalized sessions at the scheduled time. Ensure your microphone and webcam are working.
             </p>

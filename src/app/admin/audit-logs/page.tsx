@@ -1,5 +1,8 @@
 import PortalShell from "@/components/PortalShell";
 import { prisma } from "@/lib/prisma";
+import { getCurrentUserSession } from "@/lib/scoped-queries";
+import { redirect } from "next/navigation";
+import { isOneOf } from "@/lib/permissions";
 
 const ADMIN_NAV = [
   { label: "Dashboard", href: "/admin" },
@@ -16,79 +19,68 @@ const ADMIN_NAV = [
 ];
 
 export default async function AdminAuditLogsPage() {
-  let logs: any[] = [];
-
-  if (process.env.DATABASE_URL) {
-    try {
-      logs = await prisma.auditLog.findMany({
-        include: { actor: true },
-        orderBy: { timestamp: "desc" },
-        take: 50
-      });
-    } catch (err) {
-      console.warn("[ADMIN_AUDIT_DB_FALLBACK]", err);
-    }
+  const { userId, role } = await getCurrentUserSession();
+  if (!userId || !isOneOf(role, ["SUPER_ADMIN", "ADMIN", "DIRECTOR"])) {
+    redirect("/login?error=AccessDenied");
   }
 
-  const displayLogs = logs.length > 0 ? logs.map(l => ({
-    id: l.id,
-    timestamp: l.timestamp ? `${new Date(l.timestamp).toLocaleDateString()} ${new Date(l.timestamp).toLocaleTimeString()}` : "Today 10:45 AM",
-    actorName: l.actor?.name || "System Admin",
-    action: l.action || "UPDATE",
-    entity: l.entity || "StudentProfile",
-    entityId: l.entityId || "STD-1001",
-    ipAddress: l.ipAddress || "182.185.12.4"
-  })) : [
-    { id: "a-1", timestamp: "Sep 23, 2026 05:15 PM", actorName: "Super Admin", action: "PORTAL_SYNC", entity: "AllPortals", entityId: "PRT-MAIN", ipAddress: "182.185.12.4" },
-    { id: "a-2", timestamp: "Sep 23, 2026 04:30 PM", actorName: "Ustadh Muhammad Qasim", action: "SUBMIT_GRADE", entity: "Assessment", entityId: "ASS-901", ipAddress: "39.42.118.9" },
-    { id: "a-3", timestamp: "Sep 23, 2026 02:10 PM", actorName: "Farooq Ahmed", action: "CREATE_LEAD", entity: "TrialBooking", entityId: "TR-89102", ipAddress: "119.160.67.2" },
-    { id: "a-4", timestamp: "Sep 23, 2026 11:00 AM", actorName: "Finance Office", action: "CLEAR_INVOICE", entity: "Invoice", entityId: "INV-2026-SEP-01", ipAddress: "182.185.12.4" },
-  ];
+  const logs = await prisma.auditLog.findMany({
+    include: { actor: true },
+    orderBy: { timestamp: "desc" },
+    take: 100
+  });
 
   return (
     <PortalShell role="Admin Dashboard" navItems={ADMIN_NAV} title="System Security & Audit Trail">
       <div className="flex items-center justify-between">
-        <p className="text-sm text-aec-navy/70">
-          Immutable logs of critical staff actions: profile updates, grade entries, fee modifications, and role grants.
+        <p className="text-sm text-slate-600">
+          Immutable logs of critical staff actions: profile creation, grade entries, fee clearing, and role management.
         </p>
-        <span className="rounded bg-rose-50 px-2.5 py-1 text-xs font-semibold text-rose-700">
-          Security Audited
+        <span className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-bold text-emerald-800">
+          {logs.length} Audited Events
         </span>
       </div>
 
       <div className="card mt-6">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
-            <thead>
-              <tr className="border-b border-aec-navy/10 text-aec-navy/50 uppercase">
-                <th className="py-2.5 px-2">Timestamp</th>
-                <th className="py-2.5 px-2">Actor</th>
-                <th className="py-2.5 px-2">Action</th>
-                <th className="py-2.5 px-2">Entity</th>
-                <th className="py-2.5 px-2">Entity ID</th>
-                <th className="py-2.5 px-2">IP Address</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-aec-navy/5">
-              {displayLogs.map((log) => (
-                <tr key={log.id} className="hover:bg-aec-navy/[0.02]">
-                  <td className="py-2 px-2 text-aec-navy/70">
-                    {log.timestamp}
-                  </td>
-                  <td className="py-2 px-2 font-medium text-aec-navy">{log.actorName}</td>
-                  <td className="py-2 px-2">
-                    <span className="rounded bg-aec-navy/10 px-2 py-0.5 font-bold uppercase text-[10px] text-aec-navy">
-                      {log.action}
-                    </span>
-                  </td>
-                  <td className="py-2 px-2 font-semibold text-aec-navy">{log.entity}</td>
-                  <td className="py-2 px-2 font-mono text-[11px] text-aec-navy/60">{log.entityId}</td>
-                  <td className="py-2 px-2 font-mono text-[11px] text-aec-navy/50">{log.ipAddress}</td>
+        {logs.length === 0 ? (
+          <div className="py-12 text-center text-slate-500">
+            <p className="text-sm font-bold text-slate-700">No audit logs recorded yet</p>
+            <p className="text-xs text-slate-500 mt-1">Actions taken by staff across portals will automatically appear in this immutable trail.</p>
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-xs">
+              <thead>
+                <tr className="border-b border-slate-200 text-slate-500 uppercase">
+                  <th className="py-3 px-3">Timestamp</th>
+                  <th className="py-3 px-3">Actor</th>
+                  <th className="py-3 px-3">Action</th>
+                  <th className="py-3 px-3">Entity</th>
+                  <th className="py-3 px-3">Entity ID</th>
+                  <th className="py-3 px-3">IP Address</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {logs.map((log) => (
+                  <tr key={log.id} className="hover:bg-slate-50/70 transition">
+                    <td className="py-2.5 px-3 text-slate-600">
+                      {new Date(log.timestamp).toLocaleString()}
+                    </td>
+                    <td className="py-2.5 px-3 font-semibold text-slate-900">{log.actor?.name || "System"}</td>
+                    <td className="py-2.5 px-3">
+                      <span className="rounded-md bg-slate-100 px-2 py-0.5 font-bold uppercase text-[10px] text-slate-800">
+                        {log.action}
+                      </span>
+                    </td>
+                    <td className="py-2.5 px-3 font-medium text-slate-800">{log.entity}</td>
+                    <td className="py-2.5 px-3 font-mono text-[11px] text-slate-500">{log.entityId}</td>
+                    <td className="py-2.5 px-3 font-mono text-[11px] text-slate-400">{log.ipAddress || "Internal"}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     </PortalShell>
   );

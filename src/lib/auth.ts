@@ -24,10 +24,16 @@ export const authOptions: NextAuthOptions = {
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null;
 
+        const normalizedEmail = credentials.email.trim().toLowerCase();
+
         const user = await prisma.user.findUnique({
-          where: { email: credentials.email }
+          where: { email: normalizedEmail }
         });
         if (!user || !user.hashedPassword) return null;
+
+        if (user.isActive === false) {
+          throw new Error("Your account has been deactivated. Please contact administration.");
+        }
 
         const valid = await bcrypt.compare(credentials.password, user.hashedPassword);
         if (!valid) return null;

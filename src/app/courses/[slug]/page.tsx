@@ -111,7 +111,7 @@ export default function CourseDetailPage({ params }: { params: { slug: string } 
 
           {/* WHAT STUDENTS LEARN */}
           <section>
-            <h2 className="font-display text-xl font-bold text-aec-navy">What You'll Learn</h2>
+            <h2 className="font-display text-xl font-bold text-aec-navy">What You&apos;ll Learn</h2>
             <ul className="mt-3 grid gap-2 sm:grid-cols-2">
               {course.learningObjectives.map((o) => (
                 <li key={o} className="flex gap-2 text-sm text-aec-navy/70">

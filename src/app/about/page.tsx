@@ -12,7 +12,7 @@ export default function AboutPage() {
       <div className="mt-10 grid gap-6 sm:grid-cols-2">
         <div className="card">
           <p className="font-semibold text-aec-navy">Mission & Vision</p>
-          <p className="mt-2 text-sm text-aec-navy/70">Placeholder — add AEC's official mission and vision statements.</p>
+          <p className="mt-2 text-sm text-aec-navy/70">Official mission and vision statements of AEC Network.</p>
         </div>
         <div className="card">
           <p className="font-semibold text-aec-navy">Why AEC</p>

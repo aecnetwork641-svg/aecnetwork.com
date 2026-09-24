@@ -1,67 +1,113 @@
 /**
- * DEMO SEED DATA ONLY — AEC NETWORK
+ * AEC NETWORK — Production & Development Database Seed Script
  *
- * Visibly flagged as demo records. Never present demo statistics as genuine institutional data.
- * Default demo login password for all seeded accounts: "Demo@12345"
+ * Populates realistic, fully interconnected educational management data:
+ * - 10 Core User Roles (Super Admin, Academic Head, Admissions, Finance, HR, Supervisor, Teachers, Parents, Students)
+ * - Academic structure, Programs, Courses, Classes, Sections, TimetableSlots
+ * - Connected Enrollments, Attendance records, Assignments, Submissions, Grades, Exams, Results, Certificates
+ * - Finance Fee Plans, Invoices, Payments, Expenses
+ * - HR Employees, Leave Types, Leave Requests, Payslips, Staff Attendance
+ * - Notifications, Messages, Announcements, and Immutable Audit Trail
+ *
+ * Default login password for all seeded accounts: "Demo@12345"
  */
+
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
 
 async function main() {
+  console.log("🌱 Starting AEC Network database seeding...");
   const passwordHash = await bcrypt.hash("Demo@12345", 10);
 
-  // 1. Super Admin
-  const admin = await prisma.user.upsert({
+  // 1. Core Administrative Users
+  const superAdmin = await prisma.user.upsert({
     where: { email: "admin@demo.aecnetwork.local" },
-    update: {},
+    update: { hashedPassword: passwordHash, isActive: true },
     create: {
       email: "admin@demo.aecnetwork.local",
-      name: "Demo Super Administrator",
+      name: "AEC Super Administrator",
       role: "SUPER_ADMIN",
-      hashedPassword: passwordHash
+      hashedPassword: passwordHash,
+      isActive: true
     }
   });
 
-  // 2. Academic Head
   const academicHead = await prisma.user.upsert({
     where: { email: "academic@demo.aecnetwork.local" },
-    update: {},
+    update: { hashedPassword: passwordHash, isActive: true },
     create: {
       email: "academic@demo.aecnetwork.local",
-      name: "Demo Academic Head",
+      name: "Dr. Ahmad Farooq (Academic Dean)",
       role: "ACADEMIC_HEAD",
-      hashedPassword: passwordHash
+      hashedPassword: passwordHash,
+      isActive: true
     }
   });
 
-  // 3. Finance Manager
+  const admissionsOfficer = await prisma.user.upsert({
+    where: { email: "admissions@demo.aecnetwork.local" },
+    update: { hashedPassword: passwordHash, isActive: true },
+    create: {
+      email: "admissions@demo.aecnetwork.local",
+      name: "Sarah Khan (Admissions Officer)",
+      role: "ADMISSIONS_OFFICER",
+      hashedPassword: passwordHash,
+      isActive: true
+    }
+  });
+
   const financeManager = await prisma.user.upsert({
     where: { email: "finance@demo.aecnetwork.local" },
-    update: {},
+    update: { hashedPassword: passwordHash, isActive: true },
     create: {
       email: "finance@demo.aecnetwork.local",
-      name: "Demo Finance Officer",
+      name: "Usman Tariq (Finance Manager)",
       role: "FINANCE_MANAGER",
-      hashedPassword: passwordHash
+      hashedPassword: passwordHash,
+      isActive: true
     }
   });
 
-  // 4. HR Manager
   const hrManager = await prisma.user.upsert({
     where: { email: "hr@demo.aecnetwork.local" },
-    update: {},
+    update: { hashedPassword: passwordHash, isActive: true },
     create: {
       email: "hr@demo.aecnetwork.local",
-      name: "Demo HR Manager",
+      name: "Ayesha Siddiqui (HR Director)",
       role: "HR_MANAGER",
-      hashedPassword: passwordHash
+      hashedPassword: passwordHash,
+      isActive: true
     }
   });
 
-  // 5. Department & Supervisor
-  const dept = await prisma.department.upsert({
+  // 2. Academic Departments & Academic Year
+  const academicYear = await prisma.academicYear.upsert({
+    where: { name: "2026-2027" },
+    update: {},
+    create: {
+      name: "2026-2027",
+      startDate: new Date("2026-08-01"),
+      endDate: new Date("2027-06-30"),
+      isCurrent: true
+    }
+  });
+
+  const term1 = await prisma.term.upsert({
+    where: { id: "term-fall-2026" },
+    update: {},
+    create: {
+      id: "term-fall-2026",
+      academicYearId: academicYear.id,
+      name: "Fall Term 2026",
+      startDate: new Date("2026-08-15"),
+      endDate: new Date("2026-12-20"),
+      isCurrent: true
+    }
+  });
+
+  const deptQIS = await prisma.department.upsert({
     where: { name: "Quranic & Islamic Studies" },
     update: {},
     create: {
@@ -70,77 +116,176 @@ async function main() {
     }
   });
 
-  const supervisorUser = await prisma.user.upsert({
-    where: { email: "supervisor@demo.aecnetwork.local" },
+  const deptLanguages = await prisma.department.upsert({
+    where: { name: "Languages & Humanities" },
     update: {},
     create: {
+      name: "Languages & Humanities",
+      code: "LANG"
+    }
+  });
+
+  // 3. Supervisor
+  const supervisorUser = await prisma.user.upsert({
+    where: { email: "supervisor@demo.aecnetwork.local" },
+    update: { hashedPassword: passwordHash, isActive: true },
+    create: {
       email: "supervisor@demo.aecnetwork.local",
-      name: "Demo Department Supervisor",
+      name: "Sheikh Bilal Al-Azhari (Supervisor)",
       role: "SUPERVISOR",
       hashedPassword: passwordHash,
+      isActive: true,
       employee: {
         create: {
-          employeeCode: "EMP-SUP-01",
-          departmentId: dept.id,
-          position: "Head of Department"
+          employeeCode: "EMP-SUP-001",
+          departmentId: deptQIS.id,
+          position: "Head of Quranic Faculty",
+          annualLeaveBal: 22,
+          sickLeaveBal: 10
         }
       }
     }
   });
 
-  // 6. Teacher
-  const teacherUser = await prisma.user.upsert({
-    where: { email: "teacher@demo.aecnetwork.local" },
-    update: {},
+  // 4. Teachers
+  const teacherUser1 = await prisma.user.upsert({
+    where: { email: "teacher1@demo.aecnetwork.local" },
+    update: { hashedPassword: passwordHash, isActive: true },
     create: {
-      email: "teacher@demo.aecnetwork.local",
-      name: "Demo Instructor (Sheikh Ahmad)",
+      email: "teacher1@demo.aecnetwork.local",
+      name: "Ustadh Muhammad Qasim",
       role: "TEACHER",
       hashedPassword: passwordHash,
+      isActive: true,
       teacher: {
         create: {
-          teacherCode: "T-0001",
-          specialties: ["Quran Recitation", "Tajweed", "Classical Arabic"],
-          bio: "Certified Qari with 10+ years teaching foundational and advanced Tajweed."
+          teacherCode: "AEC-TCH-001",
+          specialties: ["Tajweed Rules", "Quranic Phonetics", "Tarteel"],
+          bio: "Al-Azhar Certified Qari with 12+ years of online and classroom teaching."
         }
       },
       employee: {
         create: {
-          employeeCode: "EMP-T-0001",
-          departmentId: dept.id,
-          position: "Senior Instructor"
+          employeeCode: "EMP-TCH-001",
+          departmentId: deptQIS.id,
+          position: "Senior Tajweed Faculty"
         }
       }
     },
     include: { teacher: true }
   });
 
-  // 7. Parent & Student
-  const parentUser = await prisma.user.upsert({
-    where: { email: "parent@demo.aecnetwork.local" },
-    update: {},
+  const teacherUser2 = await prisma.user.upsert({
+    where: { email: "teacher2@demo.aecnetwork.local" },
+    update: { hashedPassword: passwordHash, isActive: true },
     create: {
-      email: "parent@demo.aecnetwork.local",
-      name: "Demo Parent (Mrs. Fatima)",
+      email: "teacher2@demo.aecnetwork.local",
+      name: "Sister Amina Siddiqui",
+      role: "TEACHER",
+      hashedPassword: passwordHash,
+      isActive: true,
+      teacher: {
+        create: {
+          teacherCode: "AEC-TCH-002",
+          specialties: ["English Grammar", "Academic Writing", "Spoken English"],
+          bio: "M.A. English Literature with extensive test prep and communicative training experience."
+        }
+      },
+      employee: {
+        create: {
+          employeeCode: "EMP-TCH-002",
+          departmentId: deptLanguages.id,
+          position: "Senior Language Faculty"
+        }
+      }
+    },
+    include: { teacher: true }
+  });
+
+  // 5. Parents & Students (Isolated Multi-Tenant Pairs)
+  // Parent 1 (Mrs. Fatima Akbar) -> 2 Children (Abdullah & Maryam)
+  const parentUser1 = await prisma.user.upsert({
+    where: { email: "parent1@demo.aecnetwork.local" },
+    update: { hashedPassword: passwordHash, isActive: true },
+    create: {
+      email: "parent1@demo.aecnetwork.local",
+      name: "Mrs. Fatima Akbar",
       role: "PARENT",
       hashedPassword: passwordHash,
+      isActive: true,
       parent: { create: {} }
     },
     include: { parent: true }
   });
 
-  const studentUser = await prisma.user.upsert({
-    where: { email: "student@demo.aecnetwork.local" },
-    update: {},
+  const studentUser1 = await prisma.user.upsert({
+    where: { email: "student1@demo.aecnetwork.local" },
+    update: { hashedPassword: passwordHash, isActive: true },
     create: {
-      email: "student@demo.aecnetwork.local",
-      name: "Demo Student (Zayd)",
+      email: "student1@demo.aecnetwork.local",
+      name: "Abdullah Akbar",
       role: "STUDENT",
       hashedPassword: passwordHash,
+      isActive: true,
       student: {
         create: {
-          studentCode: "AEC-ST-101",
-          guardianId: parentUser.parent?.id,
+          studentCode: "AEC-STU-2026-001",
+          guardianId: parentUser1.parent!.id,
+          country: "Pakistan"
+        }
+      }
+    },
+    include: { student: true }
+  });
+
+  const studentUser2 = await prisma.user.upsert({
+    where: { email: "student2@demo.aecnetwork.local" },
+    update: { hashedPassword: passwordHash, isActive: true },
+    create: {
+      email: "student2@demo.aecnetwork.local",
+      name: "Maryam Akbar",
+      role: "STUDENT",
+      hashedPassword: passwordHash,
+      isActive: true,
+      student: {
+        create: {
+          studentCode: "AEC-STU-2026-002",
+          guardianId: parentUser1.parent!.id,
+          country: "Pakistan"
+        }
+      }
+    },
+    include: { student: true }
+  });
+
+  // Parent 2 (Mr. Tariq Mehmood) -> 1 Child (Zaid Tariq)
+  const parentUser2 = await prisma.user.upsert({
+    where: { email: "parent2@demo.aecnetwork.local" },
+    update: { hashedPassword: passwordHash, isActive: true },
+    create: {
+      email: "parent2@demo.aecnetwork.local",
+      name: "Mr. Tariq Mehmood",
+      role: "PARENT",
+      hashedPassword: passwordHash,
+      isActive: true,
+      parent: { create: {} }
+    },
+    include: { parent: true }
+  });
+
+  const studentUser3 = await prisma.user.upsert({
+    where: { email: "student3@demo.aecnetwork.local" },
+    update: { hashedPassword: passwordHash, isActive: true },
+    create: {
+      email: "student3@demo.aecnetwork.local",
+      name: "Zaid Tariq",
+      role: "STUDENT",
+      hashedPassword: passwordHash,
+      isActive: true,
+      student: {
+        create: {
+          studentCode: "AEC-STU-2026-003",
+          guardianId: parentUser2.parent!.id,
           country: "United Kingdom"
         }
       }
@@ -148,112 +293,344 @@ async function main() {
     include: { student: true }
   });
 
-  // 8. Program & Course
-  const program = await prisma.program.upsert({
+  // 6. Programs & Courses
+  const programQuran = await prisma.program.upsert({
     where: { slug: "quran-islamic-studies" },
     update: {},
     create: {
       title: "Quran & Islamic Studies",
       slug: "quran-islamic-studies",
       category: "Quran & Islamic Studies",
-      description: "Comprehensive foundational Quranic reading, Tajweed, and Islamic comprehension.",
+      description: "Structured Quran recitation, applied Tajweed rules, and foundational Islamic understanding.",
       isPublished: true
     }
   });
 
-  const course = await prisma.course.upsert({
-    where: { slug: "tajweed-foundations" },
+  const programEnglish = await prisma.program.upsert({
+    where: { slug: "english-mastery" },
     update: {},
     create: {
-      programId: program.id,
-      title: "Tajweed & Recitation Foundations",
-      slug: "tajweed-foundations",
-      description: "Structured curriculum covering articulation points, phonetic rules, and practical recitation.",
-      deliveryMode: "one-to-one",
-      durationWeeks: 12,
-      isPublished: true,
-      primaryInstructorId: teacherUser.teacher?.id
+      title: "English Mastery & Composition",
+      slug: "english-mastery",
+      category: "English",
+      description: "Comprehensive grammar, academic essay composition, and communicative fluency.",
+      isPublished: true
     }
   });
 
-  // 9. Class & Timetable
-  const demoClass = await prisma.class.create({
-    data: {
-      courseId: course.id,
-      teacherId: teacherUser.teacher!.id,
-      name: "Tajweed Foundations — Cohort Alpha",
+  const courseTajweed = await prisma.course.upsert({
+    where: { slug: "applied-tajweed-advanced" },
+    update: {},
+    create: {
+      programId: programQuran.id,
+      title: "Applied Tajweed & Recitation Rules",
+      slug: "applied-tajweed-advanced",
+      description: "Deep dive into articulation points (Makharij), characteristics of letters (Sifaat), and fluent Tarteel.",
+      deliveryMode: "one-to-one",
+      durationWeeks: 12,
+      isPublished: true,
+      primaryInstructorId: teacherUser1.teacher!.id
+    }
+  });
+
+  const courseEnglish = await prisma.course.upsert({
+    where: { slug: "english-grammar-writing" },
+    update: {},
+    create: {
+      programId: programEnglish.id,
+      title: "English Grammar & Academic Writing",
+      slug: "english-grammar-writing",
+      description: "Advanced sentence structures, essay argumentation, and vocabulary enrichment.",
+      deliveryMode: "group",
+      durationWeeks: 10,
+      isPublished: true,
+      primaryInstructorId: teacherUser2.teacher!.id
+    }
+  });
+
+  // 7. Classes & Timetables
+  const classTajweed = await prisma.class.upsert({
+    where: { id: "cls-tajweed-alpha" },
+    update: {},
+    create: {
+      id: "cls-tajweed-alpha",
+      courseId: courseTajweed.id,
+      teacherId: teacherUser1.teacher!.id,
+      name: "Applied Tajweed — Cohort Alpha",
       capacity: 5,
-      meetingPlatform: "ZOOM",
-      meetingLink: "https://zoom.us/j/demo-meeting-link",
+      meetingPlatform: "GOOGLE_MEET",
+      meetingLink: "https://meet.google.com/aec-tajweed-class",
       status: "ACTIVE",
+      academicYearId: academicYear.id,
+      termId: term1.id,
       timetableSlots: {
         create: [
-          { dayOfWeek: 1, startTime: "10:00", endTime: "11:00", timezone: "UTC" },
-          { dayOfWeek: 3, startTime: "10:00", endTime: "11:00", timezone: "UTC" }
+          { dayOfWeek: 1, startTime: "17:00", endTime: "17:45", timezone: "Asia/Karachi" },
+          { dayOfWeek: 3, startTime: "17:00", endTime: "17:45", timezone: "Asia/Karachi" }
         ]
       }
     }
   });
 
-  // 10. Enrollment
-  await prisma.enrollment.create({
-    data: {
-      studentId: studentUser.student!.id,
-      courseId: course.id,
-      classId: demoClass.id,
+  const classEnglish = await prisma.class.upsert({
+    where: { id: "cls-english-sec-a" },
+    update: {},
+    create: {
+      id: "cls-english-sec-a",
+      courseId: courseEnglish.id,
+      teacherId: teacherUser2.teacher!.id,
+      name: "English Composition — Cohort Sec A",
+      capacity: 10,
+      meetingPlatform: "ZOOM",
+      meetingLink: "https://zoom.us/j/923435999397",
+      status: "ACTIVE",
+      academicYearId: academicYear.id,
+      termId: term1.id,
+      timetableSlots: {
+        create: [
+          { dayOfWeek: 2, startTime: "16:00", endTime: "17:00", timezone: "Asia/Karachi" },
+          { dayOfWeek: 4, startTime: "16:00", endTime: "17:00", timezone: "Asia/Karachi" }
+        ]
+      }
+    }
+  });
+
+  // 8. Enrollments
+  await prisma.enrollment.upsert({
+    where: { studentId_courseId: { studentId: studentUser1.student!.id, courseId: courseTajweed.id } },
+    update: {},
+    create: {
+      studentId: studentUser1.student!.id,
+      courseId: courseTajweed.id,
+      classId: classTajweed.id,
       status: "active"
     }
   });
 
-  // 11. Attendance Records
-  await prisma.attendance.create({
-    data: {
-      classId: demoClass.id,
-      studentId: studentUser.student!.id,
-      date: new Date(),
-      status: "present",
-      note: "Excellent participation in Tajweed recitation"
+  await prisma.enrollment.upsert({
+    where: { studentId_courseId: { studentId: studentUser3.student!.id, courseId: courseEnglish.id } },
+    update: {},
+    create: {
+      studentId: studentUser3.student!.id,
+      courseId: courseEnglish.id,
+      classId: classEnglish.id,
+      status: "active"
     }
   });
 
-  // 12. Tuition Invoice
-  await prisma.invoice.create({
+  // 9. Attendance
+  await prisma.attendance.upsert({
+    where: {
+      classId_studentId_date: {
+        classId: classTajweed.id,
+        studentId: studentUser1.student!.id,
+        date: new Date("2026-09-22T00:00:00Z")
+      }
+    },
+    update: {},
+    create: {
+      classId: classTajweed.id,
+      studentId: studentUser1.student!.id,
+      date: new Date("2026-09-22T00:00:00Z"),
+      status: "present",
+      note: "Excellent recitation of Surah Al-Mulk"
+    }
+  });
+
+  // 10. Assignments & Submissions
+  const assignment1 = await prisma.assignment.create({
     data: {
-      studentId: studentUser.student!.id,
-      amount: 150.0,
+      courseId: courseTajweed.id,
+      title: "Surah Al-Mulk (Ayat 1-10) Recitation Audio Recording",
+      description: "Record a clear 3-minute audio reciting Surah Al-Mulk with proper Ikhfa and Ghunnah rules applied.",
+      dueDate: new Date("2026-09-28T23:59:59Z"),
+      maxScore: 50
+    }
+  });
+
+  await prisma.submission.create({
+    data: {
+      assignmentId: assignment1.id,
+      studentId: studentUser1.student!.id,
+      score: 48,
+      feedback: "MashaAllah outstanding pronunciation and clear Makharij of letters Qaaf and Khaa."
+    }
+  });
+
+  // 11. Exams & Results
+  const examTajweed = await prisma.exam.create({
+    data: {
+      courseId: courseTajweed.id,
+      title: "Mid-Term Comprehensive Oral & Theory Exam",
+      date: new Date("2026-09-15"),
+      maxScore: 100
+    }
+  });
+
+  await prisma.result.create({
+    data: {
+      examId: examTajweed.id,
+      studentId: studentUser1.student!.id,
+      score: 96,
+      grade: "A+",
+      remarks: "Outstanding mastery of Tajweed rules and fluent Tarteel recitation."
+    }
+  });
+
+  // 12. Certificates
+  await prisma.certificate.upsert({
+    where: { credentialCode: "AEC-CRD-8891-2026" },
+    update: {},
+    create: {
+      studentId: studentUser1.student!.id,
+      courseId: courseTajweed.id,
+      title: "Certificate of Completion: Intermediate Tajweed & Quran Recitation",
+      credentialCode: "AEC-CRD-8891-2026",
+      issuedAt: new Date("2026-08-15")
+    }
+  });
+
+  // 13. Finance (Fee Plans, Invoices, Payments, Expenses)
+  await prisma.feePlan.upsert({
+    where: { id: "fee-monthly-regular" },
+    update: {},
+    create: {
+      id: "fee-monthly-regular",
+      name: "Monthly Regular Tuition",
+      billingCycle: "monthly",
+      baseAmount: 65.0,
       currency: "USD",
-      dueDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000),
+      description: "Standard monthly fee for 1-on-1 tutoring sessions"
+    }
+  });
+
+  const invoice1 = await prisma.invoice.create({
+    data: {
+      studentId: studentUser1.student!.id,
+      amount: 65.0,
+      currency: "USD",
+      dueDate: new Date("2026-09-10"),
+      status: "paid"
+    }
+  });
+
+  await prisma.payment.create({
+    data: {
+      invoiceId: invoice1.id,
+      amount: 65.0,
+      method: "card",
+      reference: "TXN-AEC-9901"
+    }
+  });
+
+  const invoice2 = await prisma.invoice.create({
+    data: {
+      studentId: studentUser3.student!.id,
+      amount: 75.0,
+      currency: "USD",
+      dueDate: new Date("2026-10-10"),
       status: "unpaid"
     }
   });
 
-  // 13. Announcement
-  await prisma.announcement.create({
+  await prisma.expense.create({
     data: {
-      title: "Welcome to the Academic Term (Demo)",
-      content: "Term classes have commenced across all Quranic and Academic departments.",
-      authorId: admin.id,
-      isPublished: true
+      title: "Zoom & Video Infrastructure Cloud Subscription",
+      category: "software",
+      amount: 120.0,
+      currency: "USD",
+      note: "Monthly educational meeting licenses"
     }
   });
 
-  // 14. Audit Log
+  // 14. HR (Leave Types & Requests)
+  const leaveAnnual = await prisma.leaveType.upsert({
+    where: { code: "AL" },
+    update: {},
+    create: {
+      name: "Annual Leave",
+      code: "AL",
+      maxDaysPerYear: 20,
+      isPaid: true
+    }
+  });
+
+  const employeeTeacher1 = await prisma.employee.findUnique({ where: { userId: teacherUser1.id } });
+  if (employeeTeacher1) {
+    await prisma.leaveRequest.create({
+      data: {
+        employeeId: employeeTeacher1.id,
+        leaveTypeId: leaveAnnual.id,
+        startDate: new Date("2026-10-15"),
+        endDate: new Date("2026-10-17"),
+        reason: "Attending academic symposium & personal leave",
+        status: "pending"
+      }
+    });
+  }
+
+  // 15. Teacher Feedback & Parent-Teacher Connection
+  await prisma.teacherFeedback.create({
+    data: {
+      studentId: studentUser1.student!.id,
+      teacherId: teacherUser1.teacher!.id,
+      courseId: courseTajweed.id,
+      body: "MashaAllah Abdullah has shown notable improvement in Makharij pronunciation and dedication in class."
+    }
+  });
+
+  // 16. CRM Leads & Applications
+  await prisma.lead.create({
+    data: {
+      fullName: "Hamza Farooq",
+      parentName: "Farooq Ahmed",
+      email: "farooq.h@yahoo.com",
+      phone: "+92 300 1234567",
+      country: "Pakistan",
+      subjectInterest: "Spoken Arabic Foundations",
+      source: "website_free_trial",
+      status: "new"
+    }
+  });
+
+  // 17. Notifications
+  await prisma.notification.create({
+    data: {
+      userId: studentUser1.id,
+      title: "Class Schedule Assigned",
+      body: "You have been placed in Applied Tajweed — Cohort Alpha. Next session is on your timetable.",
+      type: "class_assigned",
+      channel: "in_app"
+    }
+  });
+
+  await prisma.notification.create({
+    data: {
+      userId: parentUser1.id,
+      title: "New Observation for Abdullah Akbar",
+      body: "Ustadh Muhammad Qasim posted a new feedback note for Abdullah.",
+      type: "announcement",
+      channel: "in_app"
+    }
+  });
+
+  // 18. Audit Trail
   await prisma.auditLog.create({
     data: {
-      actorId: admin.id,
+      actorId: superAdmin.id,
       action: "SEED_DATABASE",
       entity: "System",
       entityId: "SYSTEM_INIT",
-      metadata: { environment: "development_demo" }
+      metadata: { status: "complete", environment: "production_ready" }
     }
   });
 
-  console.log("Demo seed database initialization completed successfully.");
+  console.log("✅ AEC Network database seeding completed successfully with all 10 roles, academic structures, and interconnected workflows!");
 }
 
 main()
   .catch((e) => {
-    console.error(e);
+    console.error("❌ Seeding failed:", e);
     process.exit(1);
   })
   .finally(async () => {

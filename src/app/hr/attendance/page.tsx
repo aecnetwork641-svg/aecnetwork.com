@@ -13,7 +13,7 @@ export default function HRAttendancePage() {
     <PortalShell role="HR & Payroll" navItems={HR_NAV} title="Staff & Faculty Attendance Roster">
       <div className="rounded-xl border border-slate-200 bg-white overflow-hidden shadow-sm">
         <div className="p-4 bg-slate-50 border-b border-slate-200 flex items-center justify-between">
-          <h3 className="font-display text-sm font-bold text-slate-900">Today's Faculty Clock-In Status</h3>
+          <h3 className="font-display text-sm font-bold text-slate-900">Today&apos;s Faculty Clock-In Status</h3>
           <span className="text-xs text-slate-500">Live Synchronized</span>
         </div>
 

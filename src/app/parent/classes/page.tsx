@@ -6,7 +6,7 @@ export default function ParentClassesPage() {
   return (
     <PortalShell role="Parent Portal" navItems={PARENT_NAV} title="Live Class Sessions & Parent Observer Links">
       <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm mb-6">
-        <h2 className="font-display text-base font-bold text-slate-900 mb-1">Today's Scheduled Classes for Your Children</h2>
+        <h2 className="font-display text-base font-bold text-slate-900 mb-1">Today&apos;s Scheduled Classes for Your Children</h2>
         <p className="text-xs text-slate-500">
           Parents are welcome to observe lessons or check on child class participation at any time.
         </p>

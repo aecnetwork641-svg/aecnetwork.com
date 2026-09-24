@@ -31,7 +31,7 @@ export default function TeacherClassesPage() {
                     <span className="text-xs text-slate-500">({cls.meetingPlatform})</span>
                   </div>
                   <h3 className="font-display text-base font-bold text-aec-navy mt-1">{cls.subject}</h3>
-                  <p className="text-xs text-slate-600 mt-0.5"><strong>Today's Topic:</strong> {cls.lessonTopic}</p>
+                  <p className="text-xs text-slate-600 mt-0.5"><strong>Today&apos;s Topic:</strong> {cls.lessonTopic}</p>
                   <p className="text-xs font-semibold text-emerald-800 mt-1">⏰ Scheduled: {cls.time}</p>
                 </div>
 
