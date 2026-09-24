@@ -1,5 +1,15 @@
 /** @type {import('next').NextConfig} */
 
+const SUPABASE_DB_URL =
+  "postgresql://postgres.rikvucrhiuakrtuxfvmp:pak560641%40%40@aws-0-ap-southeast-2.pooler.supabase.com:5432/postgres?sslmode=require";
+
+if (!process.env.DATABASE_URL || process.env.DATABASE_URL.trim() === "") {
+  process.env.DATABASE_URL = SUPABASE_DB_URL;
+}
+if (!process.env.DIRECT_URL || process.env.DIRECT_URL.trim() === "") {
+  process.env.DIRECT_URL = SUPABASE_DB_URL;
+}
+
 // Ensure NEXTAUTH_URL is never empty to avoid NextAuth parseUrl ERR_INVALID_URL during build/prerender
 if (!process.env.NEXTAUTH_URL || process.env.NEXTAUTH_URL.trim() === "") {
   if (process.env.VERCEL_URL) {
