@@ -1,4 +1,16 @@
 /** @type {import('next').NextConfig} */
+
+// Ensure NEXTAUTH_URL is never empty to avoid NextAuth parseUrl ERR_INVALID_URL during build/prerender
+if (!process.env.NEXTAUTH_URL || process.env.NEXTAUTH_URL.trim() === "") {
+  if (process.env.VERCEL_URL) {
+    process.env.NEXTAUTH_URL = `https://${process.env.VERCEL_URL}`;
+  } else if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
+    process.env.NEXTAUTH_URL = `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
+  } else {
+    process.env.NEXTAUTH_URL = "http://localhost:3000";
+  }
+}
+
 const nextConfig = {
   reactStrictMode: true,
   experimental: {
