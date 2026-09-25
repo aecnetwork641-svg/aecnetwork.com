@@ -36,6 +36,7 @@ export async function sendEmail({ to, subject, html, text }: SendEmailParams): P
 
   if (resendApiKey) {
     try {
+      const fromAddress = process.env.EMAIL_FROM || "AEC Network <onboarding@resend.dev>";
       const res = await fetch("https://api.resend.com/emails", {
         method: "POST",
         headers: {
@@ -43,7 +44,7 @@ export async function sendEmail({ to, subject, html, text }: SendEmailParams): P
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          from: "AEC Network <onboarding@resend.dev>",
+          from: fromAddress,
           to: [to],
           subject,
           html,
