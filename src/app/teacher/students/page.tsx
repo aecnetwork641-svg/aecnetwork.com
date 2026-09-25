@@ -11,7 +11,7 @@ export default async function TeacherStudentsPage() {
   }
 
   const { teacher } = scope;
-  const teacherClassIds = teacher.classes.map((c) => c.id);
+  const teacherClassIds = (teacher.classes || []).map((c: any) => c.id);
 
   // Find all enrollments in classes taught by this teacher
   const enrollments = await prisma.enrollment.findMany({

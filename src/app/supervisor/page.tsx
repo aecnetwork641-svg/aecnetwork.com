@@ -14,37 +14,47 @@ export default async function SupervisorDashboardPage() {
   const departmentId = scope.departmentId;
   const departmentName = scope.department?.name || "Supervised Department";
 
-  const [teamEmployees, pendingLeaves, departmentClasses] = await Promise.all([
-    prisma.employee.findMany({
-      where: { departmentId },
-      include: {
-        user: true,
-        staffAttendances: { take: 1, orderBy: { date: "desc" } }
-      }
-    }),
-    prisma.leaveRequest.findMany({
-      where: {
-        employee: { departmentId },
-        supervisorStatus: "pending"
-      },
-      include: {
-        employee: { include: { user: true } },
-        leaveType: true
-      },
-      orderBy: { createdAt: "desc" }
-    }),
-    prisma.class.findMany({
-      where: {
-        teacher: { user: { employee: { departmentId } } }
-      },
-      include: {
-        teacher: { include: { user: true } },
-        course: true,
-        enrollments: true
-      },
-      take: 8
-    })
-  ]);
+  let teamEmployees: any[] = [];
+  let pendingLeaves: any[] = [];
+  let departmentClasses: any[] = [];
+
+  try {
+    if (departmentId && departmentId !== "preview-dept-id") {
+      [teamEmployees, pendingLeaves, departmentClasses] = await Promise.all([
+        prisma.employee.findMany({
+          where: { departmentId },
+          include: {
+            user: true,
+            staffAttendances: { take: 1, orderBy: { date: "desc" } }
+          }
+        }),
+        prisma.leaveRequest.findMany({
+          where: {
+            employee: { departmentId },
+            supervisorStatus: "pending"
+          },
+          include: {
+            employee: { include: { user: true } },
+            leaveType: true
+          },
+          orderBy: { createdAt: "desc" }
+        }),
+        prisma.class.findMany({
+          where: {
+            teacher: { user: { employee: { departmentId } } }
+          },
+          include: {
+            teacher: { include: { user: true } },
+            course: true,
+            enrollments: true
+          },
+          take: 8
+        })
+      ]);
+    }
+  } catch (err) {
+    console.error("[SUPERVISOR_PAGE_ERROR]", err);
+  }
 
   return (
     <PortalShell role="Supervisor Portal" navItems={SUPERVISOR_NAV} title="Department Supervisor Dashboard">
@@ -99,7 +109,7 @@ export default async function SupervisorDashboardPage() {
                 <div key={emp.id} className="py-3 flex items-center justify-between text-xs hover:bg-slate-50/50 px-2 rounded transition">
                   <div>
                     <div className="flex items-center gap-2">
-                      <p className="font-bold text-slate-900 text-sm">{emp.user.name}</p>
+                      <p className="font-bold text-slate-900 text-sm">{emp.user?.name || "Faculty Member"}</p>
                       <span className="rounded bg-emerald-50 px-2 py-0.5 text-[10px] font-semibold text-emerald-700 capitalize">
                         {emp.status}
                       </span>
@@ -132,9 +142,9 @@ export default async function SupervisorDashboardPage() {
               {pendingLeaves.map((l) => (
                 <div key={l.id} className="py-3.5 flex flex-col sm:flex-row sm:items-start justify-between gap-3 text-xs">
                   <div>
-                    <p className="font-bold text-slate-900 text-sm">{l.employee.user.name}</p>
+                    <p className="font-bold text-slate-900 text-sm">{l.employee?.user?.name || "Employee"}</p>
                     <p className="text-slate-600 font-medium mt-0.5">
-                      <span className="font-bold text-amber-700">{l.leaveType?.name ?? "Leave"}</span> &bull; {new Date(l.startDate).toLocaleDateString()} - {new Date(l.endDate).toLocaleDateString()}
+                      <span className="font-bold text-amber-700">{l.leaveType?.name ?? "Leave"}</span> &bull; {l.startDate ? new Date(l.startDate).toLocaleDateString() : ""} - {l.endDate ? new Date(l.endDate).toLocaleDateString() : ""}
                     </p>
                     <p className="text-[11px] text-slate-600 italic mt-1 bg-slate-50 p-2 rounded border border-slate-100">
                       &ldquo;{l.reason}&rdquo;
@@ -170,9 +180,9 @@ export default async function SupervisorDashboardPage() {
                     {c.status}
                   </span>
                   <h4 className="font-bold text-slate-900 text-sm mt-2">{c.name}</h4>
-                  <p className="text-xs text-slate-600 font-medium mt-0.5">{c.course.title}</p>
-                  <p className="text-xs text-slate-500 mt-1">Teacher: {c.teacher.user.name}</p>
-                  <p className="text-xs text-slate-500">Enrolled: {c.enrollments.length} students</p>
+                  <p className="text-xs text-slate-600 font-medium mt-0.5">{c.course?.title || "Course"}</p>
+                  <p className="text-xs text-slate-500 mt-1">Teacher: {c.teacher?.user?.name || "Instructor"}</p>
+                  <p className="text-xs text-slate-500">Enrolled: {c.enrollments?.length || 0} students</p>
                 </div>
               </div>
             ))}

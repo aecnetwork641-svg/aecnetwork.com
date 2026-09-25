@@ -47,6 +47,12 @@ export default async function TeacherDashboard() {
   classes.forEach((c) => c.enrollments.forEach((e) => assignedStudentIds.add(e.studentId)));
   const totalAssignedStudents = assignedStudentIds.size;
 
+  const teacherName = teacher.user?.name || "Faculty Member";
+  const teacherInitial = teacherName.charAt(0).toUpperCase() || "T";
+  const specialtiesList = Array.isArray(teacher.specialties) && teacher.specialties.length > 0 
+    ? teacher.specialties.join(", ") 
+    : "General Faculty";
+
   return (
     <PortalShell role="Teacher Portal" navItems={TEACHER_NAV} title={`Instructor Dashboard`}>
       {/* 1. Header Banner */}
@@ -54,17 +60,17 @@ export default async function TeacherDashboard() {
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex items-center gap-4">
             <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-aec-gold/20 border border-aec-gold/40 text-aec-gold text-2xl font-black">
-              {teacher.user.name.charAt(0)}
+              {teacherInitial}
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h2 className="font-display text-xl sm:text-2xl font-bold">{teacher.user.name}</h2>
+                <h2 className="font-display text-xl sm:text-2xl font-bold">{teacherName}</h2>
                 <span className="rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-semibold px-2.5 py-0.5">
                   Faculty Member
                 </span>
               </div>
               <p className="text-xs text-white/70 mt-1">
-                Faculty Code: <span className="font-mono text-aec-gold font-bold">{teacher.teacherCode}</span> • Specialties: <strong>{teacher.specialties.join(", ") || "General Faculty"}</strong>
+                Faculty Code: <span className="font-mono text-aec-gold font-bold">{teacher.teacherCode || "AEC-FACULTY"}</span> • Specialties: <strong>{specialtiesList}</strong>
               </p>
             </div>
           </div>
@@ -185,10 +191,10 @@ export default async function TeacherDashboard() {
               <div className="space-y-3">
                 {submissions.slice(0, 4).map((sub) => (
                   <div key={sub.id} className="p-3 rounded-xl border border-amber-200/80 bg-amber-50/40 text-xs">
-                    <p className="font-bold text-slate-900">{sub.student.user.name}</p>
-                    <p className="text-slate-600 mt-0.5 line-clamp-1">{sub.assignment.title}</p>
+                    <p className="font-bold text-slate-900">{sub.student?.user?.name || "Student"}</p>
+                    <p className="text-slate-600 mt-0.5 line-clamp-1">{sub.assignment?.title || "Assignment"}</p>
                     <div className="mt-2 flex items-center justify-between text-[11px]">
-                      <span className="text-slate-400">{new Date(sub.submittedAt).toLocaleDateString()}</span>
+                      <span className="text-slate-400">{sub.submittedAt ? new Date(sub.submittedAt).toLocaleDateString() : ""}</span>
                       <Link href="/teacher/assignments" className="font-bold text-aec-navy hover:underline">
                         Review & Grade &rarr;
                       </Link>
@@ -208,8 +214,8 @@ export default async function TeacherDashboard() {
                 {feedbacks.map((f) => (
                   <div key={f.id} className="p-3 rounded-xl bg-slate-50 border border-slate-100 text-xs">
                     <div className="flex items-center justify-between font-bold text-slate-900">
-                      <span>To: {f.student.user.name}</span>
-                      <span className="text-[10px] text-slate-400 font-normal">{new Date(f.createdAt).toLocaleDateString()}</span>
+                      <span>To: {f.student?.user?.name || "Student"}</span>
+                      <span className="text-[10px] text-slate-400 font-normal">{f.createdAt ? new Date(f.createdAt).toLocaleDateString() : ""}</span>
                     </div>
                     <p className="text-slate-600 mt-1 italic">&ldquo;{f.body}&rdquo;</p>
                   </div>

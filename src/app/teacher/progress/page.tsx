@@ -11,7 +11,7 @@ export default async function TeacherProgressPage() {
   }
 
   const { teacher } = scope;
-  const teacherClassIds = teacher.classes.map((c) => c.id);
+  const teacherClassIds = (teacher.classes || []).map((c: any) => c.id);
 
   const enrollments = await prisma.enrollment.findMany({
     where: { classId: { in: teacherClassIds } },

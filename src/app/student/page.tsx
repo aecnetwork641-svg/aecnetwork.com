@@ -86,24 +86,27 @@ export default async function StudentDashboard() {
   const primaryProgram = enrollments[0]?.course?.title || "Enrolled in Academy";
   const activeClass = enrollments.find((e) => e.class)?.class;
 
+  const studentName = student.user?.name || "Student";
+  const studentInitial = studentName.charAt(0).toUpperCase() || "S";
+
   return (
-    <PortalShell role="Student Portal" navItems={STUDENT_NAV} title={`Welcome back, ${student.user.name}`}>
+    <PortalShell role="Student Portal" navItems={STUDENT_NAV} title={`Welcome back, ${studentName}`}>
       {/* 1. Student Identity Header Banner */}
       <div className="rounded-2xl bg-gradient-to-r from-aec-navy via-[#143d63] to-aec-navy p-6 text-white shadow-xl">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="flex items-center gap-4">
             <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-aec-gold/20 border border-aec-gold/40 text-aec-gold text-2xl font-black">
-              {student.user.name.charAt(0)}
+              {studentInitial}
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h2 className="font-display text-xl sm:text-2xl font-bold">{student.user.name}</h2>
+                <h2 className="font-display text-xl sm:text-2xl font-bold">{studentName}</h2>
                 <span className="rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px] font-semibold px-2.5 py-0.5">
                   Active Student
                 </span>
               </div>
               <p className="text-xs text-white/70 mt-1">
-                Student ID: <span className="font-mono text-aec-gold font-bold">{student.studentCode}</span> • Program: <strong className="text-white/90">{primaryProgram}</strong>
+                Student ID: <span className="font-mono text-aec-gold font-bold">{student.studentCode || "AEC-STUDENT"}</span> • Program: <strong className="text-white/90">{primaryProgram}</strong>
               </p>
             </div>
           </div>
@@ -198,7 +201,7 @@ export default async function StudentDashboard() {
                     {activeClass.name}
                   </h3>
                   <p className="text-xs text-slate-600 mt-1">
-                    Instructor: <strong className="text-slate-800">{activeClass.teacher.user.name}</strong> • Platform: <span className="font-semibold text-emerald-700">{activeClass.meetingPlatform}</span>
+                    Instructor: <strong className="text-slate-800">{activeClass.teacher?.user?.name || "Assigned Faculty"}</strong> • Platform: <span className="font-semibold text-emerald-700">{activeClass.meetingPlatform || "Online"}</span>
                   </p>
                 </div>
 
@@ -288,7 +291,7 @@ export default async function StudentDashboard() {
                   <div key={a.id} className="p-3 rounded-xl border border-amber-200/80 bg-amber-50/40">
                     <p className="text-xs font-bold text-slate-900 line-clamp-1">{a.title}</p>
                     <div className="flex items-center justify-between mt-2 text-[11px]">
-                      <span className="font-semibold text-amber-700">Due: {new Date(a.dueDate).toLocaleDateString()}</span>
+                      <span className="font-semibold text-amber-700">Due: {a.dueDate ? new Date(a.dueDate).toLocaleDateString() : "Flexible"}</span>
                       <Link href="/student/assignments" className="font-bold text-aec-navy hover:underline">
                         Submit &rarr;
                       </Link>
@@ -309,8 +312,8 @@ export default async function StudentDashboard() {
                 {feedbacks.map((f) => (
                   <div key={f.id} className="p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700 space-y-1">
                     <div className="flex items-center justify-between font-bold text-slate-900">
-                      <span>{f.teacher.user.name}</span>
-                      <span className="text-[10px] text-slate-400 font-normal">{new Date(f.createdAt).toLocaleDateString()}</span>
+                      <span>{f.teacher?.user?.name || "Instructor"}</span>
+                      <span className="text-[10px] text-slate-400 font-normal">{f.createdAt ? new Date(f.createdAt).toLocaleDateString() : ""}</span>
                     </div>
                     <p className="text-slate-600 italic">&ldquo;{f.body}&rdquo;</p>
                   </div>

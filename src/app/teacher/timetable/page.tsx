@@ -11,7 +11,7 @@ export default async function TeacherTimetablePage() {
   }
 
   const { teacher } = scope;
-  const teacherClassIds = teacher.classes.map((c) => c.id);
+  const teacherClassIds = (teacher.classes || []).map((c: any) => c.id);
 
   const slots = await prisma.timetableSlot.findMany({
     where: { classId: { in: teacherClassIds } },

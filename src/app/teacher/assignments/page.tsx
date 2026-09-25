@@ -12,7 +12,7 @@ export default async function TeacherAssignmentsPage() {
   }
 
   const { teacher } = scope;
-  const teacherClassIds = teacher.classes.map((c) => c.id);
+  const teacherClassIds = (teacher.classes || []).map((c: any) => c.id);
 
   // Find courses taught by this teacher
   const classes = await prisma.class.findMany({

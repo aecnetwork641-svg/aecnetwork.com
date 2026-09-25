@@ -62,6 +62,9 @@ export default async function ParentDashboard({
   const primaryCourse = enrolledCourseTitles[0] || "Enrolled in Academy";
   const activeClass = selectedChild?.enrollments?.find((e) => e.class)?.class;
 
+  const parentName = parent.user?.name || "Guardian";
+  const parentEmail = parent.user?.email || "";
+
   return (
     <PortalShell role="Parent Portal" navItems={PARENT_NAV} title="Parent Guardian Dashboard">
       {/* 1. Parent Welcome & Child Selector */}
@@ -69,9 +72,9 @@ export default async function ParentDashboard({
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <span className="text-xs font-semibold text-aec-gold uppercase tracking-wider">Guardian Account</span>
-            <h2 className="font-display text-xl sm:text-2xl font-bold mt-0.5">Welcome, {parent.user.name}</h2>
+            <h2 className="font-display text-xl sm:text-2xl font-bold mt-0.5">Welcome, {parentName}</h2>
             <p className="text-xs text-white/70 mt-1">
-              Registered Email: {parent.user.email} • Monitoring {children.length} Registered Child(ren)
+              Registered Email: {parentEmail} • Monitoring {children.length} Registered Child(ren)
             </p>
           </div>
 
@@ -89,7 +92,7 @@ export default async function ParentDashboard({
                       : "text-white/80 hover:bg-white/10"
                   }`}
                 >
-                  <span>{child.user.name}</span>
+                  <span>{child.user?.name || "Child"}</span>
                 </Link>
               ))}
             </div>
@@ -114,17 +117,17 @@ export default async function ParentDashboard({
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 pb-5 mb-5">
               <div className="flex items-center gap-4">
                 <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-aec-navy text-aec-gold text-xl font-bold">
-                  {selectedChild?.user.name.charAt(0)}
+                  {(selectedChild?.user?.name || "C").charAt(0)}
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <h3 className="font-display text-lg font-bold text-slate-900">{selectedChild?.user.name}</h3>
+                    <h3 className="font-display text-lg font-bold text-slate-900">{selectedChild?.user?.name || "Student"}</h3>
                     <span className="rounded-full bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5">
                       {overallGrade} Standing
                     </span>
                   </div>
                   <p className="text-xs text-slate-500 mt-0.5">
-                    Student ID: <span className="font-mono text-slate-800 font-semibold">{selectedChild?.studentCode}</span> • Program: <strong>{primaryCourse}</strong>
+                    Student ID: <span className="font-mono text-slate-800 font-semibold">{selectedChild?.studentCode || "AEC-STUDENT"}</span> • Program: <strong>{primaryCourse}</strong>
                   </p>
                 </div>
               </div>
