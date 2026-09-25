@@ -6,6 +6,17 @@ import { signOut, useSession } from "next-auth/react";
 import type { ReactNode } from "react";
 import { useState } from "react";
 
+const ALL_PORTALS = [
+  { label: "👑 Super Admin", href: "/admin" },
+  { label: "🎓 Student Portal", href: "/student" },
+  { label: "👨‍🏫 Teacher Portal", href: "/teacher" },
+  { label: "👨‍👩‍👧 Parent Portal", href: "/parent" },
+  { label: "📚 Academics", href: "/academic" },
+  { label: "💰 Finance", href: "/finance" },
+  { label: "👥 HR & Staff", href: "/hr" },
+  { label: "👁️ Supervisor", href: "/supervisor" }
+];
+
 export default function PortalShell({
   role,
   navItems,
@@ -20,6 +31,10 @@ export default function PortalShell({
   const pathname = usePathname();
   const { data: session } = useSession();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [portalSwitcherOpen, setPortalSwitcherOpen] = useState(false);
+
+  const userRole = (session?.user as { role?: string } | undefined)?.role;
+  const isSuperAdminOrAdmin = userRole === "SUPER_ADMIN" || userRole === "ADMIN";
 
   return (
     <div className="min-h-screen bg-slate-50/60 pb-16">
@@ -39,9 +54,58 @@ export default function PortalShell({
             <span className="rounded-md bg-aec-navy px-2.5 py-1 text-[11px] font-black uppercase tracking-wider text-aec-gold shadow-xs">
               {role}
             </span>
+
+            {/* Master Portal Switcher for Super Admin / Admin */}
+            {isSuperAdminOrAdmin && (
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={() => setPortalSwitcherOpen(!portalSwitcherOpen)}
+                  className="hidden sm:inline-flex items-center gap-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 px-2.5 py-1 text-xs font-bold text-slate-700 transition"
+                >
+                  <span>⚡ Switch Portal</span>
+                  <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+
+                {portalSwitcherOpen && (
+                  <>
+                    <div
+                      className="fixed inset-0 z-40"
+                      onClick={() => setPortalSwitcherOpen(false)}
+                    />
+                    <div className="absolute left-0 mt-2 w-56 rounded-2xl border border-slate-200 bg-white p-2 shadow-xl z-50">
+                      <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 px-3 py-1">
+                        Master Access Portals
+                      </p>
+                      <div className="space-y-0.5 mt-1">
+                        {ALL_PORTALS.map((p) => (
+                          <Link
+                            key={p.href}
+                            href={p.href as any}
+                            onClick={() => setPortalSwitcherOpen(false)}
+                            className={`flex items-center justify-between rounded-xl px-3 py-2 text-xs font-semibold transition ${
+                              pathname.startsWith(p.href)
+                                ? "bg-aec-navy text-white"
+                                : "text-slate-700 hover:bg-slate-100"
+                            }`}
+                          >
+                            <span>{p.label}</span>
+                            {pathname.startsWith(p.href) && (
+                              <span className="text-[10px] bg-white/20 px-1.5 py-0.5 rounded">Active</span>
+                            )}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
+            )}
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             {session?.user && (
               <div className="hidden sm:flex items-center gap-2 text-xs">
                 <span className="h-2 w-2 rounded-full bg-emerald-500"></span>

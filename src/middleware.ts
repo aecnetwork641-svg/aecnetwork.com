@@ -32,6 +32,11 @@ export async function middleware(req: NextRequest) {
     const path = req.nextUrl.pathname;
     const role = (token as { role?: string } | null)?.role;
 
+    // Super Admin has master bypass access to all portals and sections
+    if (token && role === "SUPER_ADMIN") {
+      return NextResponse.next();
+    }
+
     for (const prefix of Object.keys(PORTAL_ROLE_MAP)) {
       if (path === prefix || path.startsWith(prefix + "/")) {
         // Unauthenticated access check

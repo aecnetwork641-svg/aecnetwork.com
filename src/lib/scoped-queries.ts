@@ -22,26 +22,36 @@ export async function getCurrentUserSession() {
 }
 
 export async function getCurrentStudentScope() {
-  const { userId } = await getCurrentUserSession();
+  const { userId, role } = await getCurrentUserSession();
   if (!userId) return null;
 
-  const student = await prisma.student.findUnique({
+  let student = await prisma.student.findUnique({
     where: { userId },
     include: {
       user: true,
       guardian: { include: { user: true } }
     }
   });
+
+  if (!student && (role === "SUPER_ADMIN" || role === "ADMIN" || role === "DIRECTOR")) {
+    student = await prisma.student.findFirst({
+      include: {
+        user: true,
+        guardian: { include: { user: true } }
+      }
+    });
+  }
+
   if (!student) return null;
 
   return { studentId: student.id, userId, student };
 }
 
 export async function getCurrentParentScope(requestedChildId?: string) {
-  const { userId } = await getCurrentUserSession();
+  const { userId, role } = await getCurrentUserSession();
   if (!userId) return null;
 
-  const parent = await prisma.parentProfile.findUnique({
+  let parent = await prisma.parentProfile.findUnique({
     where: { userId },
     include: {
       user: true,
@@ -54,6 +64,22 @@ export async function getCurrentParentScope(requestedChildId?: string) {
       }
     }
   });
+
+  if (!parent && (role === "SUPER_ADMIN" || role === "ADMIN" || role === "DIRECTOR")) {
+    parent = await prisma.parentProfile.findFirst({
+      include: {
+        user: true,
+        children: {
+          include: {
+            user: true,
+            enrollments: { include: { course: true, class: { include: { teacher: { include: { user: true } }, timetableSlots: true } } } },
+            invoices: true
+          }
+        }
+      }
+    });
+  }
+
   if (!parent) return null;
 
   const children = parent.children;
@@ -66,10 +92,10 @@ export async function getCurrentParentScope(requestedChildId?: string) {
 }
 
 export async function getCurrentTeacherScope() {
-  const { userId } = await getCurrentUserSession();
+  const { userId, role } = await getCurrentUserSession();
   if (!userId) return null;
 
-  const teacher = await prisma.teacher.findUnique({
+  let teacher = await prisma.teacher.findUnique({
     where: { userId },
     include: {
       user: true,
@@ -82,32 +108,63 @@ export async function getCurrentTeacherScope() {
       }
     }
   });
+
+  if (!teacher && (role === "SUPER_ADMIN" || role === "ADMIN" || role === "DIRECTOR")) {
+    teacher = await prisma.teacher.findFirst({
+      include: {
+        user: true,
+        classes: {
+          include: {
+            course: true,
+            enrollments: { include: { student: { include: { user: true } } } },
+            timetableSlots: true
+          }
+        }
+      }
+    });
+  }
+
   if (!teacher) return null;
 
   return { teacherId: teacher.id, userId, teacher };
 }
 
 export async function getCurrentEmployeeScope() {
-  const { userId } = await getCurrentUserSession();
+  const { userId, role } = await getCurrentUserSession();
   if (!userId) return null;
 
-  const employee = await prisma.employee.findUnique({
+  let employee = await prisma.employee.findUnique({
     where: { userId },
     include: { department: true, user: true, payslips: true, leaveRequests: true }
   });
+
+  if (!employee && (role === "SUPER_ADMIN" || role === "ADMIN" || role === "DIRECTOR")) {
+    employee = await prisma.employee.findFirst({
+      include: { department: true, user: true, payslips: true, leaveRequests: true }
+    });
+  }
+
   if (!employee) return null;
 
   return { employeeId: employee.id, userId, employee };
 }
 
 export async function getCurrentSupervisorScope() {
-  const { userId } = await getCurrentUserSession();
+  const { userId, role } = await getCurrentUserSession();
   if (!userId) return null;
 
-  const employee = await prisma.employee.findUnique({
+  let employee = await prisma.employee.findUnique({
     where: { userId },
     include: { department: true, user: true }
   });
+
+  if (!employee && (role === "SUPER_ADMIN" || role === "ADMIN" || role === "DIRECTOR")) {
+    employee = await prisma.employee.findFirst({
+      where: { departmentId: { not: null as any } },
+      include: { department: true, user: true }
+    });
+  }
+
   if (!employee || !employee.departmentId) return null;
 
   return {

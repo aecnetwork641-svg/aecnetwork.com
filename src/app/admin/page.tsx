@@ -7,6 +7,7 @@ import { isOneOf } from "@/lib/permissions";
 
 const ADMIN_NAV = [
   { label: "Dashboard", href: "/admin" },
+  { label: "Users & Logins", href: "/admin/users" },
   { label: "Students", href: "/admin/students" },
   { label: "Teachers", href: "/admin/teachers" },
   { label: "Academics", href: "/admin/academics" },
@@ -164,6 +165,11 @@ export default async function AdminDashboard() {
               title: "Security & Audit Logs",
               href: "/admin/audit-logs",
               desc: "Full administrative action audit trail and RBAC."
+            },
+            {
+              title: "Users & Logins",
+              href: "/admin/users",
+              desc: "Create accounts, reset passwords, and manage all portal roles."
             }
           ].map((m) => (
             <Link
