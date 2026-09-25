@@ -5,83 +5,264 @@ export default function Footer() {
     <footer className="border-t border-aec-navy/10 bg-aec-navy text-white">
       <div className="container-aec grid gap-10 py-16 md:grid-cols-2 lg:grid-cols-5">
         {/* Brand & Mission */}
-        <div className="lg:col-span-2">
-          <div className="flex items-center gap-2 font-display text-xl font-bold tracking-tight text-white">
-            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-aec-teal text-white text-xs font-black">
+        <div className="lg:col-span-2 space-y-4">
+          <div className="flex items-center gap-2.5 font-display text-xl font-bold tracking-tight text-white">
+            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-aec-teal text-white text-sm font-black shadow-inner">
               AEC
             </span>
-            <span>AEC Network</span>
+            <span className="text-xl">
+              AEC <span className="text-aec-teal">Network</span>
+            </span>
           </div>
-          <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/75">
-            Akbar Education Communication Network provides structured, accessible online education,
-            vetted qualified instructors, personalized tutoring, and comprehensive academic support
-            for students globally.
+
+          <p className="max-w-sm text-sm leading-relaxed text-white/80">
+            <strong>Akbar Education Communication (AEC) Network</strong> provides structured, accessible online education, vetted qualified instructors, personalized 1-on-1 tutoring, and comprehensive academic support for students worldwide.
           </p>
-          <div className="mt-6 flex flex-wrap gap-2">
-            <span className="badge bg-white/10 text-white/90 border-white/20">Structured LMS</span>
-            <span className="badge bg-white/10 text-white/90 border-white/20">Live Classes</span>
-            <span className="badge bg-white/10 text-white/90 border-white/20">Parent Portal</span>
-            <span className="badge bg-white/10 text-white/90 border-white/20">Certified Faculty</span>
+
+          <div className="flex flex-wrap gap-2 pt-1">
+            <span className="badge bg-white/10 text-white/90 border-white/20 text-[11px]">🕌 Islamic Disciplines</span>
+            <span className="badge bg-white/10 text-white/90 border-white/20 text-[11px]">📚 Academic STEM</span>
+            <span className="badge bg-white/10 text-white/90 border-white/20 text-[11px]">🎓 GCSE / SAT / GRE</span>
+            <span className="badge bg-white/10 text-white/90 border-white/20 text-[11px]">💻 Coding & Web Dev</span>
+            <span className="badge bg-white/10 text-white/90 border-white/20 text-[11px]">👨‍🏫 1-on-1 & Cohorts</span>
           </div>
-          <p className="mt-6 text-xs text-white/40 leading-normal">
-            Note: Contact details, verified accreditation, and organizational certificates are maintained in accordance with AEC regulatory standards.
-          </p>
+
+          <div className="space-y-1.5 pt-2 text-xs text-white/70">
+            <p className="flex items-center gap-2">
+              <span className="text-emerald-400 font-bold">💬 WhatsApp:</span>
+              <a href="https://wa.me/923435999397" target="_blank" rel="noopener noreferrer" className="text-white hover:text-aec-teal transition">
+                +92 343 5999397
+              </a>
+            </p>
+            <p className="flex items-center gap-2">
+              <span className="text-aec-teal font-bold">✉️ Admissions:</span>
+              <a href="mailto:info@aecnetwork.com" className="text-white hover:text-aec-teal transition">
+                info@aecnetwork.com
+              </a>
+            </p>
+            <p className="flex items-center gap-2 text-white/60">
+              <span>🌐 Coverage:</span>
+              <span>Pakistan, UK, USA, Australia, UAE & Global</span>
+            </p>
+          </div>
         </div>
 
-        {/* Programs */}
+        {/* Academic Programs */}
         <div>
-          <p className="font-display text-sm font-semibold tracking-wide text-white uppercase">Programs</p>
-          <ul className="mt-4 space-y-2.5 text-sm text-white/70">
-            <li><Link href="/programs/quran-islamic-studies" className="hover:text-white transition">Quran & Islamic Studies</Link></li>
-            <li><Link href="/programs/english" className="hover:text-white transition">English Language</Link></li>
-            <li><Link href="/programs/arabic" className="hover:text-white transition">Arabic Studies</Link></li>
-            <li><Link href="/programs/mathematics" className="hover:text-white transition">Mathematics</Link></li>
-            <li><Link href="/programs/academic-support" className="hover:text-white transition">Academic Support</Link></li>
-            <li><Link href="/programs/one-to-one" className="hover:text-white transition">One-to-One Tutoring</Link></li>
-            <li><Link href="/programs/group-classes" className="hover:text-white transition">Group Cohorts</Link></li>
+          <p className="font-display text-xs font-bold tracking-wider text-aec-teal uppercase">
+            Academic Programs
+          </p>
+          <ul className="mt-4 space-y-2.5 text-xs text-white/75">
+            <li>
+              <Link href="/programs/quran-islamic-studies" className="hover:text-white transition">
+                Quran & Tajweed Mastery
+              </Link>
+            </li>
+            <li>
+              <Link href="/programs/translation-of-quran" className="hover:text-white transition">
+                Islamic Studies & Translation
+              </Link>
+            </li>
+            <li>
+              <Link href="/programs/qirat-course" className="hover:text-white transition">
+                Qirat & Melodic Recitation
+              </Link>
+            </li>
+            <li>
+              <Link href="/programs/gcse" className="hover:text-white transition">
+                GCSE & IGCSE Tutoring
+              </Link>
+            </li>
+            <li>
+              <Link href="/programs/o-a-levels" className="hover:text-white transition">
+                O & A Levels (Cambridge/Edexcel)
+              </Link>
+            </li>
+            <li>
+              <Link href="/programs/naplan" className="hover:text-white transition">
+                NAPLAN Preparation (Australia)
+              </Link>
+            </li>
+            <li>
+              <Link href="/programs/sat-tutoring" className="hover:text-white transition">
+                SAT & GRE Test Prep
+              </Link>
+            </li>
+            <li>
+              <Link href="/programs/computer-programming" className="hover:text-white transition">
+                Computer Programming & Coding
+              </Link>
+            </li>
+            <li>
+              <Link href="/programs/web-development" className="hover:text-white transition">
+                Web Designing & Development
+              </Link>
+            </li>
+            <li>
+              <Link href="/programs/social-media-marketing-smm" className="hover:text-white transition">
+                Social Media Marketing (SMM)
+              </Link>
+            </li>
+            <li className="pt-1">
+              <Link href="/programs" className="font-semibold text-aec-teal hover:underline flex items-center gap-1">
+                <span>View All 20+ Programs</span>
+                <span>→</span>
+              </Link>
+            </li>
           </ul>
         </div>
 
-        {/* Portals & Academics */}
+        {/* Portals */}
         <div>
-          <p className="font-display text-sm font-semibold tracking-wide text-white uppercase">Portals</p>
-          <ul className="mt-4 space-y-2.5 text-sm text-white/70">
-            <li><Link href="/admin" className="hover:text-white transition">Admin Portal</Link></li>
-            <li><Link href="/student" className="hover:text-white transition">Student Portal</Link></li>
-            <li><Link href="/parent" className="hover:text-white transition">Parent Portal</Link></li>
-            <li><Link href="/teacher" className="hover:text-white transition">Teacher Portal</Link></li>
-            <li><Link href="/academic" className="hover:text-white transition">Academic Administration</Link></li>
-            <li><Link href="/supervisor" className="hover:text-white transition">Supervisor Dashboard</Link></li>
-            <li><Link href="/finance" className="hover:text-white transition">Finance & Billing</Link></li>
-            <li><Link href="/hr" className="hover:text-white transition">HR & Staff Portal</Link></li>
-            <li><Link href="/super-admin" className="hover:text-white transition">Super Admin Portal</Link></li>
+          <p className="font-display text-xs font-bold tracking-wider text-aec-teal uppercase">
+            Portals & Systems
+          </p>
+          <ul className="mt-4 space-y-2.5 text-xs text-white/75">
+            <li>
+              <Link href="/admin" className="hover:text-white transition">
+                Admin Portal
+              </Link>
+            </li>
+            <li>
+              <Link href="/student" className="hover:text-white transition">
+                Student Portal
+              </Link>
+            </li>
+            <li>
+              <Link href="/parent" className="hover:text-white transition">
+                Parent Portal
+              </Link>
+            </li>
+            <li>
+              <Link href="/teacher" className="hover:text-white transition">
+                Teacher Portal
+              </Link>
+            </li>
+            <li>
+              <Link href="/academic" className="hover:text-white transition">
+                Academic Portal
+              </Link>
+            </li>
+            <li>
+              <Link href="/supervisor" className="hover:text-white transition">
+                Supervisor Portal
+              </Link>
+            </li>
+            <li>
+              <Link href="/finance" className="hover:text-white transition">
+                Finance & Invoices
+              </Link>
+            </li>
+            <li>
+              <Link href="/hr" className="hover:text-white transition">
+                HR & Payroll Portal
+              </Link>
+            </li>
+            <li>
+              <Link href="/super-admin" className="hover:text-white transition">
+                Super Admin Portal
+              </Link>
+            </li>
+            <li className="pt-1">
+              <Link href="/login" className="font-semibold text-aec-gold hover:underline">
+                Portal Login Gateway →
+              </Link>
+            </li>
           </ul>
         </div>
 
-        {/* Admissions & Support */}
+        {/* Admissions & Info */}
         <div>
-          <p className="font-display text-sm font-semibold tracking-wide text-white uppercase">Admissions & Info</p>
-          <ul className="mt-4 space-y-2.5 text-sm text-white/70">
-            <li><Link href="/admissions/how-to-enroll" className="hover:text-white transition">How to Enroll</Link></li>
-            <li><Link href="/admissions/free-trial" className="hover:text-white transition">Book a Free Trial</Link></li>
-            <li><Link href="/admissions/apply" className="hover:text-white transition">Online Admission Form</Link></li>
-            <li><Link href="/admissions/fees" className="hover:text-white transition">Fee Structure</Link></li>
-            <li><Link href="/admissions/faqs" className="hover:text-white transition">Admissions FAQs</Link></li>
-            <li><Link href="/resources" className="hover:text-white transition">Learning Resources</Link></li>
-            <li><Link href="/contact" className="hover:text-white transition">Contact & Support</Link></li>
-            <li><Link href="/verify-certificate/DEMO-VERIFY" className="hover:text-white transition">Verify Certificate</Link></li>
+          <p className="font-display text-xs font-bold tracking-wider text-aec-teal uppercase">
+            Admissions & Info
+          </p>
+          <ul className="mt-4 space-y-2.5 text-xs text-white/75">
+            <li>
+              <Link href="/about" className="hover:text-white transition font-medium">
+                About AEC Network
+              </Link>
+            </li>
+            <li>
+              <Link href="/about/mission-vision" className="hover:text-white transition">
+                Mission & Vision
+              </Link>
+            </li>
+            <li>
+              <Link href="/admissions/how-to-enroll" className="hover:text-white transition">
+                How to Enroll
+              </Link>
+            </li>
+            <li>
+              <Link href="/admissions/free-trial" className="text-emerald-400 font-semibold hover:underline">
+                Book a Free Trial Class
+              </Link>
+            </li>
+            <li>
+              <Link href="/admissions/apply" className="hover:text-white transition">
+                Online Admission Form
+              </Link>
+            </li>
+            <li>
+              <Link href="/admissions/fees" className="hover:text-white transition">
+                Fee Structure
+              </Link>
+            </li>
+            <li>
+              <Link href="/admissions/faqs" className="hover:text-white transition">
+                Admissions FAQs
+              </Link>
+            </li>
+            <li>
+              <Link href="/resources/free-resources" className="hover:text-white transition">
+                Free Study Worksheets
+              </Link>
+            </li>
+            <li>
+              <Link href="/learning/assessment" className="hover:text-white transition">
+                Placement Assessment
+              </Link>
+            </li>
+            <li>
+              <Link href="/contact" className="hover:text-white transition">
+                Contact & Support
+              </Link>
+            </li>
+            <li>
+              <Link href="/verify-certificate" className="hover:text-white transition">
+                Verify Certificate
+              </Link>
+            </li>
           </ul>
         </div>
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-white/10 bg-black/20 py-6">
-        <div className="container-aec flex flex-col items-center justify-between gap-4 text-xs text-white/50 sm:flex-row">
-          <p>© {new Date().getFullYear()} AEC Network — Akbar Education Communication Network. All rights reserved.</p>
-          <div className="flex gap-6">
-            <Link href="/about" className="hover:text-white transition">About</Link>
-            <Link href="/admissions/faqs" className="hover:text-white transition">FAQs</Link>
-            <Link href="/contact" className="hover:text-white transition">Contact</Link>
+      <div className="border-t border-white/10 bg-black/25 py-6">
+        <div className="container-aec flex flex-col items-center justify-between gap-4 text-xs text-white/60 sm:flex-row">
+          <p>
+            © {new Date().getFullYear()} AEC Network — Akbar Education Communication Network. All rights reserved.
+          </p>
+          <div className="flex flex-wrap items-center gap-6">
+            <Link href="/about" className="hover:text-white transition">
+              About Us
+            </Link>
+            <Link href="/programs" className="hover:text-white transition">
+              Programs
+            </Link>
+            <Link href="/admissions/faqs" className="hover:text-white transition">
+              FAQs
+            </Link>
+            <Link href="/contact" className="hover:text-white transition">
+              Contact
+            </Link>
+            <a
+              href="https://wa.me/923435999397"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-emerald-400 hover:text-emerald-300 font-semibold transition"
+            >
+              WhatsApp Us
+            </a>
           </div>
         </div>
       </div>
