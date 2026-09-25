@@ -59,23 +59,24 @@ export async function POST(req: Request) {
         },
       });
 
-      // 3. Create In-App Notification in DB for Admins
-      const adminUsers = await prisma.user.findMany({
+      // 3. Create 1 single In-App Notification in DB for Admin Center
+      const superAdmin = await prisma.user.findFirst({
         where: {
-          role: { in: ["SUPER_ADMIN", "ADMIN", "ADMISSIONS_OFFICER", "COUNSELOR"] },
+          role: { in: ["SUPER_ADMIN", "ADMIN"] },
           isActive: true,
         },
         select: { id: true },
-        take: 10,
       });
 
-      for (const admin of adminUsers) {
+      if (superAdmin) {
         await prisma.notification.create({
           data: {
-            userId: admin.id,
+            userId: superAdmin.id,
             title: `🎓 New Free Trial Request: ${fullName}`,
             body: `${fullName} has booked a Free Trial for "${programSlug}". Phone: ${phone || "N/A"}, Email: ${email}`,
-            type: "system",
+            type: "trial",
+            entityType: "trial_booking",
+            entityId: bookingId,
             channel: "in_app",
           },
         });

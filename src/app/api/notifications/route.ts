@@ -13,8 +13,8 @@ export async function GET() {
       return NextResponse.json({ notifications: [], unreadCount: 0 });
     }
 
-    // Fetch user-specific notifications or admin system broadcasts
-    const notifications = await prisma.notification.findMany({
+    // Fetch user-specific notifications
+    const rawNotifications = await prisma.notification.findMany({
       where: {
         OR: [
           { userId },
@@ -24,14 +24,25 @@ export async function GET() {
         ]
       },
       orderBy: { createdAt: "desc" },
-      take: 20
+      take: 40
     });
 
-    // Also fetch latest trial bookings to synthesize real-time alerts if DB notifications are fresh
+    // Deduplicate by title + body (or entityId) to ensure 1 notification per unique event
+    const seen = new Set<string>();
+    const notifications: typeof rawNotifications = [];
+
+    for (const n of rawNotifications) {
+      const key = `${n.title}__${n.body}`;
+      if (!seen.has(key)) {
+        seen.add(key);
+        notifications.push(n);
+      }
+    }
+
     const unreadCount = notifications.filter((n) => !n.readAt).length;
 
     return NextResponse.json({
-      notifications: notifications.map((n) => ({
+      notifications: notifications.slice(0, 20).map((n) => ({
         id: n.id,
         title: n.title,
         body: n.body,
@@ -83,5 +94,32 @@ export async function PATCH(req: Request) {
   } catch (error) {
     console.error("[NOTIFICATIONS_PATCH_ERROR]", error);
     return NextResponse.json({ error: "Failed to update notification" }, { status: 500 });
+  }
+}
+
+export async function DELETE(req: Request) {
+  try {
+    const session = await getServerSession(authOptions);
+    const userId = session?.user ? (session.user as { id?: string }).id : null;
+
+    if (!userId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const body = await req.json().catch(() => ({}));
+    const { id } = body;
+
+    if (!id) {
+      return NextResponse.json({ error: "Notification ID required" }, { status: 400 });
+    }
+
+    await prisma.notification.deleteMany({
+      where: { id }
+    });
+
+    return NextResponse.json({ success: true, message: "Notification deleted" });
+  } catch (error) {
+    console.error("[NOTIFICATIONS_DELETE_ERROR]", error);
+    return NextResponse.json({ error: "Failed to delete notification" }, { status: 500 });
   }
 }
