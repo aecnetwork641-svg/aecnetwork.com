@@ -10,6 +10,11 @@ if (!process.env.DIRECT_URL || process.env.DIRECT_URL.trim() === "") {
   process.env.DIRECT_URL = SUPABASE_DB_URL;
 }
 
+// Ensure NEXTAUTH_SECRET is never empty
+if (!process.env.NEXTAUTH_SECRET || process.env.NEXTAUTH_SECRET.trim() === "") {
+  process.env.NEXTAUTH_SECRET = "aec-network-development-secret-key-32-chars-minimum";
+}
+
 // Ensure NEXTAUTH_URL is never empty to avoid NextAuth parseUrl ERR_INVALID_URL during build/prerender
 if (!process.env.NEXTAUTH_URL || process.env.NEXTAUTH_URL.trim() === "") {
   if (process.env.VERCEL_URL) {

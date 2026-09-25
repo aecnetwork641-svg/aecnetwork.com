@@ -9,7 +9,7 @@ import { prisma } from "@/lib/prisma";
  * callback below attaches `role` so middleware can gate each portal route.
  */
 export const authOptions: NextAuthOptions = {
-  secret: process.env.NEXTAUTH_SECRET || "aec-network-secret-key-2026-production",
+  secret: process.env.NEXTAUTH_SECRET || "aec-network-development-secret-key-32-chars-minimum",
   session: { strategy: "jwt" },
   pages: {
     signIn: "/login"

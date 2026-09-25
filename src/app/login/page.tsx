@@ -53,13 +53,15 @@ function LoginForm() {
       const session = await getSession();
       const userRole = (session?.user as { role?: string } | undefined)?.role;
 
+      let targetUrl = "/admin";
       if (callbackUrl && !callbackUrl.includes("/login")) {
-        router.push(callbackUrl as any);
-      } else {
-        const redirectPath = getRoleRedirectPath(userRole);
-        router.push(redirectPath as any);
+        targetUrl = callbackUrl;
+      } else if (userRole) {
+        targetUrl = getRoleRedirectPath(userRole);
       }
-      router.refresh();
+
+      // Hard redirect to ensure auth cookies are cleanly transferred
+      window.location.href = targetUrl;
     } catch (err: any) {
       setErrorMessage(err?.message || "An unexpected error occurred. Please try again.");
       setLoading(false);
