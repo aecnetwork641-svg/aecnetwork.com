@@ -9,18 +9,19 @@ import { useState } from "react";
 import NotificationBell from "@/components/NotificationBell";
 
 const SUPER_ADMIN_PORTALS = [
-  { label: "👑 Super Admin", href: "/admin" },
+  { label: "👑 Super Admin", href: "/super-admin" },
+  { label: "🛡️ Admin Portal", href: "/admin" },
   { label: "🎓 Student Portal", href: "/student" },
   { label: "👨‍🏫 Teacher Portal", href: "/teacher" },
   { label: "👨‍👩‍👧 Parent Portal", href: "/parent" },
   { label: "📚 Academics", href: "/academic" },
+  { label: "👁️ Supervisor", href: "/supervisor" },
   { label: "💰 Finance", href: "/finance" },
-  { label: "👥 HR & Staff", href: "/hr" },
-  { label: "👁️ Supervisor", href: "/supervisor" }
+  { label: "👥 HR & Staff", href: "/hr" }
 ];
 
 const ADMIN_ALLOWED_PORTALS = [
-  { label: "🛡️ Operations Admin", href: "/admin" },
+  { label: "🛡️ Admin Portal", href: "/admin" },
   { label: "🎓 Student Portal", href: "/student" },
   { label: "👨‍🏫 Teacher Portal", href: "/teacher" },
   { label: "👨‍👩‍👧 Parent Portal", href: "/parent" },

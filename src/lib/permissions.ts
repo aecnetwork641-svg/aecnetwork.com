@@ -108,6 +108,7 @@ export function isOneOf(role?: string | null, allowedRoles: RoleName[] = []): bo
 export function getRoleRedirectPath(role?: string | null): string {
   switch (role) {
     case "SUPER_ADMIN":
+      return "/super-admin";
     case "ADMIN":
     case "DIRECTOR":
     case "STAFF":

@@ -70,7 +70,7 @@ const NAV: NavItem[] = [
       { label: "Supervisor Portal", href: "/supervisor", desc: "Team & class quality monitoring" },
       { label: "Finance Portal", href: "/finance", desc: "Invoices, payroll & expenses" },
       { label: "HR Portal", href: "/hr", desc: "Staff directory, leave & attendance" },
-      { label: "Super Admin Portal", href: "/admin", desc: "Master settings & audit logs" }
+      { label: "Super Admin Portal", href: "/super-admin", desc: "Master settings & audit logs" }
     ]
   },
   {

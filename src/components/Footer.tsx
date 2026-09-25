@@ -54,7 +54,7 @@ export default function Footer() {
             <li><Link href="/supervisor" className="hover:text-white transition">Supervisor Dashboard</Link></li>
             <li><Link href="/finance" className="hover:text-white transition">Finance & Billing</Link></li>
             <li><Link href="/hr" className="hover:text-white transition">HR & Staff Portal</Link></li>
-            <li><Link href="/admin" className="hover:text-white transition">Super Admin Portal</Link></li>
+            <li><Link href="/super-admin" className="hover:text-white transition">Super Admin Portal</Link></li>
           </ul>
         </div>
 
