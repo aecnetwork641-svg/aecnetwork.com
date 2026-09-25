@@ -62,14 +62,15 @@ const NAV: NavItem[] = [
     label: "Portals",
     href: "/login",
     children: [
+      { label: "Admin Portal", href: "/admin", desc: "Students, teachers, parents & operations" },
       { label: "Student Portal", href: "/student", desc: "Classes, assignments & results" },
-      { label: "Parent Portal", href: "/parent", desc: "Children tracking & billing" },
+      { label: "Parent Portal", href: "/parent", desc: "Children tracking & progress" },
       { label: "Teacher Portal", href: "/teacher", desc: "Attendance, grading & schedule" },
       { label: "Academic Portal", href: "/academic", desc: "Curriculum & faculty oversight" },
+      { label: "Supervisor Portal", href: "/supervisor", desc: "Team & class quality monitoring" },
       { label: "Finance Portal", href: "/finance", desc: "Invoices, payroll & expenses" },
       { label: "HR Portal", href: "/hr", desc: "Staff directory, leave & attendance" },
-      { label: "Supervisor Portal", href: "/supervisor", desc: "Team & class monitoring" },
-      { label: "Admin Dashboard", href: "/admin", desc: "System settings & audit logs" }
+      { label: "Super Admin Portal", href: "/admin", desc: "Master settings & audit logs" }
     ]
   },
   {

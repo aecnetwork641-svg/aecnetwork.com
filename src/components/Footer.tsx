@@ -46,14 +46,15 @@ export default function Footer() {
         <div>
           <p className="font-display text-sm font-semibold tracking-wide text-white uppercase">Portals</p>
           <ul className="mt-4 space-y-2.5 text-sm text-white/70">
+            <li><Link href="/admin" className="hover:text-white transition">Admin Portal</Link></li>
             <li><Link href="/student" className="hover:text-white transition">Student Portal</Link></li>
             <li><Link href="/parent" className="hover:text-white transition">Parent Portal</Link></li>
             <li><Link href="/teacher" className="hover:text-white transition">Teacher Portal</Link></li>
             <li><Link href="/academic" className="hover:text-white transition">Academic Administration</Link></li>
+            <li><Link href="/supervisor" className="hover:text-white transition">Supervisor Dashboard</Link></li>
             <li><Link href="/finance" className="hover:text-white transition">Finance & Billing</Link></li>
             <li><Link href="/hr" className="hover:text-white transition">HR & Staff Portal</Link></li>
-            <li><Link href="/supervisor" className="hover:text-white transition">Supervisor Dashboard</Link></li>
-            <li><Link href="/admin" className="hover:text-white transition">Admin Dashboard</Link></li>
+            <li><Link href="/admin" className="hover:text-white transition">Super Admin Portal</Link></li>
           </ul>
         </div>
 
