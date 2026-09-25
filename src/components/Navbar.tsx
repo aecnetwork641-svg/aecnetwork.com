@@ -75,20 +75,6 @@ const NAV: NavItem[] = [
     ]
   },
   {
-    label: "Learning",
-    href: "/courses",
-    children: [
-      { label: "All LMS Courses", href: "/courses", desc: "Browse full 19+ course catalog" },
-      { label: "Tajweed & Quran Courses", href: "/courses/tajweed-course", desc: "Qaida, Tajweed, Qirat & Hifz" },
-      { label: "GCSE, A-Levels & SAT Prep", href: "/courses/gcse", desc: "Board exams & international tests" },
-      { label: "Coding & IT Skills", href: "/courses/computer-programming", desc: "Programming, Web Dev & SMM" },
-      { label: "STEM & Languages", href: "/courses/science", desc: "Science, Math, English & Arabic" },
-      { label: "Learning Paths", href: "/learning/paths", desc: "Structured progression routes" },
-      { label: "Free Resources", href: "/resources/free-resources", desc: "Guides, worksheets & tools" },
-      { label: "Placement Assessment", href: "/learning/assessment", desc: "Evaluate your level" }
-    ]
-  },
-  {
     label: "Admissions",
     href: "/admissions",
     children: [
@@ -121,8 +107,10 @@ const NAV: NavItem[] = [
     children: [
       { label: "Blog & Articles", href: "/blog", desc: "Educational articles & updates" },
       { label: "Study Resources", href: "/resources", desc: "General academic materials" },
+      { label: "Free Resources", href: "/resources/free-resources", desc: "Downloadable guides & worksheets" },
       { label: "Islamic Resources", href: "/resources/islamic", desc: "Quran & Tajweed supplements" },
-      { label: "Academic Resources", href: "/resources/academic", desc: "Math & language worksheets" }
+      { label: "Academic Resources", href: "/resources/academic", desc: "Math & language worksheets" },
+      { label: "Placement Assessment", href: "/learning/assessment", desc: "Evaluate your learning level" }
     ]
   },
   { label: "Contact", href: "/contact" }
