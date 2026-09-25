@@ -197,3 +197,108 @@ export async function PATCH(req: Request) {
     return NextResponse.json({ error: "Failed to update user." }, { status: 500 });
   }
 }
+
+export async function DELETE(req: Request) {
+  try {
+    const { userId, role: callerRole } = await getCurrentUserSession();
+    if (!userId || !isOneOf(callerRole, ["SUPER_ADMIN"])) {
+      return NextResponse.json({ error: "Unauthorized access" }, { status: 403 });
+    }
+
+    const { searchParams } = new URL(req.url);
+    let id = searchParams.get("id");
+    if (!id) {
+      const body = await req.json().catch(() => ({}));
+      id = body?.id;
+    }
+
+    if (!id) {
+      return NextResponse.json({ error: "User ID is required." }, { status: 400 });
+    }
+
+    if (id === userId) {
+      return NextResponse.json(
+        { error: "You cannot delete your own currently logged-in Super Admin account." },
+        { status: 400 }
+      );
+    }
+
+    const targetUser = await prisma.user.findUnique({
+      where: { id }
+    });
+
+    if (!targetUser) {
+      return NextResponse.json({ error: "User not found." }, { status: 404 });
+    }
+
+    // Clean up relations safely in transaction
+    await prisma.$transaction(async (tx) => {
+      // 1. Delete notifications
+      await tx.notification.deleteMany({ where: { userId: id } }).catch(() => {});
+      // 2. Delete messages & conversation members
+      await tx.message.deleteMany({ where: { OR: [{ senderId: id }, { receiverId: id }] } }).catch(() => {});
+      await tx.conversationMember.deleteMany({ where: { userId: id } }).catch(() => {});
+      // 3. Delete announcements & audit logs created by user
+      await tx.announcement.deleteMany({ where: { authorId: id } }).catch(() => {});
+      await tx.auditLog.deleteMany({ where: { actorId: id } }).catch(() => {});
+
+      // 4. Delete profile records (Student, Teacher, ParentProfile, Employee)
+      const student = await tx.student.findUnique({ where: { userId: id } }).catch(() => null);
+      if (student) {
+        await tx.attendance.deleteMany({ where: { studentId: student.id } }).catch(() => {});
+        await tx.submission.deleteMany({ where: { studentId: student.id } }).catch(() => {});
+        await tx.result.deleteMany({ where: { studentId: student.id } }).catch(() => {});
+        await tx.assessmentSubmission.deleteMany({ where: { studentId: student.id } }).catch(() => {});
+        await tx.enrollment.deleteMany({ where: { studentId: student.id } }).catch(() => {});
+        await tx.invoice.deleteMany({ where: { studentId: student.id } }).catch(() => {});
+        await tx.lessonProgress.deleteMany({ where: { studentId: student.id } }).catch(() => {});
+        await tx.quizAttempt.deleteMany({ where: { studentId: student.id } }).catch(() => {});
+        await tx.certificate.deleteMany({ where: { studentId: student.id } }).catch(() => {});
+        await tx.studentDocument.deleteMany({ where: { studentId: student.id } }).catch(() => {});
+        await tx.task.deleteMany({ where: { studentId: student.id } }).catch(() => {});
+        await tx.teacherFeedback.deleteMany({ where: { studentId: student.id } }).catch(() => {});
+        await tx.progressReport.deleteMany({ where: { studentId: student.id } }).catch(() => {});
+        await tx.feeDiscount.deleteMany({ where: { studentId: student.id } }).catch(() => {});
+        await tx.scholarship.deleteMany({ where: { studentId: student.id } }).catch(() => {});
+        await tx.student.delete({ where: { id: student.id } }).catch(() => {});
+      }
+
+      const teacher = await tx.teacher.findUnique({ where: { userId: id } }).catch(() => null);
+      if (teacher) {
+        await tx.teacherFeedback.deleteMany({ where: { teacherId: teacher.id } }).catch(() => {});
+        await tx.teacher.delete({ where: { id: teacher.id } }).catch(() => {});
+      }
+
+      const parent = await tx.parentProfile.findUnique({ where: { userId: id } }).catch(() => null);
+      if (parent) {
+        await tx.student.updateMany({ where: { guardianId: parent.id }, data: { guardianId: null } }).catch(() => {});
+        await tx.parentProfile.delete({ where: { id: parent.id } }).catch(() => {});
+      }
+
+      const employee = await tx.employee.findUnique({ where: { userId: id } }).catch(() => null);
+      if (employee) {
+        await tx.leaveRequest.deleteMany({ where: { employeeId: employee.id } }).catch(() => {});
+        await tx.payslip.deleteMany({ where: { employeeId: employee.id } }).catch(() => {});
+        await tx.salaryComponent.deleteMany({ where: { employeeId: employee.id } }).catch(() => {});
+        await tx.employeeDocument.deleteMany({ where: { employeeId: employee.id } }).catch(() => {});
+        await tx.performanceReview.deleteMany({ where: { employeeId: employee.id } }).catch(() => {});
+        await tx.staffAttendance.deleteMany({ where: { employeeId: employee.id } }).catch(() => {});
+        await tx.employee.delete({ where: { id: employee.id } }).catch(() => {});
+      }
+
+      // 5. Finally delete the user
+      await tx.user.delete({ where: { id } });
+    });
+
+    return NextResponse.json({
+      success: true,
+      message: `User "${targetUser.name}" (${targetUser.email}) has been permanently deleted.`
+    });
+  } catch (error: any) {
+    console.error("[ADMIN_USER_DELETE_ERROR]", error);
+    return NextResponse.json(
+      { error: error.message || "Failed to delete user account." },
+      { status: 500 }
+    );
+  }
+}

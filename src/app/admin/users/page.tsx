@@ -47,6 +47,10 @@ export default function AdminUsersPage() {
   const [passwordModalUser, setPasswordModalUser] = useState<UserItem | null>(null);
   const [newPassword, setNewPassword] = useState("");
   const [passwordLoading, setPasswordLoading] = useState(false);
+
+  const [deleteModalUser, setDeleteModalUser] = useState<UserItem | null>(null);
+  const [deleteLoading, setDeleteLoading] = useState(false);
+
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   const fetchUsers = async () => {
@@ -134,6 +138,28 @@ export default function AdminUsersPage() {
       }
     } catch (err) {
       alert("Error updating status");
+    }
+  };
+
+  const handleDeleteUser = async () => {
+    if (!deleteModalUser) return;
+    setDeleteLoading(true);
+    try {
+      const res = await fetch(`/api/admin/users?id=${deleteModalUser.id}`, {
+        method: "DELETE"
+      });
+      const data = await res.json();
+      if (res.ok) {
+        setUsers(users.filter((u) => u.id !== deleteModalUser.id));
+        setToastMessage(`User account "${deleteModalUser.name}" (${deleteModalUser.email}) was deleted successfully.`);
+        setDeleteModalUser(null);
+      } else {
+        alert(data.error || "Failed to delete user account.");
+      }
+    } catch (err) {
+      alert("Network error while deleting user.");
+    } finally {
+      setDeleteLoading(false);
     }
   };
 
@@ -279,11 +305,18 @@ export default function AdminUsersPage() {
                         onClick={() => handleToggleActive(u)}
                         className={`rounded-lg px-2.5 py-1 text-[11px] font-bold transition shadow-2xs ${
                           u.isActive
-                            ? "border border-rose-200 text-rose-700 hover:bg-rose-50"
-                            : "border border-emerald-200 text-emerald-700 hover:bg-emerald-50"
+                            ? "border border-amber-200 bg-amber-50 text-amber-700 hover:bg-amber-100"
+                            : "border border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-100"
                         }`}
                       >
                         {u.isActive ? "Deactivate" : "Activate"}
+                      </button>
+                      <button
+                        onClick={() => setDeleteModalUser(u)}
+                        className="rounded-lg border border-rose-200 bg-rose-50 text-rose-700 hover:bg-rose-100 px-2.5 py-1 text-[11px] font-bold transition shadow-2xs"
+                        title="Permanently remove user"
+                      >
+                        Delete
                       </button>
                     </td>
                   </tr>
@@ -432,6 +465,62 @@ export default function AdminUsersPage() {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+      {/* Modal: Delete Confirmation */}
+      {deleteModalUser && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 p-4">
+          <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl border border-rose-100">
+            <div className="flex items-center gap-3 pb-3 border-b border-slate-100 text-rose-600">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-rose-100 text-rose-600">
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+              </div>
+              <div>
+                <h3 className="font-bold text-slate-900 text-base">Delete User Account</h3>
+                <p className="text-xs text-slate-500">Permanent action cannot be undone</p>
+              </div>
+            </div>
+
+            <div className="mt-4 rounded-xl bg-slate-50 border border-slate-200 p-3.5 space-y-1.5 text-xs text-slate-700">
+              <div><strong>Name:</strong> {deleteModalUser.name}</div>
+              <div><strong>Email:</strong> {deleteModalUser.email}</div>
+              <div><strong>Role:</strong> <span className="font-mono uppercase font-bold text-slate-900">{deleteModalUser.role}</span></div>
+            </div>
+
+            <p className="mt-3 text-xs text-slate-600 leading-relaxed">
+              Are you sure you want to delete this user? This will permanently remove their credentials and associated portal profile records.
+            </p>
+
+            <div className="mt-5 flex gap-2">
+              <button
+                type="button"
+                onClick={() => setDeleteModalUser(null)}
+                disabled={deleteLoading}
+                className="w-1/2 rounded-xl border border-slate-200 py-2.5 font-bold text-slate-600 hover:bg-slate-50 text-xs transition disabled:opacity-50"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={handleDeleteUser}
+                disabled={deleteLoading}
+                className="w-1/2 rounded-xl bg-rose-600 py-2.5 font-bold text-white shadow-sm hover:bg-rose-700 text-xs transition disabled:opacity-50 flex items-center justify-center gap-2"
+              >
+                {deleteLoading ? (
+                  <span>Deleting...</span>
+                ) : (
+                  <>
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                    <span>Yes, Delete Account</span>
+                  </>
+                )}
+              </button>
+            </div>
           </div>
         </div>
       )}
