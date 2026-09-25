@@ -2,40 +2,58 @@ import Link from "next/link";
 
 const PROGRAMS = [
   {
-    title: "Quran & Islamic Studies",
+    title: "Quran & Tajweed Mastery",
     slug: "quran-islamic-studies",
     level: "Beginner to Advanced",
-    blurb: "Structured, teacher-led learning of Noorani Qaida, Tajweed, Quran recitation, Memorization (Hifz), and Islamic Studies foundations."
+    blurb: "Structured, teacher-led learning of Noorani Qaida, Tajweed rules, fluent Nazra recitation, and Hifz memorization."
   },
   {
-    title: "English Language Mastery",
-    slug: "english",
-    level: "All Levels",
-    blurb: "Spoken communication, functional grammar, reading comprehension, and academic writing guided by experienced ESL educators."
+    title: "GCSE & A Levels Prep",
+    slug: "gcse",
+    level: "UK & International Boards",
+    blurb: "Expert subject coaching in Math, Sciences, and Humanities with 10-year past paper walkthroughs and grade boosters."
   },
   {
-    title: "Arabic Language",
-    slug: "arabic",
-    level: "Foundational to Fluent",
-    blurb: "Classical Arabic (Fusha) and Quranic vocabulary for comprehension and daily conversational fluency."
+    title: "Computer Programming & Coding",
+    slug: "computer-programming",
+    level: "Beginner to Advanced",
+    blurb: "Practical hands-on coding in Python, C++, and JavaScript with real-world game development and logic building."
   },
   {
     title: "Mathematics & Analytical Thinking",
     slug: "mathematics",
     level: "Grades 1–12",
-    blurb: "Curriculum-aligned mathematical instruction from fundamental numeracy and mental math to algebra, geometry, and calculus."
+    blurb: "Curriculum-aligned mathematical instruction from fundamental numeracy and algebra to geometry, trigonometry, and calculus."
   },
   {
-    title: "Academic & School Support",
-    slug: "academic-support",
+    title: "Web Designing & Development",
+    slug: "web-development",
+    level: "Full Stack Track",
+    blurb: "Learn modern responsive UI/UX, HTML5, CSS3, Tailwind, React, Next.js, and backend database systems."
+  },
+  {
+    title: "SAT & Digital SAT Tutoring",
+    slug: "sat-tutoring",
+    level: "College Prep (Target 1500+)",
+    blurb: "Adaptive testing tactics, Desmos calculator shortcuts, and evidence-based reading/writing score boosters."
+  },
+  {
+    title: "English Language Mastery",
+    slug: "english",
+    level: "All Levels",
+    blurb: "Spoken communication fluency, functional grammar, reading comprehension, and academic essay writing."
+  },
+  {
+    title: "Islamic Studies & Quran Translation",
+    slug: "translation-of-quran",
+    level: "All Age Groups",
+    blurb: "Word-by-word translation, contextual Tafseer, Hadith studies, Fiqh, and Prophetic Seerah values."
+  },
+  {
+    title: "Science (Physics, Chemistry, Biology)",
+    slug: "science",
     level: "Primary & Secondary",
-    blurb: "Subject-specific tutoring, homework guidance, concept reinforcement, and targeted examination preparation."
-  },
-  {
-    title: "Professional & Digital Skills",
-    slug: "professional-skills",
-    level: "Foundational",
-    blurb: "Practical digital literacy, educational technology, and practical skill-building courses for lifelong learners."
+    blurb: "Concept-first scientific inquiry, visual experiments, diagrammatic explanations, and term exam prep."
   }
 ];
 
