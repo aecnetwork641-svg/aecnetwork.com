@@ -18,7 +18,17 @@ const PORTAL_ROLE_MAP: Record<string, string[]> = {
 export async function middleware(req: NextRequest) {
   try {
     const secret = process.env.NEXTAUTH_SECRET || "aec-network-development-secret-key-32-chars-minimum";
-    const token = await getToken({ req, secret });
+    const isHttps = req.nextUrl.protocol === "https:" || req.headers.get("x-forwarded-proto") === "https" || req.url.startsWith("https://");
+
+    // NextAuth on HTTPS (Vercel) uses __Secure- prefix. Try both secure and non-secure cookie formats.
+    let token = await getToken({ req, secret, secureCookie: isHttps });
+    if (!token && isHttps) {
+      token = await getToken({ req, secret, secureCookie: false });
+    }
+    if (!token && !isHttps) {
+      token = await getToken({ req, secret, secureCookie: true });
+    }
+
     const path = req.nextUrl.pathname;
     const role = (token as { role?: string } | null)?.role;
 
