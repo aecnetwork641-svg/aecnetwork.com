@@ -92,8 +92,72 @@ export default async function AdminDashboard() {
   const attendanceRate =
     totalAttendances > 0 ? Math.round((presentAttendances / totalAttendances) * 100) : 100;
 
+  const isSuperAdmin = role === "SUPER_ADMIN";
+
+  const adminModules = [
+    {
+      title: "Students Roster",
+      href: "/admin/students",
+      desc: "Manage enrollment status, student codes, and profiles."
+    },
+    {
+      title: "Teachers Directory",
+      href: "/admin/teachers",
+      desc: "Instructor allocation, specialties, and course loads."
+    },
+    {
+      title: "Academic Management",
+      href: "/admin/academics",
+      desc: "Curricula, cohorts, timetables, and progress reports."
+    },
+    {
+      title: "Supervisor Hub",
+      href: "/supervisor",
+      desc: "Live class observation, quality monitoring, and staff reviews."
+    },
+    {
+      title: "Parent Portal View",
+      href: "/parent",
+      desc: "Parent accounts, linked student progress, and parent feedback."
+    },
+    {
+      title: "Admissions CRM",
+      href: "/admin/admissions",
+      desc: "Full pipeline from lead to active enrollment."
+    },
+    {
+      title: "Communication Center",
+      href: "/admin/communication",
+      desc: "Announcements, notifications, and internal messages."
+    },
+    ...(isSuperAdmin
+      ? [
+          {
+            title: "Finance & Invoices",
+            href: "/admin/finance",
+            desc: "Tuition plans, payment clearing, and financial statements."
+          },
+          {
+            title: "HR & Staff Management",
+            href: "/admin/hr",
+            desc: "Employee files, leave approvals, and payroll."
+          },
+          {
+            title: "Security & Audit Logs",
+            href: "/admin/audit-logs",
+            desc: "Full administrative action audit trail and RBAC."
+          },
+          {
+            title: "Users & Logins",
+            href: "/admin/users",
+            desc: "Create accounts, reset passwords, and manage all portal roles."
+          }
+        ]
+      : [])
+  ];
+
   return (
-    <PortalShell role="Super Admin Dashboard" navItems={ADMIN_NAV} title="AEC Network Administration">
+    <PortalShell role={isSuperAdmin ? "Super Admin Dashboard" : "Admin Dashboard"} navItems={ADMIN_NAV} title="AEC Network Administration">
       {/* Primary KPI Grid */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <div className="card">
@@ -102,39 +166,51 @@ export default async function AdminDashboard() {
           <p className="text-xs text-aec-navy/60 mt-1">{activeStudents} Active enrollments</p>
         </div>
         <div className="card">
-          <p className="text-xs text-aec-navy/50 font-semibold uppercase tracking-wider">Instructors & Staff</p>
-          <p className="mt-1 text-3xl font-bold text-aec-navy">{totalTeachers + totalEmployees}</p>
-          <p className="text-xs text-aec-navy/60 mt-1">{totalTeachers} Teachers &bull; {totalEmployees} Staff</p>
+          <p className="text-xs text-aec-navy/50 font-semibold uppercase tracking-wider">Instructors & Faculty</p>
+          <p className="mt-1 text-3xl font-bold text-aec-navy">{totalTeachers}</p>
+          <p className="text-xs text-aec-navy/60 mt-1">{totalTeachers} Active Teaching Staff</p>
         </div>
         <div className="card">
-          <p className="text-xs text-aec-navy/50 font-semibold uppercase tracking-wider">Academics</p>
+          <p className="text-xs text-aec-navy/50 font-semibold uppercase tracking-wider">Academics & Cohorts</p>
           <p className="mt-1 text-3xl font-bold text-aec-navy">{totalCourses}</p>
           <p className="text-xs text-aec-navy/60 mt-1">{totalClasses} Active cohorts &bull; {attendanceRate}% Attendance</p>
         </div>
-        <div className="card">
-          <p className="text-xs text-aec-navy/50 font-semibold uppercase tracking-wider">Net Collections</p>
-          <p className="mt-1 text-3xl font-bold text-emerald-600">${totalRevenue.toLocaleString()}</p>
-          <p className="text-xs text-aec-navy/60 mt-1">${pendingFees.toLocaleString()} Pending dues</p>
-        </div>
+        {isSuperAdmin ? (
+          <div className="card">
+            <p className="text-xs text-aec-navy/50 font-semibold uppercase tracking-wider">Net Collections</p>
+            <p className="mt-1 text-3xl font-bold text-emerald-600">${totalRevenue.toLocaleString()}</p>
+            <p className="text-xs text-aec-navy/60 mt-1">${pendingFees.toLocaleString()} Pending dues</p>
+          </div>
+        ) : (
+          <div className="card">
+            <p className="text-xs text-aec-navy/50 font-semibold uppercase tracking-wider">Admissions & Trials</p>
+            <p className="mt-1 text-3xl font-bold text-aec-navy">{totalLeads}</p>
+            <p className="text-xs text-aec-navy/60 mt-1">{totalApplications} Applications in pipeline</p>
+          </div>
+        )}
       </div>
 
       {/* Secondary Metrics Row */}
-      <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className={`mt-4 grid gap-4 sm:grid-cols-2 ${isSuperAdmin ? "lg:grid-cols-4" : "lg:grid-cols-2"}`}>
         <div className="card py-3">
           <p className="text-[11px] text-aec-navy/50 font-semibold uppercase">CRM Leads Pipeline</p>
           <p className="mt-0.5 text-xl font-bold text-aec-navy">{totalLeads}</p>
           <p className="text-[11px] text-aec-navy/60">{totalApplications} Applications</p>
         </div>
-        <div className="card py-3">
-          <p className="text-[11px] text-aec-navy/50 font-semibold uppercase">Operational Expenses</p>
-          <p className="mt-0.5 text-xl font-bold text-rose-600">${totalExpenses.toLocaleString()}</p>
-          <p className="text-[11px] text-aec-navy/60">Recorded outflows</p>
-        </div>
-        <div className="card py-3">
-          <p className="text-[11px] text-aec-navy/50 font-semibold uppercase">Pending Leave Requests</p>
-          <p className="mt-0.5 text-xl font-bold text-amber-600">{pendingLeaves}</p>
-          <p className="text-[11px] text-aec-navy/60">Awaiting HR sign-off</p>
-        </div>
+        {isSuperAdmin && (
+          <>
+            <div className="card py-3">
+              <p className="text-[11px] text-aec-navy/50 font-semibold uppercase">Operational Expenses</p>
+              <p className="mt-0.5 text-xl font-bold text-rose-600">${totalExpenses.toLocaleString()}</p>
+              <p className="text-[11px] text-aec-navy/60">Recorded outflows</p>
+            </div>
+            <div className="card py-3">
+              <p className="text-[11px] text-aec-navy/50 font-semibold uppercase">Pending Leave Requests</p>
+              <p className="mt-0.5 text-xl font-bold text-amber-600">{pendingLeaves}</p>
+              <p className="text-[11px] text-aec-navy/60">Awaiting HR sign-off</p>
+            </div>
+          </>
+        )}
         <div className="card py-3">
           <p className="text-[11px] text-aec-navy/50 font-semibold uppercase">System Tasks & Alerts</p>
           <p className="mt-0.5 text-xl font-bold text-aec-navy">{tasksCount}</p>
@@ -145,56 +221,10 @@ export default async function AdminDashboard() {
       {/* Core Ecosystem Management Cards */}
       <div className="mt-8">
         <h2 className="text-sm font-bold uppercase tracking-wider text-aec-navy/60 mb-4">
-          Core Academy Portals & Ecosystem Modules
+          {isSuperAdmin ? "Core Academy Portals & Ecosystem Modules" : "Admin Operations & Accessible Portals"}
         </h2>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {[
-            {
-              title: "Students Roster",
-              href: "/admin/students",
-              desc: "Manage enrollment status, student codes, and profiles."
-            },
-            {
-              title: "Teachers Directory",
-              href: "/admin/teachers",
-              desc: "Instructor allocation, specialties, and course loads."
-            },
-            {
-              title: "Academic Management",
-              href: "/admin/academics",
-              desc: "Curricula, cohorts, timetables, and progress reports."
-            },
-            {
-              title: "Admissions CRM",
-              href: "/admin/admissions",
-              desc: "Full pipeline from lead to active enrollment."
-            },
-            {
-              title: "Finance & Invoices",
-              href: "/admin/finance",
-              desc: "Tuition plans, payment clearing, and financial statements."
-            },
-            {
-              title: "HR & Staff Management",
-              href: "/admin/hr",
-              desc: "Employee files, leave approvals, and payroll."
-            },
-            {
-              title: "Communication Center",
-              href: "/admin/communication",
-              desc: "Announcements, notifications, and internal messages."
-            },
-            {
-              title: "Security & Audit Logs",
-              href: "/admin/audit-logs",
-              desc: "Full administrative action audit trail and RBAC."
-            },
-            {
-              title: "Users & Logins",
-              href: "/admin/users",
-              desc: "Create accounts, reset passwords, and manage all portal roles."
-            }
-          ].map((m) => (
+          {adminModules.map((m) => (
             <Link
               key={m.title}
               href={m.href as any}

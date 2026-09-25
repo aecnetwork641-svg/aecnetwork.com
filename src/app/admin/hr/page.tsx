@@ -1,6 +1,9 @@
 import PortalShell from "@/components/PortalShell";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
+import { getCurrentUserSession } from "@/lib/scoped-queries";
+import { redirect } from "next/navigation";
+import { isOneOf } from "@/lib/permissions";
 
 const ADMIN_NAV = [
   { label: "Dashboard", href: "/admin" },
@@ -17,6 +20,11 @@ const ADMIN_NAV = [
 ];
 
 export default async function AdminHRPage() {
+  const { userId, role } = await getCurrentUserSession();
+  if (!userId || !isOneOf(role, ["SUPER_ADMIN", "HR", "HR_MANAGER", "DIRECTOR"])) {
+    redirect("/login?error=AccessDenied");
+  }
+
   let empCount = 8;
   let deptCount = 4;
   let pendingLeaves = 2;

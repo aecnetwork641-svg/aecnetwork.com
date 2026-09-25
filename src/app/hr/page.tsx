@@ -8,7 +8,7 @@ import { prisma } from "@/lib/prisma";
 
 export default async function HRDashboard() {
   const { userId, role } = await getCurrentUserSession();
-  if (!userId || !isOneOf(role, ["SUPER_ADMIN", "ADMIN", "HR", "HR_MANAGER", "DIRECTOR"])) {
+  if (!userId || !isOneOf(role, ["SUPER_ADMIN", "HR", "HR_MANAGER", "DIRECTOR"])) {
     redirect("/login?error=AccessDenied");
   }
 

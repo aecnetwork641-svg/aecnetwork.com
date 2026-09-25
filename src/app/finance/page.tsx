@@ -8,7 +8,7 @@ import { prisma } from "@/lib/prisma";
 
 export default async function FinanceDashboard() {
   const { userId, role } = await getCurrentUserSession();
-  if (!userId || !isOneOf(role, ["SUPER_ADMIN", "ADMIN", "FINANCE", "FINANCE_MANAGER", "DIRECTOR"])) {
+  if (!userId || !isOneOf(role, ["SUPER_ADMIN", "FINANCE", "FINANCE_MANAGER", "DIRECTOR"])) {
     redirect("/login?error=AccessDenied");
   }
 

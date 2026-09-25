@@ -42,7 +42,7 @@ const updateUserSchema = z.object({
 export async function GET() {
   try {
     const { userId, role } = await getCurrentUserSession();
-    if (!userId || !isOneOf(role, ["SUPER_ADMIN", "ADMIN", "DIRECTOR"])) {
+    if (!userId || !isOneOf(role, ["SUPER_ADMIN"])) {
       return NextResponse.json({ error: "Unauthorized access" }, { status: 403 });
     }
 
@@ -69,7 +69,7 @@ export async function GET() {
 export async function POST(req: Request) {
   try {
     const { userId, role: callerRole } = await getCurrentUserSession();
-    if (!userId || !isOneOf(callerRole, ["SUPER_ADMIN", "ADMIN"])) {
+    if (!userId || !isOneOf(callerRole, ["SUPER_ADMIN"])) {
       return NextResponse.json({ error: "Unauthorized access" }, { status: 403 });
     }
 
@@ -161,7 +161,7 @@ export async function POST(req: Request) {
 export async function PATCH(req: Request) {
   try {
     const { userId, role: callerRole } = await getCurrentUserSession();
-    if (!userId || !isOneOf(callerRole, ["SUPER_ADMIN", "ADMIN"])) {
+    if (!userId || !isOneOf(callerRole, ["SUPER_ADMIN"])) {
       return NextResponse.json({ error: "Unauthorized access" }, { status: 403 });
     }
 

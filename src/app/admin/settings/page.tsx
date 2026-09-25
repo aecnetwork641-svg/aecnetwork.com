@@ -1,4 +1,7 @@
 import PortalShell from "@/components/PortalShell";
+import { getCurrentUserSession } from "@/lib/scoped-queries";
+import { redirect } from "next/navigation";
+import { isOneOf } from "@/lib/permissions";
 
 const ADMIN_NAV = [
   { label: "Dashboard", href: "/admin" },
@@ -14,7 +17,12 @@ const ADMIN_NAV = [
   { label: "Audit Logs", href: "/admin/audit-logs" }
 ];
 
-export default function AdminSettingsPage() {
+export default async function AdminSettingsPage() {
+  const { userId, role } = await getCurrentUserSession();
+  if (!userId || !isOneOf(role, ["SUPER_ADMIN", "DIRECTOR"])) {
+    redirect("/login?error=AccessDenied");
+  }
+
   const isDemo = process.env.DEMO_MODE !== "false";
 
   return (

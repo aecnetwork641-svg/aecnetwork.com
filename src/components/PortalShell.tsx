@@ -8,7 +8,7 @@ import { useState } from "react";
 
 import NotificationBell from "@/components/NotificationBell";
 
-const ALL_PORTALS = [
+const SUPER_ADMIN_PORTALS = [
   { label: "👑 Super Admin", href: "/admin" },
   { label: "🎓 Student Portal", href: "/student" },
   { label: "👨‍🏫 Teacher Portal", href: "/teacher" },
@@ -17,6 +17,23 @@ const ALL_PORTALS = [
   { label: "💰 Finance", href: "/finance" },
   { label: "👥 HR & Staff", href: "/hr" },
   { label: "👁️ Supervisor", href: "/supervisor" }
+];
+
+const ADMIN_ALLOWED_PORTALS = [
+  { label: "🛡️ Operations Admin", href: "/admin" },
+  { label: "🎓 Student Portal", href: "/student" },
+  { label: "👨‍🏫 Teacher Portal", href: "/teacher" },
+  { label: "👨‍👩‍👧 Parent Portal", href: "/parent" },
+  { label: "📚 Academics", href: "/academic" },
+  { label: "👁️ Supervisor", href: "/supervisor" }
+];
+
+const ADMIN_RESTRICTED_NAV_HREFS = [
+  "/admin/finance",
+  "/admin/hr",
+  "/admin/users",
+  "/admin/settings",
+  "/admin/audit-logs"
 ];
 
 export default function PortalShell({
@@ -36,7 +53,30 @@ export default function PortalShell({
   const [portalSwitcherOpen, setPortalSwitcherOpen] = useState(false);
 
   const userRole = (session?.user as { role?: string } | undefined)?.role;
-  const isSuperAdminOrAdmin = userRole === "SUPER_ADMIN" || userRole === "ADMIN";
+  const isSuperAdmin = userRole === "SUPER_ADMIN";
+  const isAdmin = userRole === "ADMIN";
+  const isSuperAdminOrAdmin = isSuperAdmin || isAdmin;
+
+  const currentPortals = isSuperAdmin ? SUPER_ADMIN_PORTALS : isAdmin ? ADMIN_ALLOWED_PORTALS : [];
+
+  // Filter out restricted sections for regular ADMIN
+  let effectiveNavItems = navItems;
+  if (isAdmin) {
+    effectiveNavItems = navItems.filter(item => !ADMIN_RESTRICTED_NAV_HREFS.includes(item.href));
+    // Ensure quick links to Parent & Supervisor are available if not in navItems
+    if (!effectiveNavItems.some(i => i.href === "/parent")) {
+      effectiveNavItems = [
+        ...effectiveNavItems.slice(0, 4),
+        { label: "Supervisor", href: "/supervisor" },
+        { label: "Parent View", href: "/parent" },
+        ...effectiveNavItems.slice(4)
+      ];
+    }
+  }
+
+  const displayRoleBadge = isAdmin && role.toLowerCase().includes("super admin")
+    ? "School Admin"
+    : role;
 
   return (
     <div className="min-h-screen bg-slate-50/60 pb-16">
@@ -54,11 +94,11 @@ export default function PortalShell({
               </svg>
             </button>
             <span className="rounded-md bg-aec-navy px-2.5 py-1 text-[11px] font-black uppercase tracking-wider text-aec-gold shadow-xs">
-              {role}
+              {displayRoleBadge}
             </span>
 
             {/* Master Portal Switcher for Super Admin / Admin */}
-            {isSuperAdminOrAdmin && (
+            {isSuperAdminOrAdmin && currentPortals.length > 0 && (
               <div className="relative">
                 <button
                   type="button"
@@ -79,10 +119,10 @@ export default function PortalShell({
                     />
                     <div className="absolute left-0 mt-2 w-56 rounded-2xl border border-slate-200 bg-white p-2 shadow-xl z-50">
                       <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 px-3 py-1">
-                        Master Access Portals
+                        {isSuperAdmin ? "Master Access Portals" : "Admin Accessible Portals"}
                       </p>
                       <div className="space-y-0.5 mt-1">
-                        {ALL_PORTALS.map((p) => (
+                        {currentPortals.map((p) => (
                           <Link
                             key={p.href}
                             href={p.href as any}
@@ -137,7 +177,7 @@ export default function PortalShell({
             <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400 px-3 py-1">
               Navigation Menu
             </p>
-            {navItems.map((item) => {
+            {effectiveNavItems.map((item) => {
               const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
               return (
                 <Link
@@ -164,7 +204,7 @@ export default function PortalShell({
               Portal Menu
             </p>
             <nav className="mt-1 space-y-1">
-              {navItems.map((item) => {
+              {effectiveNavItems.map((item) => {
                 const isActive = pathname === item.href || (item.href !== "/admin" && item.href !== "/student" && item.href !== "/parent" && item.href !== "/teacher" && item.href !== "/academic" && item.href !== "/finance" && item.href !== "/hr" && item.href !== "/supervisor" && pathname.startsWith(item.href));
                 return (
                   <Link

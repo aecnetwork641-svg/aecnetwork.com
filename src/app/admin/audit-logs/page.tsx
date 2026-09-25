@@ -20,7 +20,7 @@ const ADMIN_NAV = [
 
 export default async function AdminAuditLogsPage() {
   const { userId, role } = await getCurrentUserSession();
-  if (!userId || !isOneOf(role, ["SUPER_ADMIN", "ADMIN", "DIRECTOR"])) {
+  if (!userId || !isOneOf(role, ["SUPER_ADMIN", "DIRECTOR"])) {
     redirect("/login?error=AccessDenied");
   }
 
