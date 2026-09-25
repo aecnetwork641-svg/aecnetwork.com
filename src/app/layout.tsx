@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AICounselorWidget from "@/components/AICounselorWidget";
 import WhatsAppFloatingButton from "@/components/WhatsAppFloatingButton";
+import AuthProvider from "@/components/AuthProvider";
 
 export const metadata: Metadata = {
   title: "AEC Network — Learn. Grow. Achieve.",
@@ -15,11 +16,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className="flex min-h-screen flex-col font-sans antialiased">
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <WhatsAppFloatingButton />
-        <AICounselorWidget />
-        <Footer />
+        <AuthProvider>
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <WhatsAppFloatingButton />
+          <AICounselorWidget />
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   );
