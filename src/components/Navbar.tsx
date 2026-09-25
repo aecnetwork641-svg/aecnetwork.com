@@ -3,7 +3,18 @@
 import Link from "next/link";
 import { useState } from "react";
 
-type NavItem = { label: string; href: string; children?: { label: string; href: string; desc?: string }[] };
+type CategoryItem = {
+  categoryName: string;
+  badge?: string;
+  items: { label: string; href: string; desc?: string }[];
+};
+
+type NavItem = {
+  label: string;
+  href: string;
+  children?: { label: string; href: string; desc?: string }[];
+  categories?: CategoryItem[];
+};
 
 const NAV: NavItem[] = [
   { label: "Home", href: "/" },
@@ -22,20 +33,45 @@ const NAV: NavItem[] = [
   {
     label: "Programs",
     href: "/programs",
-    children: [
-      { label: "Quran & Tajweed Mastery", href: "/programs/quran-islamic-studies", desc: "Noorani Qaida, Tajweed & Hifz" },
-      { label: "Islamic Studies & Translation", href: "/programs/translation-of-quran", desc: "Quran Translation, Tafseer & Fiqh" },
-      { label: "Qirat & Melodic Recitation", href: "/programs/qirat-course", desc: "Vocal control, Maqamat & styles" },
-      { label: "GCSE & IGCSE Tutoring", href: "/programs/gcse", desc: "UK boards: Math, Sciences, English" },
-      { label: "O & A Levels (Cambridge/Edexcel)", href: "/programs/o-a-levels", desc: "Secondary & College exam prep" },
-      { label: "Naplan Preparation", href: "/programs/naplan", desc: "Australian curriculum (Years 3-9)" },
-      { label: "SAT & GRE Tutoring", href: "/programs/sat-tutoring", desc: "Digital SAT & GRE prep" },
-      { label: "Computer Programming & Coding", href: "/programs/computer-programming", desc: "Python, C++, JavaScript & logic" },
-      { label: "Web Designing & Development", href: "/programs/web-development", desc: "HTML/CSS, UI/UX, Full Stack" },
-      { label: "Social Media Marketing (SMM)", href: "/programs/social-media-marketing-smm", desc: "Digital marketing & brand growth" },
-      { label: "Science & Mathematics", href: "/programs/mathematics", desc: "Physics, Chem, Bio & Math" },
-      { label: "English & Arabic Mastery", href: "/programs/english", desc: "Spoken fluency & Classical Arabic" },
-      { label: "View All Academic Programs →", href: "/programs", desc: "Explore complete curriculum catalog" }
+    categories: [
+      {
+        categoryName: "Islamic Education",
+        badge: "🕌",
+        items: [
+          { label: "Quran & Tajweed Mastery", href: "/programs/quran-islamic-studies", desc: "Noorani Qaida, Tajweed & Hifz" },
+          { label: "Islamic Studies & Translation", href: "/programs/translation-of-quran", desc: "Quran Translation, Tafseer & Fiqh" },
+          { label: "Qirat & Melodic Recitation", href: "/programs/qirat-course", desc: "Maqamat, Voice Modulation & Styles" }
+        ]
+      },
+      {
+        categoryName: "Academic Tutoring",
+        badge: "📚",
+        items: [
+          { label: "GCSE & IGCSE", href: "/programs/gcse", desc: "UK National Curriculum Boards" },
+          { label: "O & A Levels", href: "/programs/o-a-levels", desc: "Cambridge & Edexcel Secondary/College" },
+          { label: "Science & Mathematics", href: "/programs/mathematics", desc: "Physics, Chem, Bio & Advanced Math" },
+          { label: "English Language", href: "/programs/english", desc: "Grammar, Composition & Fluency" }
+        ]
+      },
+      {
+        categoryName: "Test Preparation",
+        badge: "🎯",
+        items: [
+          { label: "NAPLAN Preparation", href: "/programs/naplan", desc: "Australian Curriculum (Years 3, 5, 7, 9)" },
+          { label: "SAT Preparation", href: "/programs/sat-tutoring", desc: "Digital SAT Verbal & Math Strategy" },
+          { label: "GRE Preparation", href: "/programs/gre-tutoring", desc: "Quantitative & Analytical Reasoning" }
+        ]
+      },
+      {
+        categoryName: "Technology & Digital Skills",
+        badge: "💻",
+        items: [
+          { label: "Computer Programming & Coding", href: "/programs/computer-programming", desc: "Python, C++, JavaScript & OOP" },
+          { label: "Web Designing & Development", href: "/programs/web-development", desc: "UI/UX, Frontend & Full Stack Web" },
+          { label: "Digital Marketing", href: "/programs/digital-marketing", desc: "SEO, PPC & Inbound Campaigns" },
+          { label: "Social Media Marketing", href: "/programs/social-media-marketing-smm", desc: "Meta Ads, Content & Brand Growth" }
+        ]
+      }
     ]
   },
   {
@@ -123,13 +159,67 @@ export default function Navbar() {
                 className="inline-flex items-center gap-1 text-sm font-medium text-aec-navy/80 transition hover:text-aec-navy py-2"
               >
                 {item.label}
-                {item.children && (
+                {(item.children || item.categories) && (
                   <svg className="h-3.5 w-3.5 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 )}
               </Link>
-              {item.children && activeDropdown === item.label && (
+
+              {/* Categorized Mega Dropdown (for Programs) */}
+              {item.categories && activeDropdown === item.label && (
+                <div className="absolute -left-28 top-full z-50 w-[820px] rounded-2xl border border-slate-200/90 bg-white p-6 shadow-2xl animate-in fade-in slide-in-from-top-2 duration-150">
+                  <div className="grid grid-cols-2 gap-x-8 gap-y-6">
+                    {item.categories.map((cat) => (
+                      <div key={cat.categoryName} className="space-y-2.5">
+                        <div className="flex items-center gap-2 border-b border-slate-100 pb-2">
+                          <span className="text-sm">{cat.badge}</span>
+                          <h4 className="text-xs font-bold uppercase tracking-wider text-aec-navy">
+                            {cat.categoryName}
+                          </h4>
+                        </div>
+                        <div className="space-y-1">
+                          {cat.items.map((sub) => (
+                            <Link
+                              key={sub.href + sub.label}
+                              href={sub.href as never}
+                              className="group block rounded-lg px-2.5 py-1.5 transition hover:bg-slate-50"
+                              onClick={() => setActiveDropdown(null)}
+                            >
+                              <p className="text-xs font-semibold text-slate-800 group-hover:text-aec-teal transition">
+                                {sub.label}
+                              </p>
+                              {sub.desc && (
+                                <p className="text-[11px] text-slate-500 line-clamp-1 group-hover:text-slate-600">
+                                  {sub.desc}
+                                </p>
+                              )}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Mega Menu Footer Bar */}
+                  <div className="mt-5 flex items-center justify-between border-t border-slate-100 pt-3 text-xs">
+                    <span className="text-slate-500">
+                      ✨ 1-on-1 personalized tutoring with qualified global faculty
+                    </span>
+                    <Link
+                      href="/programs"
+                      className="font-semibold text-aec-teal hover:text-aec-navy transition flex items-center gap-1"
+                      onClick={() => setActiveDropdown(null)}
+                    >
+                      <span>View All Programs Catalog</span>
+                      <span>→</span>
+                    </Link>
+                  </div>
+                </div>
+              )}
+
+              {/* Standard Dropdown (for About, Learning, Admissions, Portals, Resources) */}
+              {item.children && !item.categories && activeDropdown === item.label && (
                 <div className="absolute left-0 top-full z-50 w-72 rounded-xl2 border border-aec-navy/10 bg-white p-2 shadow-xl animate-in fade-in slide-in-from-top-1 duration-150">
                   {item.children.map((child) => (
                     <Link
@@ -190,7 +280,33 @@ export default function Navbar() {
                 >
                   {item.label}
                 </Link>
-                {item.children && (
+
+                {/* Mobile Categorized Programs */}
+                {item.categories && (
+                  <div className="ml-2 mt-2 space-y-3 border-l-2 border-aec-teal/30 pl-3">
+                    {item.categories.map((cat) => (
+                      <div key={cat.categoryName} className="space-y-1">
+                        <p className="text-[11px] font-bold uppercase tracking-wider text-aec-teal pt-1 flex items-center gap-1.5">
+                          <span>{cat.badge}</span>
+                          <span>{cat.categoryName}</span>
+                        </p>
+                        {cat.items.map((sub) => (
+                          <Link
+                            key={sub.href + sub.label}
+                            href={sub.href as never}
+                            className="block py-1 text-sm text-aec-navy/80 hover:text-aec-navy"
+                            onClick={() => setOpen(false)}
+                          >
+                            {sub.label}
+                          </Link>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Mobile Standard Children */}
+                {item.children && !item.categories && (
                   <div className="ml-3 mt-1 space-y-1 border-l-2 border-aec-teal/30 pl-3">
                     {item.children.map((child) => (
                       <Link

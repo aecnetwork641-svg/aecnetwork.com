@@ -646,6 +646,46 @@ const PROGRAM_DETAILS: Record<
     ]
   },
 
+  "digital-marketing": {
+    title: "Digital Marketing Mastery",
+    category: "IT & Programming",
+    level: "All Levels",
+    delivery: "Practical Workshop & Mentorship",
+    description:
+      "Comprehensive digital marketing training covering Search Engine Optimization (SEO), pay-per-click advertising (Google Ads & Meta Ads), content marketing, email funnels, and data analytics.",
+    outcomes: [
+      "End-to-end multi-channel marketing campaigns that drive leads and conversions",
+      "On-page and technical SEO strategies to rank high on Google search",
+      "Paid advertising mastery across Google Search, Display, and Meta networks",
+      "Data-driven marketing analytics, conversion tracking, and ROI measurement"
+    ],
+    curriculum: [
+      {
+        module: "Module 1: Search Engine Optimization (SEO)",
+        topics: ["Keyword research & competitive analysis", "On-page optimization & internal linking", "Technical SEO audits and backlink building"]
+      },
+      {
+        module: "Module 2: Paid Ads (PPC & Social)",
+        topics: ["Google Ads search & display campaigns", "Meta Ads targeting, pixel setup & lookalikes", "Ad copywriting & high-converting landing pages"]
+      },
+      {
+        module: "Module 3: Inbound Marketing & Automation",
+        topics: ["Email marketing funnels & lead nurturing", "Content marketing strategies and blogging", "Marketing automation tools (Mailchimp, HubSpot)"]
+      },
+      {
+        module: "Module 4: Analytics & Client Acquisition",
+        topics: ["Google Analytics 4 (GA4) setup & dashboards", "Conversion rate optimization (CRO)", "Freelancing, client proposals & agency scaling"]
+      }
+    ],
+    prerequisites: ["Basic computer and internet browsing skills."],
+    faqs: [
+      {
+        q: "Do I get a certificate upon completion?",
+        a: "Yes, you will receive an AEC Network Certificate of Completion in Digital Marketing."
+      }
+    ]
+  },
+
   english: {
     title: "English Language Mastery",
     category: "Linguistics & Communication",
