@@ -6,6 +6,8 @@ import { signOut, useSession } from "next-auth/react";
 import type { ReactNode } from "react";
 import { useState } from "react";
 
+import NotificationBell from "@/components/NotificationBell";
+
 const ALL_PORTALS = [
   { label: "👑 Super Admin", href: "/admin" },
   { label: "🎓 Student Portal", href: "/student" },
@@ -105,7 +107,10 @@ export default function PortalShell({
             )}
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5 sm:gap-3">
+            {/* Real-time Notifications Bell */}
+            <NotificationBell />
+
             {session?.user && (
               <div className="hidden sm:flex items-center gap-2 text-xs">
                 <span className="h-2 w-2 rounded-full bg-emerald-500"></span>
