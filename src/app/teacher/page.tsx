@@ -13,38 +13,50 @@ export default async function TeacherDashboard() {
 
   const { teacher } = scope;
 
-  // Real Database queries for this assigned teacher
-  const [classes, courses, submissions, feedbacks] = await Promise.all([
-    prisma.class.findMany({
-      where: { teacherId: teacher.id },
-      include: {
-        course: true,
-        timetableSlots: true,
-        enrollments: { include: { student: { include: { user: true } } } },
-        attendances: { where: { date: { gte: new Date(new Date().setHours(0, 0, 0, 0)) } } }
-      }
-    }),
-    prisma.course.findMany({
-      where: { primaryInstructorId: teacher.id }
-    }),
-    prisma.submission.findMany({
-      where: {
-        assignment: { course: { primaryInstructorId: teacher.id } },
-        score: null
-      },
-      include: { student: { include: { user: true } }, assignment: true }
-    }),
-    prisma.teacherFeedback.findMany({
-      where: { teacherId: teacher.id },
-      include: { student: { include: { user: true } } },
-      orderBy: { createdAt: "desc" },
-      take: 4
-    })
-  ]);
+  let classes: any[] = [];
+  let courses: any[] = [];
+  let submissions: any[] = [];
+  let feedbacks: any[] = [];
+
+  try {
+    if (teacher.id && teacher.id !== "preview-teacher-id") {
+      [classes, courses, submissions, feedbacks] = await Promise.all([
+        prisma.class.findMany({
+          where: { teacherId: teacher.id },
+          include: {
+            course: true,
+            timetableSlots: true,
+            enrollments: { include: { student: { include: { user: true } } } },
+            attendances: { where: { date: { gte: new Date(new Date().setHours(0, 0, 0, 0)) } } }
+          }
+        }),
+        prisma.course.findMany({
+          where: { primaryInstructorId: teacher.id }
+        }),
+        prisma.submission.findMany({
+          where: {
+            assignment: { course: { primaryInstructorId: teacher.id } },
+            score: null
+          },
+          include: { student: { include: { user: true } }, assignment: true }
+        }),
+        prisma.teacherFeedback.findMany({
+          where: { teacherId: teacher.id },
+          include: { student: { include: { user: true } } },
+          orderBy: { createdAt: "desc" },
+          take: 4
+        })
+      ]);
+    }
+  } catch (err) {
+    console.error("[TEACHER_DASHBOARD_QUERY_ERROR]", err);
+  }
 
   // Aggregate assigned students across classes
   const assignedStudentIds = new Set<string>();
-  classes.forEach((c) => c.enrollments.forEach((e) => assignedStudentIds.add(e.studentId)));
+  classes.forEach((c: any) => (c.enrollments || []).forEach((e: any) => {
+    if (e?.studentId) assignedStudentIds.add(e.studentId);
+  }));
   const totalAssignedStudents = assignedStudentIds.size;
 
   const teacherName = teacher.user?.name || "Faculty Member";

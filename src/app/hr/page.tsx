@@ -12,24 +12,39 @@ export default async function HRDashboard() {
     redirect("/login?error=AccessDenied");
   }
 
-  const [employees, departments, leaveRequests, payslips, todayStaffAtt] = await Promise.all([
-    prisma.employee.findMany({
-      include: { user: true, department: true },
-      orderBy: { hiredAt: "desc" }
-    }),
-    prisma.department.findMany(),
-    prisma.leaveRequest.findMany({
-      include: { employee: { include: { user: true } }, leaveType: true },
-      orderBy: { createdAt: "desc" },
-      take: 10
-    }),
-    prisma.payslip.findMany({
-      orderBy: { issuedAt: "desc" }
-    }),
-    prisma.staffAttendance.findMany({
-      where: { date: { gte: new Date(new Date().setHours(0, 0, 0, 0)) } }
-    })
-  ]);
+  let employees: any[] = [];
+  let departments: any[] = [];
+  let leaveRequests: any[] = [];
+  let payslips: any[] = [];
+  let todayStaffAtt: any[] = [];
+
+  try {
+    const [emp, dep, lReq, pSl, tAtt] = await Promise.all([
+      prisma.employee.findMany({
+        include: { user: true, department: true },
+        orderBy: { hiredAt: "desc" }
+      }),
+      prisma.department.findMany(),
+      prisma.leaveRequest.findMany({
+        include: { employee: { include: { user: true } }, leaveType: true },
+        orderBy: { createdAt: "desc" },
+        take: 10
+      }),
+      prisma.payslip.findMany({
+        orderBy: { issuedAt: "desc" }
+      }),
+      prisma.staffAttendance.findMany({
+        where: { date: { gte: new Date(new Date().setHours(0, 0, 0, 0)) } }
+      })
+    ]);
+    employees = emp;
+    departments = dep;
+    leaveRequests = lReq;
+    payslips = pSl;
+    todayStaffAtt = tAtt;
+  } catch (err) {
+    console.error("[HR_DASHBOARD_QUERY_ERROR]", err);
+  }
 
   const pendingLeaves = leaveRequests.filter((l) => l.status === "pending");
   const presentStaffCount = todayStaffAtt.filter((a) => a.status === "present").length;

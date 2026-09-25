@@ -23,29 +23,33 @@ export default async function ParentDashboard({
   let childInvoices: any[] = [];
   let childResults: any[] = [];
 
-  if (selectedChild) {
-    [childAttendances, childFeedbacks, childInvoices, childResults] = await Promise.all([
-      prisma.attendance.findMany({
-        where: { studentId: selectedChild.id },
-        orderBy: { date: "desc" },
-        take: 20
-      }),
-      prisma.teacherFeedback.findMany({
-        where: { studentId: selectedChild.id },
-        include: { teacher: { include: { user: true } } },
-        orderBy: { createdAt: "desc" },
-        take: 4
-      }),
-      prisma.invoice.findMany({
-        where: { studentId: selectedChild.id },
-        orderBy: { issuedAt: "desc" }
-      }),
-      prisma.result.findMany({
-        where: { studentId: selectedChild.id },
-        include: { exam: true },
-        orderBy: { exam: { date: "desc" } }
-      })
-    ]);
+  try {
+    if (selectedChild && selectedChild.id && selectedChild.id !== "preview-student-id") {
+      [childAttendances, childFeedbacks, childInvoices, childResults] = await Promise.all([
+        prisma.attendance.findMany({
+          where: { studentId: selectedChild.id },
+          orderBy: { date: "desc" },
+          take: 20
+        }),
+        prisma.teacherFeedback.findMany({
+          where: { studentId: selectedChild.id },
+          include: { teacher: { include: { user: true } } },
+          orderBy: { createdAt: "desc" },
+          take: 4
+        }),
+        prisma.invoice.findMany({
+          where: { studentId: selectedChild.id },
+          orderBy: { issuedAt: "desc" }
+        }),
+        prisma.result.findMany({
+          where: { studentId: selectedChild.id },
+          include: { exam: true },
+          orderBy: { exam: { date: "desc" } }
+        })
+      ]);
+    }
+  } catch (err) {
+    console.error("[PARENT_DASHBOARD_QUERY_ERROR]", err);
   }
 
   const totalAtt = childAttendances.length;

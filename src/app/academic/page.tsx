@@ -12,15 +12,41 @@ export default async function AcademicDashboard() {
     redirect("/login?error=AccessDenied");
   }
 
-  const [programsCount, coursesCount, classesCount, studentsCount, teachersCount, totalAtt, presentAtt] = await Promise.all([
-    prisma.program.count(),
-    prisma.course.count(),
-    prisma.class.count(),
-    prisma.student.count(),
-    prisma.teacher.count(),
-    prisma.attendance.count(),
-    prisma.attendance.count({ where: { status: "present" } })
-  ]);
+  let programsCount = 0;
+  let coursesCount = 0;
+  let classesCount = 0;
+  let studentsCount = 0;
+  let teachersCount = 0;
+  let totalAtt = 0;
+  let presentAtt = 0;
+  let recentClasses: any[] = [];
+
+  try {
+    const [pC, cC, clC, sC, tC, tA, pA, rCl] = await Promise.all([
+      prisma.program.count(),
+      prisma.course.count(),
+      prisma.class.count(),
+      prisma.student.count(),
+      prisma.teacher.count(),
+      prisma.attendance.count(),
+      prisma.attendance.count({ where: { status: "present" } }),
+      prisma.class.findMany({
+        include: { course: true, teacher: { include: { user: true } }, enrollments: true },
+        orderBy: { createdAt: "desc" },
+        take: 5
+      })
+    ]);
+    programsCount = pC;
+    coursesCount = cC;
+    classesCount = clC;
+    studentsCount = sC;
+    teachersCount = tC;
+    totalAtt = tA;
+    presentAtt = pA;
+    recentClasses = rCl;
+  } catch (err) {
+    console.error("[ACADEMIC_DASHBOARD_QUERY_ERROR]", err);
+  }
 
   const avgAttendance = totalAtt > 0 ? Math.round((presentAtt / totalAtt) * 100) : 100;
 
@@ -30,12 +56,6 @@ export default async function AcademicDashboard() {
     { label: "Faculty Members", value: `${teachersCount} Teachers`, desc: "Assigned instructors" },
     { label: "Class Attendance", value: `${avgAttendance}%`, desc: "Academy-wide rate" }
   ];
-
-  const recentClasses = await prisma.class.findMany({
-    include: { course: true, teacher: { include: { user: true } }, enrollments: true },
-    orderBy: { createdAt: "desc" },
-    take: 5
-  });
 
   return (
     <PortalShell role="Academic Administration" navItems={ACADEMIC_NAV} title="Academic Management Overview">

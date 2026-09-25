@@ -26,41 +26,64 @@ export default async function AdminDashboard() {
     redirect("/login?error=AccessDenied");
   }
 
-  const [
-    totalStudents,
-    activeStudents,
-    totalTeachers,
-    totalEmployees,
-    totalCourses,
-    totalClasses,
-    totalLeads,
-    totalApplications,
-    totalAttendances,
-    presentAttendances,
-    invoices,
-    payments,
-    expenses,
-    pendingLeaves,
-    tasksCount,
-    notificationsCount
-  ] = await Promise.all([
-    prisma.student.count(),
-    prisma.enrollment.count({ where: { status: "active" } }),
-    prisma.teacher.count(),
-    prisma.employee.count(),
-    prisma.course.count(),
-    prisma.class.count(),
-    prisma.lead.count(),
-    prisma.admissionApplication.count(),
-    prisma.attendance.count(),
-    prisma.attendance.count({ where: { status: "present" } }),
-    prisma.invoice.findMany(),
-    prisma.payment.findMany(),
-    prisma.expense.findMany(),
-    prisma.leaveRequest.count({ where: { status: "pending" } }),
-    prisma.task.count(),
-    prisma.notification.count()
-  ]);
+  let totalStudents = 0;
+  let activeStudents = 0;
+  let totalTeachers = 0;
+  let totalEmployees = 0;
+  let totalCourses = 0;
+  let totalClasses = 0;
+  let totalLeads = 0;
+  let totalApplications = 0;
+  let totalAttendances = 0;
+  let presentAttendances = 0;
+  let invoices: any[] = [];
+  let payments: any[] = [];
+  let expenses: any[] = [];
+  let pendingLeaves = 0;
+  let tasksCount = 0;
+  let notificationsCount = 0;
+
+  try {
+    const [
+      tS, aS, tT, tE, tC, tCl, tL, tA, tAtt, pAtt,
+      inv, pay, exp, pL, tsk, notif
+    ] = await Promise.all([
+      prisma.student.count(),
+      prisma.enrollment.count({ where: { status: "active" } }),
+      prisma.teacher.count(),
+      prisma.employee.count(),
+      prisma.course.count(),
+      prisma.class.count(),
+      prisma.lead.count(),
+      prisma.admissionApplication.count(),
+      prisma.attendance.count(),
+      prisma.attendance.count({ where: { status: "present" } }),
+      prisma.invoice.findMany(),
+      prisma.payment.findMany(),
+      prisma.expense.findMany(),
+      prisma.leaveRequest.count({ where: { status: "pending" } }),
+      prisma.task.count(),
+      prisma.notification.count()
+    ]);
+    totalStudents = tS;
+    activeStudents = aS;
+    totalTeachers = tT;
+    totalEmployees = tE;
+    totalCourses = tC;
+    totalClasses = tCl;
+    totalLeads = tL;
+    totalApplications = tA;
+    totalAttendances = tAtt;
+    presentAttendances = pAtt;
+    invoices = inv;
+    payments = pay;
+    expenses = exp;
+    pendingLeaves = pL;
+    tasksCount = tsk;
+    notificationsCount = notif;
+  } catch (err) {
+    console.error("[ADMIN_DASHBOARD_QUERY_ERROR]", err);
+  }
 
   const totalRevenue = payments.reduce((sum, p) => sum + Number(p.amount), 0);
   const pendingFees = invoices.filter((i) => i.status === "unpaid").reduce((sum, i) => sum + Number(i.amount), 0);

@@ -12,20 +12,31 @@ export default async function FinanceDashboard() {
     redirect("/login?error=AccessDenied");
   }
 
-  const [invoices, payments, expenses] = await Promise.all([
-    prisma.invoice.findMany({
-      include: { student: { include: { user: true } } },
-      orderBy: { issuedAt: "desc" }
-    }),
-    prisma.payment.findMany({
-      include: { invoice: { include: { student: { include: { user: true } } } } },
-      orderBy: { paidAt: "desc" },
-      take: 10
-    }),
-    prisma.expense.findMany({
-      orderBy: { date: "desc" }
-    })
-  ]);
+  let invoices: any[] = [];
+  let payments: any[] = [];
+  let expenses: any[] = [];
+
+  try {
+    const [inv, pay, exp] = await Promise.all([
+      prisma.invoice.findMany({
+        include: { student: { include: { user: true } } },
+        orderBy: { issuedAt: "desc" }
+      }),
+      prisma.payment.findMany({
+        include: { invoice: { include: { student: { include: { user: true } } } } },
+        orderBy: { paidAt: "desc" },
+        take: 10
+      }),
+      prisma.expense.findMany({
+        orderBy: { date: "desc" }
+      })
+    ]);
+    invoices = inv;
+    payments = pay;
+    expenses = exp;
+  } catch (err) {
+    console.error("[FINANCE_DASHBOARD_QUERY_ERROR]", err);
+  }
 
   const totalCollected = payments.reduce((sum, p) => sum + Number(p.amount), 0);
   const totalPending = invoices.filter((i) => i.status === "unpaid").reduce((sum, i) => sum + Number(i.amount), 0);

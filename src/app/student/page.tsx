@@ -13,58 +13,71 @@ export default async function StudentDashboard() {
 
   const { student } = scope;
 
-  // Real Database Queries for this authenticated student
-  const [enrollments, attendances, submissions, assignments, results, invoices, feedbacks] = await Promise.all([
-    prisma.enrollment.findMany({
-      where: { studentId: student.id },
-      include: {
-        course: {
+  let enrollments: any[] = [];
+  let attendances: any[] = [];
+  let submissions: any[] = [];
+  let assignments: any[] = [];
+  let results: any[] = [];
+  let invoices: any[] = [];
+  let feedbacks: any[] = [];
+
+  try {
+    if (student.id && student.id !== "preview-student-id") {
+      [enrollments, attendances, submissions, assignments, results, invoices, feedbacks] = await Promise.all([
+        prisma.enrollment.findMany({
+          where: { studentId: student.id },
           include: {
-            primaryInstructor: { include: { user: true } },
-            modules: { include: { lessons: true } }
+            course: {
+              include: {
+                primaryInstructor: { include: { user: true } },
+                modules: { include: { lessons: true } }
+              }
+            },
+            class: {
+              include: {
+                teacher: { include: { user: true } },
+                timetableSlots: true
+              }
+            }
           }
-        },
-        class: {
-          include: {
-            teacher: { include: { user: true } },
-            timetableSlots: true
-          }
-        }
-      }
-    }),
-    prisma.attendance.findMany({
-      where: { studentId: student.id },
-      orderBy: { date: "desc" },
-      take: 20
-    }),
-    prisma.submission.findMany({
-      where: { studentId: student.id },
-      include: { assignment: true }
-    }),
-    prisma.assignment.findMany({
-      where: {
-        course: {
-          enrollments: { some: { studentId: student.id, status: "active" } }
-        }
-      },
-      orderBy: { dueDate: "asc" }
-    }),
-    prisma.result.findMany({
-      where: { studentId: student.id },
-      include: { exam: { include: { course: true } } },
-      orderBy: { exam: { date: "desc" } }
-    }),
-    prisma.invoice.findMany({
-      where: { studentId: student.id },
-      orderBy: { issuedAt: "desc" }
-    }),
-    prisma.teacherFeedback.findMany({
-      where: { studentId: student.id },
-      include: { teacher: { include: { user: true } } },
-      orderBy: { createdAt: "desc" },
-      take: 3
-    })
-  ]);
+        }),
+        prisma.attendance.findMany({
+          where: { studentId: student.id },
+          orderBy: { date: "desc" },
+          take: 20
+        }),
+        prisma.submission.findMany({
+          where: { studentId: student.id },
+          include: { assignment: true }
+        }),
+        prisma.assignment.findMany({
+          where: {
+            course: {
+              enrollments: { some: { studentId: student.id, status: "active" } }
+            }
+          },
+          orderBy: { dueDate: "asc" }
+        }),
+        prisma.result.findMany({
+          where: { studentId: student.id },
+          include: { exam: { include: { course: true } } },
+          orderBy: { exam: { date: "desc" } }
+        }),
+        prisma.invoice.findMany({
+          where: { studentId: student.id },
+          orderBy: { issuedAt: "desc" }
+        }),
+        prisma.teacherFeedback.findMany({
+          where: { studentId: student.id },
+          include: { teacher: { include: { user: true } } },
+          orderBy: { createdAt: "desc" },
+          take: 3
+        })
+      ]);
+    }
+  } catch (err) {
+    console.error("[STUDENT_DASHBOARD_QUERY_ERROR]", err);
+  }
 
   // Attendance metrics
   const totalAttendances = attendances.length;
