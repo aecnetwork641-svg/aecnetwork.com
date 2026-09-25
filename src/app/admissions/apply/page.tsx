@@ -8,7 +8,7 @@ export default function ApplyPage() {
     applicantName: "",
     email: "",
     phone: "",
-    programSlug: "Quran & Islamic Studies",
+    programSlug: "Tajweed Course",
     country: "Pakistan",
     guardianName: "",
     dateOfBirth: "",
@@ -197,15 +197,40 @@ export default function ApplyPage() {
                     <select
                       value={formData.programSlug}
                       onChange={(e) => setFormData({ ...formData, programSlug: e.target.value })}
-                      className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-slate-900 bg-white focus:border-aec-navy focus:outline-none focus:ring-2 focus:ring-aec-navy/10 transition"
+                      className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-slate-900 bg-white focus:border-aec-navy focus:outline-none focus:ring-2 focus:ring-aec-navy/10 transition text-sm"
                     >
-                      <option value="Quran & Islamic Studies">Quran & Islamic Studies</option>
-                      <option value="Tajweed & Tarteel">Tajweed & Tarteel</option>
-                      <option value="Hifz Program">Quran Memorization (Hifz)</option>
-                      <option value="Spoken Arabic">Arabic Language</option>
-                      <option value="English Language & Grammar">English Language</option>
-                      <option value="Mathematics">Mathematics</option>
-                      <option value="Academic Support">Academic Tutoring</option>
+                      <optgroup label="📖 Islamic & Quranic Studies">
+                        <option value="Tajweed Course">Tajweed Course</option>
+                        <option value="Translation of Quran & Islamic Studies">Translation of Quran & Islamic Studies</option>
+                        <option value="Qirat Course">Qirat Course</option>
+                        <option value="Noorani Qaida & Quran Reading">Noorani Qaida & Quran Reading</option>
+                        <option value="Hifz-ul-Quran (Memorization)">Hifz-ul-Quran (Memorization)</option>
+                        <option value="Tafseer & Hadith Studies">Tafseer & Hadith Studies</option>
+                        <option value="Islamic Supplications & Daily Duas">Islamic Supplications & Daily Duas</option>
+                      </optgroup>
+                      <optgroup label="🎓 School & Board Exam Preparation">
+                        <option value="GCSE & IGCSE Tutoring">GCSE & IGCSE Tutoring (UK)</option>
+                        <option value="O & A Levels (Cambridge/Edexcel)">O & A Levels (Cambridge/Edexcel)</option>
+                        <option value="Naplan Preparation">Naplan Preparation (Australia)</option>
+                        <option value="SAT Tutoring">SAT Tutoring (Digital SAT)</option>
+                        <option value="GRE Tutoring">GRE Tutoring</option>
+                        <option value="IB Prep">IB (International Baccalaureate) Prep</option>
+                      </optgroup>
+                      <optgroup label="🔬 Academic STEM & Languages">
+                        <option value="Science (Physics, Chemistry, Biology)">Science (Physics, Chemistry, Biology)</option>
+                        <option value="Mathematics & Analytical Thinking">Mathematics & Analytical Thinking</option>
+                        <option value="English Language & Literature">English Language & Literature</option>
+                        <option value="Arabic Studies & Grammar">Arabic Studies & Grammar</option>
+                        <option value="Urdu & Regional Languages">Urdu & Regional Languages</option>
+                      </optgroup>
+                      <optgroup label="💻 IT, Programming & Digital Skills">
+                        <option value="Computer Science Fundamentals">Computer Science Fundamentals</option>
+                        <option value="Computer Programming (Python, C++, JS)">Computer Programming (Python, C++, JS)</option>
+                        <option value="Web Designing & UI/UX">Web Designing & UI/UX</option>
+                        <option value="Full Stack Web Development">Full Stack Web Development</option>
+                        <option value="Social Media Marketing (SMM)">Social Media Marketing (SMM)</option>
+                        <option value="Data Analytics & AI Basics">Data Analytics & AI Basics</option>
+                      </optgroup>
                     </select>
                   </div>
 

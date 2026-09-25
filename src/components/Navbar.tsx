@@ -23,27 +23,33 @@ const NAV: NavItem[] = [
     label: "Programs",
     href: "/programs",
     children: [
-      { label: "Quran & Islamic Studies", href: "/programs/quran-islamic-studies", desc: "Tajweed, Recitation, Foundations" },
-      { label: "English", href: "/programs/english", desc: "Speaking, Grammar, Writing" },
-      { label: "Arabic", href: "/programs/arabic", desc: "Modern Standard & Classical" },
-      { label: "Mathematics", href: "/programs/mathematics", desc: "Primary to Advanced Math" },
-      { label: "Academic Support", href: "/programs/academic-support", desc: "Curriculum tutoring & homework help" },
-      { label: "Professional / Skill Courses", href: "/programs/professional-skills", desc: "Digital & practical skills" },
-      { label: "School Support", href: "/programs/school-support", desc: "Board exams & test preparation" },
-      { label: "One-to-One Tutoring", href: "/programs/one-to-one", desc: "Dedicated private mentorship" },
-      { label: "Group Classes", href: "/programs/group-classes", desc: "Interactive cohort learning" }
+      { label: "Quran & Tajweed Mastery", href: "/programs/quran-islamic-studies", desc: "Noorani Qaida, Tajweed & Hifz" },
+      { label: "Islamic Studies & Translation", href: "/programs/translation-of-quran", desc: "Quran Translation, Tafseer & Fiqh" },
+      { label: "Qirat & Melodic Recitation", href: "/programs/qirat-course", desc: "Vocal control, Maqamat & styles" },
+      { label: "GCSE & IGCSE Tutoring", href: "/programs/gcse", desc: "UK boards: Math, Sciences, English" },
+      { label: "O & A Levels (Cambridge/Edexcel)", href: "/programs/o-a-levels", desc: "Secondary & College exam prep" },
+      { label: "Naplan Preparation", href: "/programs/naplan", desc: "Australian curriculum (Years 3-9)" },
+      { label: "SAT & GRE Tutoring", href: "/programs/sat-tutoring", desc: "Digital SAT & GRE prep" },
+      { label: "Computer Programming & Coding", href: "/programs/computer-programming", desc: "Python, C++, JavaScript & logic" },
+      { label: "Web Designing & Development", href: "/programs/web-development", desc: "HTML/CSS, UI/UX, Full Stack" },
+      { label: "Social Media Marketing (SMM)", href: "/programs/social-media-marketing-smm", desc: "Digital marketing & brand growth" },
+      { label: "Science & Mathematics", href: "/programs/mathematics", desc: "Physics, Chem, Bio & Math" },
+      { label: "English & Arabic Mastery", href: "/programs/english", desc: "Spoken fluency & Classical Arabic" },
+      { label: "View All Academic Programs →", href: "/programs", desc: "Explore complete curriculum catalog" }
     ]
   },
   {
     label: "Learning",
     href: "/courses",
     children: [
-      { label: "Courses", href: "/courses", desc: "Browse full course catalog" },
+      { label: "All LMS Courses", href: "/courses", desc: "Browse full 19+ course catalog" },
+      { label: "Tajweed & Quran Courses", href: "/courses/tajweed-course", desc: "Qaida, Tajweed, Qirat & Hifz" },
+      { label: "GCSE, A-Levels & SAT Prep", href: "/courses/gcse", desc: "Board exams & international tests" },
+      { label: "Coding & IT Skills", href: "/courses/computer-programming", desc: "Programming, Web Dev & SMM" },
+      { label: "STEM & Languages", href: "/courses/science", desc: "Science, Math, English & Arabic" },
       { label: "Learning Paths", href: "/learning/paths", desc: "Structured progression routes" },
       { label: "Free Resources", href: "/resources/free-resources", desc: "Guides, worksheets & tools" },
-      { label: "Placement / Assessment", href: "/learning/assessment", desc: "Evaluate your level" },
-      { label: "Online Classes", href: "/student/classes", desc: "Join scheduled sessions" },
-      { label: "Student Login", href: "/login", desc: "Access learning portal" }
+      { label: "Placement Assessment", href: "/learning/assessment", desc: "Evaluate your level" }
     ]
   },
   {
