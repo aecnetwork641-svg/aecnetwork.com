@@ -1,44 +1,41 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%">
   <defs>
-    <linearGradient id="favGold" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#F3D17C" />
-      <stop offset="60%" stop-color="#C9A24B" />
-      <stop offset="100%" stop-color="#9B7524" />
-    </linearGradient>
-    <linearGradient id="favNavy" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#1E446E" />
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1A3E66" />
       <stop offset="100%" stop-color="#0F2A47" />
     </linearGradient>
-    <filter id="favGlow">
-      <feGaussianBlur stdDeviation="2" result="glow"/>
-      <feMerge>
-        <feMergeNode in="glow"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
+    <linearGradient id="scrollGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F5D77F" />
+      <stop offset="60%" stop-color="#C9A24B" />
+      <stop offset="100%" stop-color="#8C6219" />
+    </linearGradient>
+    <linearGradient id="bookLeather" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8B4513" />
+      <stop offset="100%" stop-color="#5C2C16" />
+    </linearGradient>
   </defs>
 
-  <!-- Background container -->
-  <rect width="200" height="200" rx="44" fill="#0F2A47" />
+  <!-- Rounded Background -->
+  <rect width="120" height="120" rx="28" fill="url(#bgGrad)" />
 
-  <!-- Centered Book Icon with Rising Pages -->
-  <g transform="translate(0, 15)">
-    <!-- Base Book Spine -->
-    <path d="M35,145 Q100,132 165,145 L160,154 Q100,141 40,154 Z" fill="#FAF7F0" />
+  <g transform="translate(18, 14)">
+    <!-- Scroll on top -->
+    <path d="M22,22 C22,14 46,14 46,22 C46,27 22,27 22,22 Z" fill="url(#scrollGold)" />
+    <path d="M46,22 C46,18 52,18 52,22 C52,26 46,26 46,22 Z" fill="#E5C158" />
 
-    <!-- Back Pages (Teal/Navy) -->
-    <path d="M100,135 C68,124 32,124 14,136 C23,109 45,78 82,51 C91,44 100,40 100,40 C100,40 109,44 118,51 C155,78 177,109 186,136 C168,124 132,124 100,135 Z" fill="#1E446E" />
+    <!-- Top Book (Brown Leather) -->
+    <rect x="12" y="28" width="60" height="24" rx="3" fill="url(#bookLeather)" stroke="#3E1A08" stroke-width="1.5" />
+    <!-- Pages edge -->
+    <rect x="68" y="32" width="4" height="16" rx="1" fill="#FAF7F0" />
+    <text x="42" y="44" font-family="serif" font-size="9" font-weight="bold" fill="#F38258" text-anchor="middle">AEC</text>
 
-    <!-- Mid Tier Pages (Gold Rising Up) -->
-    <path d="M100,130 C75,118 46,118 31,127 C38,104 59,77 86,52 C93,46 100,41 100,41 C100,41 107,46 114,52 C141,77 162,104 169,127 C154,118 125,118 100,130 Z" fill="url(#favGold)" />
+    <!-- Middle Book -->
+    <rect x="6" y="52" width="72" height="16" rx="2" fill="#703611" stroke="#3A1705" stroke-width="1.5" />
+    <rect x="74" y="55" width="4" height="10" rx="1" fill="#E2D8C3" />
 
-    <!-- Top Tier Inner Page -->
-    <path d="M100,126 C82,113 62,113 50,120 C56,100 72,79 91,59 C96,54 100,50 100,50 C100,50 104,54 109,59 C128,79 144,100 150,120 C138,113 118,113 100,126 Z" fill="#0F2A47" />
-
-    <!-- Center Spire (Gold) -->
-    <path d="M100,22 C97,40 97,63 100,120 C103,63 103,40 100,22 Z" fill="url(#favGold)" />
-
-    <!-- Beacon -->
-    <circle cx="100" cy="18" r="5" fill="#F3D17C" filter="url(#favGlow)" />
+    <!-- Bottom Book (Ornate Gold/Green Spine) -->
+    <rect x="10" y="68" width="64" height="15" rx="2" fill="#2D4A3E" stroke="#C9A24B" stroke-width="1.2" />
+    <line x1="20" y1="68" x2="20" y2="83" stroke="#C9A24B" stroke-width="1" />
+    <line x1="64" y1="68" x2="64" y2="83" stroke="#C9A24B" stroke-width="1" />
   </g>
 </svg>
