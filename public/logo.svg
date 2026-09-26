@@ -1,0 +1,199 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 420" width="100%" height="100%">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="goldGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F3D17C" />
+      <stop offset="60%" stop-color="#C9A24B" />
+      <stop offset="100%" stop-color="#9B7524" />
+    </linearGradient>
+    
+    <linearGradient id="goldShimmer" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#C9A24B" stop-opacity="0.8" />
+      <stop offset="50%" stop-color="#FFF3C4" stop-opacity="1" />
+      <stop offset="100%" stop-color="#C9A24B" stop-opacity="0.8" />
+    </linearGradient>
+
+    <linearGradient id="navyGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E446E" />
+      <stop offset="100%" stop-color="#0F2A47" />
+    </linearGradient>
+
+    <!-- Glow Filter for Beacon -->
+    <filter id="goldGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3.5" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <style>
+      /* Base Smooth Transitions & Keyframes */
+      @keyframes floatBook {
+        0%, 100% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-5px);
+        }
+      }
+
+      @keyframes pageLiftBack {
+        0%, 100% {
+          transform: scale(1) translateY(0px);
+        }
+        50% {
+          transform: scale(1.02) translateY(-4px) rotate(0.4deg);
+        }
+      }
+
+      @keyframes pageLiftMid {
+        0%, 100% {
+          transform: scale(1) translateY(0px);
+        }
+        50% {
+          transform: scale(1.035) translateY(-7px) rotate(-0.5deg);
+        }
+      }
+
+      @keyframes pageLiftTop {
+        0%, 100% {
+          transform: scale(1) translateY(0px);
+        }
+        50% {
+          transform: scale(1.05) translateY(-10px);
+        }
+      }
+
+      @keyframes spireAscend {
+        0%, 100% {
+          transform: translateY(0px) scaleY(1);
+          opacity: 0.95;
+        }
+        50% {
+          transform: translateY(-8px) scaleY(1.08);
+          opacity: 1;
+        }
+      }
+
+      @keyframes beaconPulse {
+        0%, 100% {
+          transform: scale(1);
+          filter: drop-shadow(0 0 2px #E5C158);
+          opacity: 0.9;
+        }
+        50% {
+          transform: scale(1.35);
+          filter: drop-shadow(0 0 9px #F3D17C);
+          opacity: 1;
+        }
+      }
+
+      @keyframes shimmerLine {
+        0% {
+          transform: translateX(-120px) scaleX(0.2);
+          opacity: 0;
+        }
+        30% {
+          opacity: 1;
+        }
+        70% {
+          opacity: 1;
+        }
+        100% {
+          transform: translateX(120px) scaleX(0.2);
+          opacity: 0;
+        }
+      }
+
+      @keyframes titleFade {
+        0% {
+          opacity: 0;
+          transform: translateY(6px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0px);
+        }
+      }
+
+      /* Animation Classes applied */
+      .anim-book-group {
+        animation: floatBook 4.5s ease-in-out infinite;
+        transform-origin: center bottom;
+      }
+
+      .anim-back-pages {
+        animation: pageLiftBack 4s ease-in-out infinite;
+        transform-origin: 0px 45px;
+      }
+
+      .anim-mid-pages {
+        animation: pageLiftMid 3.5s ease-in-out infinite 0.2s;
+        transform-origin: 0px 40px;
+      }
+
+      .anim-top-pages {
+        animation: pageLiftTop 3s ease-in-out infinite 0.4s;
+        transform-origin: 0px 35px;
+      }
+
+      .anim-spire {
+        animation: spireAscend 3.2s ease-in-out infinite 0.1s;
+        transform-origin: 0px 25px;
+      }
+
+      .anim-beacon {
+        animation: beaconPulse 2.4s ease-in-out infinite;
+        transform-origin: 0px -90px;
+      }
+
+      .anim-shimmer {
+        animation: shimmerLine 3s cubic-bezier(0.4, 0, 0.2, 1) infinite 0.5s;
+        transform-origin: center;
+      }
+
+      .anim-text {
+        animation: titleFade 1s ease-out forwards;
+      }
+    </style>
+  </defs>
+
+  <!-- ICON CONTAINER -->
+  <g transform="translate(300, 135)" class="anim-book-group">
+    <!-- Base Book Spine (Navy) -->
+    <path d="M-70,55 Q0,40 70,55 L65,65 Q0,50 -65,65 Z" fill="#0F2A47" />
+
+    <!-- Back Pages (Navy Layers) -->
+    <path class="anim-back-pages" d="M0,45 C-35,32 -75,32 -95,45 C-85,15 -60,-20 -20,-50 C-10,-58 0,-62 0,-62 C0,-62 10,-58 20,-50 C60,-20 85,15 95,45 C75,32 35,32 0,45 Z" fill="url(#navyGrad2)" />
+
+    <!-- Mid Tier Pages (Gold Layers Rising Up) -->
+    <path class="anim-mid-pages" d="M0,40 C-28,26 -60,26 -76,36 C-68,10 -45,-20 -15,-48 C-8,-55 0,-60 0,-60 C0,-60 8,-55 15,-48 C45,-20 68,10 76,36 C60,26 28,26 0,40 Z" fill="url(#goldGrad2)" />
+
+    <!-- Top Tier Lifted Pages (Navy Accent) -->
+    <path class="anim-top-pages" d="M0,35 C-20,20 -42,20 -55,28 C-48,5 -30,-18 -10,-40 C-5,-46 0,-50 0,-50 C0,-50 5,-46 10,-40 C30,-18 48,5 55,28 C42,20 20,20 0,35 Z" fill="#0F2A47" />
+
+    <!-- Center Soaring Quill / Spire (Gold) -->
+    <path class="anim-spire" d="M0,-85 C-3,-65 -3,-40 0,25 C3,-40 3,-65 0,-85 Z" fill="url(#goldGrad2)" />
+    
+    <!-- Pulsing Top Beacon -->
+    <circle class="anim-beacon" cx="0" cy="-90" r="5" fill="#E5C158" filter="url(#goldGlow)" />
+  </g>
+
+  <!-- TYPOGRAPHY SECTION -->
+  <g class="anim-text">
+    <!-- Main Title -->
+    <text x="300" y="295" font-family="'Lexend', 'Inter', 'Segoe UI', sans-serif" font-size="34" font-weight="800" fill="#0F2A47" text-anchor="middle" letter-spacing="4">AEC NETWORK</text>
+
+    <!-- Base Gold Underline -->
+    <rect x="180" y="318" width="240" height="2.5" rx="1.25" fill="url(#goldGrad2)" />
+
+    <!-- Shimmer Light Flare traveling on underline -->
+    <rect class="anim-shimmer" x="300" y="317" width="100" height="4.5" rx="2.25" fill="url(#goldShimmer)" opacity="0.9" />
+
+    <!-- Subtitle / Tagline -->
+    <text x="300" y="354" font-family="'Inter', 'Segoe UI', sans-serif" font-size="13.5" font-weight="600" fill="#0F2A47" text-anchor="middle" letter-spacing="3.5">
+      A PROJECT BY <tspan fill="#C9A24B" font-weight="700">AEC NETWORK</tspan>
+    </text>
+  </g>
+</svg>

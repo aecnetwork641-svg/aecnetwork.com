@@ -3,6 +3,7 @@
 import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
+import Logo from "@/components/Logo";
 
 function ResetPasswordForm() {
   const router = useRouter();
@@ -168,13 +169,8 @@ export default function ResetPasswordPage() {
     <div className="min-h-[80vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="w-full max-w-md space-y-8 bg-white p-8 rounded-2xl border border-slate-200/80 shadow-xl">
         <div className="text-center">
-          <Link href="/" className="inline-flex items-center gap-2 font-display text-2xl font-bold text-aec-navy">
-            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-aec-navy text-white text-base font-black shadow-inner">
-              AEC
-            </span>
-            <span>
-              AEC <span className="text-aec-teal">Network</span>
-            </span>
+          <Link href="/" className="inline-flex justify-center transition hover:opacity-95">
+            <Logo variant="full" size="md" />
           </Link>
           <h2 className="mt-4 font-display text-2xl font-bold tracking-tight text-slate-900">
             Reset Your Password

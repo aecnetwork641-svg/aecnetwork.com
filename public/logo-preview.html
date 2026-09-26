@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AEC Network — Animated Logo Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lexend:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #f1f5f9;
+      --card-bg: #ffffff;
+      --text-color: #0F2A47;
+      --border-color: #e2e8f0;
+    }
+
+    body.dark-mode {
+      --bg-color: #0B192C;
+      --card-bg: #0F2A47;
+      --text-color: #FAF7F0;
+      --border-color: #1E3E62;
+    }
+
+    body {
+      margin: 0;
+      padding: 40px 20px;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-color);
+      color: var(--text-color);
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .header h1 {
+      font-family: 'Lexend', sans-serif;
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 16px;
+      border-radius: 20px;
+      background: rgba(201, 162, 75, 0.15);
+      color: #C9A24B;
+      font-weight: 700;
+      font-size: 13px;
+      margin-bottom: 12px;
+      border: 1px solid #C9A24B;
+      letter-spacing: 1px;
+    }
+
+    .controls {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    button {
+      background: #0F2A47;
+      color: #FAF7F0;
+      border: 1px solid #C9A24B;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    button:hover {
+      background: #C9A24B;
+      color: #0F2A47;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(201, 162, 75, 0.3);
+    }
+
+    .preview-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 24px;
+      box-shadow: 0 20px 40px rgba(15, 42, 71, 0.12);
+      padding: 40px;
+      width: 100%;
+      max-width: 640px;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.3s ease;
+    }
+
+    .logo-container {
+      width: 100%;
+      max-width: 540px;
+    }
+
+    .features-list {
+      margin-top: 36px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 24px 32px;
+      max-width: 640px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .features-list h3 {
+      margin-top: 0;
+      font-family: 'Lexend', sans-serif;
+      color: #C9A24B;
+      font-size: 18px;
+    }
+
+    .features-list ul {
+      margin: 0;
+      padding-left: 20px;
+      line-height: 1.8;
+      font-size: 14.5px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="header">
+      <span class="badge">LIVE ANIMATED SVG</span>
+      <h1>AEC Network Animated Logo</h1>
+      <p>Custom Navy Blue (`#0F2A47`) & Gold (`#C9A24B`) with rising fluttering pages & glowing beacon</p>
+    </div>
+
+    <div class="controls">
+      <button onclick="toggleTheme()">🌓 Switch Theme (Light / Dark)</button>
+      <button onclick="toggleAnimation()">⏯️ Toggle Animation</button>
+    </div>
+
+    <div class="preview-card" id="card">
+      <div class="logo-container" id="logoBox">
+        <svg id="mainSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 420" width="100%" height="100%">
+          <defs>
+            <linearGradient id="goldGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#F3D17C" />
+              <stop offset="60%" stop-color="#C9A24B" />
+              <stop offset="100%" stop-color="#9B7524" />
+            </linearGradient>
+            
+            <linearGradient id="goldShimmer" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#C9A24B" stop-opacity="0.2" />
+              <stop offset="50%" stop-color="#FFFFFF" stop-opacity="1" />
+              <stop offset="100%" stop-color="#C9A24B" stop-opacity="0.2" />
+            </linearGradient>
+
+            <linearGradient id="navyGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#1E446E" />
+              <stop offset="100%" stop-color="#0F2A47" />
+            </linearGradient>
+
+            <filter id="goldGlow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="3.5" result="coloredBlur"/>
+              <feMerge>
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+
+            <style>
+              @keyframes floatBook {
+                0%, 100% { transform: translateY(0px); }
+                50% { transform: translateY(-6px); }
+              }
+
+              @keyframes pageLiftBack {
+                0%, 100% { transform: scale(1) translateY(0px); }
+                50% { transform: scale(1.025) translateY(-5px) rotate(0.4deg); }
+              }
+
+              @keyframes pageLiftMid {
+                0%, 100% { transform: scale(1) translateY(0px); }
+                50% { transform: scale(1.04) translateY(-8px) rotate(-0.5deg); }
+              }
+
+              @keyframes pageLiftTop {
+                0%, 100% { transform: scale(1) translateY(0px); }
+                50% { transform: scale(1.06) translateY(-11px); }
+              }
+
+              @keyframes spireAscend {
+                0%, 100% { transform: translateY(0px) scaleY(1); opacity: 0.95; }
+                50% { transform: translateY(-8px) scaleY(1.08); opacity: 1; }
+              }
+
+              @keyframes beaconPulse {
+                0%, 100% { transform: scale(1); opacity: 0.85; }
+                50% { transform: scale(1.4); opacity: 1; }
+              }
+
+              @keyframes shimmerLine {
+                0% { transform: translateX(-150px) scaleX(0.2); opacity: 0; }
+                25% { opacity: 1; }
+                75% { opacity: 1; }
+                100% { transform: translateX(150px) scaleX(0.2); opacity: 0; }
+              }
+
+              .anim-book-group {
+                animation: floatBook 4.5s ease-in-out infinite;
+                transform-origin: center bottom;
+              }
+
+              .anim-back-pages {
+                animation: pageLiftBack 4s ease-in-out infinite;
+                transform-origin: 0px 45px;
+              }
+
+              .anim-mid-pages {
+                animation: pageLiftMid 3.5s ease-in-out infinite 0.2s;
+                transform-origin: 0px 40px;
+              }
+
+              .anim-top-pages {
+                animation: pageLiftTop 3s ease-in-out infinite 0.4s;
+                transform-origin: 0px 35px;
+              }
+
+              .anim-spire {
+                animation: spireAscend 3.2s ease-in-out infinite 0.1s;
+                transform-origin: 0px 25px;
+              }
+
+              .anim-beacon {
+                animation: beaconPulse 2.4s ease-in-out infinite;
+                transform-origin: 0px -90px;
+              }
+
+              .anim-shimmer {
+                animation: shimmerLine 3.2s cubic-bezier(0.4, 0, 0.2, 1) infinite 0.5s;
+                transform-origin: center;
+              }
+
+              .paused * {
+                animation-play-state: paused !important;
+              }
+            </style>
+          </defs>
+
+          <!-- ICON -->
+          <g transform="translate(300, 135)" class="anim-book-group">
+            <path d="M-70,55 Q0,40 70,55 L65,65 Q0,50 -65,65 Z" fill="#0F2A47" class="spine-elem" />
+            <path class="anim-back-pages" d="M0,45 C-35,32 -75,32 -95,45 C-85,15 -60,-20 -20,-50 C-10,-58 0,-62 0,-62 C0,-62 10,-58 20,-50 C60,-20 85,15 95,45 C75,32 35,32 0,45 Z" fill="url(#navyGrad2)" />
+            <path class="anim-mid-pages" d="M0,40 C-28,26 -60,26 -76,36 C-68,10 -45,-20 -15,-48 C-8,-55 0,-60 0,-60 C0,-60 8,-55 15,-48 C45,-20 68,10 76,36 C60,26 28,26 0,40 Z" fill="url(#goldGrad2)" />
+            <path class="anim-top-pages" d="M0,35 C-20,20 -42,20 -55,28 C-48,5 -30,-18 -10,-40 C-5,-46 0,-50 0,-50 C0,-50 5,-46 10,-40 C30,-18 48,5 55,28 C42,20 20,20 0,35 Z" fill="#0F2A47" class="top-page-elem" />
+            <path class="anim-spire" d="M0,-85 C-3,-65 -3,-40 0,25 C3,-40 3,-65 0,-85 Z" fill="url(#goldGrad2)" />
+            <circle class="anim-beacon" cx="0" cy="-90" r="5" fill="#E5C158" filter="url(#goldGlow)" />
+          </g>
+
+          <!-- TEXT -->
+          <g>
+            <text class="logo-title" x="300" y="295" font-family="'Lexend', sans-serif" font-size="34" font-weight="800" fill="#0F2A47" text-anchor="middle" letter-spacing="4">AEC NETWORK</text>
+            <rect x="180" y="318" width="240" height="2.5" rx="1.25" fill="url(#goldGrad2)" />
+            <rect class="anim-shimmer" x="300" y="317" width="90" height="4" rx="2" fill="url(#goldShimmer)" />
+            <text class="logo-tagline" x="300" y="354" font-family="'Inter', sans-serif" font-size="13.5" font-weight="600" fill="#0F2A47" text-anchor="middle" letter-spacing="3.5">
+              A PROJECT BY <tspan fill="#C9A24B" font-weight="700">AEC NETWORK</tspan>
+            </text>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <div class="features-list">
+      <h3>✨ Animation Features Included:</h3>
+      <ul>
+        <li><b>Rising Layered Pages</b>: Navy & Gold pages smoothly lift and float upwards with staggered organic easing.</li>
+        <li><b>Golden Beacon Pulse</b>: Top pinnacle glows with smooth pulse & flare.</li>
+        <li><b>Shimmering Gold Bar</b>: Subtle light reflection gliding across the divider rule.</li>
+        <li><b>Pure SVG/CSS</b>: No external heavy JS libraries needed, 100% sharp vector scalability at 0ms delay.</li>
+        <li><b>File Location</b>: Saved directly at <code>public/logo.svg</code> ready for use in Next.js header & navbar.</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle('dark-mode');
+      const isDark = document.body.classList.contains('dark-mode');
+      const title = document.querySelector('.logo-title');
+      const tagline = document.querySelector('.logo-tagline');
+      const topPage = document.querySelector('.top-page-elem');
+      const spine = document.querySelector('.spine-elem');
+      
+      if (isDark) {
+        title.setAttribute('fill', '#FAF7F0');
+        tagline.setAttribute('fill', '#E2E8F0');
+        topPage.setAttribute('fill', '#1A3E66');
+        spine.setAttribute('fill', '#1A3E66');
+      } else {
+        title.setAttribute('fill', '#0F2A47');
+        tagline.setAttribute('fill', '#0F2A47');
+        topPage.setAttribute('fill', '#0F2A47');
+        spine.setAttribute('fill', '#0F2A47');
+      }
+    }
+
+    function toggleAnimation() {
+      document.getElementById('mainSvg').classList.toggle('paused');
+    }
+  </script>
+</body>
+</html>

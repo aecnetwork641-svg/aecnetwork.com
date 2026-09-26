@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
+import Logo from "@/components/Logo";
 
 interface Props {
   params: { id: string };
@@ -23,6 +24,9 @@ export default async function VerifyCertificatePage({ params }: Props) {
   return (
     <div className="mx-auto max-w-2xl px-4 py-16">
       <div className="card text-center">
+        <div className="flex justify-center mb-4">
+          <Logo variant="compact" size="md" />
+        </div>
         <h1 className="text-xl font-bold text-aec-navy">Certificate Authenticity Verification</h1>
         <p className="mt-1 text-xs text-aec-navy/60">
           Official AEC Network Credential Validation Portal

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Logo from "@/components/Logo";
 
 export default function Footer() {
   return (
@@ -6,14 +7,9 @@ export default function Footer() {
       <div className="container-aec grid gap-10 py-16 md:grid-cols-2 lg:grid-cols-5">
         {/* Brand & Mission */}
         <div className="lg:col-span-2 space-y-4">
-          <div className="flex items-center gap-2.5 font-display text-xl font-bold tracking-tight text-white">
-            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-aec-teal text-white text-sm font-black shadow-inner">
-              AEC
-            </span>
-            <span className="text-xl">
-              AEC <span className="text-aec-teal">Network</span>
-            </span>
-          </div>
+          <Link href="/" className="inline-block transition hover:opacity-95">
+            <Logo variant="full" theme="dark" size="md" />
+          </Link>
 
           <p className="max-w-sm text-sm leading-relaxed text-white/80">
             <strong>Akbar Education Communication (AEC) Network</strong> provides structured, accessible online education, vetted qualified instructors, personalized 1-on-1 tutoring, and comprehensive academic support for students worldwide.

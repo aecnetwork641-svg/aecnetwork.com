@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import Logo from "@/components/Logo";
 
 type CategoryItem = {
   categoryName: string;
@@ -124,13 +125,8 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 border-b border-aec-navy/10 bg-white/95 backdrop-blur-md">
       <div className="container-aec flex h-16 items-center justify-between">
         {/* Brand */}
-        <Link href="/" className="flex items-center gap-2 font-display text-xl font-bold tracking-tight text-aec-navy">
-          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-aec-navy text-white text-sm font-black shadow-inner">
-            AEC
-          </span>
-          <span>
-            AEC <span className="text-aec-teal">Network</span>
-          </span>
+        <Link href="/" className="flex items-center group transition hover:opacity-95">
+          <Logo variant="compact" size="md" />
         </Link>
 
         {/* Desktop Navigation */}

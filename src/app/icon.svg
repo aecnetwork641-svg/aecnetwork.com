@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="100%" height="100%">
+  <defs>
+    <linearGradient id="favGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F3D17C" />
+      <stop offset="60%" stop-color="#C9A24B" />
+      <stop offset="100%" stop-color="#9B7524" />
+    </linearGradient>
+    <linearGradient id="favNavy" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E446E" />
+      <stop offset="100%" stop-color="#0F2A47" />
+    </linearGradient>
+    <filter id="favGlow">
+      <feGaussianBlur stdDeviation="2" result="glow"/>
+      <feMerge>
+        <feMergeNode in="glow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background container -->
+  <rect width="200" height="200" rx="44" fill="#0F2A47" />
+
+  <!-- Centered Book Icon with Rising Pages -->
+  <g transform="translate(0, 15)">
+    <!-- Base Book Spine -->
+    <path d="M35,145 Q100,132 165,145 L160,154 Q100,141 40,154 Z" fill="#FAF7F0" />
+
+    <!-- Back Pages (Teal/Navy) -->
+    <path d="M100,135 C68,124 32,124 14,136 C23,109 45,78 82,51 C91,44 100,40 100,40 C100,40 109,44 118,51 C155,78 177,109 186,136 C168,124 132,124 100,135 Z" fill="#1E446E" />
+
+    <!-- Mid Tier Pages (Gold Rising Up) -->
+    <path d="M100,130 C75,118 46,118 31,127 C38,104 59,77 86,52 C93,46 100,41 100,41 C100,41 107,46 114,52 C141,77 162,104 169,127 C154,118 125,118 100,130 Z" fill="url(#favGold)" />
+
+    <!-- Top Tier Inner Page -->
+    <path d="M100,126 C82,113 62,113 50,120 C56,100 72,79 91,59 C96,54 100,50 100,50 C100,50 104,54 109,59 C128,79 144,100 150,120 C138,113 118,113 100,126 Z" fill="#0F2A47" />
+
+    <!-- Center Spire (Gold) -->
+    <path d="M100,22 C97,40 97,63 100,120 C103,63 103,40 100,22 Z" fill="url(#favGold)" />
+
+    <!-- Beacon -->
+    <circle cx="100" cy="18" r="5" fill="#F3D17C" filter="url(#favGlow)" />
+  </g>
+</svg>

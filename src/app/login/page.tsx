@@ -6,6 +6,7 @@ import { useState, useEffect, Suspense } from "react";
 import { signIn, getSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
+import Logo from "@/components/Logo";
 import { getRoleRedirectPath } from "@/lib/permissions";
 
 function LoginForm() {
@@ -71,13 +72,8 @@ function LoginForm() {
   return (
     <div className="w-full max-w-md space-y-8 bg-white p-8 rounded-2xl border border-slate-200/80 shadow-xl">
       <div className="text-center">
-        <Link href="/" className="inline-flex items-center gap-2 font-display text-2xl font-bold text-aec-navy">
-          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-aec-navy text-white text-base font-black shadow-inner">
-            AEC
-          </span>
-          <span>
-            AEC <span className="text-aec-teal">Network</span>
-          </span>
+        <Link href="/" className="inline-flex justify-center transition hover:opacity-95">
+          <Logo variant="full" size="md" />
         </Link>
         <h2 className="mt-4 font-display text-2xl font-bold tracking-tight text-slate-900">
           Sign In to Portal
