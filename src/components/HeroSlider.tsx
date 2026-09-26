@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
-import Image from "next/image";
 
 interface BannerSlide {
   id: string;
@@ -10,7 +9,6 @@ interface BannerSlide {
   title: string;
   highlight: string;
   description: string;
-  image: string;
   primaryBtn: { label: string; href: string };
   secondaryBtn: { label: string; href: string };
   accentColor: string;
@@ -25,7 +23,6 @@ const SLIDES: BannerSlide[] = [
     highlight: "Institution in the World",
     description:
       "Structured, accessible online education with vetted instructors, personalized 1-on-1 tutoring, and comprehensive academic support worldwide.",
-    image: "/images/Gemini_Generated_Image_yfrxkcyfrxkcyfrx.jfif",
     primaryBtn: { label: "Start Learning Today", href: "/admissions/apply" },
     secondaryBtn: { label: "Book Free Trial", href: "/admissions/free-trial" },
     accentColor: "#C9A24B",
@@ -38,7 +35,6 @@ const SLIDES: BannerSlide[] = [
     highlight: "Faith & Knowledge",
     description:
       "Qur'an recitation, Tajweed, Hifz, Islamic studies, Seerah, Hadith — guided by qualified and experienced scholars worldwide.",
-    image: "/images/Gemini_Generated_Image_yfrxkcyfrxkcyfrx.jfif",
     primaryBtn: { label: "Explore Islamic Studies", href: "/programs/quran-islamic-studies" },
     secondaryBtn: { label: "Book Free Trial", href: "/admissions/free-trial" },
     accentColor: "#22c55e",
@@ -51,7 +47,6 @@ const SLIDES: BannerSlide[] = [
     highlight: "Achieve Your Goals",
     description:
       "Mathematics, Science, English, GCSE, O & A Levels and more — with structured lessons, expert guidance and personalized support.",
-    image: "/images/Gemini_Generated_Image_yfrxkcyfrxkcyfrx.jfif",
     primaryBtn: { label: "Explore Academics", href: "/programs/mathematics" },
     secondaryBtn: { label: "Book Free Trial", href: "/admissions/free-trial" },
     accentColor: "#3b82f6",
@@ -64,7 +59,6 @@ const SLIDES: BannerSlide[] = [
     highlight: "with Modern Digital Skills",
     description:
       "Programming, web development, digital marketing and more — develop in-demand skills for a successful and prosperous future.",
-    image: "/images/Gemini_Generated_Image_yfrxkcyfrxkcyfrx.jfif",
     primaryBtn: { label: "Explore Tech Programs", href: "/programs/computer-programming" },
     secondaryBtn: { label: "Book Free Trial", href: "/admissions/free-trial" },
     accentColor: "#06b6d4",
@@ -172,28 +166,14 @@ export default function HeroSlider() {
         }
       `}</style>
 
-      {/* ───── Background Images ───── */}
-      {SLIDES.map((s, i) => (
-        <div
-          key={s.id}
-          className="absolute inset-0 transition-opacity duration-1000"
-          style={{ opacity: i === current ? 1 : 0, zIndex: 0 }}
-        >
-          <div className={i === current ? "hero-ken-burns w-full h-full" : "w-full h-full"}>
-            <Image
-              src={s.image}
-              alt={s.tag}
-              fill
-              priority={i === 0}
-              className="object-cover object-center"
-              sizes="100vw"
-            />
-          </div>
-          {/* Deep cinematic overlays */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#040a18]/96 via-[#040a18]/75 to-[#040a18]/30" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#040a18]/90 via-transparent to-[#040a18]/40" />
-        </div>
-      ))}
+      {/* ───── Solid Dark Background (no images) ───── */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background: "linear-gradient(135deg, #040a18 0%, #0a1628 50%, #040a18 100%)",
+          zIndex: 0,
+        }}
+      />
 
       {/* ───── Floating Decorative Orbs ───── */}
       <div
