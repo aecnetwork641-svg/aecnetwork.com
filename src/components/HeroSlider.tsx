@@ -92,12 +92,11 @@ export default function HeroSlider() {
 
   return (
     <section
-      className="relative overflow-hidden select-none"
+      className="relative overflow-hidden select-none bg-white"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
       <style jsx global>{`
-        /* ── Keyframes ── */
         @keyframes aecFadeUp {
           from { opacity: 0; transform: translateY(32px); }
           to   { opacity: 1; transform: translateY(0); }
@@ -119,97 +118,52 @@ export default function HeroSlider() {
           to   { transform: rotate(360deg); }
         }
         @keyframes aecPulse {
-          0%, 100% { opacity: 0.6; transform: scale(1); }
-          50%      { opacity: 1;   transform: scale(1.08); }
+          0%, 100% { opacity: 0.4; transform: scale(1); }
+          50%      { opacity: 0.8; transform: scale(1.08); }
         }
         @keyframes aecShimmer {
           0%   { background-position: -400px 0; }
           100% { background-position: 400px 0; }
         }
-        @keyframes aecGradient {
-          0%   { background-position: 0% 50%; }
-          50%  { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
-
-        /* ── Utility animation classes ── */
-        .aec-fade-up   { opacity:0; animation: aecFadeUp   0.7s cubic-bezier(.16,1,.3,1) forwards; }
-        .aec-fade-in   { opacity:0; animation: aecFadeIn   0.6s ease forwards; }
-        .aec-slide-r   { opacity:0; animation: aecSlideRight 0.65s cubic-bezier(.16,1,.3,1) forwards; }
-        .aec-float     { animation: aecFloat 5s ease-in-out infinite; }
+        .aec-fade-up  { opacity:0; animation: aecFadeUp    0.7s cubic-bezier(.16,1,.3,1) forwards; }
+        .aec-fade-in  { opacity:0; animation: aecFadeIn    0.6s ease forwards; }
+        .aec-slide-r  { opacity:0; animation: aecSlideRight 0.65s cubic-bezier(.16,1,.3,1) forwards; }
+        .aec-float    { animation: aecFloat 5s ease-in-out infinite; }
         .aec-pulse-slow{ animation: aecPulse 3s ease-in-out infinite; }
-
-        /* ── Animated gradient background ── */
-        .aec-hero-bg {
-          background: linear-gradient(135deg,
-            #0F2A47 0%,
-            #0e3460 25%,
-            #0F2A47 50%,
-            #133558 75%,
-            #0F2A47 100%
-          );
-          background-size: 400% 400%;
-          animation: aecGradient 12s ease infinite;
-        }
-
-        /* ── Geometric pattern overlay ── */
-        .aec-geo-pattern {
-          background-image:
-            repeating-linear-gradient(
-              45deg,
-              transparent,
-              transparent 40px,
-              rgba(201,162,75,0.04) 40px,
-              rgba(201,162,75,0.04) 41px
-            ),
-            repeating-linear-gradient(
-              -45deg,
-              transparent,
-              transparent 40px,
-              rgba(201,162,75,0.04) 40px,
-              rgba(201,162,75,0.04) 41px
-            );
-        }
-
-        /* ── Gold shimmer text ── */
         .aec-shimmer-text {
-          background: linear-gradient(90deg,
-            #C9A24B 0%, #F3D17C 40%, #C9A24B 60%, #9B7524 100%
-          );
+          background: linear-gradient(90deg, #C9A24B 0%, #F3D17C 40%, #C9A24B 60%, #9B7524 100%);
           background-size: 400px 100%;
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
           animation: aecShimmer 3s linear infinite;
         }
-
-        /* ── Card hover ── */
         .aec-stat-card {
           transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
         .aec-stat-card:hover {
           transform: translateY(-3px);
-          box-shadow: 0 8px 24px rgba(201,162,75,0.2);
+          box-shadow: 0 8px 24px rgba(201,162,75,0.15);
         }
       `}</style>
 
-      {/* ══════════ BACKGROUND ══════════ */}
-      <div className="aec-hero-bg aec-geo-pattern absolute inset-0" />
-
-      {/* Radial glow center */}
+      {/* Subtle geometric pattern */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "radial-gradient(ellipse 70% 60% at 20% 50%, rgba(201,162,75,0.12) 0%, transparent 70%)",
-          transition: "background 1s ease",
+          backgroundImage: `
+            repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(201,162,75,0.04) 40px, rgba(201,162,75,0.04) 41px),
+            repeating-linear-gradient(-45deg, transparent, transparent 40px, rgba(201,162,75,0.04) 40px, rgba(201,162,75,0.04) 41px)
+          `,
         }}
       />
-
-      {/* Top accent line */}
+      {/* Soft gold glow left */}
       <div
-        className="absolute top-0 left-0 right-0 h-[3px]"
-        style={{ background: "linear-gradient(90deg, #C9A24B, #F3D17C, #C9A24B)" }}
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: "radial-gradient(ellipse 60% 70% at 15% 50%, rgba(201,162,75,0.07) 0%, transparent 70%)" }}
       />
+      {/* Top gold accent line */}
+      <div className="absolute top-0 left-0 right-0 h-[3px]" style={{ background: "linear-gradient(90deg, #C9A24B, #F3D17C, #C9A24B)" }} />
 
       {/* ══════════ DECORATIVE RIGHT SIDE ══════════ */}
       <div className="absolute right-0 top-0 bottom-0 w-[45%] hidden lg:flex items-center justify-center pointer-events-none overflow-hidden">
@@ -298,7 +252,7 @@ export default function HeroSlider() {
           {/* Heading */}
           <div className="space-y-1">
             <h1
-              className="aec-fade-up font-display font-extrabold text-white leading-[1.1]"
+              className="aec-fade-up font-display font-extrabold text-aec-navy leading-[1.1]"
               style={{ fontSize: "clamp(2.4rem, 5vw, 4.2rem)", animationDelay: "0.1s" }}
             >
               {slide.title}
@@ -313,7 +267,7 @@ export default function HeroSlider() {
 
           {/* Sub text */}
           <p
-            className="aec-fade-up text-slate-300 leading-relaxed max-w-lg"
+            className="aec-fade-up text-slate-600 leading-relaxed max-w-lg"
             style={{ fontSize: "clamp(0.95rem, 1.5vw, 1.1rem)", animationDelay: "0.35s" }}
           >
             {slide.sub}
@@ -326,7 +280,7 @@ export default function HeroSlider() {
               className="inline-flex items-center gap-2.5 px-8 py-4 rounded-xl font-bold text-sm text-[#0F2A47] transition-all duration-200 hover:scale-[1.04] active:scale-[0.97]"
               style={{
                 background: `linear-gradient(135deg, #F3D17C, #C9A24B)`,
-                boxShadow: "0 8px 32px rgba(201,162,75,0.4), 0 2px 8px rgba(0,0,0,0.2)",
+                boxShadow: "0 8px 32px rgba(201,162,75,0.35), 0 2px 8px rgba(0,0,0,0.1)",
               }}
             >
               {slide.primaryBtn.label}
@@ -337,7 +291,7 @@ export default function HeroSlider() {
 
             <Link
               href={slide.secondaryBtn.href as never}
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold text-sm text-white border border-white/25 bg-white/8 backdrop-blur-md transition-all duration-200 hover:bg-white/15 hover:scale-[1.04] active:scale-[0.97]"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold text-sm text-aec-navy border border-aec-navy/30 bg-aec-navy/5 transition-all duration-200 hover:bg-aec-navy/10 hover:scale-[1.04] active:scale-[0.97]"
             >
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
@@ -357,13 +311,12 @@ export default function HeroSlider() {
                 key={s.l}
                 className="aec-stat-card flex flex-col items-center text-center px-3 py-3 rounded-xl"
                 style={{
-                  background: "rgba(255,255,255,0.05)",
-                  border: "1px solid rgba(201,162,75,0.2)",
-                  backdropFilter: "blur(8px)",
+                  background: "rgba(15,42,71,0.05)",
+                  border: "1px solid rgba(201,162,75,0.25)",
                 }}
               >
                 <span className="text-xl font-black aec-shimmer-text">{s.n}</span>
-                <span className="text-[11px] text-slate-400 font-medium mt-0.5">{s.l}</span>
+                <span className="text-[11px] text-slate-500 font-medium mt-0.5">{s.l}</span>
               </div>
             ))}
           </div>
@@ -375,13 +328,13 @@ export default function HeroSlider() {
 
       {/* ══════════ BOTTOM CONTROLS ══════════ */}
       {/* Progress bar */}
-      <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-white/10">
+      <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-slate-200">
         <div
           className="h-full transition-none"
           style={{
             width: `${progress}%`,
             background: `linear-gradient(90deg, #C9A24B, #F3D17C)`,
-            boxShadow: "0 0 10px rgba(201,162,75,0.6)",
+            boxShadow: "0 0 10px rgba(201,162,75,0.5)",
           }}
         />
       </div>
@@ -399,8 +352,8 @@ export default function HeroSlider() {
               height:     8,
               background: i === current
                 ? "linear-gradient(90deg, #C9A24B, #F3D17C)"
-                : "rgba(255,255,255,0.25)",
-              boxShadow:  i === current ? "0 0 10px rgba(201,162,75,0.6)" : "none",
+                : "rgba(15,42,71,0.2)",
+              boxShadow:  i === current ? "0 0 10px rgba(201,162,75,0.5)" : "none",
             }}
           />
         ))}

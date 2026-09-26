@@ -98,11 +98,11 @@ const FAQS = [
 export default function HomePage() {
   return (
     <div className="flex flex-col gap-16 md:gap-24">
-      {/* 1. HERO SLIDER BANNER */}
+      {/* HERO BANNER */}
       <HeroSlider />
 
-      {/* 1.1 QUICK STATS & CREDENTIALS STRIP */}
-      <section className="container-aec -mt-8 md:-mt-12 relative z-20">
+      {/* QUICK STATS & CREDENTIALS STRIP */}
+      <section className="container-aec pt-10">
         <div className="rounded-2xl border border-slate-200/90 bg-white p-6 md:p-8 shadow-xl shadow-aec-navy/5 grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
           <div className="border-r border-slate-100 last:border-0 pr-4">
             <p className="font-display text-2xl md:text-3xl font-extrabold text-aec-navy">100%</p>
