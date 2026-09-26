@@ -1,393 +1,367 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
 interface BannerSlide {
   id: string;
-  category: string;
-  subTitle?: string;
+  tag: string;
   title: string;
-  highlightWords: string[];
+  highlight: string;
   description: string;
   image: string;
-  exploreHref: string;
-  primaryButtonText: string;
-  buttonColor: string;
+  primaryBtn: { label: string; href: string };
+  secondaryBtn: { label: string; href: string };
+  accentColor: string;
+  glowColor: string;
 }
 
 const SLIDES: BannerSlide[] = [
   {
-    id: "slide-1",
-    category: "Global Education",
-    subTitle: "To become the most",
-    title: "Leading online educational institution in the world",
-    highlightWords: ["educational", "institution", "in", "the", "world"],
+    id: "s1",
+    tag: "🌍 Global Education",
+    title: "Leading Online Educational",
+    highlight: "Institution in the World",
     description:
       "Structured, accessible online education with vetted instructors, personalized 1-on-1 tutoring, and comprehensive academic support worldwide.",
-    image: "/images/banner-islamic.jpg",
-    exploreHref: "/admissions/apply",
-    primaryButtonText: "Admissions",
-    buttonColor: "bg-emerald-500 hover:bg-emerald-400 text-slate-950",
+    image: "/images/Gemini_Generated_Image_yfrxkcyfrxkcyfrx.jfif",
+    primaryBtn: { label: "Start Learning Today", href: "/admissions/apply" },
+    secondaryBtn: { label: "Book Free Trial", href: "/admissions/free-trial" },
+    accentColor: "#C9A24B",
+    glowColor: "rgba(201,162,75,0.4)",
   },
   {
-    id: "slide-2",
-    category: "Islamic Disciplines",
-    subTitle: "Islamic Education",
-    title: "Build a Strong Foundation in Faith and Knowledge",
-    highlightWords: ["Faith", "and", "Knowledge"],
+    id: "s2",
+    tag: "🕌 Islamic Education",
+    title: "Build a Strong Foundation in",
+    highlight: "Faith & Knowledge",
     description:
-      "Qur'an recitation, Tajweed, Hifz, Islamic studies, Seerah, Hadith and more — guided by qualified and experienced teachers.",
-    image: "/images/banner-islamic.jpg",
-    exploreHref: "/programs/quran-islamic-studies",
-    primaryButtonText: "Explore Islamic Studies",
-    buttonColor: "bg-emerald-500 hover:bg-emerald-400 text-slate-950",
+      "Qur'an recitation, Tajweed, Hifz, Islamic studies, Seerah, Hadith — guided by qualified and experienced scholars worldwide.",
+    image: "/images/Gemini_Generated_Image_yfrxkcyfrxkcyfrx.jfif",
+    primaryBtn: { label: "Explore Islamic Studies", href: "/programs/quran-islamic-studies" },
+    secondaryBtn: { label: "Book Free Trial", href: "/admissions/free-trial" },
+    accentColor: "#22c55e",
+    glowColor: "rgba(34,197,94,0.4)",
   },
   {
-    id: "slide-3",
-    category: "Academic Excellence",
-    subTitle: "Academic Education",
-    title: "Master Core Subjects and Achieve Your Goals",
-    highlightWords: ["Achieve", "Your", "Goals"],
+    id: "s3",
+    tag: "📚 Academic Excellence",
+    title: "Master Core Subjects and",
+    highlight: "Achieve Your Goals",
     description:
-      "Mathematics, Science, English, Arabic, GCSE, O & A Levels and more — with structured lessons, expert guidance and personalized support.",
-    image: "/images/banner-academic.jpg",
-    exploreHref: "/programs/mathematics",
-    primaryButtonText: "Explore Academics",
-    buttonColor: "bg-blue-600 hover:bg-blue-500 text-white",
+      "Mathematics, Science, English, GCSE, O & A Levels and more — with structured lessons, expert guidance and personalized support.",
+    image: "/images/Gemini_Generated_Image_yfrxkcyfrxkcyfrx.jfif",
+    primaryBtn: { label: "Explore Academics", href: "/programs/mathematics" },
+    secondaryBtn: { label: "Book Free Trial", href: "/admissions/free-trial" },
+    accentColor: "#3b82f6",
+    glowColor: "rgba(59,130,246,0.4)",
   },
   {
-    id: "slide-4",
-    category: "Digital Skills",
-    subTitle: "Technology & Coding",
-    title: "Learn Today, Build Tomorrow with Modern Skills",
-    highlightWords: ["Build", "Tomorrow"],
+    id: "s4",
+    tag: "💻 Technology & Coding",
+    title: "Learn Today, Build Tomorrow",
+    highlight: "with Modern Digital Skills",
     description:
-      "Programming, web development, digital marketing, computer logic and more — develop in-demand skills for a successful future.",
-    image: "/images/banner-tech.jpg",
-    exploreHref: "/programs/computer-programming",
-    primaryButtonText: "Explore Tech Programs",
-    buttonColor: "bg-cyan-400 hover:bg-cyan-300 text-slate-950",
+      "Programming, web development, digital marketing and more — develop in-demand skills for a successful and prosperous future.",
+    image: "/images/Gemini_Generated_Image_yfrxkcyfrxkcyfrx.jfif",
+    primaryBtn: { label: "Explore Tech Programs", href: "/programs/computer-programming" },
+    secondaryBtn: { label: "Book Free Trial", href: "/admissions/free-trial" },
+    accentColor: "#06b6d4",
+    glowColor: "rgba(6,182,212,0.4)",
   },
 ];
 
-const SLIDE_DURATION = 6500;
+const DURATION = 7000;
 
-/**
- * Character-by-character animated text component (like Revolution Slider split text)
- */
-function CharacterAnimatedText({
-  text,
-  highlightWords = [],
-  baseDelay = 0.1,
-}: {
-  text: string;
-  highlightWords?: string[];
-  baseDelay?: number;
-}) {
-  const words = text.split(" ");
-  let globalCharIndex = 0;
-
+function SplitText({ text, delay = 0 }: { text: string; delay?: number }) {
   return (
-    <span className="inline">
-      {words.map((word, wordIdx) => {
-        const cleanWord = word.replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
-        const isHighlight = highlightWords.some(
-          (hw) => hw.toLowerCase() === cleanWord
-        );
-        const characters = word.split("");
-
-        return (
-          <span
-            key={wordIdx}
-            className={`inline-block whitespace-nowrap mr-[0.28em] ${
-              isHighlight
-                ? "bg-gradient-to-r from-white via-aec-teal to-emerald-300 bg-clip-text text-transparent font-black"
-                : "text-white"
-            }`}
-          >
-            {characters.map((char, charIdx) => {
-              const charDelay = baseDelay + globalCharIndex * 0.028;
-              globalCharIndex++;
-
-              return (
-                <span
-                  key={charIdx}
-                  className="char-reveal-letter inline-block"
-                  style={{
-                    animationDelay: `${charDelay}s`,
-                  }}
-                >
-                  {char}
-                </span>
-              );
-            })}
-          </span>
-        );
-      })}
-    </span>
+    <>
+      {text.split("").map((char, i) => (
+        <span
+          key={i}
+          className="hero-char"
+          style={{ animationDelay: `${delay + i * 0.03}s` }}
+        >
+          {char === " " ? "\u00A0" : char}
+        </span>
+      ))}
+    </>
   );
 }
 
 export default function HeroSlider() {
   const [current, setCurrent] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [paused, setPaused] = useState(false);
+
+  const next = useCallback(() => {
+    setCurrent((p) => (p + 1) % SLIDES.length);
+    setProgress(0);
+  }, []);
+
+  const prev = useCallback(() => {
+    setCurrent((p) => (p === 0 ? SLIDES.length - 1 : p - 1));
+    setProgress(0);
+  }, []);
 
   useEffect(() => {
-    if (isPaused) return;
-    const interval = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % SLIDES.length);
-    }, SLIDE_DURATION);
-    return () => clearInterval(interval);
-  }, [isPaused, current]);
+    if (paused) return;
+    const tick = setInterval(() => {
+      setProgress((p) => {
+        if (p >= 100) { next(); return 0; }
+        return p + 100 / (DURATION / 50);
+      });
+    }, 50);
+    return () => clearInterval(tick);
+  }, [paused, next]);
 
-  const prevSlide = () => {
-    setCurrent((prev) => (prev === 0 ? SLIDES.length - 1 : prev - 1));
-  };
-
-  const nextSlide = () => {
-    setCurrent((prev) => (prev + 1) % SLIDES.length);
-  };
-
-  const activeSlide = SLIDES[current] || SLIDES[0]!;
+  const slide = SLIDES[current]!;
 
   return (
-    <div
-      className="relative overflow-hidden bg-slate-950 text-white select-none"
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
+    <section
+      className="relative overflow-hidden bg-[#040a18] select-none"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      style={{ minHeight: "100svh" }}
     >
+      {/* ───── Global Keyframes ───── */}
       <style jsx global>{`
-        /* Letter-by-Letter 3D Reveal Keyframe Animation (Slider Revolution Style) */
-        @keyframes charReveal3D {
-          0% {
-            opacity: 0;
-            transform: translateY(120%) rotateX(-80deg) scale(0.85);
-            filter: blur(6px);
-          }
-          65% {
-            opacity: 1;
-            filter: blur(0px);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0) rotateX(0deg) scale(1);
-            filter: blur(0px);
-          }
+        @keyframes heroCharIn {
+          from { opacity: 0; transform: translateY(60%) rotateX(-90deg) scale(0.8); filter: blur(8px); }
+          to   { opacity: 1; transform: translateY(0)    rotateX(0deg)   scale(1);   filter: blur(0);  }
+        }
+        @keyframes heroFadeUp {
+          from { opacity: 0; transform: translateY(36px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes heroPulseRing {
+          0%   { transform: scale(1);   opacity: 0.6; }
+          100% { transform: scale(2.2); opacity: 0;   }
+        }
+        @keyframes heroKenBurns {
+          from { transform: scale(1)    translate(0, 0); }
+          to   { transform: scale(1.12) translate(-1.5%, -1%); }
+        }
+        @keyframes heroParticle {
+          0%   { transform: translateY(0)    opacity(1); }
+          100% { transform: translateY(-120px) opacity(0); }
+        }
+        @keyframes heroTagSlide {
+          from { opacity: 0; transform: translateX(-40px); }
+          to   { opacity: 1; transform: translateX(0); }
         }
 
-        @keyframes subTitleReveal {
-          0% {
-            opacity: 0;
-            transform: translateY(20px);
-            letter-spacing: 2px;
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0);
-            letter-spacing: 0.5px;
-          }
-        }
-
-        @keyframes descSmoothFade {
-          0% {
-            opacity: 0;
-            transform: translateY(24px);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-
-        @keyframes btnSmoothPop {
-          0% {
-            opacity: 0;
-            transform: translateY(28px) scale(0.92);
-          }
-          100% {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-          }
-        }
-
-        @keyframes kenBurnsContinuous {
-          0% {
-            transform: scale(1) translate(0%, 0%);
-          }
-          100% {
-            transform: scale(1.1) translate(-1%, -1%);
-          }
-        }
-
-        @keyframes progressCountdown {
-          0% {
-            width: 0%;
-          }
-          100% {
-            width: 100%;
-          }
-        }
-
-        .char-reveal-letter {
+        .hero-char {
+          display: inline-block;
           opacity: 0;
-          animation: charReveal3D 0.7s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+          animation: heroCharIn 0.65s cubic-bezier(0.16,1,0.3,1) forwards;
           transform-origin: 50% 100%;
           will-change: transform, opacity;
         }
-
-        .anim-subtitle {
-          animation: subTitleReveal 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        .anim-desc-staggered {
-          animation: descSmoothFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.55s forwards;
+        .hero-fade-up {
           opacity: 0;
+          animation: heroFadeUp 0.9s cubic-bezier(0.16,1,0.3,1) forwards;
         }
-
-        .anim-cta-staggered {
-          animation: btnSmoothPop 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.75s forwards;
+        .hero-tag-slide {
           opacity: 0;
+          animation: heroTagSlide 0.7s cubic-bezier(0.16,1,0.3,1) forwards;
         }
-
-        .ken-burns-active {
-          animation: kenBurnsContinuous 7s ease-out infinite alternate;
-        }
-
-        .progress-countdown-bar {
-          animation: progressCountdown 6.5s linear infinite;
+        .hero-ken-burns {
+          animation: heroKenBurns 8s ease-out infinite alternate;
         }
       `}</style>
 
-      {/* Top Countdown Progress Bar */}
-      <div className="absolute top-0 left-0 right-0 z-30 h-1 bg-white/10">
+      {/* ───── Background Images ───── */}
+      {SLIDES.map((s, i) => (
         <div
-          key={current}
-          className={`h-full bg-gradient-to-r from-aec-teal via-aec-gold to-emerald-400 ${
-            !isPaused ? "progress-countdown-bar" : "w-full opacity-60"
-          }`}
-        />
-      </div>
-
-      {/* Background Images with Crossfade & Ken Burns Zoom */}
-      <div className="absolute inset-0 pointer-events-none">
-        {SLIDES.map((slide, index) => {
-          const isActive = index === current;
-          return (
-            <div
-              key={slide.id}
-              className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-                isActive ? "opacity-100 z-1" : "opacity-0 z-0"
-              }`}
-            >
-              <div className={`w-full h-full relative ${isActive ? "ken-burns-active" : ""}`}>
-                <Image
-                  src={slide.image}
-                  alt={slide.category}
-                  fill
-                  priority={index === 0}
-                  className="object-cover object-center"
-                  sizes="100vw"
-                />
-              </div>
-
-              {/* Cinematic Dark Gradient Overlays */}
-              <div className="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/80 to-slate-950/30 md:to-transparent" />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-slate-950/50" />
-            </div>
-          );
-        })}
-      </div>
-
-      {/* Main Content Area */}
-      <div className="container-aec relative z-10 min-h-[540px] md:min-h-[620px] flex flex-col justify-center py-16 md:py-24">
-        {/* Animated Slide Content (Keyed to reset animations on each slide) */}
-        <div key={activeSlide.id} className="max-w-3xl space-y-5">
-          {/* Subtitle Line (e.g. "To become the most") */}
-          {activeSlide.subTitle && (
-            <div className="anim-subtitle">
-              <span className="font-display text-sm sm:text-base md:text-lg font-bold text-aec-teal tracking-wide">
-                {activeSlide.subTitle}
-              </span>
-            </div>
-          )}
-
-          {/* Main Title with Alphabet-by-Alphabet Reveal */}
-          <h1 className="font-display text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.14] text-white drop-shadow-xl overflow-hidden py-1">
-            <CharacterAnimatedText
-              text={activeSlide.title}
-              highlightWords={activeSlide.highlightWords}
-              baseDelay={0.08}
+          key={s.id}
+          className="absolute inset-0 transition-opacity duration-1000"
+          style={{ opacity: i === current ? 1 : 0, zIndex: 0 }}
+        >
+          <div className={i === current ? "hero-ken-burns w-full h-full" : "w-full h-full"}>
+            <Image
+              src={s.image}
+              alt={s.tag}
+              fill
+              priority={i === 0}
+              className="object-cover object-center"
+              sizes="100vw"
             />
+          </div>
+          {/* Deep cinematic overlays */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#040a18]/96 via-[#040a18]/75 to-[#040a18]/30" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#040a18]/90 via-transparent to-[#040a18]/40" />
+        </div>
+      ))}
+
+      {/* ───── Floating Decorative Orbs ───── */}
+      <div
+        className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full pointer-events-none"
+        style={{
+          background: `radial-gradient(circle, ${slide.glowColor} 0%, transparent 70%)`,
+          transition: "background 1s ease",
+          zIndex: 1,
+          opacity: 0.5,
+        }}
+      />
+
+      {/* ───── Pulse Rings ───── */}
+      <div className="absolute right-[12%] top-[20%] z-[1] hidden lg:block">
+        {[0, 0.5, 1].map((d) => (
+          <div
+            key={d}
+            className="absolute w-32 h-32 rounded-full border border-white/10"
+            style={{
+              top: "50%", left: "50%",
+              transform: "translate(-50%,-50%)",
+              animation: `heroPulseRing 3s ease-out ${d}s infinite`,
+            }}
+          />
+        ))}
+        <div
+          className="w-16 h-16 rounded-full flex items-center justify-center text-2xl"
+          style={{ background: `${slide.accentColor}22`, border: `1.5px solid ${slide.accentColor}55` }}
+        >
+          🎓
+        </div>
+      </div>
+
+      {/* ───── Main Content ───── */}
+      <div className="relative z-10 container-aec flex flex-col justify-center min-h-[100svh] py-28 md:py-36">
+        <div key={slide.id} className="max-w-[720px] space-y-6">
+
+          {/* Tag pill */}
+          <div className="hero-tag-slide" style={{ animationDelay: "0s" }}>
+            <span
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest backdrop-blur-sm border"
+              style={{
+                color: slide.accentColor,
+                borderColor: `${slide.accentColor}55`,
+                background: `${slide.accentColor}18`,
+              }}
+            >
+              {slide.tag}
+            </span>
+          </div>
+
+          {/* Title line 1 — character split */}
+          <h1 className="font-display font-extrabold leading-[1.1] tracking-tight text-white drop-shadow-2xl"
+            style={{ fontSize: "clamp(2.2rem, 5vw, 4rem)" }}>
+            <SplitText text={slide.title} delay={0.1} />
+          </h1>
+
+          {/* Title line 2 — highlighted */}
+          <h1 className="font-display font-black leading-[1.1] tracking-tight drop-shadow-2xl"
+            style={{
+              fontSize: "clamp(2.2rem, 5vw, 4rem)",
+              color: slide.accentColor,
+              textShadow: `0 0 40px ${slide.glowColor}`,
+            }}>
+            <SplitText text={slide.highlight} delay={0.25} />
           </h1>
 
           {/* Description */}
-          <p className="anim-desc-staggered text-base sm:text-lg md:text-xl text-slate-200 leading-relaxed max-w-xl drop-shadow-md">
-            {activeSlide.description}
+          <p
+            className="hero-fade-up text-slate-300 leading-relaxed max-w-xl"
+            style={{ fontSize: "clamp(0.95rem, 1.6vw, 1.15rem)", animationDelay: "0.6s" }}
+          >
+            {slide.description}
           </p>
 
-          {/* Action Buttons (CTAs) */}
-          <div className="anim-cta-staggered pt-2 flex flex-wrap items-center gap-4">
+          {/* CTA Buttons */}
+          <div className="hero-fade-up flex flex-wrap gap-4 pt-2" style={{ animationDelay: "0.8s" }}>
             <Link
-              href={activeSlide.exploreHref as never}
-              className={`rounded-xl px-7 py-4 text-sm font-bold shadow-xl transition-all duration-200 flex items-center gap-2.5 hover:scale-[1.03] active:scale-[0.98] cursor-pointer ${activeSlide.buttonColor}`}
+              href={slide.primaryBtn.href as never}
+              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-xl font-bold text-sm text-black shadow-2xl transition-all duration-200 hover:scale-[1.04] active:scale-[0.97]"
+              style={{
+                background: `linear-gradient(135deg, ${slide.accentColor}, ${slide.accentColor}cc)`,
+                boxShadow: `0 8px 30px ${slide.glowColor}`,
+              }}
             >
-              <span>{activeSlide.primaryButtonText}</span>
-              <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              {slide.primaryBtn.label}
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
             </Link>
 
             <Link
-              href="/admissions/free-trial"
-              className="rounded-xl border border-white/30 bg-white/10 hover:bg-white/20 backdrop-blur-md px-7 py-4 text-sm font-bold text-white transition-all duration-200 hover:scale-[1.03] active:scale-[0.98] shadow-lg"
+              href={slide.secondaryBtn.href as never}
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold text-sm text-white border border-white/25 bg-white/8 backdrop-blur-md transition-all duration-200 hover:bg-white/15 hover:scale-[1.04] active:scale-[0.97] shadow-lg"
             >
-              Book a Free Trial
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              {slide.secondaryBtn.label}
             </Link>
           </div>
-        </div>
 
-        {/* Bottom Minimal Slide Indicators */}
-        <div className="absolute bottom-8 left-0 right-0 z-20 flex items-center justify-center gap-2.5">
-          {SLIDES.map((slide, index) => {
-            const isActive = index === current;
-            return (
-              <button
-                key={slide.id}
-                onClick={() => setCurrent(index)}
-                aria-label={`Go to slide ${index + 1}: ${slide.category}`}
-                className={`transition-all duration-400 rounded-full cursor-pointer h-2 ${
-                  isActive
-                    ? "w-9 bg-aec-teal shadow-md shadow-aec-teal/60"
-                    : "w-2.5 bg-white/30 hover:bg-white/60"
-                }`}
-              />
-            );
-          })}
+          {/* Stats row */}
+          <div
+            className="hero-fade-up flex flex-wrap gap-6 pt-4 border-t border-white/10"
+            style={{ animationDelay: "1s" }}
+          >
+            {[
+              { n: "5,000+", l: "Students Enrolled" },
+              { n: "150+", l: "Expert Instructors" },
+              { n: "50+", l: "Global Countries" },
+            ].map((s) => (
+              <div key={s.l} className="flex flex-col">
+                <span className="text-xl font-black text-white" style={{ color: slide.accentColor }}>{s.n}</span>
+                <span className="text-xs text-slate-400 font-medium">{s.l}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Slide Navigation Arrows */}
-      <button
-        onClick={prevSlide}
-        aria-label="Previous Slide"
-        className="hidden md:flex absolute left-5 top-1/2 -translate-y-1/2 z-20 h-12 w-12 items-center justify-center rounded-full bg-black/40 hover:bg-black/80 border border-white/20 text-white backdrop-blur-md transition-all duration-200 hover:scale-110 cursor-pointer shadow-xl"
-      >
-        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
-        </svg>
-      </button>
+      {/* ───── Progress Bar ───── */}
+      <div className="absolute top-0 left-0 right-0 z-30 h-[3px] bg-white/10">
+        <div
+          className="h-full transition-none"
+          style={{
+            width: `${progress}%`,
+            background: `linear-gradient(90deg, ${slide.accentColor}, #ffffff88)`,
+            boxShadow: `0 0 10px ${slide.glowColor}`,
+          }}
+        />
+      </div>
 
-      <button
-        onClick={nextSlide}
-        aria-label="Next Slide"
-        className="hidden md:flex absolute right-5 top-1/2 -translate-y-1/2 z-20 h-12 w-12 items-center justify-center rounded-full bg-black/40 hover:bg-black/80 border border-white/20 text-white backdrop-blur-md transition-all duration-200 hover:scale-110 cursor-pointer shadow-xl"
-      >
-        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
-        </svg>
-      </button>
-    </div>
+      {/* ───── Slide Dots ───── */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2.5">
+        {SLIDES.map((s, i) => (
+          <button
+            key={s.id}
+            onClick={() => { setCurrent(i); setProgress(0); }}
+            aria-label={`Slide ${i + 1}`}
+            className="rounded-full transition-all duration-400 cursor-pointer"
+            style={{
+              width: i === current ? 36 : 10,
+              height: 10,
+              background: i === current ? slide.accentColor : "rgba(255,255,255,0.3)",
+              boxShadow: i === current ? `0 0 12px ${slide.glowColor}` : "none",
+            }}
+          />
+        ))}
+      </div>
+
+      {/* ───── Arrows ───── */}
+      {[
+        { label: "Prev", action: prev, dir: "left", icon: "M15 19l-7-7 7-7" },
+        { label: "Next", action: next, dir: "right", icon: "M9 5l7 7-7 7" },
+      ].map(({ label, action, dir, icon }) => (
+        <button
+          key={label}
+          onClick={action}
+          aria-label={label}
+          className={`hidden md:flex absolute ${dir}-5 top-1/2 -translate-y-1/2 z-20 w-12 h-12 items-center justify-center rounded-full border border-white/20 bg-black/40 backdrop-blur-md text-white transition-all duration-200 hover:scale-110 hover:bg-black/70 cursor-pointer shadow-xl`}
+        >
+          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d={icon} />
+          </svg>
+        </button>
+      ))}
+    </section>
   );
 }
