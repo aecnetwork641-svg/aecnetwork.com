@@ -123,10 +123,10 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-aec-navy/10 bg-white/95 backdrop-blur-md">
-      <div className="container-aec flex h-16 items-center justify-between">
+      <div className="container-aec flex h-20 items-center justify-between">
         {/* Brand */}
-        <Link href="/" className="flex items-center group transition hover:opacity-95">
-          <Logo variant="compact" size="md" />
+        <Link href="/" className="flex items-center group transition">
+          <Logo variant="compact" size="lg" />
         </Link>
 
         {/* Desktop Navigation */}

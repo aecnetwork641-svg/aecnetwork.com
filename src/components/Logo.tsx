@@ -11,23 +11,31 @@ interface LogoProps {
 
 export default function Logo({
   size = "md",
+  theme = "light",
   className = ""
 }: LogoProps) {
   const dimensions = {
-    sm: { w: 44, h: 44 },
-    md: { w: 56, h: 56 },
-    lg: { w: 88, h: 88 },
-    xl: { w: 130, h: 130 }
+    sm: { w: 56, h: 56 },
+    md: { w: 72, h: 72 },
+    lg: { w: 110, h: 110 },
+    xl: { w: 160, h: 160 }
   };
 
   const d = dimensions[size];
+  const isDark = theme === "dark";
 
   return (
     <div className={`inline-flex items-center select-none ${className}`}>
-      {/* Video Logo Only — No Text */}
+      {/* Video Logo — Large & Highlighted */}
       <div
-        className="shrink-0 overflow-hidden rounded-sm"
-        style={{ width: d.w, height: d.h }}
+        className="shrink-0 overflow-hidden rounded-xl transition-transform duration-300 hover:scale-105"
+        style={{
+          width: d.w,
+          height: d.h,
+          boxShadow: isDark
+            ? "0 0 0 2.5px #C9A24B, 0 4px 24px rgba(201,162,75,0.35), 0 2px 8px rgba(0,0,0,0.5)"
+            : "0 0 0 2.5px #C9A24B, 0 4px 20px rgba(15,42,71,0.18), 0 2px 8px rgba(201,162,75,0.2)"
+        }}
       >
         <video
           src="/images/logo-intro.mp4"
