@@ -11,44 +11,34 @@ interface LogoProps {
 
 export default function Logo({
   size = "md",
-  theme = "light",
   className = ""
 }: LogoProps) {
+  // 300x204 is the native video ratio → keep aspect ratio
   const dimensions = {
-    sm:  { w: 56,  h: 56  },
-    md:  { w: 80,  h: 80  },
-    lg:  { w: 130, h: 130 },
-    xl:  { w: 180, h: 180 },
-    xxl: { w: 260, h: 260 }
+    sm:  { w: 90,  h: 61  },
+    md:  { w: 150, h: 102 },
+    lg:  { w: 210, h: 143 },
+    xl:  { w: 270, h: 184 },
+    xxl: { w: 300, h: 204 }
   };
 
   const d = dimensions[size];
-  const isDark = theme === "dark";
 
   return (
     <div className={`inline-flex items-center select-none ${className}`}>
-      {/* Video Logo — Large & Highlighted */}
-      <div
-        className="shrink-0 overflow-hidden rounded-xl transition-transform duration-300 hover:scale-105"
-        style={{
-          width: d.w,
-          height: d.h,
-          boxShadow: isDark
-            ? "0 0 0 2.5px #C9A24B, 0 4px 24px rgba(201,162,75,0.35), 0 2px 8px rgba(0,0,0,0.5)"
-            : "0 0 0 2.5px #C9A24B, 0 4px 20px rgba(15,42,71,0.18), 0 2px 8px rgba(201,162,75,0.2)"
-        }}
-      >
-        <video
-          src="/images/logo-intro.mp4"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          className="w-full h-full object-cover"
-          style={{ display: "block" }}
-        />
-      </div>
+      {/* Video Logo */}
+      <video
+        src="/images/logo-intro.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        width={d.w}
+        height={d.h}
+        className="transition-transform duration-300 hover:scale-105"
+        style={{ display: "block", borderRadius: "8px" }}
+      />
     </div>
   );
 }
