@@ -114,66 +114,11 @@ export default function HeroSlider() {
 
   return (
     <section
-      className="relative overflow-hidden bg-[#040a18] select-none"
+      className="relative overflow-hidden select-none"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
-      style={{ minHeight: "100svh" }}
+      style={{ minHeight: "60svh" }}
     >
-      {/* ───── Global Keyframes ───── */}
-      <style jsx global>{`
-        @keyframes heroCharIn {
-          from { opacity: 0; transform: translateY(60%) rotateX(-90deg) scale(0.8); filter: blur(8px); }
-          to   { opacity: 1; transform: translateY(0)    rotateX(0deg)   scale(1);   filter: blur(0);  }
-        }
-        @keyframes heroFadeUp {
-          from { opacity: 0; transform: translateY(36px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes heroPulseRing {
-          0%   { transform: scale(1);   opacity: 0.6; }
-          100% { transform: scale(2.2); opacity: 0;   }
-        }
-        @keyframes heroKenBurns {
-          from { transform: scale(1)    translate(0, 0); }
-          to   { transform: scale(1.12) translate(-1.5%, -1%); }
-        }
-        @keyframes heroParticle {
-          0%   { transform: translateY(0)    opacity(1); }
-          100% { transform: translateY(-120px) opacity(0); }
-        }
-        @keyframes heroTagSlide {
-          from { opacity: 0; transform: translateX(-40px); }
-          to   { opacity: 1; transform: translateX(0); }
-        }
-
-        .hero-char {
-          display: inline-block;
-          opacity: 0;
-          animation: heroCharIn 0.65s cubic-bezier(0.16,1,0.3,1) forwards;
-          transform-origin: 50% 100%;
-          will-change: transform, opacity;
-        }
-        .hero-fade-up {
-          opacity: 0;
-          animation: heroFadeUp 0.9s cubic-bezier(0.16,1,0.3,1) forwards;
-        }
-        .hero-tag-slide {
-          opacity: 0;
-          animation: heroTagSlide 0.7s cubic-bezier(0.16,1,0.3,1) forwards;
-        }
-        .hero-ken-burns {
-          animation: heroKenBurns 8s ease-out infinite alternate;
-        }
-      `}</style>
-
-      {/* ───── Solid Dark Background (no images) ───── */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background: "linear-gradient(135deg, #040a18 0%, #0a1628 50%, #040a18 100%)",
-          zIndex: 0,
-        }}
-      />
 
       {/* ───── Floating Decorative Orbs ───── */}
       <div
@@ -211,28 +156,14 @@ export default function HeroSlider() {
       <div className="relative z-10 container-aec flex flex-col justify-center min-h-[100svh] py-28 md:py-36">
         <div key={slide.id} className="max-w-[720px] space-y-6">
 
-          {/* Tag pill */}
-          <div className="hero-tag-slide" style={{ animationDelay: "0s" }}>
-            <span
-              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest backdrop-blur-sm border"
-              style={{
-                color: slide.accentColor,
-                borderColor: `${slide.accentColor}55`,
-                background: `${slide.accentColor}18`,
-              }}
-            >
-              {slide.tag}
-            </span>
-          </div>
-
           {/* Title line 1 — character split */}
-          <h1 className="font-display font-extrabold leading-[1.1] tracking-tight text-white drop-shadow-2xl"
+          <h1 className="font-display font-extrabold leading-[1.1] tracking-tight text-aec-navy drop-shadow-sm"
             style={{ fontSize: "clamp(2.2rem, 5vw, 4rem)" }}>
             <SplitText text={slide.title} delay={0.1} />
           </h1>
 
           {/* Title line 2 — highlighted */}
-          <h1 className="font-display font-black leading-[1.1] tracking-tight drop-shadow-2xl"
+          <h1 className="font-display font-black leading-[1.1] tracking-tight drop-shadow-sm"
             style={{
               fontSize: "clamp(2.2rem, 5vw, 4rem)",
               color: slide.accentColor,
@@ -240,14 +171,6 @@ export default function HeroSlider() {
             }}>
             <SplitText text={slide.highlight} delay={0.25} />
           </h1>
-
-          {/* Description */}
-          <p
-            className="hero-fade-up text-slate-300 leading-relaxed max-w-xl"
-            style={{ fontSize: "clamp(0.95rem, 1.6vw, 1.15rem)", animationDelay: "0.6s" }}
-          >
-            {slide.description}
-          </p>
 
           {/* CTA Buttons */}
           <div className="hero-fade-up flex flex-wrap gap-4 pt-2" style={{ animationDelay: "0.8s" }}>
@@ -267,7 +190,7 @@ export default function HeroSlider() {
 
             <Link
               href={slide.secondaryBtn.href as never}
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold text-sm text-white border border-white/25 bg-white/8 backdrop-blur-md transition-all duration-200 hover:bg-white/15 hover:scale-[1.04] active:scale-[0.97] shadow-lg"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold text-sm text-aec-navy border border-aec-navy/30 bg-aec-navy/5 transition-all duration-200 hover:bg-aec-navy/10 hover:scale-[1.04] active:scale-[0.97] shadow-sm"
             >
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
@@ -279,7 +202,7 @@ export default function HeroSlider() {
 
           {/* Stats row */}
           <div
-            className="hero-fade-up flex flex-wrap gap-6 pt-4 border-t border-white/10"
+            className="hero-fade-up flex flex-wrap gap-6 pt-4 border-t border-slate-200"
             style={{ animationDelay: "1s" }}
           >
             {[
@@ -288,8 +211,8 @@ export default function HeroSlider() {
               { n: "50+", l: "Global Countries" },
             ].map((s) => (
               <div key={s.l} className="flex flex-col">
-                <span className="text-xl font-black text-white" style={{ color: slide.accentColor }}>{s.n}</span>
-                <span className="text-xs text-slate-400 font-medium">{s.l}</span>
+                <span className="text-xl font-black" style={{ color: slide.accentColor }}>{s.n}</span>
+                <span className="text-xs text-slate-500 font-medium">{s.l}</span>
               </div>
             ))}
           </div>
@@ -297,7 +220,7 @@ export default function HeroSlider() {
       </div>
 
       {/* ───── Progress Bar ───── */}
-      <div className="absolute top-0 left-0 right-0 z-30 h-[3px] bg-white/10">
+      <div className="absolute top-0 left-0 right-0 z-30 h-[3px] bg-slate-200">
         <div
           className="h-full transition-none"
           style={{
