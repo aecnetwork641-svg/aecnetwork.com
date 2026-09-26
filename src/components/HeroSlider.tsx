@@ -3,101 +3,79 @@
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 
-interface BannerSlide {
-  id: string;
-  tag: string;
-  title: string;
-  highlight: string;
-  description: string;
-  primaryBtn: { label: string; href: string };
-  secondaryBtn: { label: string; href: string };
-  accentColor: string;
-  glowColor: string;
-}
-
-const SLIDES: BannerSlide[] = [
+const SLIDES = [
   {
     id: "s1",
-    tag: "🌍 Global Education",
-    title: "Leading Online Educational",
-    highlight: "Institution in the World",
-    description:
-      "Structured, accessible online education with vetted instructors, personalized 1-on-1 tutoring, and comprehensive academic support worldwide.",
+    badge: "🌍 Global Online Education",
+    title: "Where Knowledge",
+    highlight: "Meets Excellence",
+    sub: "Structured, accessible online education with vetted instructors, personalized 1-on-1 tutoring, and comprehensive academic support worldwide.",
     primaryBtn: { label: "Start Learning Today", href: "/admissions/apply" },
     secondaryBtn: { label: "Book Free Trial", href: "/admissions/free-trial" },
-    accentColor: "#C9A24B",
-    glowColor: "rgba(201,162,75,0.4)",
+    accent: "#C9A24B",
+    icon: "📖",
   },
   {
     id: "s2",
-    tag: "🕌 Islamic Education",
-    title: "Build a Strong Foundation in",
-    highlight: "Faith & Knowledge",
-    description:
-      "Qur'an recitation, Tajweed, Hifz, Islamic studies, Seerah, Hadith — guided by qualified and experienced scholars worldwide.",
+    badge: "🕌 Islamic & Quranic Studies",
+    title: "Build Your Foundation",
+    highlight: "in Faith & Wisdom",
+    sub: "Qur'an, Tajweed, Hifz, Seerah & Hadith — guided by qualified scholars. Learn Islam the right way, at your own pace.",
     primaryBtn: { label: "Explore Islamic Studies", href: "/programs/quran-islamic-studies" },
     secondaryBtn: { label: "Book Free Trial", href: "/admissions/free-trial" },
-    accentColor: "#22c55e",
-    glowColor: "rgba(34,197,94,0.4)",
+    accent: "#22c55e",
+    icon: "🕌",
   },
   {
     id: "s3",
-    tag: "📚 Academic Excellence",
-    title: "Master Core Subjects and",
-    highlight: "Achieve Your Goals",
-    description:
-      "Mathematics, Science, English, GCSE, O & A Levels and more — with structured lessons, expert guidance and personalized support.",
-    primaryBtn: { label: "Explore Academics", href: "/programs/mathematics" },
+    badge: "📚 Academic Excellence",
+    title: "Master Every Subject,",
+    highlight: "Achieve Every Goal",
+    sub: "GCSE, O & A Levels, SAT, Math, Science, English — expert coaching with proven results and past paper mastery.",
+    primaryBtn: { label: "View All Programs", href: "/programs" },
     secondaryBtn: { label: "Book Free Trial", href: "/admissions/free-trial" },
-    accentColor: "#3b82f6",
-    glowColor: "rgba(59,130,246,0.4)",
+    accent: "#3b82f6",
+    icon: "🎓",
   },
   {
     id: "s4",
-    tag: "💻 Technology & Coding",
-    title: "Learn Today, Build Tomorrow",
-    highlight: "with Modern Digital Skills",
-    description:
-      "Programming, web development, digital marketing and more — develop in-demand skills for a successful and prosperous future.",
+    badge: "💻 Technology & Coding",
+    title: "Learn Today,",
+    highlight: "Build Tomorrow",
+    sub: "Python, Web Dev, React, Next.js — hands-on coding skills that open doors to a successful digital career.",
     primaryBtn: { label: "Explore Tech Programs", href: "/programs/computer-programming" },
     secondaryBtn: { label: "Book Free Trial", href: "/admissions/free-trial" },
-    accentColor: "#06b6d4",
-    glowColor: "rgba(6,182,212,0.4)",
+    accent: "#06b6d4",
+    icon: "💻",
   },
 ];
 
-const DURATION = 7000;
+const STATS = [
+  { n: "5,000+", l: "Students Enrolled" },
+  { n: "150+",   l: "Expert Instructors" },
+  { n: "50+",    l: "Global Countries" },
+  { n: "100%",   l: "Verified Faculty" },
+];
 
-function SplitText({ text, delay = 0 }: { text: string; delay?: number }) {
-  return (
-    <>
-      {text.split("").map((char, i) => (
-        <span
-          key={i}
-          className="hero-char"
-          style={{ animationDelay: `${delay + i * 0.03}s` }}
-        >
-          {char === " " ? "\u00A0" : char}
-        </span>
-      ))}
-    </>
-  );
-}
+const DURATION = 6000;
 
 export default function HeroSlider() {
   const [current, setCurrent] = useState(0);
   const [progress, setProgress] = useState(0);
-  const [paused, setPaused] = useState(false);
+  const [paused, setPaused]   = useState(false);
+  const [animate, setAnimate] = useState(true);
 
-  const next = useCallback(() => {
-    setCurrent((p) => (p + 1) % SLIDES.length);
-    setProgress(0);
+  const goTo = useCallback((i: number) => {
+    setAnimate(false);
+    setTimeout(() => {
+      setCurrent(i);
+      setProgress(0);
+      setAnimate(true);
+    }, 80);
   }, []);
 
-  const prev = useCallback(() => {
-    setCurrent((p) => (p === 0 ? SLIDES.length - 1 : p - 1));
-    setProgress(0);
-  }, []);
+  const next = useCallback(() => goTo((current + 1) % SLIDES.length), [current, goTo]);
+  const prev = useCallback(() => goTo(current === 0 ? SLIDES.length - 1 : current - 1), [current, goTo]);
 
   useEffect(() => {
     if (paused) return;
@@ -117,69 +95,238 @@ export default function HeroSlider() {
       className="relative overflow-hidden select-none"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
-      style={{ minHeight: "60svh" }}
     >
+      <style jsx global>{`
+        /* ── Keyframes ── */
+        @keyframes aecFadeUp {
+          from { opacity: 0; transform: translateY(32px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes aecFadeIn {
+          from { opacity: 0; }
+          to   { opacity: 1; }
+        }
+        @keyframes aecSlideRight {
+          from { opacity: 0; transform: translateX(-28px); }
+          to   { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes aecFloat {
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          50%      { transform: translateY(-14px) rotate(3deg); }
+        }
+        @keyframes aecSpin {
+          from { transform: rotate(0deg); }
+          to   { transform: rotate(360deg); }
+        }
+        @keyframes aecPulse {
+          0%, 100% { opacity: 0.6; transform: scale(1); }
+          50%      { opacity: 1;   transform: scale(1.08); }
+        }
+        @keyframes aecShimmer {
+          0%   { background-position: -400px 0; }
+          100% { background-position: 400px 0; }
+        }
+        @keyframes aecGradient {
+          0%   { background-position: 0% 50%; }
+          50%  { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
 
-      {/* ───── Floating Decorative Orbs ───── */}
+        /* ── Utility animation classes ── */
+        .aec-fade-up   { opacity:0; animation: aecFadeUp   0.7s cubic-bezier(.16,1,.3,1) forwards; }
+        .aec-fade-in   { opacity:0; animation: aecFadeIn   0.6s ease forwards; }
+        .aec-slide-r   { opacity:0; animation: aecSlideRight 0.65s cubic-bezier(.16,1,.3,1) forwards; }
+        .aec-float     { animation: aecFloat 5s ease-in-out infinite; }
+        .aec-pulse-slow{ animation: aecPulse 3s ease-in-out infinite; }
+
+        /* ── Animated gradient background ── */
+        .aec-hero-bg {
+          background: linear-gradient(135deg,
+            #0F2A47 0%,
+            #0e3460 25%,
+            #0F2A47 50%,
+            #133558 75%,
+            #0F2A47 100%
+          );
+          background-size: 400% 400%;
+          animation: aecGradient 12s ease infinite;
+        }
+
+        /* ── Geometric pattern overlay ── */
+        .aec-geo-pattern {
+          background-image:
+            repeating-linear-gradient(
+              45deg,
+              transparent,
+              transparent 40px,
+              rgba(201,162,75,0.04) 40px,
+              rgba(201,162,75,0.04) 41px
+            ),
+            repeating-linear-gradient(
+              -45deg,
+              transparent,
+              transparent 40px,
+              rgba(201,162,75,0.04) 40px,
+              rgba(201,162,75,0.04) 41px
+            );
+        }
+
+        /* ── Gold shimmer text ── */
+        .aec-shimmer-text {
+          background: linear-gradient(90deg,
+            #C9A24B 0%, #F3D17C 40%, #C9A24B 60%, #9B7524 100%
+          );
+          background-size: 400px 100%;
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          animation: aecShimmer 3s linear infinite;
+        }
+
+        /* ── Card hover ── */
+        .aec-stat-card {
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .aec-stat-card:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 8px 24px rgba(201,162,75,0.2);
+        }
+      `}</style>
+
+      {/* ══════════ BACKGROUND ══════════ */}
+      <div className="aec-hero-bg aec-geo-pattern absolute inset-0" />
+
+      {/* Radial glow center */}
       <div
-        className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full pointer-events-none"
+        className="absolute inset-0 pointer-events-none"
         style={{
-          background: `radial-gradient(circle, ${slide.glowColor} 0%, transparent 70%)`,
+          background: "radial-gradient(ellipse 70% 60% at 20% 50%, rgba(201,162,75,0.12) 0%, transparent 70%)",
           transition: "background 1s ease",
-          zIndex: 1,
-          opacity: 0.5,
         }}
       />
 
-      {/* ───── Pulse Rings ───── */}
-      <div className="absolute right-[12%] top-[20%] z-[1] hidden lg:block">
-        {[0, 0.5, 1].map((d) => (
-          <div
-            key={d}
-            className="absolute w-32 h-32 rounded-full border border-white/10"
-            style={{
-              top: "50%", left: "50%",
-              transform: "translate(-50%,-50%)",
-              animation: `heroPulseRing 3s ease-out ${d}s infinite`,
-            }}
-          />
-        ))}
+      {/* Top accent line */}
+      <div
+        className="absolute top-0 left-0 right-0 h-[3px]"
+        style={{ background: "linear-gradient(90deg, #C9A24B, #F3D17C, #C9A24B)" }}
+      />
+
+      {/* ══════════ DECORATIVE RIGHT SIDE ══════════ */}
+      <div className="absolute right-0 top-0 bottom-0 w-[45%] hidden lg:flex items-center justify-center pointer-events-none overflow-hidden">
+        {/* Large circle ring */}
         <div
-          className="w-16 h-16 rounded-full flex items-center justify-center text-2xl"
-          style={{ background: `${slide.accentColor}22`, border: `1.5px solid ${slide.accentColor}55` }}
+          className="absolute w-[520px] h-[520px] rounded-full border aec-pulse-slow"
+          style={{ borderColor: "rgba(201,162,75,0.15)" }}
+        />
+        <div
+          className="absolute w-[380px] h-[380px] rounded-full border"
+          style={{
+            borderColor: "rgba(201,162,75,0.1)",
+            animation: "aecSpin 30s linear infinite",
+            borderStyle: "dashed",
+          }}
+        />
+        <div
+          className="absolute w-[240px] h-[240px] rounded-full border aec-pulse-slow"
+          style={{ borderColor: "rgba(201,162,75,0.2)", animationDelay: "1.5s" }}
+        />
+
+        {/* Center floating icon box */}
+        <div
+          className="relative z-10 aec-float flex flex-col items-center gap-4"
+          style={{ animationDelay: "0.5s" }}
         >
-          🎓
+          <div
+            className="w-40 h-40 rounded-3xl flex items-center justify-center text-7xl shadow-2xl"
+            style={{
+              background: "linear-gradient(135deg, rgba(201,162,75,0.2), rgba(201,162,75,0.05))",
+              border: "1.5px solid rgba(201,162,75,0.4)",
+              backdropFilter: "blur(12px)",
+              boxShadow: "0 0 60px rgba(201,162,75,0.2), inset 0 1px 0 rgba(255,255,255,0.1)",
+              transition: "all 0.5s ease",
+            }}
+            key={slide.id}
+          >
+            {slide.icon}
+          </div>
+
+          {/* Floating mini badges */}
+          {[
+            { emoji: "📜", label: "Certificate", top: "-60px", left: "-90px", delay: "0s" },
+            { emoji: "⭐", label: "5-Star",      top: "-40px", left: "100px",  delay: "0.8s" },
+            { emoji: "🌐", label: "Online",      top: "100px", left: "-100px", delay: "1.2s" },
+            { emoji: "🎯", label: "Personalized",top: "110px", left: "90px",   delay: "0.4s" },
+          ].map((b) => (
+            <div
+              key={b.label}
+              className="absolute flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold text-white"
+              style={{
+                top: b.top, left: b.left,
+                background: "rgba(15,42,71,0.9)",
+                border: "1px solid rgba(201,162,75,0.4)",
+                backdropFilter: "blur(8px)",
+                animation: `aecFloat ${4 + parseFloat(b.delay)}s ease-in-out infinite`,
+                animationDelay: b.delay,
+                whiteSpace: "nowrap",
+              }}
+            >
+              <span>{b.emoji}</span> {b.label}
+            </div>
+          ))}
         </div>
       </div>
 
-      {/* ───── Main Content ───── */}
-      <div className="relative z-10 container-aec flex flex-col justify-center min-h-[100svh] py-28 md:py-36">
-        <div key={slide.id} className="max-w-[720px] space-y-6">
+      {/* ══════════ MAIN CONTENT ══════════ */}
+      <div className="relative z-10 container-aec grid lg:grid-cols-2 min-h-[88svh] py-20 md:py-28 items-center gap-12">
+        <div className={`space-y-7 ${animate ? "" : "opacity-0"}`} style={{ transition: "opacity 0.08s" }}>
 
-          {/* Title line 1 — character split */}
-          <h1 className="font-display font-extrabold leading-[1.1] tracking-tight text-aec-navy drop-shadow-sm"
-            style={{ fontSize: "clamp(2.2rem, 5vw, 4rem)" }}>
-            <SplitText text={slide.title} delay={0.1} />
-          </h1>
+          {/* Badge */}
+          <div className="aec-slide-r" style={{ animationDelay: "0s" }}>
+            <span
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-xs font-bold tracking-widest uppercase"
+              style={{
+                color: slide.accent,
+                background: `${slide.accent}18`,
+                border: `1px solid ${slide.accent}50`,
+                backdropFilter: "blur(4px)",
+              }}
+            >
+              {slide.badge}
+            </span>
+          </div>
 
-          {/* Title line 2 — highlighted */}
-          <h1 className="font-display font-black leading-[1.1] tracking-tight drop-shadow-sm"
-            style={{
-              fontSize: "clamp(2.2rem, 5vw, 4rem)",
-              color: slide.accentColor,
-              textShadow: `0 0 40px ${slide.glowColor}`,
-            }}>
-            <SplitText text={slide.highlight} delay={0.25} />
-          </h1>
+          {/* Heading */}
+          <div className="space-y-1">
+            <h1
+              className="aec-fade-up font-display font-extrabold text-white leading-[1.1]"
+              style={{ fontSize: "clamp(2.4rem, 5vw, 4.2rem)", animationDelay: "0.1s" }}
+            >
+              {slide.title}
+            </h1>
+            <h1
+              className="aec-fade-up font-display font-black leading-[1.1] aec-shimmer-text"
+              style={{ fontSize: "clamp(2.4rem, 5vw, 4.2rem)", animationDelay: "0.2s" }}
+            >
+              {slide.highlight}
+            </h1>
+          </div>
+
+          {/* Sub text */}
+          <p
+            className="aec-fade-up text-slate-300 leading-relaxed max-w-lg"
+            style={{ fontSize: "clamp(0.95rem, 1.5vw, 1.1rem)", animationDelay: "0.35s" }}
+          >
+            {slide.sub}
+          </p>
 
           {/* CTA Buttons */}
-          <div className="hero-fade-up flex flex-wrap gap-4 pt-2" style={{ animationDelay: "0.8s" }}>
+          <div className="aec-fade-up flex flex-wrap gap-4" style={{ animationDelay: "0.5s" }}>
             <Link
               href={slide.primaryBtn.href as never}
-              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-xl font-bold text-sm text-black shadow-2xl transition-all duration-200 hover:scale-[1.04] active:scale-[0.97]"
+              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-xl font-bold text-sm text-[#0F2A47] transition-all duration-200 hover:scale-[1.04] active:scale-[0.97]"
               style={{
-                background: `linear-gradient(135deg, ${slide.accentColor}, ${slide.accentColor}cc)`,
-                boxShadow: `0 8px 30px ${slide.glowColor}`,
+                background: `linear-gradient(135deg, #F3D17C, #C9A24B)`,
+                boxShadow: "0 8px 32px rgba(201,162,75,0.4), 0 2px 8px rgba(0,0,0,0.2)",
               }}
             >
               {slide.primaryBtn.label}
@@ -190,7 +337,7 @@ export default function HeroSlider() {
 
             <Link
               href={slide.secondaryBtn.href as never}
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold text-sm text-aec-navy border border-aec-navy/30 bg-aec-navy/5 transition-all duration-200 hover:bg-aec-navy/10 hover:scale-[1.04] active:scale-[0.97] shadow-sm"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold text-sm text-white border border-white/25 bg-white/8 backdrop-blur-md transition-all duration-200 hover:bg-white/15 hover:scale-[1.04] active:scale-[0.97]"
             >
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
@@ -202,63 +349,79 @@ export default function HeroSlider() {
 
           {/* Stats row */}
           <div
-            className="hero-fade-up flex flex-wrap gap-6 pt-4 border-t border-slate-200"
-            style={{ animationDelay: "1s" }}
+            className="aec-fade-up grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2"
+            style={{ animationDelay: "0.7s" }}
           >
-            {[
-              { n: "5,000+", l: "Students Enrolled" },
-              { n: "150+", l: "Expert Instructors" },
-              { n: "50+", l: "Global Countries" },
-            ].map((s) => (
-              <div key={s.l} className="flex flex-col">
-                <span className="text-xl font-black" style={{ color: slide.accentColor }}>{s.n}</span>
-                <span className="text-xs text-slate-500 font-medium">{s.l}</span>
+            {STATS.map((s) => (
+              <div
+                key={s.l}
+                className="aec-stat-card flex flex-col items-center text-center px-3 py-3 rounded-xl"
+                style={{
+                  background: "rgba(255,255,255,0.05)",
+                  border: "1px solid rgba(201,162,75,0.2)",
+                  backdropFilter: "blur(8px)",
+                }}
+              >
+                <span className="text-xl font-black aec-shimmer-text">{s.n}</span>
+                <span className="text-[11px] text-slate-400 font-medium mt-0.5">{s.l}</span>
               </div>
             ))}
           </div>
         </div>
+
+        {/* Right column — spacer on desktop so decorative element shows */}
+        <div className="hidden lg:block" />
       </div>
 
-      {/* ───── Progress Bar ───── */}
-      <div className="absolute top-0 left-0 right-0 z-30 h-[3px] bg-slate-200">
+      {/* ══════════ BOTTOM CONTROLS ══════════ */}
+      {/* Progress bar */}
+      <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-white/10">
         <div
           className="h-full transition-none"
           style={{
             width: `${progress}%`,
-            background: `linear-gradient(90deg, ${slide.accentColor}, #ffffff88)`,
-            boxShadow: `0 0 10px ${slide.glowColor}`,
+            background: `linear-gradient(90deg, #C9A24B, #F3D17C)`,
+            boxShadow: "0 0 10px rgba(201,162,75,0.6)",
           }}
         />
       </div>
 
-      {/* ───── Slide Dots ───── */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2.5">
+      {/* Slide dots */}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex items-center gap-3">
         {SLIDES.map((s, i) => (
           <button
             key={s.id}
-            onClick={() => { setCurrent(i); setProgress(0); }}
+            onClick={() => goTo(i)}
             aria-label={`Slide ${i + 1}`}
-            className="rounded-full transition-all duration-400 cursor-pointer"
+            className="rounded-full cursor-pointer transition-all duration-300"
             style={{
-              width: i === current ? 36 : 10,
-              height: 10,
-              background: i === current ? slide.accentColor : "rgba(255,255,255,0.3)",
-              boxShadow: i === current ? `0 0 12px ${slide.glowColor}` : "none",
+              width:      i === current ? 32 : 8,
+              height:     8,
+              background: i === current
+                ? "linear-gradient(90deg, #C9A24B, #F3D17C)"
+                : "rgba(255,255,255,0.25)",
+              boxShadow:  i === current ? "0 0 10px rgba(201,162,75,0.6)" : "none",
             }}
           />
         ))}
       </div>
 
-      {/* ───── Arrows ───── */}
+      {/* Arrows */}
       {[
-        { label: "Prev", action: prev, dir: "left", icon: "M15 19l-7-7 7-7" },
-        { label: "Next", action: next, dir: "right", icon: "M9 5l7 7-7 7" },
-      ].map(({ label, action, dir, icon }) => (
+        { label: "Prev", action: prev, pos: "left-4",  icon: "M15 19l-7-7 7-7" },
+        { label: "Next", action: next, pos: "right-4", icon: "M9 5l7 7-7 7"   },
+      ].map(({ label, action, pos, icon }) => (
         <button
           key={label}
           onClick={action}
           aria-label={label}
-          className={`hidden md:flex absolute ${dir}-5 top-1/2 -translate-y-1/2 z-20 w-12 h-12 items-center justify-center rounded-full border border-white/20 bg-black/40 backdrop-blur-md text-white transition-all duration-200 hover:scale-110 hover:bg-black/70 cursor-pointer shadow-xl`}
+          className={`hidden md:flex absolute ${pos} top-1/2 -translate-y-1/2 z-20 w-11 h-11 items-center justify-center rounded-full cursor-pointer transition-all duration-200 hover:scale-110`}
+          style={{
+            background: "rgba(15,42,71,0.7)",
+            border: "1px solid rgba(201,162,75,0.3)",
+            backdropFilter: "blur(8px)",
+            color: "#C9A24B",
+          }}
         >
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d={icon} />
