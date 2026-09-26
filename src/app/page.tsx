@@ -1,5 +1,4 @@
 import Link from "next/link";
-import HeroSlider from "@/components/HeroSlider";
 import PricingSection from "@/components/PricingSection";
 
 
@@ -98,11 +97,22 @@ const FAQS = [
 export default function HomePage() {
   return (
     <div className="flex flex-col gap-16 md:gap-24">
-      {/* HERO BANNER */}
-      <HeroSlider />
+      {/* HERO VIDEO BANNER */}
+      <section className="w-full -mt-[1px]">
+        <video
+          src="/images/hero-video.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          className="w-full h-auto block"
+          style={{ maxHeight: "90vh", objectFit: "cover" }}
+        />
+      </section>
 
       {/* QUICK STATS & CREDENTIALS STRIP */}
-      <section className="container-aec pt-10">
+      <section className="container-aec">
         <div className="rounded-2xl border border-slate-200/90 bg-white p-6 md:p-8 shadow-xl shadow-aec-navy/5 grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
           <div className="border-r border-slate-100 last:border-0 pr-4">
             <p className="font-display text-2xl md:text-3xl font-extrabold text-aec-navy">100%</p>
