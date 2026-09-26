@@ -1,71 +1,67 @@
 "use client";
 
 import React from "react";
-import Image from "next/image";
 
 interface LogoProps {
   /**
-   * 'full': Complete Logo with Text & Subtitle
-   * 'compact': Logo + AEC NETWORK branding
-   * 'icon-only': Just the antique book stack emblem
+   * 'full': Video Logo + AEC NETWORK + Subtitle
+   * 'compact': Video Logo + AEC NETWORK
+   * 'icon-only': Just the video logo
    */
   variant?: "full" | "compact" | "icon-only";
   /**
-   * 'light': Default for white/light backgrounds
-   * 'dark': For dark backgrounds like the Footer
+   * 'light': For white/light backgrounds (default)
+   * 'dark': For navy/dark backgrounds (e.g. Footer)
    */
   theme?: "light" | "dark";
   /**
-   * Preset sizes: sm (navbar), md (cards/headers), lg (auth/hero), xl
+   * Preset sizes
    */
   size?: "sm" | "md" | "lg" | "xl";
   className?: string;
-  animated?: boolean;
 }
 
 export default function Logo({
   variant = "compact",
   theme = "light",
   size = "md",
-  className = "",
-  animated = true
+  className = ""
 }: LogoProps) {
   const isDark = theme === "dark";
 
-  // Dimensions for the vintage logo image
   const dimensions = {
-    sm: { width: 38, height: 38, textClass: "text-base", subClass: "text-[10px]" },
-    md: { width: 50, height: 50, textClass: "text-lg", subClass: "text-xs" },
-    lg: { width: 80, height: 80, textClass: "text-2xl", subClass: "text-sm" },
-    xl: { width: 120, height: 120, textClass: "text-3xl", subClass: "text-base" }
+    sm: { w: 40, h: 40, textClass: "text-base", subClass: "text-[9px]" },
+    md: { w: 52, h: 52, textClass: "text-lg", subClass: "text-[10px]" },
+    lg: { w: 80, h: 80, textClass: "text-2xl", subClass: "text-xs" },
+    xl: { w: 120, h: 120, textClass: "text-3xl", subClass: "text-sm" }
   };
 
-  const currentDim = dimensions[size];
+  const d = dimensions[size];
 
   return (
-    <div className={`inline-flex items-center gap-3 select-none ${className}`}>
-      {/* Official Vintage Books & Scroll Emblem */}
+    <div className={`inline-flex items-center gap-2.5 select-none ${className}`}>
+      {/* Video Logo Emblem */}
       <div
-        className={`relative shrink-0 flex items-center justify-center transition-transform duration-300 ${
-          animated ? "hover:scale-105" : ""
-        }`}
-        style={{ width: currentDim.width, height: currentDim.height }}
+        className="shrink-0 overflow-hidden rounded-sm"
+        style={{ width: d.w, height: d.h }}
       >
-        <Image
-          src="/images/aec-vintage-logo.png"
-          alt="AEC Network Official Logo"
-          width={currentDim.width}
-          height={currentDim.height}
-          priority
-          className="object-contain w-full h-full drop-shadow-sm"
+        <video
+          src="/images/logo-intro.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          className="w-full h-full object-cover"
+          style={{ display: "block" }}
         />
       </div>
 
-      {/* Typography Branding */}
+      {/* Typography */}
       {variant !== "icon-only" && (
         <div className="flex flex-col justify-center leading-tight">
           <div
-            className={`font-display font-extrabold tracking-tight flex items-center gap-1.5 ${currentDim.textClass} ${
+            className={`font-display font-extrabold tracking-tight flex items-center gap-1 ${d.textClass} ${
               isDark ? "text-white" : "text-aec-navy"
             }`}
           >
@@ -75,15 +71,15 @@ export default function Logo({
 
           {variant === "full" ? (
             <span
-              className={`mt-0.5 font-medium ${currentDim.subClass} ${
-                isDark ? "text-slate-300" : "text-aec-navy/70"
+              className={`mt-0.5 font-medium leading-tight ${d.subClass} ${
+                isDark ? "text-slate-300" : "text-aec-navy/65"
               }`}
             >
-              Islamic & Professional Education Institute
+              Islamic & Professional Education
             </span>
           ) : (
             <span
-              className={`font-semibold uppercase tracking-wider text-[10px] ${
+              className={`font-semibold uppercase tracking-wider text-[9px] ${
                 isDark ? "text-aec-gold/90" : "text-aec-teal"
               }`}
             >
