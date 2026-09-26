@@ -1,5 +1,6 @@
 import Link from "next/link";
 import HeroSlider from "@/components/HeroSlider";
+import PricingSection from "@/components/PricingSection";
 
 const PROGRAMS = [
   {
@@ -407,6 +408,9 @@ export default function HomePage() {
           ))}
         </div>
       </section>
+
+      {/* 10B. PRICING & FEE STRUCTURE */}
+      <PricingSection />
 
       {/* 11. FREE TRIAL CTA & 12. LEARNING RESOURCES */}
       <section className="bg-gradient-to-r from-aec-navy to-slate-900 py-16 text-white">
