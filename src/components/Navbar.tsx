@@ -123,10 +123,10 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-aec-navy/10 bg-white/95 backdrop-blur-md overflow-visible">
-      <div className="container-aec flex h-24 items-center justify-between overflow-visible">
-        {/* Brand — Overflows navbar zone */}
-        <Link href="/" className="flex items-center group transition relative z-10" style={{ marginTop: "12px" }}>
-          <Logo variant="compact" size="xl" />
+      <div className="container-aec flex h-32 items-center justify-between overflow-visible">
+        {/* Brand — XXL size so video text is fully readable */}
+        <Link href="/" className="flex items-center group transition relative z-10" style={{ marginTop: "16px" }}>
+          <Logo variant="compact" size="xxl" />
         </Link>
 
         {/* Desktop Navigation */}

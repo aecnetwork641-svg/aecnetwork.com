@@ -5,7 +5,7 @@ import React from "react";
 interface LogoProps {
   variant?: "full" | "compact" | "icon-only";
   theme?: "light" | "dark";
-  size?: "sm" | "md" | "lg" | "xl";
+  size?: "sm" | "md" | "lg" | "xl" | "xxl";
   className?: string;
 }
 
@@ -15,10 +15,11 @@ export default function Logo({
   className = ""
 }: LogoProps) {
   const dimensions = {
-    sm: { w: 56, h: 56 },
-    md: { w: 72, h: 72 },
-    lg: { w: 110, h: 110 },
-    xl: { w: 160, h: 160 }
+    sm:  { w: 56,  h: 56  },
+    md:  { w: 80,  h: 80  },
+    lg:  { w: 130, h: 130 },
+    xl:  { w: 180, h: 180 },
+    xxl: { w: 260, h: 260 }
   };
 
   const d = dimensions[size];
