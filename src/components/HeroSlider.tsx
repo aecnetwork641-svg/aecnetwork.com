@@ -184,39 +184,23 @@ export default function HeroSlider() {
           </div>
         </div>
 
-        {/* Bottom Interactive Category Selector Tabs */}
-        <div className="pt-6 border-t border-white/15">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-            {SLIDES.map((slide, index) => {
-              const isActive = index === current;
-              return (
-                <button
-                  key={slide.id}
-                  onClick={() => setCurrent(index)}
-                  className={`text-left p-3.5 rounded-xl border transition-all duration-200 backdrop-blur-md cursor-pointer ${
-                    isActive
-                      ? "bg-white/20 border-aec-teal shadow-lg shadow-aec-teal/10 scale-[1.02]"
-                      : "bg-black/30 border-white/10 hover:bg-white/10 hover:border-white/20 opacity-75 hover:opacity-100"
-                  }`}
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="text-base">{slide.badge}</span>
-                    <span className={`text-[10px] font-mono font-bold ${isActive ? "text-aec-teal" : "text-white/40"}`}>
-                      0{index + 1}
-                    </span>
-                  </div>
-                  <p className="mt-1.5 text-xs font-bold text-white line-clamp-1">{slide.category}</p>
-                  <div className="mt-2 h-1 w-full bg-white/10 rounded-full overflow-hidden">
-                    <div
-                      className={`h-full bg-aec-teal transition-all duration-300 ${
-                        isActive ? "w-full" : "w-0"
-                      }`}
-                    />
-                  </div>
-                </button>
-              );
-            })}
-          </div>
+        {/* Bottom Minimal Slide Indicators */}
+        <div className="pt-4 flex items-center justify-center gap-2.5">
+          {SLIDES.map((slide, index) => {
+            const isActive = index === current;
+            return (
+              <button
+                key={slide.id}
+                onClick={() => setCurrent(index)}
+                aria-label={`Go to slide ${index + 1}: ${slide.category}`}
+                className={`transition-all duration-300 rounded-full cursor-pointer ${
+                  isActive
+                    ? "w-8 h-2 bg-aec-teal shadow-md shadow-aec-teal/50"
+                    : "w-2.5 h-2 bg-white/30 hover:bg-white/60"
+                }`}
+              />
+            );
+          })}
         </div>
       </div>
 
