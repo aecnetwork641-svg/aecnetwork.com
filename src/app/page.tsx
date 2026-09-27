@@ -146,47 +146,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 2. TRUST & VALUE PROPOSITION */}
-      <section className="container-aec">
-        <div className="text-center max-w-2xl mx-auto">
-          <h2 className="font-display text-xs font-bold uppercase tracking-wider text-aec-gold">
-            Educational Principles
-          </h2>
-          <p className="mt-2 font-display text-2xl sm:text-3xl font-bold text-aec-navy">
-            Engineered for Serious Academic & Personal Growth
-          </p>
-        </div>
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          <div className="card">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-aec-navy text-white font-bold mb-4">
-              1
-            </div>
-            <h3 className="font-display text-lg font-bold text-aec-navy">Qualified, Vetted Educators</h3>
-            <p className="mt-2 text-sm text-aec-navy/70 leading-relaxed">
-              Every teacher undergoes identity verification, academic qualification review, and pedagogical evaluation before taking classes.
-            </p>
-          </div>
-          <div className="card">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-aec-teal text-white font-bold mb-4">
-              2
-            </div>
-            <h3 className="font-display text-lg font-bold text-aec-navy">Structured Curricula</h3>
-            <p className="mt-2 text-sm text-aec-navy/70 leading-relaxed">
-              Learning plans follow structured syllabi with explicit lesson objectives, weekly checkpoints, and practical exercises.
-            </p>
-          </div>
-          <div className="card">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-aec-gold text-white font-bold mb-4">
-              3
-            </div>
-            <h3 className="font-display text-lg font-bold text-aec-navy">Dedicated Parent Oversight</h3>
-            <p className="mt-2 text-sm text-aec-navy/70 leading-relaxed">
-              Transparent reporting keeps guardians informed with attendance records, teacher evaluation notes, and term reports.
-            </p>
-          </div>
-        </div>
-      </section>
-
       {/* 3. WHAT AEC OFFERS */}
       <section className="bg-white border-y border-aec-navy/10 py-16">
         <div className="container-aec">
