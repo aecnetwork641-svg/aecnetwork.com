@@ -7,54 +7,63 @@ const PROGRAMS = [
     title: "Quran & Tajweed Mastery",
     slug: "quran-islamic-studies",
     level: "Beginner to Advanced",
+    image: "/images/dummy-program.jpg",
     blurb: "Structured, teacher-led learning of Noorani Qaida, Tajweed rules, fluent Nazra recitation, and Hifz memorization."
   },
   {
     title: "GCSE & A Levels Prep",
     slug: "gcse",
     level: "UK & International Boards",
+    image: "/images/dummy-program.jpg",
     blurb: "Expert subject coaching in Math, Sciences, and Humanities with 10-year past paper walkthroughs and grade boosters."
   },
   {
     title: "Computer Programming & Coding",
     slug: "computer-programming",
     level: "Beginner to Advanced",
+    image: "/images/dummy-program.jpg",
     blurb: "Practical hands-on coding in Python, C++, and JavaScript with real-world game development and logic building."
   },
   {
     title: "Mathematics & Analytical Thinking",
     slug: "mathematics",
     level: "Grades 1–12",
+    image: "/images/dummy-program.jpg",
     blurb: "Curriculum-aligned mathematical instruction from fundamental numeracy and algebra to geometry, trigonometry, and calculus."
   },
   {
     title: "Web Designing & Development",
     slug: "web-development",
     level: "Full Stack Track",
+    image: "/images/dummy-program.jpg",
     blurb: "Learn modern responsive UI/UX, HTML5, CSS3, Tailwind, React, Next.js, and backend database systems."
   },
   {
     title: "SAT & Digital SAT Tutoring",
     slug: "sat-tutoring",
     level: "College Prep (Target 1500+)",
+    image: "/images/dummy-program.jpg",
     blurb: "Adaptive testing tactics, Desmos calculator shortcuts, and evidence-based reading/writing score boosters."
   },
   {
     title: "English Language Mastery",
     slug: "english",
     level: "All Levels",
+    image: "/images/dummy-program.jpg",
     blurb: "Spoken communication fluency, functional grammar, reading comprehension, and academic essay writing."
   },
   {
     title: "Islamic Studies & Quran Translation",
     slug: "translation-of-quran",
     level: "All Age Groups",
+    image: "/images/dummy-program.jpg",
     blurb: "Word-by-word translation, contextual Tafseer, Hadith studies, Fiqh, and Prophetic Seerah values."
   },
   {
     title: "Science (Physics, Chemistry, Biology)",
     slug: "science",
     level: "Primary & Secondary",
+    image: "/images/dummy-program.jpg",
     blurb: "Concept-first scientific inquiry, visual experiments, diagrammatic explanations, and term exam prep."
   }
 ];
@@ -260,6 +269,14 @@ export default function HomePage() {
           {PROGRAMS.map((p) => (
             <Link key={p.slug} href={`/programs/${p.slug}` as never} className="card group flex flex-col justify-between">
               <div>
+                {/* Dummy Image Placeholder */}
+                <div className="w-[calc(100%+3rem)] -mx-6 -mt-6 h-48 mb-4 overflow-hidden rounded-t-[1.25rem] bg-slate-100 relative border-b border-aec-navy/10">
+                  <img 
+                    src={p.image} 
+                    alt={p.title} 
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
                 <div className="flex items-center justify-between">
                   <span className="badge badge-neutral text-xs">{p.level}</span>
                   <span className="text-xs text-aec-teal font-semibold group-hover:translate-x-0.5 transition-transform">
