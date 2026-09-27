@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 
 interface LogoProps {
   variant?: "full" | "compact" | "icon-only";
@@ -13,31 +14,27 @@ export default function Logo({
   size = "md",
   className = ""
 }: LogoProps) {
-  // 300x204 is the native video ratio → keep aspect ratio
+  // Original image ratio is ~740x460 (approx 1.6:1)
   const dimensions = {
-    sm:  { w: 90,  h: 61  },
-    md:  { w: 150, h: 102 },
-    lg:  { w: 210, h: 143 },
-    xl:  { w: 270, h: 184 },
-    xxl: { w: 300, h: 204 }
+    sm:  { w: 130, h: 80  },
+    md:  { w: 200, h: 124 },
+    lg:  { w: 280, h: 174 },
+    xl:  { w: 360, h: 224 },
+    xxl: { w: 460, h: 286 }
   };
 
   const d = dimensions[size];
 
   return (
     <div className={`inline-flex items-center select-none ${className}`}>
-      {/* Video Logo */}
-      <video
-        src="/images/logo-intro.mp4"
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
+      <Image
+        src="/images/aec-logo.png"
+        alt="AEC Network"
         width={d.w}
         height={d.h}
+        priority
         className="transition-transform duration-300 hover:scale-105"
-        style={{ display: "block", borderRadius: "8px" }}
+        style={{ objectFit: "contain" }}
       />
     </div>
   );
