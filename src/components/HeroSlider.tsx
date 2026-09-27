@@ -277,7 +277,7 @@ export default function HeroSlider() {
           <div className="aec-fade-up flex flex-wrap gap-4" style={{ animationDelay: "0.5s" }}>
             <Link
               href={slide.primaryBtn.href as never}
-              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-xl font-bold text-sm text-[#0F2A47] transition-all duration-200 hover:scale-[1.04] active:scale-[0.97]"
+              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-xl font-bold text-sm text-aec-navy transition-all duration-200 hover:scale-[1.04] active:scale-[0.97]"
               style={{
                 background: `linear-gradient(135deg, #F3D17C, #C9A24B)`,
                 boxShadow: "0 8px 32px rgba(201,162,75,0.35), 0 2px 8px rgba(0,0,0,0.1)",

@@ -6,7 +6,7 @@ const config: Config = {
     extend: {
       colors: {
         aec: {
-          navy: "#0F2A47",
+          navy: "#310C08",
           teal: "#0E7C7B",
           gold: "#C9A24B",
           cream: "#FAF7F0",
