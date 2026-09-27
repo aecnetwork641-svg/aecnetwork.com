@@ -179,6 +179,14 @@ export default function ProgramsPage() {
             {cat.programs.map((p) => (
               <div key={p.slug} className="card group flex flex-col justify-between hover:border-aec-teal/50 hover:shadow-md transition">
                 <div>
+                  {/* Dummy Image Placeholder */}
+                  <div className="w-[calc(100%+3rem)] -mx-6 -mt-6 h-48 mb-4 overflow-hidden rounded-t-[1.25rem] bg-slate-100 relative border-b border-aec-navy/10">
+                    <img 
+                      src="/images/dummy-program.jpg"
+                      alt={p.title} 
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
                   <div className="flex items-center justify-between gap-2">
                     <span className="badge badge-neutral text-[11px]">{p.delivery}</span>
                     <span className="text-[11px] font-semibold text-aec-gold uppercase tracking-wider">{p.level}</span>
