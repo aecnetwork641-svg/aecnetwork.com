@@ -16,24 +16,19 @@ export default function Logo({
   size = "md",
   className = ""
 }: LogoProps) {
-  // SVG viewBox is 224.88 x 153 (approx 1.47:1)
+  // SVG viewBox is 86 x 55 (~1.56:1 ratio)
   const dimensions = {
-    sm:  { w: 100, h: 68  },
-    md:  { w: 160, h: 109 },
-    lg:  { w: 220, h: 150 },
-    xl:  { w: 300, h: 204 },
-    xxl: { w: 400, h: 272 }
+    sm:  { w: 110, h: 70  },
+    md:  { w: 160, h: 102 },
+    lg:  { w: 220, h: 140 },
+    xl:  { w: 300, h: 191 },
+    xxl: { w: 400, h: 255 }
   };
 
   const d = dimensions[size] || dimensions.md;
-  const isDark = theme === "dark";
 
   return (
-    <div
-      className={`inline-flex items-center select-none ${
-        isDark ? "bg-white rounded-xl p-1 shadow-sm" : ""
-      } ${className}`}
-    >
+    <div className={`inline-flex items-center select-none ${className}`}>
       <Image
         src="/images/aec-logo.svg"
         alt="AEC Network"
@@ -41,12 +36,10 @@ export default function Logo({
         height={d.h}
         priority
         unoptimized
-        className={`transition-transform duration-300 hover:scale-105 ${
-          isDark ? "rounded-lg" : ""
-        }`}
+        className="transition-transform duration-300 hover:scale-105"
         style={{
           objectFit: "contain",
-          maxHeight: variant === "compact" ? "64px" : undefined,
+          maxHeight: variant === "compact" ? "56px" : undefined,
           width: "auto"
         }}
       />
