@@ -1,5 +1,6 @@
 import Link from "next/link";
 import PricingSection from "@/components/PricingSection";
+import { getCourseImage } from "@/lib/course-images";
 
 
 const PROGRAMS = [
@@ -7,63 +8,63 @@ const PROGRAMS = [
     title: "Quran & Tajweed Mastery",
     slug: "quran-islamic-studies",
     level: "Beginner to Advanced",
-    image: "/images/dummy-program.jpg",
+    image: getCourseImage("Islamic", "quran-islamic-studies"),
     blurb: "Structured, teacher-led learning of Noorani Qaida, Tajweed rules, fluent Nazra recitation, and Hifz memorization."
   },
   {
     title: "GCSE & A Levels Prep",
     slug: "gcse",
     level: "UK & International Boards",
-    image: "/images/dummy-program.jpg",
+    image: getCourseImage("School & Exam Prep", "gcse"),
     blurb: "Expert subject coaching in Math, Sciences, and Humanities with 10-year past paper walkthroughs and grade boosters."
   },
   {
     title: "Computer Programming & Coding",
     slug: "computer-programming",
     level: "Beginner to Advanced",
-    image: "/images/dummy-program.jpg",
+    image: getCourseImage("IT & Programming", "computer-programming"),
     blurb: "Practical hands-on coding in Python, C++, and JavaScript with real-world game development and logic building."
   },
   {
     title: "Mathematics & Analytical Thinking",
     slug: "mathematics",
     level: "Grades 1–12",
-    image: "/images/dummy-program.jpg",
+    image: getCourseImage("STEM & Languages", "mathematics"),
     blurb: "Curriculum-aligned mathematical instruction from fundamental numeracy and algebra to geometry, trigonometry, and calculus."
   },
   {
     title: "Web Designing & Development",
     slug: "web-development",
     level: "Full Stack Track",
-    image: "/images/dummy-program.jpg",
+    image: getCourseImage("IT & Programming", "web-development"),
     blurb: "Learn modern responsive UI/UX, HTML5, CSS3, Tailwind, React, Next.js, and backend database systems."
   },
   {
     title: "SAT & Digital SAT Tutoring",
     slug: "sat-tutoring",
     level: "College Prep (Target 1500+)",
-    image: "/images/dummy-program.jpg",
+    image: getCourseImage("School & Exam Prep", "sat-tutoring"),
     blurb: "Adaptive testing tactics, Desmos calculator shortcuts, and evidence-based reading/writing score boosters."
   },
   {
     title: "English Language Mastery",
     slug: "english",
     level: "All Levels",
-    image: "/images/dummy-program.jpg",
+    image: getCourseImage("STEM & Languages", "english"),
     blurb: "Spoken communication fluency, functional grammar, reading comprehension, and academic essay writing."
   },
   {
     title: "Islamic Studies & Quran Translation",
     slug: "translation-of-quran",
     level: "All Age Groups",
-    image: "/images/dummy-program.jpg",
+    image: getCourseImage("Islamic", "translation-of-quran"),
     blurb: "Word-by-word translation, contextual Tafseer, Hadith studies, Fiqh, and Prophetic Seerah values."
   },
   {
     title: "Science (Physics, Chemistry, Biology)",
     slug: "science",
     level: "Primary & Secondary",
-    image: "/images/dummy-program.jpg",
+    image: getCourseImage("STEM & Languages", "science"),
     blurb: "Concept-first scientific inquiry, visual experiments, diagrammatic explanations, and term exam prep."
   }
 ];

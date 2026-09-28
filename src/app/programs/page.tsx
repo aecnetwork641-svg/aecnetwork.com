@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { getCourseImage } from "@/lib/course-images";
 
 const PROGRAM_CATEGORIES = [
   {
@@ -182,7 +183,7 @@ export default function ProgramsPage() {
                   {/* Dummy Image Placeholder */}
                   <div className="w-[calc(100%+3rem)] -mx-6 -mt-6 h-48 mb-4 overflow-hidden rounded-t-[1.25rem] bg-slate-100 relative border-b border-aec-navy/10">
                     <img 
-                      src="/images/dummy-program.jpg"
+                      src={getCourseImage(cat.category, p.slug)}
                       alt={p.title} 
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />

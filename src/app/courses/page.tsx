@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { getCourseImage } from "@/lib/course-images";
 
 interface CourseItem {
   slug: string;
@@ -302,6 +303,14 @@ export default function CoursesPage() {
           filteredCourses.map((c) => (
             <div key={c.slug} className="card group flex flex-col justify-between hover:border-aec-teal/50 hover:shadow-md transition">
               <div>
+                {/* Course Cover Image */}
+                <div className="w-[calc(100%+3rem)] -mx-6 -mt-6 h-48 mb-4 overflow-hidden rounded-t-[1.25rem] bg-slate-100 relative border-b border-aec-navy/10">
+                  <img 
+                    src={getCourseImage(c.category, c.slug)} 
+                    alt={c.title} 
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
                 <div className="flex items-center justify-between gap-2">
                   <span className="badge badge-neutral text-xs">{c.category}</span>
                   <span className="badge badge-warning text-xs">{c.level}</span>
