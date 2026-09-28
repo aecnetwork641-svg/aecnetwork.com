@@ -165,94 +165,14 @@ export default function HeroSlider() {
       {/* Top gold accent line */}
       <div className="absolute top-0 left-0 right-0 h-[3px]" style={{ background: "linear-gradient(90deg, #C9A24B, #F3D17C, #C9A24B)" }} />
 
-      {/* ══════════ DECORATIVE RIGHT SIDE ══════════ */}
-      <div className="absolute right-0 top-0 bottom-0 w-[45%] hidden lg:flex items-center justify-center pointer-events-none overflow-hidden">
-        {/* Large circle ring */}
-        <div
-          className="absolute w-[520px] h-[520px] rounded-full border aec-pulse-slow"
-          style={{ borderColor: "rgba(201,162,75,0.15)" }}
-        />
-        <div
-          className="absolute w-[380px] h-[380px] rounded-full border"
-          style={{
-            borderColor: "rgba(201,162,75,0.1)",
-            animation: "aecSpin 30s linear infinite",
-            borderStyle: "dashed",
-          }}
-        />
-        <div
-          className="absolute w-[240px] h-[240px] rounded-full border aec-pulse-slow"
-          style={{ borderColor: "rgba(201,162,75,0.2)", animationDelay: "1.5s" }}
-        />
-
-        {/* Center floating icon box */}
-        <div
-          className="relative z-10 aec-float flex flex-col items-center gap-4"
-          style={{ animationDelay: "0.5s" }}
-        >
-          <div
-            className="w-40 h-40 rounded-3xl flex items-center justify-center text-7xl shadow-2xl"
-            style={{
-              background: "linear-gradient(135deg, rgba(201,162,75,0.2), rgba(201,162,75,0.05))",
-              border: "1.5px solid rgba(201,162,75,0.4)",
-              backdropFilter: "blur(12px)",
-              boxShadow: "0 0 60px rgba(201,162,75,0.2), inset 0 1px 0 rgba(255,255,255,0.1)",
-              transition: "all 0.5s ease",
-            }}
-            key={slide.id}
-          >
-            {slide.icon}
-          </div>
-
-          {/* Floating mini badges */}
-          {[
-            { emoji: "📜", label: "Certificate", top: "-60px", left: "-90px", delay: "0s" },
-            { emoji: "⭐", label: "5-Star",      top: "-40px", left: "100px",  delay: "0.8s" },
-            { emoji: "🌐", label: "Online",      top: "100px", left: "-100px", delay: "1.2s" },
-            { emoji: "🎯", label: "Personalized",top: "110px", left: "90px",   delay: "0.4s" },
-          ].map((b) => (
-            <div
-              key={b.label}
-              className="absolute flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold text-white"
-              style={{
-                top: b.top, left: b.left,
-                background: "rgba(15,42,71,0.9)",
-                border: "1px solid rgba(201,162,75,0.4)",
-                backdropFilter: "blur(8px)",
-                animation: `aecFloat ${4 + parseFloat(b.delay)}s ease-in-out infinite`,
-                animationDelay: b.delay,
-                whiteSpace: "nowrap",
-              }}
-            >
-              <span>{b.emoji}</span> {b.label}
-            </div>
-          ))}
-        </div>
-      </div>
-
       {/* ══════════ MAIN CONTENT ══════════ */}
-      <div className="relative z-10 container-aec grid lg:grid-cols-2 min-h-[88svh] py-20 md:py-28 items-center gap-12">
-        <div className={`space-y-7 ${animate ? "" : "opacity-0"}`} style={{ transition: "opacity 0.08s" }}>
-
-          {/* Badge */}
-          <div className="aec-slide-r" style={{ animationDelay: "0s" }}>
-            <span
-              className="inline-flex items-center gap-2 px-5 py-2 rounded-full text-xs font-bold tracking-widest uppercase"
-              style={{
-                color: slide.accent,
-                background: `${slide.accent}18`,
-                border: `1px solid ${slide.accent}50`,
-                backdropFilter: "blur(4px)",
-              }}
-            >
-              {slide.badge}
-            </span>
-          </div>
+      <div className="relative z-10 container-aec min-h-[60svh] py-16 md:py-24 flex items-center">
+        <div className={`max-w-3xl space-y-7 ${animate ? "" : "opacity-0"}`} style={{ transition: "opacity 0.08s" }}>
 
           {/* Heading */}
           <div className="space-y-1">
             <h1
-              className="aec-fade-up font-display font-extrabold text-aec-navy leading-[1.1]"
+              className="aec-fade-up font-display font-extrabold text-[#37423b] leading-[1.1]"
               style={{ fontSize: "clamp(2.4rem, 5vw, 4.2rem)", animationDelay: "0.1s" }}
             >
               {slide.title}
@@ -265,16 +185,8 @@ export default function HeroSlider() {
             </h1>
           </div>
 
-          {/* Sub text */}
-          <p
-            className="aec-fade-up text-slate-600 leading-relaxed max-w-lg"
-            style={{ fontSize: "clamp(0.95rem, 1.5vw, 1.1rem)", animationDelay: "0.35s" }}
-          >
-            {slide.sub}
-          </p>
-
           {/* CTA Buttons */}
-          <div className="aec-fade-up flex flex-wrap gap-4" style={{ animationDelay: "0.5s" }}>
+          <div className="aec-fade-up flex flex-wrap gap-4" style={{ animationDelay: "0.3s" }}>
             <Link
               href={slide.primaryBtn.href as never}
               className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full font-bold text-sm text-white transition-all duration-200 hover:scale-[1.04] active:scale-[0.97] bg-[#5fcf80] hover:bg-[#46b967] shadow-lg shadow-emerald-500/25"
@@ -296,7 +208,7 @@ export default function HeroSlider() {
           {/* Stats row */}
           <div
             className="aec-fade-up grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2"
-            style={{ animationDelay: "0.7s" }}
+            style={{ animationDelay: "0.5s" }}
           >
             {STATS.map((s) => (
               <div
@@ -313,9 +225,6 @@ export default function HeroSlider() {
             ))}
           </div>
         </div>
-
-        {/* Right column — spacer on desktop so decorative element shows */}
-        <div className="hidden lg:block" />
       </div>
 
       {/* ══════════ BOTTOM CONTROLS ══════════ */}
