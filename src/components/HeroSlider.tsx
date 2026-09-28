@@ -7,43 +7,43 @@ const SLIDES = [
   {
     id: "s1",
     badge: "🌍 Global Online Education",
-    title: "Where Knowledge",
-    highlight: "Meets Excellence",
-    sub: "Structured, accessible online education with vetted instructors, personalized 1-on-1 tutoring, and comprehensive academic support worldwide.",
-    primaryBtn: { label: "Start Learning Today", href: "/admissions/apply" },
-    secondaryBtn: { label: "Book Free Trial", href: "/admissions/free-trial" },
-    accent: "#C9A24B",
-    icon: "📖",
+    title: "Empowering Students",
+    highlight: "Worldwide for Excellence",
+    sub: "Structured online Quran, Islamic Studies, GCSE/SAT prep, and STEM tuition with Sanad-certified faculty and 1-on-1 personalized mentorship.",
+    primaryBtn: { label: "Book a Free Trial", href: "/admissions/free-trial" },
+    secondaryBtn: { label: "Explore Courses", href: "/courses" },
+    accent: "#5fcf80",
+    icon: "🎓",
   },
   {
     id: "s2",
-    badge: "🕌 Islamic & Quranic Studies",
+    badge: "🕌 Quran & Tajweed Mastery",
     title: "Build Your Foundation",
-    highlight: "in Faith & Wisdom",
-    sub: "Qur'an, Tajweed, Hifz, Seerah & Hadith — guided by qualified scholars. Learn Islam the right way, at your own pace.",
+    highlight: "in Faith & Recitation",
+    sub: "Learn Noorani Qaida, Makharij phonetics, Tajweed rules, and Hifz memorization guided by Sanad-certified Huffaz and Qaris.",
     primaryBtn: { label: "Explore Islamic Studies", href: "/programs/quran-islamic-studies" },
     secondaryBtn: { label: "Book Free Trial", href: "/admissions/free-trial" },
-    accent: "#22c55e",
+    accent: "#5fcf80",
     icon: "🕌",
   },
   {
     id: "s3",
-    badge: "📚 Academic Excellence",
+    badge: "📚 Academic STEM & Exam Prep",
     title: "Master Every Subject,",
-    highlight: "Achieve Every Goal",
-    sub: "GCSE, O & A Levels, SAT, Math, Science, English — expert coaching with proven results and past paper mastery.",
+    highlight: "Achieve Top Grades",
+    sub: "GCSE, O & A Levels, SAT, NAPLAN, Mathematics & Science — expert 1-on-1 coaching with 10-year past paper strategies.",
     primaryBtn: { label: "View All Programs", href: "/programs" },
     secondaryBtn: { label: "Book Free Trial", href: "/admissions/free-trial" },
     accent: "#3b82f6",
-    icon: "🎓",
+    icon: "📖",
   },
   {
     id: "s4",
-    badge: "💻 Technology & Coding",
-    title: "Learn Today,",
-    highlight: "Build Tomorrow",
-    sub: "Python, Web Dev, React, Next.js — hands-on coding skills that open doors to a successful digital career.",
-    primaryBtn: { label: "Explore Tech Programs", href: "/programs/computer-programming" },
+    badge: "💻 Technology & Digital Skills",
+    title: "Learn Coding Today,",
+    highlight: "Build the Future",
+    sub: "Python, Web Development, Full-Stack React & Next.js, and Social Media Marketing — hands-on skills for tomorrow's digital leader.",
+    primaryBtn: { label: "Explore Coding Programs", href: "/programs/computer-programming" },
     secondaryBtn: { label: "Book Free Trial", href: "/admissions/free-trial" },
     accent: "#06b6d4",
     icon: "💻",
@@ -52,9 +52,9 @@ const SLIDES = [
 
 const STATS = [
   { n: "5,000+", l: "Students Enrolled" },
-  { n: "150+",   l: "Expert Instructors" },
+  { n: "150+",   l: "Sanad & Subject Faculty" },
   { n: "50+",    l: "Global Countries" },
-  { n: "100%",   l: "Verified Faculty" },
+  { n: "100%",   l: "1-on-1 & Group Cohorts" },
 ];
 
 const DURATION = 6000;
@@ -277,11 +277,7 @@ export default function HeroSlider() {
           <div className="aec-fade-up flex flex-wrap gap-4" style={{ animationDelay: "0.5s" }}>
             <Link
               href={slide.primaryBtn.href as never}
-              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-xl font-bold text-sm text-aec-navy transition-all duration-200 hover:scale-[1.04] active:scale-[0.97]"
-              style={{
-                background: `linear-gradient(135deg, #F3D17C, #C9A24B)`,
-                boxShadow: "0 8px 32px rgba(201,162,75,0.35), 0 2px 8px rgba(0,0,0,0.1)",
-              }}
+              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full font-bold text-sm text-white transition-all duration-200 hover:scale-[1.04] active:scale-[0.97] bg-[#5fcf80] hover:bg-[#46b967] shadow-lg shadow-emerald-500/25"
             >
               {slide.primaryBtn.label}
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -291,12 +287,8 @@ export default function HeroSlider() {
 
             <Link
               href={slide.secondaryBtn.href as never}
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold text-sm text-aec-navy border border-aec-navy/30 bg-aec-navy/5 transition-all duration-200 hover:bg-aec-navy/10 hover:scale-[1.04] active:scale-[0.97]"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-bold text-sm text-[#37423b] border-2 border-[#5fcf80] bg-white transition-all duration-200 hover:bg-[#5fcf80] hover:text-white hover:scale-[1.04] active:scale-[0.97]"
             >
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
               {slide.secondaryBtn.label}
             </Link>
           </div>

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import PricingSection from "@/components/PricingSection";
+import HeroSlider from "@/components/HeroSlider";
 import { getCourseImage } from "@/lib/course-images";
-
 
 const PROGRAMS = [
   {
@@ -107,19 +107,8 @@ const FAQS = [
 export default function HomePage() {
   return (
     <div className="flex flex-col gap-16 md:gap-24">
-      {/* HERO VIDEO BANNER */}
-      <section className="w-full -mt-[1px]">
-        <video
-          src="/images/hero-video.mp4"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          className="w-full h-auto block"
-          style={{ maxHeight: "90vh", objectFit: "cover" }}
-        />
-      </section>
+      {/* HERO BANNER SLIDER */}
+      <HeroSlider />
 
       {/* QUICK STATS & CREDENTIALS STRIP */}
       <section className="container-aec">
