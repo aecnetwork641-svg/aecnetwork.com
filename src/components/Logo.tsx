@@ -18,11 +18,11 @@ export default function Logo({
 }: LogoProps) {
   // SVG viewBox is 86 x 55 (~1.56:1 ratio)
   const dimensions = {
-    sm:  { w: 110, h: 70  },
-    md:  { w: 160, h: 102 },
-    lg:  { w: 220, h: 140 },
-    xl:  { w: 300, h: 191 },
-    xxl: { w: 400, h: 255 }
+    sm:  { w: 130, h: 83  },
+    md:  { w: 190, h: 122 },
+    lg:  { w: 260, h: 166 },
+    xl:  { w: 340, h: 217 },
+    xxl: { w: 440, h: 281 }
   };
 
   const d = dimensions[size] || dimensions.md;
@@ -39,8 +39,9 @@ export default function Logo({
         className="transition-transform duration-300 hover:scale-105"
         style={{
           objectFit: "contain",
-          maxHeight: variant === "compact" ? "56px" : undefined,
-          width: "auto"
+          maxHeight: variant === "compact" ? "68px" : undefined,
+          width: "auto",
+          filter: "contrast(1.12) saturate(1.1) drop-shadow(0 1px 2px rgba(0,0,0,0.12))"
         }}
       />
     </div>

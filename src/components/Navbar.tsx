@@ -126,7 +126,7 @@ export default function Navbar() {
       <div className="container-aec flex h-20 items-center justify-between overflow-visible">
         {/* Brand */}
         <Link href="/" className="flex items-center group transition relative z-10">
-          <Logo variant="compact" size="md" />
+          <Logo variant="compact" size="lg" />
         </Link>
 
         {/* Desktop Navigation */}
