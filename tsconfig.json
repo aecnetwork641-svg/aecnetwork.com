@@ -1,25 +1,80 @@
 {
   "compilerOptions": {
-    "target": "ES2022",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": false,
-    "skipLibCheck": true,
-    "strict": true,
-    "noUncheckedIndexedAccess": true,
-    "noImplicitOverride": true,
-    "forceConsistentCasingInFileNames": true,
     "noEmit": true,
-    "esModuleInterop": true,
+    "strictNullChecks": true,
+    "noUncheckedIndexedAccess": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*",
+        "./*"
+      ],
+      "state": [
+        "./packages/state/src/index",
+        "./packages/state/index",
+        "./packages/state"
+      ],
+      "state/*": [
+        "./packages/state/src/*",
+        "./packages/state/*"
+      ],
+      "ui": [
+        "./packages/ui/src/index",
+        "./packages/ui/index",
+        "./packages/ui"
+      ],
+      "ui/*": [
+        "./packages/ui/src/*",
+        "./packages/ui/*"
+      ],
+      "api": [
+        "./packages/api/src/index",
+        "./packages/api/index",
+        "./packages/api"
+      ],
+      "api/*": [
+        "./packages/api/src/*",
+        "./packages/api/*"
+      ],
+      "shared_mono_app": [
+        "./packages/shared_mono_app/src/index",
+        "./packages/shared_mono_app/index",
+        "./packages/shared_mono_app"
+      ],
+      "shared_mono_app/*": [
+        "./packages/shared_mono_app/src/*",
+        "./packages/shared_mono_app/*"
+      ]
+    },
+    "jsx": "preserve",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "incremental": true,
     "module": "esnext",
-    "moduleResolution": "bundler",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true,
-    "plugins": [{ "name": "next" }],
-    "baseUrl": ".",
-    "paths": { "@/*": ["./src/*"] }
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "src/**/*",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "packages",
+    "**/node_modules",
+    "**/dist"
+  ]
 }

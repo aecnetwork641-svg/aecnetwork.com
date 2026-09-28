@@ -8,6 +8,10 @@
   --aec-gold: #c9a24b;
   --aec-cream: #faf7f0;
   --aec-sand: #f4eee1;
+  --mentor-accent: #5fcf80;
+  --mentor-heading: #37423b;
+  --mentor-dark: #060606;
+  --mentor-light: #f9f9f9;
 }
 
 html {
@@ -15,13 +19,26 @@ html {
 }
 
 body {
-  background-color: var(--aec-cream);
-  color: var(--aec-navy);
+  background-color: #f9f9f9;
+  color: #444444;
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
 }
 
 .container-aec {
   @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+
+/* Mentor Theme Styles */
+.mentor-btn-primary {
+  @apply inline-flex items-center justify-center rounded-full bg-[#5fcf80] px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#46b967] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#5fcf80];
+}
+
+.mentor-btn-outline {
+  @apply inline-flex items-center justify-center rounded-full border-2 border-[#5fcf80] px-6 py-2.5 text-sm font-semibold text-[#5fcf80] transition hover:bg-[#5fcf80] hover:text-white;
+}
+
+.mentor-card {
+  @apply overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl;
 }
 
 .btn-primary {
@@ -37,7 +54,7 @@ body {
 }
 
 .card {
-  @apply rounded-xl2 border border-aec-navy/10 bg-white p-6 shadow-sm transition hover:shadow-md;
+  @apply rounded-2xl border border-aec-navy/10 bg-white p-6 shadow-sm transition hover:shadow-md;
 }
 
 .badge {

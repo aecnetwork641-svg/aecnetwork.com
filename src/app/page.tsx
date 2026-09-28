@@ -123,45 +123,45 @@ export default function HomePage() {
 
       {/* QUICK STATS & CREDENTIALS STRIP */}
       <section className="container-aec">
-        <div className="rounded-2xl border border-slate-200/90 bg-white p-6 md:p-8 shadow-xl shadow-aec-navy/5 grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
+        <div className="rounded-2xl border border-slate-200/90 bg-white p-6 md:p-8 shadow-md grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
           <div className="border-r border-slate-100 last:border-0 pr-4">
-            <p className="font-display text-2xl md:text-3xl font-extrabold text-aec-navy">100%</p>
-            <p className="text-xs font-bold text-slate-800 mt-1">Verified Faculty</p>
+            <p className="font-display text-2xl md:text-4xl font-extrabold text-[#5fcf80]">100%</p>
+            <p className="text-xs font-extrabold text-[#37423b] mt-1">Verified Faculty</p>
             <p className="text-[11px] text-slate-500 mt-0.5">Ijazah & Subject Specialists</p>
           </div>
           <div className="border-r border-slate-100 last:border-0 pr-4">
-            <p className="font-display text-2xl md:text-3xl font-extrabold text-aec-teal">1-on-1</p>
-            <p className="text-xs font-bold text-slate-800 mt-1">Personalized Tutoring</p>
+            <p className="font-display text-2xl md:text-4xl font-extrabold text-[#37423b]">1-on-1</p>
+            <p className="text-xs font-extrabold text-[#37423b] mt-1">Personalized Tutoring</p>
             <p className="text-[11px] text-slate-500 mt-0.5">& Interactive Group Cohorts</p>
           </div>
           <div className="border-r border-slate-100 last:border-0 pr-4">
-            <p className="font-display text-2xl md:text-3xl font-extrabold text-aec-navy">24/7</p>
-            <p className="text-xs font-bold text-slate-800 mt-1">Parent & Student Portals</p>
+            <p className="font-display text-2xl md:text-4xl font-extrabold text-[#5fcf80]">24/7</p>
+            <p className="text-xs font-extrabold text-[#37423b] mt-1">Parent & Student Portals</p>
             <p className="text-[11px] text-slate-500 mt-0.5">Live Attendance & Progress</p>
           </div>
           <div>
-            <p className="font-display text-2xl md:text-3xl font-extrabold text-emerald-600">Free</p>
-            <p className="text-xs font-bold text-slate-800 mt-1">Complimentary Trial</p>
+            <p className="font-display text-2xl md:text-4xl font-extrabold text-emerald-600">Free</p>
+            <p className="text-xs font-extrabold text-[#37423b] mt-1">Complimentary Trial</p>
             <p className="text-[11px] text-slate-500 mt-0.5">No Credit Card Required</p>
           </div>
         </div>
       </section>
 
       {/* 3. WHAT AEC OFFERS */}
-      <section className="bg-white border-y border-aec-navy/10 py-16">
+      <section className="bg-white border-y border-slate-200/80 py-16">
         <div className="container-aec">
           <div className="grid gap-10 lg:grid-cols-12 items-center">
-            <div className="lg:col-span-5">
-              <h2 className="font-display text-xs font-bold uppercase tracking-wider text-aec-teal">
+            <div className="lg:col-span-5 space-y-3">
+              <p className="text-xs font-bold uppercase tracking-widest text-[#5fcf80]">
                 Comprehensive Academy
-              </h2>
-              <p className="mt-2 font-display text-3xl font-bold text-aec-navy">
-                What AEC Network Delivers
               </p>
-              <p className="mt-4 text-sm text-aec-navy/70 leading-relaxed">
+              <h2 className="font-display text-3xl font-extrabold text-[#37423b]">
+                What AEC Network Delivers
+              </h2>
+              <p className="text-sm text-slate-600 leading-relaxed">
                 Whether you seek foundational Quranic recitation, linguistic proficiency in English or Arabic, or core school academic mastery, our platform combines personalized tutoring with an enterprise LMS.
               </p>
-              <div className="mt-6 flex flex-col gap-3">
+              <div className="pt-2 flex flex-col gap-3">
                 {[
                   "Interactive live class rooms with verified meeting security",
                   "Modular digital curriculum with video lessons and quizzes",
@@ -169,42 +169,42 @@ export default function HomePage() {
                   "Official verifiable completion certificates"
                 ].map((item, idx) => (
                   <div key={idx} className="flex items-center gap-3">
-                    <div className="h-5 w-5 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-xs font-bold">
+                    <div className="h-5 w-5 rounded-full bg-emerald-100 text-[#5fcf80] flex items-center justify-center text-xs font-bold">
                       ✓
                     </div>
-                    <span className="text-sm font-medium text-aec-navy/85">{item}</span>
+                    <span className="text-sm font-semibold text-slate-700">{item}</span>
                   </div>
                 ))}
               </div>
-              <div className="mt-8">
-                <Link href="/admissions/how-to-enroll" className="btn-secondary">
+              <div className="pt-4">
+                <Link href="/admissions/how-to-enroll" className="mentor-btn-outline text-xs px-6 py-2.5">
                   Learn How Admissions Work
                 </Link>
               </div>
             </div>
 
-            <div className="lg:col-span-7 grid sm:grid-cols-2 gap-4">
-              <div className="rounded-xl border border-aec-navy/10 bg-aec-cream/40 p-5">
-                <p className="font-display text-base font-bold text-aec-navy">Quran & Islamic Studies</p>
-                <p className="mt-2 text-xs text-aec-navy/70 leading-relaxed">
+            <div className="lg:col-span-7 grid sm:grid-cols-2 gap-5">
+              <div className="rounded-2xl border border-slate-200/90 bg-slate-50/70 p-6">
+                <p className="font-display text-base font-extrabold text-[#37423b]">Quran & Islamic Studies</p>
+                <p className="mt-2 text-xs text-slate-600 leading-relaxed">
                   Tajweed rules, articulation points (Makharij), Nazra recitation, and Hifz memorization with certified instructors.
                 </p>
               </div>
-              <div className="rounded-xl border border-aec-navy/10 bg-aec-cream/40 p-5">
-                <p className="font-display text-base font-bold text-aec-navy">Languages & Linguistics</p>
-                <p className="mt-2 text-xs text-aec-navy/70 leading-relaxed">
+              <div className="rounded-2xl border border-slate-200/90 bg-slate-50/70 p-6">
+                <p className="font-display text-base font-extrabold text-[#37423b]">Languages & Linguistics</p>
+                <p className="mt-2 text-xs text-slate-600 leading-relaxed">
                   English for academic and communicative proficiency, along with classical and modern Arabic grammar.
                 </p>
               </div>
-              <div className="rounded-xl border border-aec-navy/10 bg-aec-cream/40 p-5">
-                <p className="font-display text-base font-bold text-aec-navy">STEM & School Tutoring</p>
-                <p className="mt-2 text-xs text-aec-navy/70 leading-relaxed">
+              <div className="rounded-2xl border border-slate-200/90 bg-slate-50/70 p-6">
+                <p className="font-display text-base font-extrabold text-[#37423b]">STEM & School Tutoring</p>
+                <p className="mt-2 text-xs text-slate-600 leading-relaxed">
                   Mathematics, Science, and board exam support customized to primary and secondary school syllabi.
                 </p>
               </div>
-              <div className="rounded-xl border border-aec-navy/10 bg-aec-cream/40 p-5">
-                <p className="font-display text-base font-bold text-aec-navy">One-on-One Mentorship</p>
-                <p className="mt-2 text-xs text-aec-navy/70 leading-relaxed">
+              <div className="rounded-2xl border border-slate-200/90 bg-slate-50/70 p-6">
+                <p className="font-display text-base font-extrabold text-[#37423b]">One-on-One Mentorship</p>
+                <p className="mt-2 text-xs text-slate-600 leading-relaxed">
                   Individual pacing, dedicated instructor attention, and adaptable weekly timetables for busy schedules.
                 </p>
               </div>
@@ -214,43 +214,48 @@ export default function HomePage() {
       </section>
 
       {/* 4. FEATURED PROGRAMS */}
-      <section className="container-aec">
+      <section className="container-aec space-y-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <h2 className="font-display text-xs font-bold uppercase tracking-wider text-aec-gold">Curriculum Portfolio</h2>
-            <p className="mt-2 font-display text-2xl sm:text-3xl font-bold text-aec-navy">Featured Academic Programs</p>
+            <p className="text-xs font-bold uppercase tracking-widest text-[#5fcf80]">Curriculum Portfolio</p>
+            <h2 className="mt-1 font-display text-3xl sm:text-4xl font-extrabold text-[#37423b]">Featured Academic Programs</h2>
           </div>
-          <Link href="/programs" className="text-sm font-semibold text-aec-teal hover:text-aec-navy transition">
-            View all programs →
+          <Link href="/programs" className="text-xs font-bold text-[#5fcf80] hover:text-[#46b967] transition flex items-center gap-1">
+            <span>View all programs catalog</span>
+            <span>→</span>
           </Link>
         </div>
 
-        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {PROGRAMS.map((p) => (
-            <Link key={p.slug} href={`/programs/${p.slug}` as never} className="card group flex flex-col justify-between">
+            <Link key={p.slug} href={`/programs/${p.slug}` as never} className="mentor-card group flex flex-col justify-between">
               <div>
-                {/* Dummy Image Placeholder */}
-                <div className="w-[calc(100%+3rem)] -mx-6 -mt-6 h-48 mb-4 overflow-hidden rounded-t-[1.25rem] bg-slate-100 relative border-b border-aec-navy/10">
+                {/* Program Card Cover Image */}
+                <div className="w-full h-52 overflow-hidden bg-slate-100 relative">
                   <img 
                     src={p.image} 
                     alt={p.title} 
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
+                  <div className="absolute top-3 right-3 bg-[#5fcf80] text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-md">
+                    {p.level}
+                  </div>
                 </div>
-                <div className="flex items-center justify-between">
-                  <span className="badge badge-neutral text-xs">{p.level}</span>
-                  <span className="text-xs text-aec-teal font-semibold group-hover:translate-x-0.5 transition-transform">
-                    Explore →
-                  </span>
+
+                <div className="p-6">
+                  <h3 className="font-display text-xl font-extrabold text-[#37423b] group-hover:text-[#5fcf80] transition line-clamp-2">
+                    {p.title}
+                  </h3>
+                  <p className="mt-2 text-xs text-slate-600 leading-relaxed line-clamp-3">{p.blurb}</p>
                 </div>
-                <h3 className="mt-4 font-display text-lg font-bold text-aec-navy group-hover:text-aec-teal transition">
-                  {p.title}
-                </h3>
-                <p className="mt-2 text-sm text-aec-navy/70 leading-relaxed">{p.blurb}</p>
               </div>
-              <div className="mt-6 pt-4 border-t border-aec-navy/5 flex items-center justify-between text-xs text-aec-navy/60">
-                <span>1-on-1 / Group</span>
-                <span>Structured Syllabus</span>
+
+              <div className="p-6 pt-0 border-t border-slate-100 flex items-center justify-between text-xs mt-auto">
+                <span className="font-semibold text-slate-500">1-on-1 / Group</span>
+                <span className="font-bold text-[#5fcf80] group-hover:translate-x-1 transition-transform flex items-center gap-1">
+                  <span>Explore</span>
+                  <span>→</span>
+                </span>
               </div>
             </Link>
           ))}

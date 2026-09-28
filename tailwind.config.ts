@@ -1,28 +1,24 @@
-import type { Config } from "tailwindcss";
-
-const config: Config = {
-  content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
   theme: {
     extend: {
       colors: {
-        aec: {
-          navy: "#310C08",
-          teal: "#0E7C7B",
-          gold: "#C9A24B",
-          cream: "#FAF7F0",
-          slate: "#334155"
-        }
+        "aec-navy": "#310c08",
+        "aec-teal": "#0e7c7b",
+        "aec-gold": "#c9a24b",
+        "aec-cream": "#faf7f0",
+        "aec-sand": "#f4eee1",
+        "mentor-accent": "#5fcf80",
+        "mentor-heading": "#37423b",
+        "mentor-dark": "#060606",
+        "mentor-light": "#f9f9f9",
       },
-      fontFamily: {
-        sans: ["Inter", "system-ui", "sans-serif"],
-        display: ["Lexend", "system-ui", "sans-serif"]
-      },
-      borderRadius: {
-        xl2: "1.25rem"
-      }
-    }
+    },
   },
-  plugins: []
+  plugins: [],
 };
-
-export default config;

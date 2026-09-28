@@ -122,15 +122,15 @@ export default function Navbar() {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-aec-navy/10 bg-white/95 backdrop-blur-md overflow-visible">
+    <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-md overflow-visible shadow-sm">
       <div className="container-aec flex h-20 items-center justify-between overflow-visible">
-        {/* Brand */}
-        <Link href="/" className="flex items-center group transition relative z-10">
+        {/* Brand Logo - Bold & Highly Readable */}
+        <Link href="/" className="flex items-center gap-2 group transition relative z-10">
           <Logo variant="compact" size="lg" />
         </Link>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden items-center gap-5 xl:flex">
+        {/* Desktop Navigation - Mentor Theme Hover Colors */}
+        <nav className="hidden items-center gap-6 xl:flex">
           {NAV.map((item) => (
             <div
               key={item.label}
@@ -140,12 +140,12 @@ export default function Navbar() {
             >
               <Link
                 href={item.href as never}
-                className="inline-flex items-center gap-1 text-sm font-medium text-aec-navy/80 transition hover:text-aec-navy py-2"
+                className="inline-flex items-center gap-1 text-sm font-semibold text-slate-700 transition hover:text-[#5fcf80] py-2"
               >
                 {item.label}
                 {(item.children || item.categories) && (
-                  <svg className="h-3.5 w-3.5 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  <svg className="h-3.5 w-3.5 opacity-60 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
                   </svg>
                 )}
               </Link>
@@ -158,7 +158,7 @@ export default function Navbar() {
                       <div key={cat.categoryName} className="space-y-2.5">
                         <div className="flex items-center gap-2 border-b border-slate-100 pb-2">
                           <span className="text-sm">{cat.badge}</span>
-                          <h4 className="text-xs font-bold uppercase tracking-wider text-aec-navy">
+                          <h4 className="text-xs font-bold uppercase tracking-wider text-[#37423b]">
                             {cat.categoryName}
                           </h4>
                         </div>
@@ -167,10 +167,10 @@ export default function Navbar() {
                             <Link
                               key={sub.href + sub.label}
                               href={sub.href as never}
-                              className="group block rounded-lg px-2.5 py-1.5 transition hover:bg-slate-50"
+                              className="group block rounded-lg px-2.5 py-1.5 transition hover:bg-emerald-50/60"
                               onClick={() => setActiveDropdown(null)}
                             >
-                              <p className="text-xs font-semibold text-slate-800 group-hover:text-aec-teal transition">
+                              <p className="text-xs font-semibold text-slate-800 group-hover:text-[#5fcf80] transition">
                                 {sub.label}
                               </p>
                               {sub.desc && (
@@ -187,12 +187,12 @@ export default function Navbar() {
 
                   {/* Mega Menu Footer Bar */}
                   <div className="mt-5 flex items-center justify-between border-t border-slate-100 pt-3 text-xs">
-                    <span className="text-slate-500">
+                    <span className="text-slate-500 font-medium">
                       ✨ 1-on-1 personalized tutoring with qualified global faculty
                     </span>
                     <Link
                       href="/programs"
-                      className="font-semibold text-aec-teal hover:text-aec-navy transition flex items-center gap-1"
+                      className="font-bold text-[#5fcf80] hover:text-[#46b967] transition flex items-center gap-1"
                       onClick={() => setActiveDropdown(null)}
                     >
                       <span>View All Programs Catalog</span>
@@ -204,16 +204,16 @@ export default function Navbar() {
 
               {/* Standard Dropdown (for About, Learning, Admissions, Portals, Resources) */}
               {item.children && !item.categories && activeDropdown === item.label && (
-                <div className="absolute left-0 top-full z-50 w-72 rounded-xl2 border border-aec-navy/10 bg-white p-2 shadow-xl animate-in fade-in slide-in-from-top-1 duration-150">
+                <div className="absolute left-0 top-full z-50 w-72 rounded-2xl border border-slate-200/90 bg-white p-2 shadow-xl animate-in fade-in slide-in-from-top-1 duration-150">
                   {item.children.map((child) => (
                     <Link
                       key={child.href}
                       href={child.href as never}
-                      className="block rounded-lg px-3 py-2 transition hover:bg-aec-cream"
+                      className="block rounded-lg px-3 py-2 transition hover:bg-emerald-50/60 group"
                       onClick={() => setActiveDropdown(null)}
                     >
-                      <p className="text-sm font-semibold text-aec-navy">{child.label}</p>
-                      {child.desc && <p className="text-xs text-aec-navy/60 line-clamp-1">{child.desc}</p>}
+                      <p className="text-sm font-semibold text-slate-800 group-hover:text-[#5fcf80] transition">{child.label}</p>
+                      {child.desc && <p className="text-xs text-slate-500 line-clamp-1">{child.desc}</p>}
                     </Link>
                   ))}
                 </div>
@@ -222,13 +222,13 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* Action CTAs */}
+        {/* Action CTAs - Mentor Theme Buttons */}
         <div className="hidden items-center gap-3 md:flex">
-          <Link href="/courses" className="btn-secondary text-xs px-4 py-2">
+          <Link href="/courses" className="mentor-btn-outline text-xs px-5 py-2">
             Explore Courses
           </Link>
-          <Link href="/admissions/free-trial" className="btn-primary text-xs px-4 py-2">
-            Book a Free Trial
+          <Link href="/admissions/free-trial" className="mentor-btn-primary text-xs px-5 py-2">
+            Get Started
           </Link>
         </div>
 

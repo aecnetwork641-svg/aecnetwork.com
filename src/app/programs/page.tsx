@@ -158,12 +158,12 @@ export default function ProgramsPage() {
   return (
     <div className="container-aec py-14 space-y-16">
       {/* Header */}
-      <div className="max-w-3xl">
-        <span className="badge badge-info mb-2">Curriculum Catalog</span>
-        <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-aec-navy">
+      <div className="max-w-3xl space-y-2">
+        <p className="text-xs font-bold uppercase tracking-widest text-[#5fcf80]">Curriculum Catalog</p>
+        <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-[#37423b]">
           Academic Programs & Disciplines
         </h1>
-        <p className="mt-3 text-lg text-aec-navy/70 leading-relaxed">
+        <p className="text-base text-slate-600 leading-relaxed">
           Explore our complete academic offerings across Islamic disciplines, school & international board prep, STEM subjects, and cutting-edge IT & digital skills.
         </p>
       </div>
@@ -171,42 +171,55 @@ export default function ProgramsPage() {
       {/* Category Sections */}
       {PROGRAM_CATEGORIES.map((cat) => (
         <div key={cat.category} className="space-y-6">
-          <div className="border-b border-aec-navy/10 pb-3">
-            <h2 className="font-display text-2xl font-bold text-aec-navy">{cat.category}</h2>
-            <p className="text-sm text-aec-navy/60 mt-1">{cat.description}</p>
+          <div className="border-b border-slate-200/80 pb-3">
+            <h2 className="font-display text-2xl font-extrabold text-[#37423b]">{cat.category}</h2>
+            <p className="text-sm text-slate-500 mt-1">{cat.description}</p>
           </div>
 
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {cat.programs.map((p) => (
-              <div key={p.slug} className="card group flex flex-col justify-between hover:border-aec-teal/50 hover:shadow-md transition">
+              <div key={p.slug} className="mentor-card group flex flex-col justify-between">
                 <div>
-                  {/* Dummy Image Placeholder */}
-                  <div className="w-[calc(100%+3rem)] -mx-6 -mt-6 h-48 mb-4 overflow-hidden rounded-t-[1.25rem] bg-slate-100 relative border-b border-aec-navy/10">
+                  {/* Program Cover Image */}
+                  <div className="w-full h-52 overflow-hidden bg-slate-100 relative">
                     <img 
                       src={getCourseImage(cat.category, p.slug)}
                       alt={p.title} 
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
+                    <div className="absolute top-3 right-3 bg-[#5fcf80] text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-md">
+                      {p.level}
+                    </div>
                   </div>
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="badge badge-neutral text-[11px]">{p.delivery}</span>
-                    <span className="text-[11px] font-semibold text-aec-gold uppercase tracking-wider">{p.level}</span>
+
+                  <div className="p-6">
+                    <div className="flex items-center justify-between gap-2 mb-3">
+                      <span className="bg-emerald-50 text-[#5fcf80] text-xs font-bold px-3 py-1 rounded-md border border-emerald-200/80">
+                        {p.delivery}
+                      </span>
+                    </div>
+
+                    <h3 className="font-display text-xl font-extrabold text-[#37423b] group-hover:text-[#5fcf80] transition line-clamp-2">
+                      {p.title}
+                    </h3>
+
+                    <p className="mt-3 text-xs text-slate-600 leading-relaxed line-clamp-3">
+                      {p.desc}
+                    </p>
                   </div>
-                  <h3 className="mt-4 font-display text-lg font-bold text-aec-navy group-hover:text-aec-teal transition">
-                    {p.title}
-                  </h3>
-                  <p className="mt-2.5 text-sm text-aec-navy/70 leading-relaxed">{p.desc}</p>
                 </div>
-                <div className="mt-6 pt-4 border-t border-aec-navy/10 flex items-center justify-between">
+
+                <div className="p-6 pt-0 border-t border-slate-100 flex items-center justify-between mt-auto">
                   <Link
                     href={`/programs/${p.slug}` as never}
-                    className="text-xs font-semibold text-aec-teal hover:text-aec-navy transition"
+                    className="text-xs font-bold text-[#37423b] hover:text-[#5fcf80] transition flex items-center gap-1"
                   >
-                    View Syllabus Outline →
+                    <span>Syllabus</span>
+                    <span>→</span>
                   </Link>
                   <Link
                     href="/admissions/free-trial"
-                    className="btn-primary text-xs px-3.5 py-1.5"
+                    className="mentor-btn-primary text-xs px-4 py-1.5"
                   >
                     Free Trial
                   </Link>
@@ -218,18 +231,19 @@ export default function ProgramsPage() {
       ))}
 
       {/* Advisory Banner */}
-      <div className="rounded-2xl border border-aec-navy/10 bg-aec-navy text-white p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+      <div className="rounded-2xl border border-slate-200/90 bg-[#37423b] text-white p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
         <div>
-          <h2 className="font-display text-xl font-bold">Unsure which program suits your learner?</h2>
-          <p className="mt-1 text-sm text-white/70 max-w-xl">
+          <p className="text-xs font-bold uppercase tracking-widest text-[#5fcf80] mb-1">Academic Guidance</p>
+          <h2 className="font-display text-2xl font-extrabold">Unsure which program suits your learner?</h2>
+          <p className="mt-1 text-sm text-slate-300 max-w-xl">
             Our academic counseling team provides personalized level evaluations and curriculum advice.
           </p>
         </div>
         <div className="flex gap-3">
-          <Link href="/admissions/free-trial" className="btn-primary whitespace-nowrap">
+          <Link href="/admissions/free-trial" className="mentor-btn-primary whitespace-nowrap">
             Book a Free Trial
           </Link>
-          <Link href="/contact" className="btn-secondary bg-white/10 text-white border-white/20 hover:bg-white/20 whitespace-nowrap">
+          <Link href="/contact" className="mentor-btn-outline border-white text-white hover:bg-white hover:text-[#37423b] whitespace-nowrap">
             Talk to an Advisor
           </Link>
         </div>

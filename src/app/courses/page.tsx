@@ -252,19 +252,19 @@ export default function CoursesPage() {
 
   return (
     <div className="container-aec py-14 space-y-12">
-      {/* Header */}
-      <div className="max-w-3xl">
-        <span className="badge badge-info mb-2">LMS Catalog</span>
-        <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-aec-navy">
-          Online Learning Course Catalog
+      {/* Header - Mentor Theme Title */}
+      <div className="max-w-3xl space-y-2">
+        <p className="text-xs font-bold uppercase tracking-widest text-[#5fcf80]">LMS Course Catalog</p>
+        <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-[#37423b]">
+          Online Courses & Learning Catalog
         </h1>
-        <p className="mt-3 text-lg text-aec-navy/70 leading-relaxed">
-          Structured modular LMS courses featuring live interactive sessions, video/text lessons, quizzes, assignments, and verifiable certifications.
+        <p className="text-base text-slate-600 leading-relaxed">
+          Explore our comprehensive modular courses featuring live interactive sessions, certified instructors, digital materials, quizzes, and verifiable certificates.
         </p>
       </div>
 
       {/* Filter and Search */}
-      <div className="card p-4 sm:p-5">
+      <div className="rounded-2xl border border-slate-200/90 bg-white p-4 sm:p-5 shadow-sm">
         <div className="flex flex-col sm:flex-row items-center gap-4">
           <div className="w-full sm:w-1/3">
             <input
@@ -272,7 +272,7 @@ export default function CoursesPage() {
               placeholder="Search courses by keyword..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-xs text-slate-900 placeholder-slate-400 focus:border-aec-navy focus:outline-none"
+              className="w-full rounded-full border border-slate-200 px-4 py-2.5 text-xs text-slate-900 placeholder-slate-400 focus:border-[#5fcf80] focus:outline-none focus:ring-1 focus:ring-[#5fcf80]"
             />
           </div>
           <div className="w-full sm:w-2/3 flex items-center gap-2 overflow-x-auto pb-1">
@@ -280,9 +280,9 @@ export default function CoursesPage() {
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition ${
+                className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition ${
                   selectedCategory === cat
-                    ? "bg-aec-navy text-white shadow-xs"
+                    ? "bg-[#5fcf80] text-white shadow-sm"
                     : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                 }`}
               >
@@ -293,48 +293,66 @@ export default function CoursesPage() {
         </div>
       </div>
 
-      {/* Courses Grid */}
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {/* Courses Grid - Mentor Course Item Cards */}
+      <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
         {filteredCourses.length === 0 ? (
           <div className="col-span-full py-12 text-center text-slate-500">
             No courses found matching &ldquo;{searchQuery}&rdquo;.
           </div>
         ) : (
           filteredCourses.map((c) => (
-            <div key={c.slug} className="card group flex flex-col justify-between hover:border-aec-teal/50 hover:shadow-md transition">
+            <div key={c.slug} className="mentor-card group flex flex-col justify-between">
               <div>
                 {/* Course Cover Image */}
-                <div className="w-[calc(100%+3rem)] -mx-6 -mt-6 h-48 mb-4 overflow-hidden rounded-t-[1.25rem] bg-slate-100 relative border-b border-aec-navy/10">
+                <div className="w-full h-52 overflow-hidden bg-slate-100 relative">
                   <img 
                     src={getCourseImage(c.category, c.slug)} 
                     alt={c.title} 
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
+                  <div className="absolute top-3 right-3 bg-[#5fcf80] text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-md">
+                    {c.level}
+                  </div>
                 </div>
-                <div className="flex items-center justify-between gap-2">
-                  <span className="badge badge-neutral text-xs">{c.category}</span>
-                  <span className="badge badge-warning text-xs">{c.level}</span>
+
+                <div className="p-6">
+                  <div className="flex items-center justify-between gap-2 mb-3">
+                    <span className="bg-emerald-50 text-[#5fcf80] text-xs font-bold px-3 py-1 rounded-md border border-emerald-200/80">
+                      {c.category}
+                    </span>
+                    <span className="text-xs text-slate-400 font-medium">
+                      {c.durationWeeks} Weeks
+                    </span>
+                  </div>
+
+                  <h2 className="font-display text-xl font-extrabold text-[#37423b] group-hover:text-[#5fcf80] transition line-clamp-2">
+                    {c.title}
+                  </h2>
+
+                  <p className="mt-2 text-xs font-semibold text-slate-500">
+                    {c.modulesCount} Modules • {c.lessonsCount} Lessons • {c.deliveryMode}
+                  </p>
+
+                  <p className="mt-3 text-xs text-slate-600 leading-relaxed line-clamp-3">
+                    {c.desc}
+                  </p>
                 </div>
-                <h2 className="mt-4 font-display text-lg font-bold text-aec-navy group-hover:text-aec-teal transition">
-                  {c.title}
-                </h2>
-                <p className="mt-2 text-xs text-aec-navy/60 font-medium">
-                  {c.durationWeeks} Weeks • {c.modulesCount} Modules • {c.lessonsCount} Lessons
-                </p>
-                <p className="mt-3 text-sm text-aec-navy/70 leading-relaxed">{c.desc}</p>
               </div>
-              <div className="mt-6 pt-4 border-t border-aec-navy/10 flex items-center justify-between">
+
+              {/* Mentor Card Footer */}
+              <div className="p-6 pt-0 border-t border-slate-100 flex items-center justify-between mt-auto">
                 <Link
                   href={`/courses/${c.slug}` as never}
-                  className="text-xs font-semibold text-aec-teal hover:text-aec-navy transition"
+                  className="text-xs font-bold text-[#37423b] hover:text-[#5fcf80] transition flex items-center gap-1"
                 >
-                  View Syllabus & LMS →
+                  <span>Syllabus</span>
+                  <span>→</span>
                 </Link>
                 <Link
                   href="/admissions/free-trial"
-                  className="btn-primary text-xs px-3.5 py-1.5"
+                  className="mentor-btn-primary text-xs px-4 py-1.5"
                 >
-                  Enroll
+                  Enroll Now
                 </Link>
               </div>
             </div>
@@ -343,20 +361,21 @@ export default function CoursesPage() {
       </div>
 
       {/* LMS Architecture Features */}
-      <div className="rounded-2xl border border-aec-navy/10 bg-aec-cream/40 p-8">
-        <h2 className="font-display text-lg font-bold text-aec-navy">AEC Learning Management System Features</h2>
-        <div className="mt-4 grid gap-4 sm:grid-cols-3 text-xs text-aec-navy/80">
-          <div className="rounded-xl border border-aec-navy/10 bg-white p-4">
-            <span className="font-bold text-aec-teal block mb-1">Live Interactive Classrooms</span>
-            Direct integration with protected video meeting platforms (Zoom, Google Meet, Teams) and calendar schedules.
+      <div className="rounded-2xl border border-slate-200/90 bg-white p-8 shadow-sm">
+        <p className="text-xs font-bold uppercase tracking-widest text-[#5fcf80] mb-1">Interactive Learning</p>
+        <h2 className="font-display text-xl font-extrabold text-[#37423b]">AEC Learning Management System Features</h2>
+        <div className="mt-6 grid gap-6 sm:grid-cols-3 text-xs text-slate-600">
+          <div className="rounded-xl border border-slate-100 bg-slate-50/80 p-5">
+            <span className="font-bold text-[#5fcf80] text-sm block mb-1">Live Classrooms</span>
+            Protected integration with video meeting platforms (Zoom, Google Meet, Teams) and automated class schedules.
           </div>
-          <div className="rounded-xl border border-aec-navy/10 bg-white p-4">
-            <span className="font-bold text-aec-teal block mb-1">Interactive Quizzes & Scoring</span>
-            Automated quiz evaluations with instant pass/fail feedback, gradebooks, and progress reporting.
+          <div className="rounded-xl border border-slate-100 bg-slate-50/80 p-5">
+            <span className="font-bold text-[#5fcf80] text-sm block mb-1">Quizzes & Progress</span>
+            Automated quiz evaluations with instant feedback, gradebooks, attendance logs, and progress reporting.
           </div>
-          <div className="rounded-xl border border-aec-navy/10 bg-white p-4">
-            <span className="font-bold text-aec-teal block mb-1">Verifiable Certificates</span>
-            Official digital certificates issued upon course completion with unique public verification credentials.
+          <div className="rounded-xl border border-slate-100 bg-slate-50/80 p-5">
+            <span className="font-bold text-[#5fcf80] text-sm block mb-1">Verifiable Certificates</span>
+            Official digital certificates issued upon completion with unique public verification credentials.
           </div>
         </div>
       </div>
