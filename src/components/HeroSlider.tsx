@@ -59,6 +59,46 @@ const STATS = [
 
 const DURATION = 6000;
 
+function AnimatedLetters({
+  text,
+  className = "",
+  baseDelay = 0,
+  shimmer = false,
+}: {
+  text: string;
+  className?: string;
+  baseDelay?: number;
+  shimmer?: boolean;
+}) {
+  const words = text.split(" ");
+  let globalCharIndex = 0;
+
+  return (
+    <span className={`inline-flex flex-wrap ${className}`}>
+      {words.map((word, wIdx) => {
+        const chars = Array.from(word);
+        return (
+          <span key={wIdx} className="inline-block whitespace-nowrap mr-[0.22em] last:mr-0">
+            {chars.map((char, cIdx) => {
+              const delay = baseDelay + globalCharIndex * 0.035;
+              globalCharIndex++;
+              return (
+                <span
+                  key={cIdx}
+                  className={`inline-block aec-char-anim ${shimmer ? "aec-shimmer-text" : ""}`}
+                  style={{ animationDelay: `${delay}s` }}
+                >
+                  {char}
+                </span>
+              );
+            })}
+          </span>
+        );
+      })}
+    </span>
+  );
+}
+
 export default function HeroSlider() {
   const [current, setCurrent] = useState(0);
   const [progress, setProgress] = useState(0);
@@ -125,6 +165,27 @@ export default function HeroSlider() {
           0%   { background-position: -400px 0; }
           100% { background-position: 400px 0; }
         }
+        @keyframes aecCharAnim {
+          0% {
+            opacity: 0;
+            transform: translateY(24px) scale(0.8);
+            filter: blur(4px);
+          }
+          60% {
+            opacity: 1;
+            transform: translateY(-3px) scale(1.06);
+            filter: blur(0px);
+          }
+          100% {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            filter: blur(0px);
+          }
+        }
+        .aec-char-anim {
+          opacity: 0;
+          animation: aecCharAnim 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
         .aec-fade-up  { opacity:0; animation: aecFadeUp    0.7s cubic-bezier(.16,1,.3,1) forwards; }
         .aec-fade-in  { opacity:0; animation: aecFadeIn    0.6s ease forwards; }
         .aec-slide-r  { opacity:0; animation: aecSlideRight 0.65s cubic-bezier(.16,1,.3,1) forwards; }
@@ -169,19 +230,32 @@ export default function HeroSlider() {
       <div className="relative z-10 container-aec min-h-[60svh] py-16 md:py-24 flex items-center">
         <div className={`max-w-3xl space-y-7 ${animate ? "" : "opacity-0"}`} style={{ transition: "opacity 0.08s" }}>
 
-          {/* Heading */}
+          {/* Heading with Letter-by-Letter Animation */}
           <div className="space-y-1">
             <h1
-              className="aec-fade-up font-display font-extrabold text-[#37423b] leading-[1.1]"
-              style={{ fontSize: "clamp(2.4rem, 5vw, 4.2rem)", animationDelay: "0.1s" }}
+              className="font-display font-extrabold text-[#37423b] leading-[1.1]"
+              style={{ fontSize: "clamp(2.4rem, 5vw, 4.2rem)" }}
             >
-              {slide.title}
+              {animate && (
+                <AnimatedLetters
+                  key={`t-${slide.id}`}
+                  text={slide.title}
+                  baseDelay={0.05}
+                />
+              )}
             </h1>
             <h1
-              className="aec-fade-up font-display font-black leading-[1.1] aec-shimmer-text"
-              style={{ fontSize: "clamp(2.4rem, 5vw, 4.2rem)", animationDelay: "0.2s" }}
+              className="font-display font-black leading-[1.1]"
+              style={{ fontSize: "clamp(2.4rem, 5vw, 4.2rem)" }}
             >
-              {slide.highlight}
+              {animate && (
+                <AnimatedLetters
+                  key={`h-${slide.id}`}
+                  text={slide.highlight}
+                  baseDelay={0.05 + slide.title.length * 0.035}
+                  shimmer
+                />
+              )}
             </h1>
           </div>
 
