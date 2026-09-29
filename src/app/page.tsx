@@ -1,94 +1,9 @@
 import Link from "next/link";
 import PricingSection from "@/components/PricingSection";
 import HeroSlider from "@/components/HeroSlider";
+import MentorCountsSection from "@/components/MentorCountsSection";
+import PopularCoursesSection from "@/components/PopularCoursesSection";
 import { getCourseImage } from "@/lib/course-images";
-
-const POPULAR_COURSES = [
-  {
-    title: "Website Design",
-    slug: "web-development",
-    category: "Web Development",
-    price: "$169",
-    image: "/images/courses/mentor-course-1.jpg",
-    blurb: "Et architecto provident deleniti facere repellat nobis iste. Id facere quia quae dolores dolorem tempore.",
-    trainer: {
-      name: "Antonio",
-      avatar: "/images/courses/mentor-trainer-1.jpg",
-      students: 50,
-      likes: 65,
-    },
-  },
-  {
-    title: "Search Engine Optimization",
-    slug: "digital-marketing",
-    category: "Marketing",
-    price: "$250",
-    image: "/images/courses/mentor-course-2.jpg",
-    blurb: "Et architecto provident deleniti facere repellat nobis iste. Id facere quia quae dolores dolorem tempore.",
-    trainer: {
-      name: "Lana",
-      avatar: "/images/courses/mentor-trainer-2.jpg",
-      students: 35,
-      likes: 42,
-    },
-  },
-  {
-    title: "Copywriting",
-    slug: "english-foundations",
-    category: "Content",
-    price: "$180",
-    image: "/images/courses/mentor-course-3.jpg",
-    blurb: "Et architecto provident deleniti facere repellat nobis iste. Id facere quia quae dolores dolorem tempore.",
-    trainer: {
-      name: "Brandon",
-      avatar: "/images/courses/mentor-trainer-3.jpg",
-      students: 20,
-      likes: 85,
-    },
-  },
-  {
-    title: "Quran & Tajweed Mastery",
-    slug: "quran-islamic-studies",
-    category: "Islamic Studies",
-    price: "$45",
-    image: getCourseImage("Islamic", "quran-islamic-studies"),
-    blurb: "Structured, teacher-led learning of Noorani Qaida, Tajweed rules, fluent Nazra recitation, and Hifz memorization.",
-    trainer: {
-      name: "Qari Ahmad",
-      avatar: "/images/courses/qirat.jpg",
-      students: 120,
-      likes: 98,
-    },
-  },
-  {
-    title: "Computer Programming & Coding",
-    slug: "computer-programming",
-    category: "Coding & IT",
-    price: "$65",
-    image: getCourseImage("IT & Programming", "computer-programming"),
-    blurb: "Practical hands-on coding in Python, C++, and JavaScript with real-world game development and logic building.",
-    trainer: {
-      name: "Engr. Salman",
-      avatar: "/images/courses/coding.png",
-      students: 145,
-      likes: 92,
-    },
-  },
-  {
-    title: "Mathematics & Analytical Thinking",
-    slug: "mathematics",
-    category: "STEM Education",
-    price: "$55",
-    image: getCourseImage("STEM & Languages", "mathematics"),
-    blurb: "Curriculum-aligned mathematical instruction from fundamental numeracy and algebra to geometry, trigonometry, and calculus.",
-    trainer: {
-      name: "Dr. Rachel Evans",
-      avatar: "/images/courses/math.jpg",
-      students: 180,
-      likes: 89,
-    },
-  },
-];
 
 const PROGRAMS = [
   {
@@ -197,31 +112,8 @@ export default function HomePage() {
       {/* HERO BANNER SLIDER */}
       <HeroSlider />
 
-      {/* QUICK STATS & CREDENTIALS STRIP */}
-      <section className="container-aec">
-        <div className="rounded-2xl border border-slate-200/90 bg-white p-6 md:p-8 shadow-md grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
-          <div className="border-r border-slate-100 last:border-0 pr-4">
-            <p className="font-display text-2xl md:text-4xl font-extrabold text-[#0F766E]">100%</p>
-            <p className="text-xs font-extrabold text-[#0B1F3A] mt-1">Verified Faculty</p>
-            <p className="text-[11px] text-slate-500 mt-0.5">Ijazah & Subject Specialists</p>
-          </div>
-          <div className="border-r border-slate-100 last:border-0 pr-4">
-            <p className="font-display text-2xl md:text-4xl font-extrabold text-[#0B1F3A]">1-on-1</p>
-            <p className="text-xs font-extrabold text-[#0B1F3A] mt-1">Personalized Tutoring</p>
-            <p className="text-[11px] text-slate-500 mt-0.5">& Interactive Group Cohorts</p>
-          </div>
-          <div className="border-r border-slate-100 last:border-0 pr-4">
-            <p className="font-display text-2xl md:text-4xl font-extrabold text-[#0F766E]">24/7</p>
-            <p className="text-xs font-extrabold text-[#0B1F3A] mt-1">Parent & Student Portals</p>
-            <p className="text-[11px] text-slate-500 mt-0.5">Live Attendance & Progress</p>
-          </div>
-          <div>
-            <p className="font-display text-2xl md:text-4xl font-extrabold text-emerald-600">Free</p>
-            <p className="text-xs font-extrabold text-[#0B1F3A] mt-1">Complimentary Trial</p>
-            <p className="text-[11px] text-slate-500 mt-0.5">No Credit Card Required</p>
-          </div>
-        </div>
-      </section>
+      {/* 2. MENTOR COUNTS SECTION (1232 Students | 64 Courses | 42 Events | 24 Trainers) */}
+      <MentorCountsSection />
 
       {/* 3. WHAT AEC OFFERS */}
       <section className="bg-white border-y border-slate-200/80 py-16">
@@ -289,85 +181,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4. POPULAR COURSES (Mentor Template Design & Card Animations) */}
-      <section id="courses" className="container-aec py-14 space-y-10">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-          <div className="mentor-section-title">
-            <h2>Courses</h2>
-            <p>Popular Courses</p>
-          </div>
-          <Link
-            href="/courses"
-            className="text-xs font-bold text-[#0F766E] hover:text-[#0B1F3A] transition flex items-center gap-1.5 group mb-2"
-          >
-            <span>View all courses catalog</span>
-            <span className="transition-transform group-hover:translate-x-1 font-bold">→</span>
-          </Link>
-        </div>
-
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {POPULAR_COURSES.map((course) => (
-            <div key={course.slug} className="mentor-course-card group">
-              {/* Course Image with Mentor Zoom Animation */}
-              <Link href={`/courses/${course.slug}` as never} className="course-img-wrap block">
-                <img
-                  src={course.image}
-                  alt={course.title}
-                  className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-109"
-                />
-              </Link>
-
-              {/* Course Content Body */}
-              <div className="course-body">
-                <div className="flex items-center justify-between gap-2 mb-2">
-                  <span className="category-pill">{course.category}</span>
-                  <span className="price-tag">{course.price}</span>
-                </div>
-
-                <h3>
-                  <Link href={`/courses/${course.slug}` as never} className="line-clamp-1">
-                    {course.title}
-                  </Link>
-                </h3>
-
-                <p className="course-description line-clamp-2">
-                  {course.blurb}
-                </p>
-
-                {/* Mentor Trainer Profile & Rank Row */}
-                <div className="trainer-row">
-                  <div className="trainer-profile">
-                    <img
-                      src={course.trainer.avatar}
-                      alt={course.trainer.name}
-                    />
-                    <Link
-                      href={`/courses/${course.slug}` as never}
-                      className="trainer-name"
-                    >
-                      {course.trainer.name}
-                    </Link>
-                  </div>
-                  <div className="trainer-stats">
-                    <span className="flex items-center gap-1" title="Enrolled Students">
-                      <svg className="w-4 h-4 text-slate-400" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
-                      </svg>
-                      {course.trainer.students}
-                    </span>
-                    <span className="flex items-center gap-1" title="Reviews / Likes">
-                      <svg className="w-4 h-4 text-rose-500" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
-                      </svg>
-                      {course.trainer.likes}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+      {/* 4. POPULAR COURSES (Mentor Template Design with Zoom-In Animation) */}
+      <PopularCoursesSection />
 
       {/* 5. HOW LEARNING WORKS / 6. WHY CHOOSE AEC */}
       <section className="bg-aec-navy py-16 text-white">
