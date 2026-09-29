@@ -32,17 +32,22 @@ jobs:
           node-version: "20"
 
       - uses: actions/configure-pages@v5
+        continue-on-error: true
+        with:
+          enablement: true
 
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
-      - name: Build
-        run: npx next build
-
-      - name: Add .nojekyll
-        run: touch out/.nojekyll
+      - name: Generate Prisma & Build
+        run: |
+          npx prisma generate
+          npx next build
+          mkdir -p out
+          touch out/.nojekyll
 
       - uses: actions/upload-pages-artifact@v3
+        continue-on-error: true
         with:
           path: ./out
 

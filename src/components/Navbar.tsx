@@ -135,20 +135,20 @@ export default function Navbar() {
     <header
       className={`header sticky top-0 z-50 w-full transition-all duration-300 ${
         scrolled
-          ? "py-2.5 bg-[#03010e]/95 backdrop-blur-2xl border-b border-white/10 shadow-[0_10px_35px_rgba(0,0,0,0.5)]"
-          : "py-4 bg-[#03010e]/90 backdrop-blur-xl border-b border-white/[0.08] shadow-[0_4px_25px_rgba(0,0,0,0.3)]"
+          ? "py-2.5 bg-white/90 backdrop-blur-xl border-b border-slate-200/80 shadow-md shadow-slate-900/5"
+          : "py-3.5 bg-white/70 backdrop-blur-md border-b border-slate-200/50 shadow-xs"
       }`}
     >
       <nav className="container-aec relative z-30 flex items-center justify-between">
-        {/* Brand Logo - Automark Logo placement with dark theme support */}
+        {/* Brand Logo - Official Navy & Teal Palette */}
         <div className="order-0 flex items-center">
           <Link href="/" className="navbar-brand inline-flex items-center transition hover:opacity-90">
-            <Logo variant="compact" theme="dark" size="md" />
+            <Logo variant="compact" theme="light" size="md" />
           </Link>
         </div>
 
-        {/* Center Floating Pill Navigation - Automark Signature Style */}
-        <ul className="navbar-nav order-3 hidden lg:flex items-center gap-x-1 xl:gap-x-2 bg-white/[0.06] backdrop-blur-xl border border-white/10 rounded-full px-5 py-1.5 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
+        {/* Center Floating Pill Navigation - Automark Pill Style with 3 Brand Colors */}
+        <ul className="navbar-nav order-3 hidden lg:flex items-center gap-x-1 xl:gap-x-1.5 bg-slate-100/80 backdrop-blur-lg border border-slate-200/90 rounded-full px-4 py-1.5 shadow-inner">
           {NAV.map((item) => (
             <li
               key={item.label}
@@ -158,17 +158,17 @@ export default function Navbar() {
             >
               <Link
                 href={item.href as never}
-                className={`nav-link inline-flex items-center gap-1 px-3 py-1.5 text-[13px] font-medium rounded-full transition-colors ${
+                className={`nav-link inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold rounded-full transition-all duration-200 ${
                   activeDropdown === item.label
-                    ? "text-[#937aff] bg-white/10"
-                    : "text-slate-200 hover:text-white hover:bg-white/[0.08]"
+                    ? "text-[#0F766E] bg-white shadow-xs"
+                    : "text-[#0B1F3A] hover:text-[#0F766E] hover:bg-white/80"
                 }`}
               >
                 <span>{item.label}</span>
                 {(item.children || item.categories) && (
                   <svg
                     className={`h-3 w-3 transition-transform duration-200 ${
-                      activeDropdown === item.label ? "rotate-180 text-[#937aff]" : "opacity-60"
+                      activeDropdown === item.label ? "rotate-180 text-[#0F766E]" : "opacity-60 text-slate-500"
                     }`}
                     fill="none"
                     viewBox="0 0 24 24"
@@ -181,13 +181,13 @@ export default function Navbar() {
 
               {/* Categorized Mega Dropdown (for Programs) */}
               {item.categories && activeDropdown === item.label && (
-                <div className="absolute -left-36 top-full mt-2 z-50 w-[840px] rounded-2xl border border-white/15 bg-[#080c18]/95 backdrop-blur-2xl p-6 shadow-[0_20px_60px_rgba(0,0,0,0.6)] animate-in fade-in slide-in-from-top-2 duration-150">
+                <div className="absolute -left-36 top-full mt-2.5 z-50 w-[840px] rounded-2xl border border-slate-200/90 bg-white/98 backdrop-blur-2xl p-6 shadow-2xl shadow-slate-900/10 animate-in fade-in slide-in-from-top-2 duration-150">
                   <div className="grid grid-cols-2 gap-x-6 gap-y-6">
                     {item.categories.map((cat) => (
                       <div key={cat.categoryName} className="space-y-2">
-                        <div className="flex items-center gap-2 border-b border-white/10 pb-2">
+                        <div className="flex items-center gap-2 border-b border-slate-100 pb-2">
                           <span className="text-base">{cat.badge}</span>
-                          <h4 className="text-xs font-bold uppercase tracking-wider text-[#937aff]">
+                          <h4 className="text-xs font-bold uppercase tracking-wider text-[#0B1F3A]">
                             {cat.categoryName}
                           </h4>
                         </div>
@@ -196,14 +196,14 @@ export default function Navbar() {
                             <Link
                               key={sub.href + sub.label}
                               href={sub.href as never}
-                              className="group block rounded-xl px-3 py-2 transition hover:bg-white/[0.08] border border-transparent hover:border-white/10"
+                              className="group block rounded-xl px-3 py-2 transition hover:bg-teal-50/70 border border-transparent hover:border-teal-100"
                               onClick={() => setActiveDropdown(null)}
                             >
-                              <p className="text-xs font-semibold text-slate-100 group-hover:text-[#937aff] transition">
+                              <p className="text-xs font-semibold text-[#0B1F3A] group-hover:text-[#0F766E] transition">
                                 {sub.label}
                               </p>
                               {sub.desc && (
-                                <p className="text-[11px] text-slate-400 line-clamp-1 group-hover:text-slate-300">
+                                <p className="text-[11px] text-slate-500 line-clamp-1 group-hover:text-slate-600">
                                   {sub.desc}
                                 </p>
                               )}
@@ -215,13 +215,13 @@ export default function Navbar() {
                   </div>
 
                   {/* Mega Menu Footer */}
-                  <div className="mt-5 flex items-center justify-between border-t border-white/10 pt-3 text-xs">
-                    <span className="text-slate-400 font-medium">
+                  <div className="mt-5 flex items-center justify-between border-t border-slate-100 pt-3 text-xs">
+                    <span className="text-slate-500 font-medium">
                       ✨ 1-on-1 personalized tutoring with qualified global faculty
                     </span>
                     <Link
                       href="/programs"
-                      className="font-bold text-[#937aff] hover:text-[#b4a3ff] transition flex items-center gap-1.5"
+                      className="font-bold text-[#0F766E] hover:text-[#0B1F3A] transition flex items-center gap-1.5"
                       onClick={() => setActiveDropdown(null)}
                     >
                       <span>View All Programs Catalog</span>
@@ -233,19 +233,19 @@ export default function Navbar() {
 
               {/* Standard Dropdown (for About, Admissions, Portals, Resources) */}
               {item.children && !item.categories && activeDropdown === item.label && (
-                <div className="absolute left-0 top-full mt-2 z-50 w-72 rounded-2xl border border-white/15 bg-[#080c18]/95 backdrop-blur-2xl p-2 shadow-[0_20px_50px_rgba(0,0,0,0.6)] animate-in fade-in slide-in-from-top-1 duration-150">
+                <div className="absolute left-0 top-full mt-2.5 z-50 w-72 rounded-2xl border border-slate-200/90 bg-white/98 backdrop-blur-2xl p-2 shadow-xl shadow-slate-900/10 animate-in fade-in slide-in-from-top-1 duration-150">
                   {item.children.map((child) => (
                     <Link
                       key={child.href}
                       href={child.href as never}
-                      className="block rounded-xl px-3 py-2 transition hover:bg-white/[0.08] group"
+                      className="block rounded-xl px-3 py-2 transition hover:bg-teal-50/70 group"
                       onClick={() => setActiveDropdown(null)}
                     >
-                      <p className="text-xs font-semibold text-slate-100 group-hover:text-[#937aff] transition">
+                      <p className="text-xs font-semibold text-[#0B1F3A] group-hover:text-[#0F766E] transition">
                         {child.label}
                       </p>
                       {child.desc && (
-                        <p className="text-[11px] text-slate-400 line-clamp-1 group-hover:text-slate-300">
+                        <p className="text-[11px] text-slate-500 line-clamp-1 group-hover:text-slate-600">
                           {child.desc}
                         </p>
                       )}
@@ -257,31 +257,31 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* Right Side Buttons - Automark Gradient & Pill Design */}
-        <div className="order-1 ml-auto flex items-center gap-3 md:order-2 lg:ml-0">
+        {/* Right Side Buttons - 3 Brand Colors (Teal #0F766E, Navy #0B1F3A, White #FFFFFF) */}
+        <div className="order-1 ml-auto flex items-center gap-2.5 md:order-2 lg:ml-0">
           <Link
             href="/courses"
-            className="hidden xl:inline-flex items-center justify-center rounded-full border border-white/20 bg-white/5 px-4 py-2 text-xs font-semibold text-slate-200 transition hover:bg-white/10 hover:text-white hover:border-white/40"
+            className="hidden xl:inline-flex items-center justify-center rounded-full border-2 border-[#0F766E] bg-white px-4 py-1.5 text-xs font-bold text-[#0F766E] transition hover:bg-[#0F766E] hover:text-white"
           >
             Explore Courses
           </Link>
           <Link
             href="/admissions/free-trial"
-            className="btn btn-primary inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#4d36d0] to-[#937aff] hover:from-[#432ec0] hover:to-[#846bf5] px-5 py-2 text-xs font-bold text-white shadow-lg shadow-indigo-600/30 transition hover:shadow-indigo-600/50 hover:scale-[1.02] active:scale-[0.98]"
+            className="inline-flex items-center justify-center rounded-full bg-[#0F766E] hover:bg-[#0B1F3A] px-5 py-2 text-xs font-bold text-white shadow-md shadow-teal-700/20 transition duration-200 hover:scale-[1.02] active:scale-[0.98]"
           >
             Book Free Trial
           </Link>
 
-          {/* Automark Hamburger Toggler */}
+          {/* Mobile Hamburger Toggler */}
           <button
             onClick={() => setOpen((prev) => !prev)}
-            className="order-3 cursor-pointer flex items-center lg:hidden text-white bg-white/10 backdrop-blur-lg w-10 h-10 rounded-xl justify-center border border-white/15 hover:bg-white/20 transition ml-2"
+            className="order-3 cursor-pointer flex items-center lg:hidden text-[#0B1F3A] bg-slate-100/90 backdrop-blur-md w-10 h-10 rounded-xl justify-center border border-slate-200 hover:bg-slate-200 transition ml-2"
             aria-label="Toggle navigation menu"
           >
             {open ? (
               <svg className="h-5 w-5 fill-current" viewBox="0 0 20 20">
                 <polygon
-                  points="11 9 22 9 22 11 11 11 11 22 9 22 9 11 -2 11 -2 9 9 9 9 -2 11 -2"
+                  points="11 9 22 9 22 11 11 11 11 11 22 9 22 9 11 -2 11 -2 9 9 9 9 -2 11 -2"
                   transform="rotate(45 10 10)"
                 />
               </svg>
@@ -294,24 +294,24 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile Drawer - Automark Glassmorphic Style */}
+      {/* Mobile Drawer - Clean Glassmorphic Style */}
       {open && (
-        <div className="lg:hidden border-t border-white/10 bg-[#060813]/98 backdrop-blur-2xl max-h-[85vh] overflow-y-auto px-4 py-5 text-white animate-in fade-in duration-200">
+        <div className="lg:hidden border-t border-slate-200 bg-white/98 backdrop-blur-2xl max-h-[85vh] overflow-y-auto px-4 py-5 text-[#0B1F3A] animate-in fade-in duration-200 shadow-xl">
           <div className="flex flex-col gap-2">
             {NAV.map((item) => (
-              <div key={item.label} className="border-b border-white/10 pb-2">
+              <div key={item.label} className="border-b border-slate-100 pb-2">
                 {item.children || item.categories ? (
                   <div>
                     <button
                       onClick={() =>
                         setMobileExpanded(mobileExpanded === item.label ? null : item.label)
                       }
-                      className="w-full flex items-center justify-between py-2 text-sm font-semibold text-slate-100 hover:text-[#937aff]"
+                      className="w-full flex items-center justify-between py-2 text-sm font-semibold text-[#0B1F3A] hover:text-[#0F766E]"
                     >
                       <span>{item.label}</span>
                       <svg
                         className={`h-4 w-4 transition-transform ${
-                          mobileExpanded === item.label ? "rotate-180 text-[#937aff]" : "opacity-60"
+                          mobileExpanded === item.label ? "rotate-180 text-[#0F766E]" : "opacity-60 text-slate-500"
                         }`}
                         fill="none"
                         viewBox="0 0 24 24"
@@ -322,11 +322,11 @@ export default function Navbar() {
                     </button>
 
                     {mobileExpanded === item.label && (
-                      <div className="pl-3 pb-2 space-y-3 border-l-2 border-[#937aff]/40 ml-2 mt-1">
+                      <div className="pl-3 pb-2 space-y-3 border-l-2 border-[#0F766E]/40 ml-2 mt-1">
                         {item.categories &&
                           item.categories.map((cat) => (
                             <div key={cat.categoryName} className="space-y-1">
-                              <p className="text-[11px] font-bold uppercase tracking-wider text-[#937aff] pt-1 flex items-center gap-1.5">
+                              <p className="text-[11px] font-bold uppercase tracking-wider text-[#0F766E] pt-1 flex items-center gap-1.5">
                                 <span>{cat.badge}</span>
                                 <span>{cat.categoryName}</span>
                               </p>
@@ -334,7 +334,7 @@ export default function Navbar() {
                                 <Link
                                   key={sub.href + sub.label}
                                   href={sub.href as never}
-                                  className="block py-1 text-xs text-slate-300 hover:text-white"
+                                  className="block py-1 text-xs text-slate-600 hover:text-[#0F766E]"
                                   onClick={() => setOpen(false)}
                                 >
                                   {sub.label}
@@ -349,7 +349,7 @@ export default function Navbar() {
                             <Link
                               key={child.href}
                               href={child.href as never}
-                              className="block py-1 text-xs text-slate-300 hover:text-white"
+                              className="block py-1 text-xs text-slate-600 hover:text-[#0F766E]"
                               onClick={() => setOpen(false)}
                             >
                               {child.label}
@@ -361,7 +361,7 @@ export default function Navbar() {
                 ) : (
                   <Link
                     href={item.href as never}
-                    className="block py-2 text-sm font-semibold text-slate-100 hover:text-[#937aff]"
+                    className="block py-2 text-sm font-semibold text-[#0B1F3A] hover:text-[#0F766E]"
                     onClick={() => setOpen(false)}
                   >
                     {item.label}
@@ -374,21 +374,21 @@ export default function Navbar() {
             <div className="mt-4 flex flex-col gap-2.5 pt-2">
               <Link
                 href="/admissions/free-trial"
-                className="w-full text-center rounded-full bg-gradient-to-r from-[#4d36d0] to-[#937aff] py-2.5 text-xs font-bold text-white shadow-lg shadow-indigo-600/30"
+                className="w-full text-center rounded-full bg-[#0F766E] hover:bg-[#0B1F3A] py-2.5 text-xs font-bold text-white shadow-md shadow-teal-700/20"
                 onClick={() => setOpen(false)}
               >
                 Book a Free Trial
               </Link>
               <Link
                 href="/courses"
-                className="w-full text-center rounded-full border border-white/20 bg-white/5 py-2.5 text-xs font-semibold text-slate-200"
+                className="w-full text-center rounded-full border-2 border-[#0F766E] bg-white py-2 text-xs font-bold text-[#0F766E]"
                 onClick={() => setOpen(false)}
               >
                 Explore Courses
               </Link>
               <Link
                 href="/login"
-                className="w-full text-center text-xs font-medium text-slate-400 hover:text-white py-1"
+                className="w-full text-center text-xs font-medium text-slate-500 hover:text-[#0B1F3A] py-1"
                 onClick={() => setOpen(false)}
               >
                 Student / Staff Portal Login →
