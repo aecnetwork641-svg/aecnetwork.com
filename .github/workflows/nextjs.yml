@@ -17,10 +17,16 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/web
     env:
       HUSKY: "0"
       GITHUB_PAGES: "true"
       NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
+      DATABASE_URL: "postgresql://placeholder:placeholder@localhost:5432/placeholder"
+      NEXTAUTH_SECRET: "placeholder-secret-for-build"
+      NEXTAUTH_URL: "http://localhost:3000"
     steps:
       - uses: actions/checkout@v4
 
@@ -28,25 +34,22 @@ jobs:
         with:
           node-version: "20"
           cache: npm
+          cache-dependency-path: apps/web/package-lock.json
 
       - uses: actions/configure-pages@v5
 
       - name: Install dependencies
-        run: npm install
+        run: npm install --legacy-peer-deps
 
       - name: Build
         run: npm run build
-        env:
-          DATABASE_URL: "postgresql://placeholder:placeholder@localhost:5432/placeholder"
-          NEXTAUTH_SECRET: "placeholder-secret-for-build"
-          NEXTAUTH_URL: "http://localhost:3000"
 
       - name: Add .nojekyll
         run: touch out/.nojekyll
 
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: ./out
+          path: ./apps/web/out
 
   deploy:
     environment:
