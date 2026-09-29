@@ -23,22 +23,30 @@ jobs:
       NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: yarn
+          cache: npm
+
       - uses: actions/configure-pages@v5
-      - name: Disable API routes (not supported by static export)
-        run: rm -rf apps/web/app/api-proxy apps/web/app/api
-      - name: Install
-        run: yarn install --frozen-lockfile
+
+      - name: Install dependencies
+        run: npm install
+
       - name: Build
-        run: yarn build:web
+        run: npm run build
+        env:
+          DATABASE_URL: "postgresql://placeholder:placeholder@localhost:5432/placeholder"
+          NEXTAUTH_SECRET: "placeholder-secret-for-build"
+          NEXTAUTH_URL: "http://localhost:3000"
+
       - name: Add .nojekyll
-        run: touch apps/web/out/.nojekyll
+        run: touch out/.nojekyll
+
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: ./apps/web/out
+          path: ./out
 
   deploy:
     environment:
