@@ -300,16 +300,24 @@ export default function CoursesPage() {
             No courses found matching &ldquo;{searchQuery}&rdquo;.
           </div>
         ) : (
-          filteredCourses.map((c) => (
-            <div key={c.slug} className="mentor-card group flex flex-col justify-between">
+          filteredCourses.map((c, idx) => (
+            <div
+              key={c.slug}
+              className="mentor-card group flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:border-aec-teal/50"
+              style={{ animationDelay: `${idx * 0.05}s` }}
+            >
               <div>
-                {/* Course Cover Image */}
+                {/* Course Cover Image with Zoom Effect */}
                 <div className="w-full h-52 overflow-hidden bg-slate-100 relative">
                   <img 
                     src={getCourseImage(c.category, c.slug)} 
                     alt={c.title} 
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).src = "/images/courses/13.jpg";
+                    }}
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   <div className="absolute top-3 right-3 bg-[#0F766E] text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-md">
                     {c.level}
                   </div>
@@ -317,11 +325,11 @@ export default function CoursesPage() {
 
                 <div className="p-6">
                   <div className="flex items-center justify-between gap-2 mb-3">
-                    <span className="bg-emerald-50 text-[#0F766E] text-xs font-bold px-3 py-1 rounded-md border border-emerald-200/80">
+                    <span className="bg-teal-50 text-[#0F766E] text-xs font-bold px-3 py-1 rounded-md border border-teal-200/80">
                       {c.category}
                     </span>
                     <span className="text-xs text-slate-400 font-medium">
-                      {c.durationWeeks} Weeks
+                      ⏱️ {c.durationWeeks} Weeks
                     </span>
                   </div>
 
@@ -343,14 +351,14 @@ export default function CoursesPage() {
               <div className="p-6 pt-0 border-t border-slate-100 flex items-center justify-between mt-auto">
                 <Link
                   href={`/courses/${c.slug}` as never}
-                  className="text-xs font-bold text-[#0B1F3A] hover:text-[#0F766E] transition flex items-center gap-1"
+                  className="text-xs font-bold text-[#0B1F3A] group-hover:text-[#0F766E] transition flex items-center gap-1"
                 >
-                  <span>Syllabus</span>
-                  <span>→</span>
+                  <span>View Details</span>
+                  <span className="transition-transform group-hover:translate-x-1">→</span>
                 </Link>
                 <Link
                   href="/admissions/free-trial"
-                  className="mentor-btn-primary text-xs px-4 py-1.5"
+                  className="mentor-btn-primary text-xs px-4 py-1.5 shadow-sm hover:shadow-md transition"
                 >
                   Enroll Now
                 </Link>

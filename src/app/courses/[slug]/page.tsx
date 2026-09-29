@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { getCourseImage } from "@/lib/course-images";
 
 const COURSES_DATA: Record<
   string,
@@ -1043,6 +1044,24 @@ export default function CourseDetailPage({ params }: { params: { slug: string } 
             <Link href="/courses" className="text-xs font-semibold text-aec-teal hover:underline mb-3 inline-block">
               ← Back to All Courses
             </Link>
+            {/* Course Featured Banner Image */}
+            <div className="relative mt-4 mb-6 h-64 sm:h-72 w-full overflow-hidden rounded-2xl border border-slate-200 shadow-md">
+              <img
+                src={getCourseImage(course.category, params.slug)}
+                alt={course.title}
+                className="h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F3A]/75 via-transparent to-transparent" />
+              <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white">
+                <span className="rounded-full bg-[#0F766E] px-3.5 py-1 text-xs font-bold shadow-md">
+                  {course.category}
+                </span>
+                <span className="rounded-full bg-[#0B1F3A]/90 backdrop-blur-md px-3 py-1 text-xs font-bold border border-white/20">
+                  {course.level}
+                </span>
+              </div>
+            </div>
+
             <div className="flex flex-wrap items-center gap-2">
               <span className="badge badge-info">{course.category}</span>
               <span className="badge badge-neutral">{course.level}</span>

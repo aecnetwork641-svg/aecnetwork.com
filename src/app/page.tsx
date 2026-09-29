@@ -1,6 +1,7 @@
 import Link from "next/link";
 import PricingSection from "@/components/PricingSection";
 import HeroSlider from "@/components/HeroSlider";
+import FacultyTeamSection from "@/components/FacultyTeamSection";
 import { getCourseImage } from "@/lib/course-images";
 
 const PROGRAMS = [
@@ -344,32 +345,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 9. QUALIFIED TEACHERS */}
-      <section className="bg-white border-y border-aec-navy/10 py-16">
-        <div className="container-aec">
-          <div className="text-center max-w-2xl mx-auto">
-            <h2 className="font-display text-xs font-bold uppercase tracking-wider text-aec-teal">Faculty Quality</h2>
-            <p className="mt-2 font-display text-2xl sm:text-3xl font-bold text-aec-navy">Dedicated, Vetted Educators</p>
-            <p className="mt-3 text-sm text-aec-navy/70">
-              Our faculty members possess demonstrated subject knowledge, pedagogical experience, and a commitment to nurturing learner confidence.
-            </p>
-          </div>
-
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              { role: "Quran & Tajweed Scholars", desc: "Certified Qaris with Ijazah and extensive experience in child and adult recitation pedagogy." },
-              { role: "ESL & Language Instructors", desc: "Educators specializing in spoken English, communicative grammar, and IELTS/TOEFL readiness." },
-              { role: "Arabic Language Specialists", desc: "Native and fluent academic instructors focusing on Fusha and Quranic comprehension." },
-              { role: "Mathematics & Science Faculty", desc: "Experienced curriculum teachers delivering concept-first problem solving." }
-            ].map((f, idx) => (
-              <div key={idx} className="rounded-xl border border-aec-navy/10 p-5 bg-aec-cream/20">
-                <p className="font-display text-sm font-bold text-aec-navy">{f.role}</p>
-                <p className="mt-2 text-xs text-aec-navy/70 leading-relaxed">{f.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* 9. QUALIFIED TEACHERS & FACULTY TEAM */}
+      <FacultyTeamSection />
 
       {/* 10. STUDENT LEARNING JOURNEY */}
       <section className="container-aec">

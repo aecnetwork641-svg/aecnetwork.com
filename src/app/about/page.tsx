@@ -1,4 +1,5 @@
 import Link from "next/link";
+import FacultyTeamSection from "@/components/FacultyTeamSection";
 
 export const metadata = {
   title: "About Us | AEC Network - Empowering Learners Through Knowledge, Structure & Opportunity",
@@ -25,6 +26,24 @@ export default function AboutPage() {
           </p>
           <div className="mt-6 p-4 rounded-xl bg-white border border-slate-200/80 shadow-sm text-sm text-slate-700 leading-relaxed max-w-4xl">
             💡 <strong>Our Educational Model:</strong> Combines live instruction, structured curricula, personalized tutoring, continuous assessment, and ongoing learning support. Students can choose between <strong>one-to-one tutoring</strong> and <strong>interactive group classes</strong>, depending on their learning requirements and preferred schedule.
+          </div>
+
+          {/* About Hero Visual Banner */}
+          <div className="relative mt-8 h-64 md:h-80 w-full overflow-hidden rounded-2xl border border-slate-200 shadow-md">
+            <img
+              src="/images/banner-2.jpg"
+              alt="AEC Network Students & Learning"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F3A]/70 via-transparent to-transparent" />
+            <div className="absolute bottom-4 left-4 right-4 flex flex-wrap items-center justify-between gap-2 text-white">
+              <span className="rounded-full bg-[#0F766E] px-4 py-1 text-xs font-bold shadow-md">
+                Global Online Learning Community
+              </span>
+              <span className="text-xs text-slate-200 font-medium">
+                Students & Instructors Across 50+ Countries
+              </span>
+            </div>
           </div>
         </div>
       </section>
@@ -419,6 +438,11 @@ export default function AboutPage() {
                 View Faculty Directory →
               </Link>
             </div>
+          </div>
+
+          {/* Visual Faculty Team Cards & Contact Box */}
+          <div className="mt-8">
+            <FacultyTeamSection showHeader={false} />
           </div>
         </section>
 

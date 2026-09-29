@@ -177,16 +177,21 @@ export default function ProgramsPage() {
           </div>
 
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {cat.programs.map((p) => (
-              <div key={p.slug} className="mentor-card group flex flex-col justify-between">
+            {cat.programs.map((p, idx) => (
+              <div
+                key={p.slug}
+                className="mentor-card group flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:border-aec-teal/50"
+                style={{ animationDelay: `${idx * 0.05}s` }}
+              >
                 <div>
-                  {/* Program Cover Image */}
+                  {/* Program Cover Image with Zoom */}
                   <div className="w-full h-52 overflow-hidden bg-slate-100 relative">
                     <img 
                       src={getCourseImage(cat.category, p.slug)}
                       alt={p.title} 
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     <div className="absolute top-3 right-3 bg-[#0F766E] text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-md">
                       {p.level}
                     </div>
@@ -194,7 +199,7 @@ export default function ProgramsPage() {
 
                   <div className="p-6">
                     <div className="flex items-center justify-between gap-2 mb-3">
-                      <span className="bg-emerald-50 text-[#0F766E] text-xs font-bold px-3 py-1 rounded-md border border-emerald-200/80">
+                      <span className="bg-teal-50 text-[#0F766E] text-xs font-bold px-3 py-1 rounded-md border border-teal-200/80">
                         {p.delivery}
                       </span>
                     </div>
@@ -212,14 +217,14 @@ export default function ProgramsPage() {
                 <div className="p-6 pt-0 border-t border-slate-100 flex items-center justify-between mt-auto">
                   <Link
                     href={`/programs/${p.slug}` as never}
-                    className="text-xs font-bold text-[#0B1F3A] hover:text-[#0F766E] transition flex items-center gap-1"
+                    className="text-xs font-bold text-[#0B1F3A] group-hover:text-[#0F766E] transition flex items-center gap-1"
                   >
-                    <span>Syllabus</span>
-                    <span>→</span>
+                    <span>View Curriculum</span>
+                    <span className="transition-transform group-hover:translate-x-1">→</span>
                   </Link>
                   <Link
                     href="/admissions/free-trial"
-                    className="mentor-btn-primary text-xs px-4 py-1.5"
+                    className="mentor-btn-primary text-xs px-4 py-1.5 shadow-sm hover:shadow-md transition"
                   >
                     Free Trial
                   </Link>
