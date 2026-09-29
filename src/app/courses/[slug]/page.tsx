@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getCourseImage } from "@/lib/course-images";
+import PageHeaderBanner from "@/components/PageHeaderBanner";
 
 const COURSES_DATA: Record<
   string,
@@ -1036,31 +1037,23 @@ export default function CourseDetailPage({ params }: { params: { slug: string } 
   const course = getCourseData(params.slug);
 
   return (
-    <div className="pb-16">
-      {/* HERO */}
-      <section className="border-b border-aec-navy/10 bg-gradient-to-b from-aec-cream/50 via-white to-white py-12 lg:py-16">
+    <div className="pb-16 space-y-10">
+      {/* Mentor Style Page Head Banner */}
+      <PageHeaderBanner
+        title={course.title}
+        subtitle={course.description}
+        badge={course.category}
+        breadcrumbCurrent={course.title}
+        bgImage={getCourseImage(course.category, params.slug)}
+      />
+
+      {/* Course Detail Body */}
+      <section className="py-6">
         <div className="container-aec grid gap-8 lg:grid-cols-[2fr_1fr] lg:items-start">
           <div>
-            <Link href="/courses" className="text-xs font-semibold text-aec-teal hover:underline mb-3 inline-block">
+            <Link href="/courses" className="text-xs font-semibold text-aec-teal hover:underline mb-4 inline-block">
               ← Back to All Courses
             </Link>
-            {/* Course Featured Banner Image */}
-            <div className="relative mt-4 mb-6 h-64 sm:h-72 w-full overflow-hidden rounded-2xl border border-slate-200 shadow-md">
-              <img
-                src={getCourseImage(course.category, params.slug)}
-                alt={course.title}
-                className="h-full w-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F3A]/75 via-transparent to-transparent" />
-              <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white">
-                <span className="rounded-full bg-[#0F766E] px-3.5 py-1 text-xs font-bold shadow-md">
-                  {course.category}
-                </span>
-                <span className="rounded-full bg-[#0B1F3A]/90 backdrop-blur-md px-3 py-1 text-xs font-bold border border-white/20">
-                  {course.level}
-                </span>
-              </div>
-            </div>
 
             <div className="flex flex-wrap items-center gap-2">
               <span className="badge badge-info">{course.category}</span>

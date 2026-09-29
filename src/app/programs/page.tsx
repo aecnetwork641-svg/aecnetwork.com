@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getCourseImage } from "@/lib/course-images";
+import PageHeaderBanner from "@/components/PageHeaderBanner";
 
 const PROGRAM_CATEGORIES = [
   {
@@ -156,19 +157,18 @@ const PROGRAM_CATEGORIES = [
 
 export default function ProgramsPage() {
   return (
-    <div className="container-aec py-14 space-y-16">
-      {/* Header */}
-      <div className="max-w-3xl space-y-2">
-        <p className="text-xs font-bold uppercase tracking-widest text-[#0F766E]">Curriculum Catalog</p>
-        <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-[#0B1F3A]">
-          Academic Programs & Disciplines
-        </h1>
-        <p className="text-base text-slate-600 leading-relaxed">
-          Explore our complete academic offerings across Islamic disciplines, school & international board prep, STEM subjects, and cutting-edge IT & digital skills.
-        </p>
-      </div>
+    <div className="space-y-14 pb-16">
+      {/* Mentor Style Page Head Banner */}
+      <PageHeaderBanner
+        title="Academic Programs & Disciplines"
+        subtitle="Explore our complete academic offerings across Islamic disciplines, school & international board prep, STEM subjects, and cutting-edge IT & digital skills."
+        badge="Curriculum Catalog"
+        breadcrumbCurrent="Programs"
+        bgImage="/images/banner-1.jpg"
+      />
 
-      {/* Category Sections */}
+      <div className="container-aec space-y-16">
+        {/* Category Sections */}
       {PROGRAM_CATEGORIES.map((cat) => (
         <div key={cat.category} className="space-y-6">
           <div className="border-b border-slate-200/80 pb-3">
@@ -254,5 +254,6 @@ export default function ProgramsPage() {
         </div>
       </div>
     </div>
-  );
+  </div>
+);
 }

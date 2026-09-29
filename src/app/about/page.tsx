@@ -1,5 +1,5 @@
 import Link from "next/link";
-import FacultyTeamSection from "@/components/FacultyTeamSection";
+import PageHeaderBanner from "@/components/PageHeaderBanner";
 
 export const metadata = {
   title: "About Us | AEC Network - Empowering Learners Through Knowledge, Structure & Opportunity",
@@ -9,16 +9,25 @@ export const metadata = {
 export default function AboutPage() {
   return (
     <div className="bg-slate-50/50 pb-20">
-      {/* Hero Header */}
-      <section className="border-b border-aec-navy/10 bg-gradient-to-b from-aec-cream/40 via-white to-slate-50/50 py-16 md:py-24">
+      {/* Mentor Style Page Head Banner */}
+      <PageHeaderBanner
+        title="About AEC Network"
+        subtitle="Empowering learners worldwide through structured online education, dedicated certified educators, and measurable academic progression."
+        badge="Global Online Institution"
+        breadcrumbCurrent="About Us"
+        bgImage="/images/banner-2.jpg"
+      />
+
+      {/* Introduction Content */}
+      <section className="border-b border-aec-navy/10 bg-gradient-to-b from-white via-white to-slate-50/50 py-12 md:py-16">
         <div className="container-aec max-w-5xl">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-aec-teal/10 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-aec-teal">
-            About AEC Network
+            Who We Are
           </span>
-          <h1 className="mt-4 font-display text-3xl md:text-5xl font-extrabold tracking-tight text-aec-navy leading-tight">
+          <h2 className="mt-3 font-display text-2xl md:text-4xl font-extrabold tracking-tight text-aec-navy leading-tight">
             Empowering Learners Through Knowledge, Structure & Opportunity
-          </h1>
-          <p className="mt-6 text-base md:text-lg text-slate-700 leading-relaxed max-w-4xl">
+          </h2>
+          <p className="mt-5 text-base md:text-lg text-slate-700 leading-relaxed max-w-4xl">
             <strong>Akbar Education Communication (AEC) Network</strong> is an online educational institution committed to providing accessible, structured, and learner-focused education to students across different age groups and locations worldwide.
           </p>
           <p className="mt-4 text-sm md:text-base text-slate-600 leading-relaxed max-w-4xl">
@@ -26,24 +35,6 @@ export default function AboutPage() {
           </p>
           <div className="mt-6 p-4 rounded-xl bg-white border border-slate-200/80 shadow-sm text-sm text-slate-700 leading-relaxed max-w-4xl">
             💡 <strong>Our Educational Model:</strong> Combines live instruction, structured curricula, personalized tutoring, continuous assessment, and ongoing learning support. Students can choose between <strong>one-to-one tutoring</strong> and <strong>interactive group classes</strong>, depending on their learning requirements and preferred schedule.
-          </div>
-
-          {/* About Hero Visual Banner */}
-          <div className="relative mt-8 h-64 md:h-80 w-full overflow-hidden rounded-2xl border border-slate-200 shadow-md">
-            <img
-              src="/images/banner-2.jpg"
-              alt="AEC Network Students & Learning"
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F3A]/70 via-transparent to-transparent" />
-            <div className="absolute bottom-4 left-4 right-4 flex flex-wrap items-center justify-between gap-2 text-white">
-              <span className="rounded-full bg-[#0F766E] px-4 py-1 text-xs font-bold shadow-md">
-                Global Online Learning Community
-              </span>
-              <span className="text-xs text-slate-200 font-medium">
-                Students & Instructors Across 50+ Countries
-              </span>
-            </div>
           </div>
         </div>
       </section>
@@ -440,10 +431,6 @@ export default function AboutPage() {
             </div>
           </div>
 
-          {/* Visual Faculty Team Cards & Contact Box */}
-          <div className="mt-8">
-            <FacultyTeamSection showHeader={false} />
-          </div>
         </section>
 
         {/* What We Offer (5 Specialized Tracks) */}

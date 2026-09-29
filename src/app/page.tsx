@@ -1,7 +1,6 @@
 import Link from "next/link";
 import PricingSection from "@/components/PricingSection";
 import HeroSlider from "@/components/HeroSlider";
-import FacultyTeamSection from "@/components/FacultyTeamSection";
 import { getCourseImage } from "@/lib/course-images";
 
 const POPULAR_COURSES = [
@@ -462,9 +461,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* 9. QUALIFIED TEACHERS & FACULTY TEAM */}
-      <FacultyTeamSection />
 
       {/* 10. STUDENT LEARNING JOURNEY */}
       <section className="container-aec">

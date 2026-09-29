@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getCourseImage } from "@/lib/course-images";
+import PageHeaderBanner from "@/components/PageHeaderBanner";
 
 const PROGRAM_DETAILS: Record<
   string,
@@ -849,36 +850,27 @@ export default function ProgramDetailPage({ params }: { params: { slug: string }
   };
 
   return (
-    <div className="container-aec py-14 max-w-4xl space-y-12">
-      {/* Breadcrumbs & Header */}
-      <div>
-        <Link href="/programs" className="text-xs font-semibold text-aec-teal hover:underline inline-block mb-3">
-          ← Back to All Programs
-        </Link>
+    <div className="space-y-12 pb-16">
+      {/* Mentor Style Page Head Banner */}
+      <PageHeaderBanner
+        title={details.title}
+        subtitle={details.description}
+        badge={details.category}
+        breadcrumbCurrent={details.title}
+        bgImage={getCourseImage(details.category, params.slug)}
+      />
 
-        {/* Program Cover Picture */}
-        <div className="relative mt-2 mb-6 h-64 sm:h-72 w-full overflow-hidden rounded-2xl border border-slate-200 shadow-md">
-          <img
-            src={getCourseImage(details.category, params.slug)}
-            alt={details.title}
-            className="h-full w-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F3A]/75 via-transparent to-transparent" />
-          <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white">
-            <span className="rounded-full bg-[#0F766E] px-3.5 py-1 text-xs font-bold shadow-md">
-              {details.category}
-            </span>
-            <span className="rounded-full bg-[#0B1F3A]/90 backdrop-blur-md px-3 py-1 text-xs font-bold border border-white/20">
-              {details.level}
-            </span>
+      <div className="container-aec max-w-4xl space-y-10">
+        <div>
+          <Link href="/programs" className="text-xs font-semibold text-aec-teal hover:underline inline-block mb-3">
+            ← Back to All Programs
+          </Link>
+
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="badge badge-info">{details.category}</span>
+            <span className="badge badge-neutral">{details.level}</span>
+            <span className="badge badge-warning">{details.delivery}</span>
           </div>
-        </div>
-
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="badge badge-info">{details.category}</span>
-          <span className="badge badge-neutral">{details.level}</span>
-          <span className="badge badge-warning">{details.delivery}</span>
-        </div>
         <h1 className="mt-4 font-display text-3xl sm:text-4xl font-extrabold text-aec-navy">
           {details.title}
         </h1>
@@ -985,5 +977,6 @@ export default function ProgramDetailPage({ params }: { params: { slug: string }
         </div>
       </div>
     </div>
-  );
+  </div>
+);
 }

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { getCourseImage } from "@/lib/course-images";
+import PageHeaderBanner from "@/components/PageHeaderBanner";
 
 interface CourseItem {
   slug: string;
@@ -251,19 +252,18 @@ export default function CoursesPage() {
   });
 
   return (
-    <div className="container-aec py-14 space-y-12">
-      {/* Header - Mentor Theme Title */}
-      <div className="max-w-3xl space-y-2">
-        <p className="text-xs font-bold uppercase tracking-widest text-[#0F766E]">LMS Course Catalog</p>
-        <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-[#0B1F3A]">
-          Online Courses & Learning Catalog
-        </h1>
-        <p className="text-base text-slate-600 leading-relaxed">
-          Explore our comprehensive modular courses featuring live interactive sessions, certified instructors, digital materials, quizzes, and verifiable certificates.
-        </p>
-      </div>
+    <div className="space-y-12 pb-16">
+      {/* Mentor Style Page Head Banner */}
+      <PageHeaderBanner
+        title="Courses Catalog"
+        subtitle="Explore our comprehensive modular courses featuring live interactive sessions, certified instructors, digital materials, quizzes, and verifiable certificates."
+        badge="Online Education Catalog"
+        breadcrumbCurrent="Courses"
+        bgImage="/images/courses/mentor-course-1.jpg"
+      />
 
-      {/* Filter and Search */}
+      <div className="container-aec space-y-10">
+        {/* Filter and Search */}
       <div className="rounded-2xl border border-slate-200/90 bg-white p-4 sm:p-5 shadow-sm">
         <div className="flex flex-col sm:flex-row items-center gap-4">
           <div className="w-full sm:w-1/3">
@@ -428,5 +428,6 @@ export default function CoursesPage() {
         </div>
       </div>
     </div>
-  );
+  </div>
+);
 }

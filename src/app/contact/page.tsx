@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import PageHeaderBanner from "@/components/PageHeaderBanner";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -51,20 +52,29 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-[85vh] bg-slate-50/60 py-12 md:py-16">
+    <div className="space-y-12 pb-16 bg-slate-50/60">
+      {/* Mentor Style Page Head Banner */}
+      <PageHeaderBanner
+        title="Contact AEC Network"
+        subtitle="Have questions about our online courses, scheduling, trial classes, or admissions? Our academic counselors are available to assist you."
+        badge="Get In Touch"
+        breadcrumbCurrent="Contact"
+        bgImage="/images/banner-3.png"
+      />
+
       <div className="container-aec">
         <div className="grid gap-10 lg:grid-cols-12 max-w-5xl mx-auto">
           {/* Left Column: Contact Information */}
           <div className="lg:col-span-5 flex flex-col justify-between">
             <div>
               <span className="inline-block rounded-full bg-aec-gold/15 px-3 py-1 text-xs font-semibold text-aec-navy mb-3">
-                Get In Touch
+                Advisory & Inquiries
               </span>
-              <h1 className="font-display text-3xl md:text-4xl font-bold text-aec-navy">
-                Contact AEC Network
-              </h1>
+              <h2 className="font-display text-2xl md:text-3xl font-bold text-aec-navy">
+                Speak with Our Team
+              </h2>
               <p className="mt-3 text-slate-600 text-sm md:text-base leading-relaxed">
-                Have questions about our online courses, scheduling, trial classes, or admissions? Our academic counselors are available to assist you.
+                Connect directly through our contact form, email, or instant WhatsApp consultation for quick enrollment assistance.
               </p>
 
               <div className="mt-8 space-y-4">
