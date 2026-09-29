@@ -4,6 +4,7 @@ import HeroSlider from "@/components/HeroSlider";
 import MentorCountsSection from "@/components/MentorCountsSection";
 import MentorAboutSection from "@/components/MentorAboutSection";
 import PopularCoursesSection from "@/components/PopularCoursesSection";
+import ScholarTeamSection from "@/components/ScholarTeamSection";
 import { getCourseImage } from "@/lib/course-images";
 
 const PROGRAMS = [
@@ -121,6 +122,9 @@ export default function HomePage() {
 
       {/* 4. POPULAR COURSES (Mentor Template Design with Zoom-In Animation) */}
       <PopularCoursesSection />
+
+      {/* 4B. SCHOLAR TEAM SECTION (From Scholar Template - 1st Picture) */}
+      <ScholarTeamSection />
 
       {/* 5. HOW LEARNING WORKS / 6. WHY CHOOSE AEC */}
       <section className="bg-aec-navy py-16 text-white">

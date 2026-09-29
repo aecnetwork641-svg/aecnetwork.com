@@ -1,8 +1,9 @@
 import Link from "next/link";
+import ScholarTeamSection from "@/components/ScholarTeamSection";
 
 export default function AboutTeachersPage() {
   return (
-    <div className="container-aec py-14 max-w-4xl space-y-12">
+    <div className="container-aec py-14 max-w-5xl space-y-12">
       <div>
         <Link href="/about" className="text-xs font-semibold text-aec-teal hover:underline">
           ← Back to About
@@ -14,6 +15,9 @@ export default function AboutTeachersPage() {
           The qualified instructors, scholars, and curriculum specialists behind AEC Network.
         </p>
       </div>
+
+      {/* Featured Instructors Section from Scholar Template */}
+      <ScholarTeamSection showHeader={true} title="Featured Course Instructors" subtitle="World-Class Faculty" />
 
       <div className="card bg-white space-y-4">
         <h2 className="font-display text-xl font-bold text-aec-navy">Faculty Vetting & Standards</h2>
