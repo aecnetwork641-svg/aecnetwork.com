@@ -114,23 +114,23 @@ export default function HomePage() {
       <section className="container-aec">
         <div className="rounded-2xl border border-slate-200/90 bg-white p-6 md:p-8 shadow-md grid grid-cols-2 lg:grid-cols-4 gap-6 text-center">
           <div className="border-r border-slate-100 last:border-0 pr-4">
-            <p className="font-display text-2xl md:text-4xl font-extrabold text-[#5fcf80]">100%</p>
-            <p className="text-xs font-extrabold text-[#37423b] mt-1">Verified Faculty</p>
+            <p className="font-display text-2xl md:text-4xl font-extrabold text-[#0F766E]">100%</p>
+            <p className="text-xs font-extrabold text-[#0B1F3A] mt-1">Verified Faculty</p>
             <p className="text-[11px] text-slate-500 mt-0.5">Ijazah & Subject Specialists</p>
           </div>
           <div className="border-r border-slate-100 last:border-0 pr-4">
-            <p className="font-display text-2xl md:text-4xl font-extrabold text-[#37423b]">1-on-1</p>
-            <p className="text-xs font-extrabold text-[#37423b] mt-1">Personalized Tutoring</p>
+            <p className="font-display text-2xl md:text-4xl font-extrabold text-[#0B1F3A]">1-on-1</p>
+            <p className="text-xs font-extrabold text-[#0B1F3A] mt-1">Personalized Tutoring</p>
             <p className="text-[11px] text-slate-500 mt-0.5">& Interactive Group Cohorts</p>
           </div>
           <div className="border-r border-slate-100 last:border-0 pr-4">
-            <p className="font-display text-2xl md:text-4xl font-extrabold text-[#5fcf80]">24/7</p>
-            <p className="text-xs font-extrabold text-[#37423b] mt-1">Parent & Student Portals</p>
+            <p className="font-display text-2xl md:text-4xl font-extrabold text-[#0F766E]">24/7</p>
+            <p className="text-xs font-extrabold text-[#0B1F3A] mt-1">Parent & Student Portals</p>
             <p className="text-[11px] text-slate-500 mt-0.5">Live Attendance & Progress</p>
           </div>
           <div>
             <p className="font-display text-2xl md:text-4xl font-extrabold text-emerald-600">Free</p>
-            <p className="text-xs font-extrabold text-[#37423b] mt-1">Complimentary Trial</p>
+            <p className="text-xs font-extrabold text-[#0B1F3A] mt-1">Complimentary Trial</p>
             <p className="text-[11px] text-slate-500 mt-0.5">No Credit Card Required</p>
           </div>
         </div>
@@ -141,10 +141,10 @@ export default function HomePage() {
         <div className="container-aec">
           <div className="grid gap-10 lg:grid-cols-12 items-center">
             <div className="lg:col-span-5 space-y-3">
-              <p className="text-xs font-bold uppercase tracking-widest text-[#5fcf80]">
+              <p className="text-xs font-bold uppercase tracking-widest text-[#0F766E]">
                 Comprehensive Academy
               </p>
-              <h2 className="font-display text-3xl font-extrabold text-[#37423b]">
+              <h2 className="font-display text-3xl font-extrabold text-[#0B1F3A]">
                 What AEC Network Delivers
               </h2>
               <p className="text-sm text-slate-600 leading-relaxed">
@@ -158,7 +158,7 @@ export default function HomePage() {
                   "Official verifiable completion certificates"
                 ].map((item, idx) => (
                   <div key={idx} className="flex items-center gap-3">
-                    <div className="h-5 w-5 rounded-full bg-emerald-100 text-[#5fcf80] flex items-center justify-center text-xs font-bold">
+                    <div className="h-5 w-5 rounded-full bg-emerald-100 text-[#0F766E] flex items-center justify-center text-xs font-bold">
                       ✓
                     </div>
                     <span className="text-sm font-semibold text-slate-700">{item}</span>
@@ -174,25 +174,25 @@ export default function HomePage() {
 
             <div className="lg:col-span-7 grid sm:grid-cols-2 gap-5">
               <div className="rounded-2xl border border-slate-200/90 bg-slate-50/70 p-6">
-                <p className="font-display text-base font-extrabold text-[#37423b]">Quran & Islamic Studies</p>
+                <p className="font-display text-base font-extrabold text-[#0B1F3A]">Quran & Islamic Studies</p>
                 <p className="mt-2 text-xs text-slate-600 leading-relaxed">
                   Tajweed rules, articulation points (Makharij), Nazra recitation, and Hifz memorization with certified instructors.
                 </p>
               </div>
               <div className="rounded-2xl border border-slate-200/90 bg-slate-50/70 p-6">
-                <p className="font-display text-base font-extrabold text-[#37423b]">Languages & Linguistics</p>
+                <p className="font-display text-base font-extrabold text-[#0B1F3A]">Languages & Linguistics</p>
                 <p className="mt-2 text-xs text-slate-600 leading-relaxed">
                   English for academic and communicative proficiency, along with classical and modern Arabic grammar.
                 </p>
               </div>
               <div className="rounded-2xl border border-slate-200/90 bg-slate-50/70 p-6">
-                <p className="font-display text-base font-extrabold text-[#37423b]">STEM & School Tutoring</p>
+                <p className="font-display text-base font-extrabold text-[#0B1F3A]">STEM & School Tutoring</p>
                 <p className="mt-2 text-xs text-slate-600 leading-relaxed">
                   Mathematics, Science, and board exam support customized to primary and secondary school syllabi.
                 </p>
               </div>
               <div className="rounded-2xl border border-slate-200/90 bg-slate-50/70 p-6">
-                <p className="font-display text-base font-extrabold text-[#37423b]">One-on-One Mentorship</p>
+                <p className="font-display text-base font-extrabold text-[#0B1F3A]">One-on-One Mentorship</p>
                 <p className="mt-2 text-xs text-slate-600 leading-relaxed">
                   Individual pacing, dedicated instructor attention, and adaptable weekly timetables for busy schedules.
                 </p>
@@ -206,10 +206,10 @@ export default function HomePage() {
       <section className="container-aec space-y-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <p className="text-xs font-bold uppercase tracking-widest text-[#5fcf80]">Curriculum Portfolio</p>
-            <h2 className="mt-1 font-display text-3xl sm:text-4xl font-extrabold text-[#37423b]">Featured Academic Programs</h2>
+            <p className="text-xs font-bold uppercase tracking-widest text-[#0F766E]">Curriculum Portfolio</p>
+            <h2 className="mt-1 font-display text-3xl sm:text-4xl font-extrabold text-[#0B1F3A]">Featured Academic Programs</h2>
           </div>
-          <Link href="/programs" className="text-xs font-bold text-[#5fcf80] hover:text-[#46b967] transition flex items-center gap-1">
+          <Link href="/programs" className="text-xs font-bold text-[#0F766E] hover:text-[#0B5A54] transition flex items-center gap-1">
             <span>View all programs catalog</span>
             <span>→</span>
           </Link>
@@ -226,13 +226,13 @@ export default function HomePage() {
                     alt={p.title} 
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
-                  <div className="absolute top-3 right-3 bg-[#5fcf80] text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-md">
+                  <div className="absolute top-3 right-3 bg-[#0F766E] text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-md">
                     {p.level}
                   </div>
                 </div>
 
                 <div className="p-6">
-                  <h3 className="font-display text-xl font-extrabold text-[#37423b] group-hover:text-[#5fcf80] transition line-clamp-2">
+                  <h3 className="font-display text-xl font-extrabold text-[#0B1F3A] group-hover:text-[#0F766E] transition line-clamp-2">
                     {p.title}
                   </h3>
                   <p className="mt-2 text-xs text-slate-600 leading-relaxed line-clamp-3">{p.blurb}</p>
@@ -241,7 +241,7 @@ export default function HomePage() {
 
               <div className="p-6 pt-0 border-t border-slate-100 flex items-center justify-between text-xs mt-auto">
                 <span className="font-semibold text-slate-500">1-on-1 / Group</span>
-                <span className="font-bold text-[#5fcf80] group-hover:translate-x-1 transition-transform flex items-center gap-1">
+                <span className="font-bold text-[#0F766E] group-hover:translate-x-1 transition-transform flex items-center gap-1">
                   <span>Explore</span>
                   <span>→</span>
                 </span>

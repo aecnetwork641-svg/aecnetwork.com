@@ -140,7 +140,7 @@ export default function Navbar() {
             >
               <Link
                 href={item.href as never}
-                className="inline-flex items-center gap-1 text-sm font-semibold text-slate-700 transition hover:text-[#5fcf80] py-2"
+                className="inline-flex items-center gap-1 text-sm font-semibold text-slate-700 transition hover:text-[#0F766E] py-2"
               >
                 {item.label}
                 {(item.children || item.categories) && (
@@ -158,7 +158,7 @@ export default function Navbar() {
                       <div key={cat.categoryName} className="space-y-2.5">
                         <div className="flex items-center gap-2 border-b border-slate-100 pb-2">
                           <span className="text-sm">{cat.badge}</span>
-                          <h4 className="text-xs font-bold uppercase tracking-wider text-[#37423b]">
+                          <h4 className="text-xs font-bold uppercase tracking-wider text-[#0B1F3A]">
                             {cat.categoryName}
                           </h4>
                         </div>
@@ -170,7 +170,7 @@ export default function Navbar() {
                               className="group block rounded-lg px-2.5 py-1.5 transition hover:bg-emerald-50/60"
                               onClick={() => setActiveDropdown(null)}
                             >
-                              <p className="text-xs font-semibold text-slate-800 group-hover:text-[#5fcf80] transition">
+                              <p className="text-xs font-semibold text-slate-800 group-hover:text-[#0F766E] transition">
                                 {sub.label}
                               </p>
                               {sub.desc && (
@@ -192,7 +192,7 @@ export default function Navbar() {
                     </span>
                     <Link
                       href="/programs"
-                      className="font-bold text-[#5fcf80] hover:text-[#46b967] transition flex items-center gap-1"
+                      className="font-bold text-[#0F766E] hover:text-[#0B5A54] transition flex items-center gap-1"
                       onClick={() => setActiveDropdown(null)}
                     >
                       <span>View All Programs Catalog</span>
@@ -212,7 +212,7 @@ export default function Navbar() {
                       className="block rounded-lg px-3 py-2 transition hover:bg-emerald-50/60 group"
                       onClick={() => setActiveDropdown(null)}
                     >
-                      <p className="text-sm font-semibold text-slate-800 group-hover:text-[#5fcf80] transition">{child.label}</p>
+                      <p className="text-sm font-semibold text-slate-800 group-hover:text-[#0F766E] transition">{child.label}</p>
                       {child.desc && <p className="text-xs text-slate-500 line-clamp-1">{child.desc}</p>}
                     </Link>
                   ))}

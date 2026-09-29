@@ -3,7 +3,7 @@ import Logo from "@/components/Logo";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-slate-200/80 bg-[#37423b] text-white">
+    <footer className="border-t border-slate-200/80 bg-[#0B1F3A] text-white">
       <div className="container-aec grid gap-10 py-16 md:grid-cols-2 lg:grid-cols-5">
         {/* Brand & Mission */}
         <div className="lg:col-span-2 space-y-4">
@@ -25,14 +25,14 @@ export default function Footer() {
 
           <div className="space-y-1.5 pt-2 text-xs text-slate-300">
             <p className="flex items-center gap-2">
-              <span className="text-[#5fcf80] font-bold">💬 WhatsApp:</span>
-              <a href="https://wa.me/923435999397" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#5fcf80] transition">
+              <span className="text-[#0F766E] font-bold">💬 WhatsApp:</span>
+              <a href="https://wa.me/923435999397" target="_blank" rel="noopener noreferrer" className="text-white hover:text-[#0F766E] transition">
                 +92 343 5999397
               </a>
             </p>
             <p className="flex items-center gap-2">
-              <span className="text-[#5fcf80] font-bold">✉️ Admissions:</span>
-              <a href="mailto:info@aecnetwork.com" className="text-white hover:text-[#5fcf80] transition">
+              <span className="text-[#0F766E] font-bold">✉️ Admissions:</span>
+              <a href="mailto:info@aecnetwork.com" className="text-white hover:text-[#0F766E] transition">
                 info@aecnetwork.com
               </a>
             </p>
@@ -45,62 +45,62 @@ export default function Footer() {
 
         {/* Academic Programs */}
         <div>
-          <p className="font-display text-xs font-bold tracking-widest text-[#5fcf80] uppercase">
+          <p className="font-display text-xs font-bold tracking-widest text-[#0F766E] uppercase">
             Academic Programs
           </p>
           <ul className="mt-4 space-y-2.5 text-xs text-slate-300">
             <li>
-              <Link href="/programs/quran-islamic-studies" className="hover:text-[#5fcf80] transition">
+              <Link href="/programs/quran-islamic-studies" className="hover:text-[#0F766E] transition">
                 Quran & Tajweed Mastery
               </Link>
             </li>
             <li>
-              <Link href="/programs/translation-of-quran" className="hover:text-[#5fcf80] transition">
+              <Link href="/programs/translation-of-quran" className="hover:text-[#0F766E] transition">
                 Islamic Studies & Translation
               </Link>
             </li>
             <li>
-              <Link href="/programs/qirat-course" className="hover:text-[#5fcf80] transition">
+              <Link href="/programs/qirat-course" className="hover:text-[#0F766E] transition">
                 Qirat & Melodic Recitation
               </Link>
             </li>
             <li>
-              <Link href="/programs/gcse" className="hover:text-[#5fcf80] transition">
+              <Link href="/programs/gcse" className="hover:text-[#0F766E] transition">
                 GCSE & IGCSE Tutoring
               </Link>
             </li>
             <li>
-              <Link href="/programs/o-a-levels" className="hover:text-[#5fcf80] transition">
+              <Link href="/programs/o-a-levels" className="hover:text-[#0F766E] transition">
                 O & A Levels (Cambridge/Edexcel)
               </Link>
             </li>
             <li>
-              <Link href="/programs/naplan" className="hover:text-[#5fcf80] transition">
+              <Link href="/programs/naplan" className="hover:text-[#0F766E] transition">
                 NAPLAN Preparation (Australia)
               </Link>
             </li>
             <li>
-              <Link href="/programs/sat-tutoring" className="hover:text-[#5fcf80] transition">
+              <Link href="/programs/sat-tutoring" className="hover:text-[#0F766E] transition">
                 SAT & GRE Test Prep
               </Link>
             </li>
             <li>
-              <Link href="/programs/computer-programming" className="hover:text-[#5fcf80] transition">
+              <Link href="/programs/computer-programming" className="hover:text-[#0F766E] transition">
                 Computer Programming & Coding
               </Link>
             </li>
             <li>
-              <Link href="/programs/web-development" className="hover:text-[#5fcf80] transition">
+              <Link href="/programs/web-development" className="hover:text-[#0F766E] transition">
                 Web Designing & Development
               </Link>
             </li>
             <li>
-              <Link href="/programs/social-media-marketing-smm" className="hover:text-[#5fcf80] transition">
+              <Link href="/programs/social-media-marketing-smm" className="hover:text-[#0F766E] transition">
                 Social Media Marketing (SMM)
               </Link>
             </li>
             <li className="pt-1">
-              <Link href="/programs" className="font-bold text-[#5fcf80] hover:underline flex items-center gap-1">
+              <Link href="/programs" className="font-bold text-[#0F766E] hover:underline flex items-center gap-1">
                 <span>View All 20+ Programs</span>
                 <span>→</span>
               </Link>
@@ -110,52 +110,52 @@ export default function Footer() {
 
         {/* Portals */}
         <div>
-          <p className="font-display text-xs font-bold tracking-widest text-[#5fcf80] uppercase">
+          <p className="font-display text-xs font-bold tracking-widest text-[#0F766E] uppercase">
             Portals & Systems
           </p>
           <ul className="mt-4 space-y-2.5 text-xs text-slate-300">
             <li>
-              <Link href="/admin" className="hover:text-[#5fcf80] transition">
+              <Link href="/admin" className="hover:text-[#0F766E] transition">
                 Admin Portal
               </Link>
             </li>
             <li>
-              <Link href="/student" className="hover:text-[#5fcf80] transition">
+              <Link href="/student" className="hover:text-[#0F766E] transition">
                 Student Portal
               </Link>
             </li>
             <li>
-              <Link href="/parent" className="hover:text-[#5fcf80] transition">
+              <Link href="/parent" className="hover:text-[#0F766E] transition">
                 Parent Portal
               </Link>
             </li>
             <li>
-              <Link href="/teacher" className="hover:text-[#5fcf80] transition">
+              <Link href="/teacher" className="hover:text-[#0F766E] transition">
                 Teacher Portal
               </Link>
             </li>
             <li>
-              <Link href="/academic" className="hover:text-[#5fcf80] transition">
+              <Link href="/academic" className="hover:text-[#0F766E] transition">
                 Academic Portal
               </Link>
             </li>
             <li>
-              <Link href="/supervisor" className="hover:text-[#5fcf80] transition">
+              <Link href="/supervisor" className="hover:text-[#0F766E] transition">
                 Supervisor Portal
               </Link>
             </li>
             <li>
-              <Link href="/finance" className="hover:text-[#5fcf80] transition">
+              <Link href="/finance" className="hover:text-[#0F766E] transition">
                 Finance & Invoices
               </Link>
             </li>
             <li>
-              <Link href="/hr" className="hover:text-[#5fcf80] transition">
+              <Link href="/hr" className="hover:text-[#0F766E] transition">
                 HR & Payroll Portal
               </Link>
             </li>
             <li>
-              <Link href="/super-admin" className="hover:text-[#5fcf80] transition">
+              <Link href="/super-admin" className="hover:text-[#0F766E] transition">
                 Super Admin Portal
               </Link>
             </li>
@@ -169,62 +169,62 @@ export default function Footer() {
 
         {/* Admissions & Info */}
         <div>
-          <p className="font-display text-xs font-bold tracking-widest text-[#5fcf80] uppercase">
+          <p className="font-display text-xs font-bold tracking-widest text-[#0F766E] uppercase">
             Admissions & Info
           </p>
           <ul className="mt-4 space-y-2.5 text-xs text-slate-300">
             <li>
-              <Link href="/about" className="hover:text-[#5fcf80] transition font-medium">
+              <Link href="/about" className="hover:text-[#0F766E] transition font-medium">
                 About AEC Network
               </Link>
             </li>
             <li>
-              <Link href="/about/mission-vision" className="hover:text-[#5fcf80] transition">
+              <Link href="/about/mission-vision" className="hover:text-[#0F766E] transition">
                 Mission & Vision
               </Link>
             </li>
             <li>
-              <Link href="/admissions/how-to-enroll" className="hover:text-[#5fcf80] transition">
+              <Link href="/admissions/how-to-enroll" className="hover:text-[#0F766E] transition">
                 How to Enroll
               </Link>
             </li>
             <li>
-              <Link href="/admissions/free-trial" className="text-[#5fcf80] font-semibold hover:underline">
+              <Link href="/admissions/free-trial" className="text-[#0F766E] font-semibold hover:underline">
                 Book a Free Trial Class
               </Link>
             </li>
             <li>
-              <Link href="/admissions/apply" className="hover:text-[#5fcf80] transition">
+              <Link href="/admissions/apply" className="hover:text-[#0F766E] transition">
                 Online Admission Form
               </Link>
             </li>
             <li>
-              <Link href="/admissions/fees" className="hover:text-[#5fcf80] transition">
+              <Link href="/admissions/fees" className="hover:text-[#0F766E] transition">
                 Fee Structure
               </Link>
             </li>
             <li>
-              <Link href="/admissions/faqs" className="hover:text-[#5fcf80] transition">
+              <Link href="/admissions/faqs" className="hover:text-[#0F766E] transition">
                 Admissions FAQs
               </Link>
             </li>
             <li>
-              <Link href="/resources/free-resources" className="hover:text-[#5fcf80] transition">
+              <Link href="/resources/free-resources" className="hover:text-[#0F766E] transition">
                 Free Study Worksheets
               </Link>
             </li>
             <li>
-              <Link href="/learning/assessment" className="hover:text-[#5fcf80] transition">
+              <Link href="/learning/assessment" className="hover:text-[#0F766E] transition">
                 Placement Assessment
               </Link>
             </li>
             <li>
-              <Link href="/contact" className="hover:text-[#5fcf80] transition">
+              <Link href="/contact" className="hover:text-[#0F766E] transition">
                 Contact & Support
               </Link>
             </li>
             <li>
-              <Link href="/verify-certificate" className="hover:text-[#5fcf80] transition">
+              <Link href="/verify-certificate" className="hover:text-[#0F766E] transition">
                 Verify Certificate
               </Link>
             </li>
@@ -255,7 +255,7 @@ export default function Footer() {
               href="https://wa.me/923435999397"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#5fcf80] hover:text-[#46b967] font-semibold transition"
+              className="text-[#0F766E] hover:text-[#0B5A54] font-semibold transition"
             >
               WhatsApp Us
             </a>

@@ -159,8 +159,8 @@ export default function ProgramsPage() {
     <div className="container-aec py-14 space-y-16">
       {/* Header */}
       <div className="max-w-3xl space-y-2">
-        <p className="text-xs font-bold uppercase tracking-widest text-[#5fcf80]">Curriculum Catalog</p>
-        <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-[#37423b]">
+        <p className="text-xs font-bold uppercase tracking-widest text-[#0F766E]">Curriculum Catalog</p>
+        <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-[#0B1F3A]">
           Academic Programs & Disciplines
         </h1>
         <p className="text-base text-slate-600 leading-relaxed">
@@ -172,7 +172,7 @@ export default function ProgramsPage() {
       {PROGRAM_CATEGORIES.map((cat) => (
         <div key={cat.category} className="space-y-6">
           <div className="border-b border-slate-200/80 pb-3">
-            <h2 className="font-display text-2xl font-extrabold text-[#37423b]">{cat.category}</h2>
+            <h2 className="font-display text-2xl font-extrabold text-[#0B1F3A]">{cat.category}</h2>
             <p className="text-sm text-slate-500 mt-1">{cat.description}</p>
           </div>
 
@@ -187,19 +187,19 @@ export default function ProgramsPage() {
                       alt={p.title} 
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
-                    <div className="absolute top-3 right-3 bg-[#5fcf80] text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-md">
+                    <div className="absolute top-3 right-3 bg-[#0F766E] text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-md">
                       {p.level}
                     </div>
                   </div>
 
                   <div className="p-6">
                     <div className="flex items-center justify-between gap-2 mb-3">
-                      <span className="bg-emerald-50 text-[#5fcf80] text-xs font-bold px-3 py-1 rounded-md border border-emerald-200/80">
+                      <span className="bg-emerald-50 text-[#0F766E] text-xs font-bold px-3 py-1 rounded-md border border-emerald-200/80">
                         {p.delivery}
                       </span>
                     </div>
 
-                    <h3 className="font-display text-xl font-extrabold text-[#37423b] group-hover:text-[#5fcf80] transition line-clamp-2">
+                    <h3 className="font-display text-xl font-extrabold text-[#0B1F3A] group-hover:text-[#0F766E] transition line-clamp-2">
                       {p.title}
                     </h3>
 
@@ -212,7 +212,7 @@ export default function ProgramsPage() {
                 <div className="p-6 pt-0 border-t border-slate-100 flex items-center justify-between mt-auto">
                   <Link
                     href={`/programs/${p.slug}` as never}
-                    className="text-xs font-bold text-[#37423b] hover:text-[#5fcf80] transition flex items-center gap-1"
+                    className="text-xs font-bold text-[#0B1F3A] hover:text-[#0F766E] transition flex items-center gap-1"
                   >
                     <span>Syllabus</span>
                     <span>→</span>
@@ -231,9 +231,9 @@ export default function ProgramsPage() {
       ))}
 
       {/* Advisory Banner */}
-      <div className="rounded-2xl border border-slate-200/90 bg-[#37423b] text-white p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
+      <div className="rounded-2xl border border-slate-200/90 bg-[#0B1F3A] text-white p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
         <div>
-          <p className="text-xs font-bold uppercase tracking-widest text-[#5fcf80] mb-1">Academic Guidance</p>
+          <p className="text-xs font-bold uppercase tracking-widest text-[#0F766E] mb-1">Academic Guidance</p>
           <h2 className="font-display text-2xl font-extrabold">Unsure which program suits your learner?</h2>
           <p className="mt-1 text-sm text-slate-300 max-w-xl">
             Our academic counseling team provides personalized level evaluations and curriculum advice.
@@ -243,7 +243,7 @@ export default function ProgramsPage() {
           <Link href="/admissions/free-trial" className="mentor-btn-primary whitespace-nowrap">
             Book a Free Trial
           </Link>
-          <Link href="/contact" className="mentor-btn-outline border-white text-white hover:bg-white hover:text-[#37423b] whitespace-nowrap">
+          <Link href="/contact" className="mentor-btn-outline border-white text-white hover:bg-white hover:text-[#0B1F3A] whitespace-nowrap">
             Talk to an Advisor
           </Link>
         </div>

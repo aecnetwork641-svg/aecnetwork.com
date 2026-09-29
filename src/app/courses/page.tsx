@@ -254,8 +254,8 @@ export default function CoursesPage() {
     <div className="container-aec py-14 space-y-12">
       {/* Header - Mentor Theme Title */}
       <div className="max-w-3xl space-y-2">
-        <p className="text-xs font-bold uppercase tracking-widest text-[#5fcf80]">LMS Course Catalog</p>
-        <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-[#37423b]">
+        <p className="text-xs font-bold uppercase tracking-widest text-[#0F766E]">LMS Course Catalog</p>
+        <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-[#0B1F3A]">
           Online Courses & Learning Catalog
         </h1>
         <p className="text-base text-slate-600 leading-relaxed">
@@ -272,7 +272,7 @@ export default function CoursesPage() {
               placeholder="Search courses by keyword..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full rounded-full border border-slate-200 px-4 py-2.5 text-xs text-slate-900 placeholder-slate-400 focus:border-[#5fcf80] focus:outline-none focus:ring-1 focus:ring-[#5fcf80]"
+              className="w-full rounded-full border border-slate-200 px-4 py-2.5 text-xs text-slate-900 placeholder-slate-400 focus:border-[#0F766E] focus:outline-none focus:ring-1 focus:ring-[#0F766E]"
             />
           </div>
           <div className="w-full sm:w-2/3 flex items-center gap-2 overflow-x-auto pb-1">
@@ -282,7 +282,7 @@ export default function CoursesPage() {
                 onClick={() => setSelectedCategory(cat)}
                 className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition ${
                   selectedCategory === cat
-                    ? "bg-[#5fcf80] text-white shadow-sm"
+                    ? "bg-[#0F766E] text-white shadow-sm"
                     : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                 }`}
               >
@@ -310,14 +310,14 @@ export default function CoursesPage() {
                     alt={c.title} 
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                   />
-                  <div className="absolute top-3 right-3 bg-[#5fcf80] text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-md">
+                  <div className="absolute top-3 right-3 bg-[#0F766E] text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-md">
                     {c.level}
                   </div>
                 </div>
 
                 <div className="p-6">
                   <div className="flex items-center justify-between gap-2 mb-3">
-                    <span className="bg-emerald-50 text-[#5fcf80] text-xs font-bold px-3 py-1 rounded-md border border-emerald-200/80">
+                    <span className="bg-emerald-50 text-[#0F766E] text-xs font-bold px-3 py-1 rounded-md border border-emerald-200/80">
                       {c.category}
                     </span>
                     <span className="text-xs text-slate-400 font-medium">
@@ -325,7 +325,7 @@ export default function CoursesPage() {
                     </span>
                   </div>
 
-                  <h2 className="font-display text-xl font-extrabold text-[#37423b] group-hover:text-[#5fcf80] transition line-clamp-2">
+                  <h2 className="font-display text-xl font-extrabold text-[#0B1F3A] group-hover:text-[#0F766E] transition line-clamp-2">
                     {c.title}
                   </h2>
 
@@ -343,7 +343,7 @@ export default function CoursesPage() {
               <div className="p-6 pt-0 border-t border-slate-100 flex items-center justify-between mt-auto">
                 <Link
                   href={`/courses/${c.slug}` as never}
-                  className="text-xs font-bold text-[#37423b] hover:text-[#5fcf80] transition flex items-center gap-1"
+                  className="text-xs font-bold text-[#0B1F3A] hover:text-[#0F766E] transition flex items-center gap-1"
                 >
                   <span>Syllabus</span>
                   <span>→</span>
@@ -362,19 +362,19 @@ export default function CoursesPage() {
 
       {/* LMS Architecture Features */}
       <div className="rounded-2xl border border-slate-200/90 bg-white p-8 shadow-sm">
-        <p className="text-xs font-bold uppercase tracking-widest text-[#5fcf80] mb-1">Interactive Learning</p>
-        <h2 className="font-display text-xl font-extrabold text-[#37423b]">AEC Learning Management System Features</h2>
+        <p className="text-xs font-bold uppercase tracking-widest text-[#0F766E] mb-1">Interactive Learning</p>
+        <h2 className="font-display text-xl font-extrabold text-[#0B1F3A]">AEC Learning Management System Features</h2>
         <div className="mt-6 grid gap-6 sm:grid-cols-3 text-xs text-slate-600">
           <div className="rounded-xl border border-slate-100 bg-slate-50/80 p-5">
-            <span className="font-bold text-[#5fcf80] text-sm block mb-1">Live Classrooms</span>
+            <span className="font-bold text-[#0F766E] text-sm block mb-1">Live Classrooms</span>
             Protected integration with video meeting platforms (Zoom, Google Meet, Teams) and automated class schedules.
           </div>
           <div className="rounded-xl border border-slate-100 bg-slate-50/80 p-5">
-            <span className="font-bold text-[#5fcf80] text-sm block mb-1">Quizzes & Progress</span>
+            <span className="font-bold text-[#0F766E] text-sm block mb-1">Quizzes & Progress</span>
             Automated quiz evaluations with instant feedback, gradebooks, attendance logs, and progress reporting.
           </div>
           <div className="rounded-xl border border-slate-100 bg-slate-50/80 p-5">
-            <span className="font-bold text-[#5fcf80] text-sm block mb-1">Verifiable Certificates</span>
+            <span className="font-bold text-[#0F766E] text-sm block mb-1">Verifiable Certificates</span>
             Official digital certificates issued upon completion with unique public verification credentials.
           </div>
         </div>
