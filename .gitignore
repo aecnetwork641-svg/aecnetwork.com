@@ -170,5 +170,7 @@ coverage/
 scratch/
 packages/
 scripts/
+apps/
+marketplace/
 turbo.json
 yarn.lock
