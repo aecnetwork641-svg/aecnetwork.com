@@ -4,6 +4,93 @@ import HeroSlider from "@/components/HeroSlider";
 import FacultyTeamSection from "@/components/FacultyTeamSection";
 import { getCourseImage } from "@/lib/course-images";
 
+const POPULAR_COURSES = [
+  {
+    title: "Website Design",
+    slug: "web-development",
+    category: "Web Development",
+    price: "$169",
+    image: "/images/courses/mentor-course-1.jpg",
+    blurb: "Et architecto provident deleniti facere repellat nobis iste. Id facere quia quae dolores dolorem tempore.",
+    trainer: {
+      name: "Antonio",
+      avatar: "/images/courses/mentor-trainer-1.jpg",
+      students: 50,
+      likes: 65,
+    },
+  },
+  {
+    title: "Search Engine Optimization",
+    slug: "digital-marketing",
+    category: "Marketing",
+    price: "$250",
+    image: "/images/courses/mentor-course-2.jpg",
+    blurb: "Et architecto provident deleniti facere repellat nobis iste. Id facere quia quae dolores dolorem tempore.",
+    trainer: {
+      name: "Lana",
+      avatar: "/images/courses/mentor-trainer-2.jpg",
+      students: 35,
+      likes: 42,
+    },
+  },
+  {
+    title: "Copywriting",
+    slug: "english-foundations",
+    category: "Content",
+    price: "$180",
+    image: "/images/courses/mentor-course-3.jpg",
+    blurb: "Et architecto provident deleniti facere repellat nobis iste. Id facere quia quae dolores dolorem tempore.",
+    trainer: {
+      name: "Brandon",
+      avatar: "/images/courses/mentor-trainer-3.jpg",
+      students: 20,
+      likes: 85,
+    },
+  },
+  {
+    title: "Quran & Tajweed Mastery",
+    slug: "quran-islamic-studies",
+    category: "Islamic Studies",
+    price: "$45",
+    image: getCourseImage("Islamic", "quran-islamic-studies"),
+    blurb: "Structured, teacher-led learning of Noorani Qaida, Tajweed rules, fluent Nazra recitation, and Hifz memorization.",
+    trainer: {
+      name: "Qari Ahmad",
+      avatar: "/images/courses/qirat.jpg",
+      students: 120,
+      likes: 98,
+    },
+  },
+  {
+    title: "Computer Programming & Coding",
+    slug: "computer-programming",
+    category: "Coding & IT",
+    price: "$65",
+    image: getCourseImage("IT & Programming", "computer-programming"),
+    blurb: "Practical hands-on coding in Python, C++, and JavaScript with real-world game development and logic building.",
+    trainer: {
+      name: "Engr. Salman",
+      avatar: "/images/courses/coding.png",
+      students: 145,
+      likes: 92,
+    },
+  },
+  {
+    title: "Mathematics & Analytical Thinking",
+    slug: "mathematics",
+    category: "STEM Education",
+    price: "$55",
+    image: getCourseImage("STEM & Languages", "mathematics"),
+    blurb: "Curriculum-aligned mathematical instruction from fundamental numeracy and algebra to geometry, trigonometry, and calculus.",
+    trainer: {
+      name: "Dr. Rachel Evans",
+      avatar: "/images/courses/math.jpg",
+      students: 180,
+      likes: 89,
+    },
+  },
+];
+
 const PROGRAMS = [
   {
     title: "Quran & Tajweed Mastery",
@@ -203,51 +290,82 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4. FEATURED PROGRAMS */}
-      <section className="container-aec space-y-8">
+      {/* 4. POPULAR COURSES (Mentor Template Design & Card Animations) */}
+      <section id="courses" className="container-aec py-14 space-y-10">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-          <div>
-            <p className="text-xs font-bold uppercase tracking-widest text-[#0F766E]">Curriculum Portfolio</p>
-            <h2 className="mt-1 font-display text-3xl sm:text-4xl font-extrabold text-[#0B1F3A]">Featured Academic Programs</h2>
+          <div className="mentor-section-title">
+            <h2>Courses</h2>
+            <p>Popular Courses</p>
           </div>
-          <Link href="/programs" className="text-xs font-bold text-[#0F766E] hover:text-[#0B5A54] transition flex items-center gap-1">
-            <span>View all programs catalog</span>
-            <span>→</span>
+          <Link
+            href="/courses"
+            className="text-xs font-bold text-[#0F766E] hover:text-[#0B1F3A] transition flex items-center gap-1.5 group mb-2"
+          >
+            <span>View all courses catalog</span>
+            <span className="transition-transform group-hover:translate-x-1 font-bold">→</span>
           </Link>
         </div>
 
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {PROGRAMS.map((p) => (
-            <Link key={p.slug} href={`/programs/${p.slug}` as never} className="mentor-card group flex flex-col justify-between">
-              <div>
-                {/* Program Card Cover Image */}
-                <div className="w-full h-52 overflow-hidden bg-slate-100 relative">
-                  <img 
-                    src={p.image} 
-                    alt={p.title} 
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute top-3 right-3 bg-[#0F766E] text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-md">
-                    {p.level}
+          {POPULAR_COURSES.map((course) => (
+            <div key={course.slug} className="mentor-course-card group">
+              {/* Course Image with Mentor Zoom Animation */}
+              <Link href={`/courses/${course.slug}` as never} className="course-img-wrap block">
+                <img
+                  src={course.image}
+                  alt={course.title}
+                  className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-109"
+                />
+              </Link>
+
+              {/* Course Content Body */}
+              <div className="course-body">
+                <div className="flex items-center justify-between gap-2 mb-2">
+                  <span className="category-pill">{course.category}</span>
+                  <span className="price-tag">{course.price}</span>
+                </div>
+
+                <h3>
+                  <Link href={`/courses/${course.slug}` as never} className="line-clamp-1">
+                    {course.title}
+                  </Link>
+                </h3>
+
+                <p className="course-description line-clamp-2">
+                  {course.blurb}
+                </p>
+
+                {/* Mentor Trainer Profile & Rank Row */}
+                <div className="trainer-row">
+                  <div className="trainer-profile">
+                    <img
+                      src={course.trainer.avatar}
+                      alt={course.trainer.name}
+                    />
+                    <Link
+                      href={`/courses/${course.slug}` as never}
+                      className="trainer-name"
+                    >
+                      {course.trainer.name}
+                    </Link>
+                  </div>
+                  <div className="trainer-stats">
+                    <span className="flex items-center gap-1" title="Enrolled Students">
+                      <svg className="w-4 h-4 text-slate-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+                      </svg>
+                      {course.trainer.students}
+                    </span>
+                    <span className="flex items-center gap-1" title="Reviews / Likes">
+                      <svg className="w-4 h-4 text-rose-500" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
+                      </svg>
+                      {course.trainer.likes}
+                    </span>
                   </div>
                 </div>
-
-                <div className="p-6">
-                  <h3 className="font-display text-xl font-extrabold text-[#0B1F3A] group-hover:text-[#0F766E] transition line-clamp-2">
-                    {p.title}
-                  </h3>
-                  <p className="mt-2 text-xs text-slate-600 leading-relaxed line-clamp-3">{p.blurb}</p>
-                </div>
               </div>
-
-              <div className="p-6 pt-0 border-t border-slate-100 flex items-center justify-between text-xs mt-auto">
-                <span className="font-semibold text-slate-500">1-on-1 / Group</span>
-                <span className="font-bold text-[#0F766E] group-hover:translate-x-1 transition-transform flex items-center gap-1">
-                  <span>Explore</span>
-                  <span>→</span>
-                </span>
-              </div>
-            </Link>
+            </div>
           ))}
         </div>
       </section>

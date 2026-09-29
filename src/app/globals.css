@@ -39,7 +39,175 @@ body {
 }
 
 .mentor-card {
-  @apply overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl;
+  @apply overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:border-aec-teal/50;
+}
+
+/* Mentor Popular Courses Cards & Animations */
+.mentor-section-title {
+  position: relative;
+}
+
+.mentor-section-title h2 {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0;
+}
+
+.mentor-section-title h2::after {
+  content: "";
+  width: 100px;
+  height: 2px;
+  display: inline-block;
+  background-color: var(--aec-teal);
+}
+
+.mentor-section-title p {
+  margin-top: 0.35rem;
+  font-size: 2rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--aec-navy);
+  letter-spacing: -0.02em;
+}
+
+@media (min-width: 640px) {
+  .mentor-section-title p {
+    font-size: 2.25rem;
+  }
+}
+
+.mentor-course-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.35s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.mentor-course-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 30px -10px rgba(11, 31, 58, 0.15);
+  border-color: rgba(15, 118, 110, 0.45);
+}
+
+.mentor-course-card .course-img-wrap {
+  position: relative;
+  overflow: hidden;
+  height: 210px;
+  background-color: #f1f5f9;
+}
+
+.mentor-course-card .course-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.mentor-course-card:hover .course-img-wrap img {
+  transform: scale(1.09);
+}
+
+.mentor-course-card .course-body {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.mentor-course-card .category-pill {
+  background-color: #0F766E;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.35rem 0.85rem;
+  border-radius: 4px;
+  display: inline-block;
+  line-height: 1.2;
+}
+
+.mentor-course-card .price-tag {
+  font-weight: 800;
+  font-size: 1.15rem;
+  color: #334155;
+  margin: 0;
+}
+
+.mentor-course-card h3 {
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin-top: 0.75rem;
+  line-height: 1.35;
+}
+
+.mentor-course-card h3 a {
+  color: #0B1F3A;
+  transition: color 0.2s ease;
+}
+
+.mentor-course-card h3 a:hover,
+.mentor-course-card:hover h3 a {
+  color: #0F766E;
+}
+
+.mentor-course-card .course-description {
+  font-size: 0.8125rem;
+  color: #64748b;
+  margin-top: 0.5rem;
+  line-height: 1.55;
+  flex-grow: 1;
+}
+
+.mentor-course-card .trainer-row {
+  margin-top: 1.25rem;
+  padding-top: 0.875rem;
+  border-top: 1px solid #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mentor-course-card .trainer-profile {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+.mentor-course-card .trainer-profile img {
+  width: 36px;
+  height: 36px;
+  border-radius: 9999px;
+  object-fit: cover;
+  border: 1px solid #e2e8f0;
+}
+
+.mentor-course-card .trainer-name {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #334155;
+  transition: color 0.2s;
+}
+
+.mentor-course-card:hover .trainer-name {
+  color: #0F766E;
+}
+
+.mentor-course-card .trainer-stats {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.8125rem;
+  color: #94a3b8;
+  font-weight: 500;
 }
 
 .btn-primary {

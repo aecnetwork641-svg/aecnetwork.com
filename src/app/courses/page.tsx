@@ -300,71 +300,111 @@ export default function CoursesPage() {
             No courses found matching &ldquo;{searchQuery}&rdquo;.
           </div>
         ) : (
-          filteredCourses.map((c, idx) => (
-            <div
-              key={c.slug}
-              className="mentor-card group flex flex-col justify-between transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:border-aec-teal/50"
-              style={{ animationDelay: `${idx * 0.05}s` }}
-            >
-              <div>
-                {/* Course Cover Image with Zoom Effect */}
-                <div className="w-full h-52 overflow-hidden bg-slate-100 relative">
+          filteredCourses.map((c) => {
+            const isWeb = c.slug === "web-development";
+            const trainer = isWeb
+              ? { name: "Antonio", avatar: "/images/courses/mentor-trainer-1.jpg", students: 50, likes: 65, price: "$169" }
+              : c.category === "Islamic"
+              ? { name: "Qari Ahmad Al-Azhari", avatar: "/images/courses/qirat.jpg", students: 120, likes: 98, price: "$45" }
+              : c.category === "School & Exam Prep"
+              ? { name: "Dr. Rachel Evans", avatar: "/images/courses/gcse.png", students: 95, likes: 82, price: "$75" }
+              : c.category === "IT & Programming"
+              ? { name: "Engr. Salman Farooq", avatar: "/images/courses/coding.png", students: 140, likes: 95, price: "$65" }
+              : { name: "Sarah Jenkins", avatar: "/images/courses/english.jpg", students: 110, likes: 78, price: "$55" };
+
+            return (
+              <div key={c.slug} className="mentor-course-card group">
+                {/* Course Cover Image with Mentor Zoom Effect */}
+                <Link href={`/courses/${c.slug}` as never} className="course-img-wrap block">
                   <img 
                     src={getCourseImage(c.category, c.slug)} 
                     alt={c.title} 
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-109"
                     onError={(e) => {
                       (e.currentTarget as HTMLImageElement).src = "/images/courses/13.jpg";
                     }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <div className="absolute top-3 right-3 bg-[#0F766E] text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-md">
+                  <div className="absolute top-3 right-3 bg-[#0B1F3A]/85 backdrop-blur-xs text-white text-[11px] font-bold px-3 py-0.5 rounded-full shadow-md border border-white/20">
                     {c.level}
                   </div>
-                </div>
+                </Link>
 
-                <div className="p-6">
-                  <div className="flex items-center justify-between gap-2 mb-3">
-                    <span className="bg-teal-50 text-[#0F766E] text-xs font-bold px-3 py-1 rounded-md border border-teal-200/80">
+                <div className="course-body">
+                  {/* Category Badge & Price Row */}
+                  <div className="flex items-center justify-between gap-2 mb-2">
+                    <span className="category-pill">
                       {c.category}
                     </span>
-                    <span className="text-xs text-slate-400 font-medium">
-                      ⏱️ {c.durationWeeks} Weeks
+                    <span className="price-tag">
+                      {trainer.price}
                     </span>
                   </div>
 
-                  <h2 className="font-display text-xl font-extrabold text-[#0B1F3A] group-hover:text-[#0F766E] transition line-clamp-2">
-                    {c.title}
-                  </h2>
+                  {/* Course Title Link */}
+                  <h3>
+                    <Link href={`/courses/${c.slug}` as never} className="line-clamp-1">
+                      {c.title}
+                    </Link>
+                  </h3>
 
-                  <p className="mt-2 text-xs font-semibold text-slate-500">
-                    {c.modulesCount} Modules • {c.lessonsCount} Lessons • {c.deliveryMode}
+                  <p className="mt-1 text-[11px] font-medium text-slate-400">
+                    ⏱️ {c.durationWeeks} Weeks • {c.modulesCount} Modules • {c.deliveryMode}
                   </p>
 
-                  <p className="mt-3 text-xs text-slate-600 leading-relaxed line-clamp-3">
+                  <p className="course-description line-clamp-2">
                     {c.desc}
                   </p>
+
+                  {/* Trainer Profile & Stats Row */}
+                  <div className="trainer-row">
+                    <div className="trainer-profile">
+                      <img
+                        src={trainer.avatar}
+                        alt={trainer.name}
+                      />
+                      <Link
+                        href={`/courses/${c.slug}` as never}
+                        className="trainer-name"
+                      >
+                        {trainer.name}
+                      </Link>
+                    </div>
+                    <div className="trainer-stats">
+                      <span className="flex items-center gap-1" title="Students">
+                        <svg className="w-4 h-4 text-slate-400" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+                        </svg>
+                        {trainer.students}
+                      </span>
+                      <span className="flex items-center gap-1" title="Likes">
+                        <svg className="w-4 h-4 text-rose-500" fill="currentColor" viewBox="0 0 20 20">
+                          <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
+                        </svg>
+                        {trainer.likes}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Action Link Footer */}
+                  <div className="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+                    <Link
+                      href={`/courses/${c.slug}` as never}
+                      className="font-bold text-[#0B1F3A] hover:text-[#0F766E] transition flex items-center gap-1"
+                    >
+                      <span>View Details</span>
+                      <span className="transition-transform group-hover:translate-x-1">→</span>
+                    </Link>
+                    <Link
+                      href="/admissions/free-trial"
+                      className="mentor-btn-primary text-xs px-3.5 py-1 shadow-xs hover:shadow-md transition"
+                    >
+                      Enroll Now
+                    </Link>
+                  </div>
                 </div>
               </div>
-
-              {/* Mentor Card Footer */}
-              <div className="p-6 pt-0 border-t border-slate-100 flex items-center justify-between mt-auto">
-                <Link
-                  href={`/courses/${c.slug}` as never}
-                  className="text-xs font-bold text-[#0B1F3A] group-hover:text-[#0F766E] transition flex items-center gap-1"
-                >
-                  <span>View Details</span>
-                  <span className="transition-transform group-hover:translate-x-1">→</span>
-                </Link>
-                <Link
-                  href="/admissions/free-trial"
-                  className="mentor-btn-primary text-xs px-4 py-1.5 shadow-sm hover:shadow-md transition"
-                >
-                  Enroll Now
-                </Link>
-              </div>
-            </div>
-          ))
+            );
+          })
         )}
       </div>
 
