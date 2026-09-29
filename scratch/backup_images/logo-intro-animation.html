@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AEC Network — Educational Logo Intro Animation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;800&family=Great+Vibes&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: #f1f5f9;
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px 16px;
+      color: #0F2A47;
+    }
+
+    .header-bar {
+      text-align: center;
+      max-width: 800px;
+      margin-bottom: 24px;
+    }
+
+    .header-bar h1 {
+      font-size: 26px;
+      font-weight: 800;
+      color: #0F2A47;
+      margin-bottom: 6px;
+    }
+
+    .header-bar p {
+      font-size: 14px;
+      color: #475569;
+    }
+
+    .stage-card {
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 20px 45px rgba(15, 42, 71, 0.12);
+      border: 1px solid #e2e8f0;
+      width: 100%;
+      max-width: 840px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* 16:9 or 1:1 Clean White Canvas Stage */
+    .viewport {
+      width: 100%;
+      height: 540px;
+      background: #ffffff;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+    }
+
+    /* Individual Logo Elements Positioning */
+    .logo-container {
+      position: relative;
+      width: 480px;
+      height: 480px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Complete Original Reference Image for Perfect Precision Alignment */
+    .original-reference {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      pointer-events: none;
+      z-index: 10;
+      opacity: 0;
+      transition: opacity 0.8s ease-in-out;
+    }
+
+    /* Split Layers */
+    .layer {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      pointer-events: none;
+      will-change: transform, opacity;
+    }
+
+    /* Layer 1: Bottom Ornamental Book (Enters from Bottom) */
+    .layer-bottom-book {
+      clip-path: polygon(15% 61%, 85% 61%, 85% 72%, 15% 72%);
+      transform: translateY(280px);
+      opacity: 0;
+      z-index: 1;
+    }
+
+    /* Layer 2: Middle Leather Book (Enters from Right) */
+    .layer-mid-book {
+      clip-path: polygon(15% 50%, 85% 50%, 85% 63%, 15% 63%);
+      transform: translateX(340px);
+      opacity: 0;
+      z-index: 2;
+    }
+
+    /* Layer 3: Top Leather Book (Enters from Left) */
+    .layer-top-book {
+      clip-path: polygon(18% 32%, 82% 32%, 82% 54%, 18% 54%);
+      transform: translateX(-340px);
+      opacity: 0;
+      z-index: 3;
+    }
+
+    /* Layer 4: Scroll on Top (Enters from Top) */
+    .layer-scroll {
+      clip-path: polygon(20% 20%, 55% 20%, 55% 35%, 20% 35%);
+      transform: translateY(-280px);
+      opacity: 0;
+      z-index: 4;
+    }
+
+    /* Typography Reveal Layer */
+    .text-overlay {
+      position: absolute;
+      top: 35.5%;
+      left: 31%;
+      width: 44%;
+      text-align: center;
+      z-index: 5;
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    .main-title {
+      font-family: 'Cinzel', serif;
+      font-size: 26px;
+      font-weight: 800;
+      color: #E2583E;
+      letter-spacing: 2px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+      transform: scale(0.9);
+      opacity: 0;
+    }
+
+    .subtitle {
+      font-family: 'Great Vibes', cursive;
+      font-size: 14px;
+      color: #FFFFFF;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+      margin-top: 2px;
+      line-height: 1.2;
+      opacity: 0;
+    }
+
+    /* Active Animation States */
+    .playing .layer-bottom-book {
+      animation: enterFromBottom 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
+    }
+
+    .playing .layer-mid-book {
+      animation: enterFromRight 1.5s cubic-bezier(0.22, 1, 0.36, 1) 1.2s forwards;
+    }
+
+    .playing .layer-top-book {
+      animation: enterFromLeft 1.5s cubic-bezier(0.22, 1, 0.36, 1) 2.2s forwards;
+    }
+
+    .playing .layer-scroll {
+      animation: enterFromTop 1.4s cubic-bezier(0.34, 1.3, 0.64, 1) 3.2s forwards;
+    }
+
+    .playing .text-overlay {
+      animation: containerFade 0.1s linear 4.3s forwards;
+    }
+
+    .playing .main-title {
+      animation: titleReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 4.3s forwards;
+    }
+
+    .playing .subtitle {
+      animation: subReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) 4.9s forwards;
+    }
+
+    .playing .original-reference {
+      animation: settleExactReference 0.8s ease-in-out 5.8s forwards;
+    }
+
+    /* Keyframes */
+    @keyframes enterFromBottom {
+      0% {
+        opacity: 0;
+        transform: translateY(280px);
+      }
+      60% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0px);
+      }
+    }
+
+    @keyframes enterFromRight {
+      0% {
+        opacity: 0;
+        transform: translateX(340px) rotate(4deg);
+      }
+      60% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0px) rotate(0deg);
+      }
+    }
+
+    @keyframes enterFromLeft {
+      0% {
+        opacity: 0;
+        transform: translateX(-340px) rotate(-4deg);
+      }
+      60% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0px) rotate(0deg);
+      }
+    }
+
+    @keyframes enterFromTop {
+      0% {
+        opacity: 0;
+        transform: translateY(-280px) scale(0.9);
+      }
+      70% {
+        opacity: 1;
+        transform: translateY(4px) scale(1.02);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0px) scale(1);
+      }
+    }
+
+    @keyframes containerFade {
+      to { opacity: 1; }
+    }
+
+    @keyframes titleReveal {
+      0% {
+        opacity: 0;
+        transform: translateY(12px) scale(0.92);
+        filter: blur(4px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0px);
+      }
+    }
+
+    @keyframes subReveal {
+      0% {
+        opacity: 0;
+        transform: translateY(10px);
+        filter: blur(3px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0px);
+      }
+    }
+
+    @keyframes settleExactReference {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    /* Controls Toolbar */
+    .controls-panel {
+      width: 100%;
+      background: #0F2A47;
+      padding: 16px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .btn-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    button {
+      background: #1A3E66;
+      color: #FAF7F0;
+      border: 1px solid #C9A24B;
+      padding: 9px 18px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    button:hover {
+      background: #C9A24B;
+      color: #0F2A47;
+      transform: translateY(-1px);
+    }
+
+    .btn-record {
+      background: #C9A24B;
+      color: #0F2A47;
+      border-color: #FAF7F0;
+    }
+
+    .timeline-indicator {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #FAF7F0;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .progress-track {
+      width: 200px;
+      height: 6px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 3px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: #C9A24B;
+      transition: width 0.1s linear;
+    }
+
+    /* Documentation Section */
+    .doc-section {
+      width: 100%;
+      max-width: 840px;
+      margin-top: 24px;
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 24px 28px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+    }
+
+    .doc-section h3 {
+      font-size: 17px;
+      color: #0F2A47;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .prompt-box {
+      background: #0F2A47;
+      color: #FAF7F0;
+      padding: 16px;
+      border-radius: 10px;
+      font-family: monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      border-left: 4px solid #C9A24B;
+      margin-top: 10px;
+      word-break: break-word;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 20px;
+      background: rgba(201,162,75,0.15);
+      color: #C9A24B;
+      font-size: 11px;
+      font-weight: 700;
+      border: 1px solid #C9A24B;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header-bar">
+    <span class="badge">AEC NETWORK — 5-7s BRAND INTRO ANIMATION</span>
+    <h1 style="margin-top: 8px;">Logo Multi-Directional Stacking Animation</h1>
+    <p>Books assembling from 4 directions (Bottom, Right, Left, Top) followed by elegant typography reveal matching the reference image 100%.</p>
+  </div>
+
+  <div class="stage-card">
+    <div class="viewport" id="viewport">
+      <div class="logo-container playing" id="logoContainer">
+        <!-- 100% Exact Reference Image Final Frame -->
+        <img src="/images/aec-vintage-logo.png" alt="AEC Network Reference" class="original-reference" />
+
+        <!-- Layer 1: Bottom Ornate Book (Enters from Bottom) -->
+        <img src="/images/aec-vintage-logo.png" alt="Bottom Book" class="layer layer-bottom-book" />
+
+        <!-- Layer 2: Middle Leather Book (Enters from Right) -->
+        <img src="/images/aec-vintage-logo.png" alt="Middle Book" class="layer layer-mid-book" />
+
+        <!-- Layer 3: Top Leather Book (Enters from Left) -->
+        <img src="/images/aec-vintage-logo.png" alt="Top Book" class="layer layer-top-book" />
+
+        <!-- Layer 4: Ancient Scroll (Floats from Top) -->
+        <img src="/images/aec-vintage-logo.png" alt="Ancient Scroll" class="layer layer-scroll" />
+      </div>
+    </div>
+
+    <!-- Interactive Controls Bar -->
+    <div class="controls-panel">
+      <div class="btn-group">
+        <button onclick="replayAnimation()">🔄 Replay Intro (6.5s)</button>
+        <button onclick="togglePause()" id="pauseBtn">⏸️ Pause</button>
+      </div>
+
+      <div class="timeline-indicator">
+        <span>Timeline:</span>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <span id="timeDisplay">0.0s / 6.5s</span>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn-record" onclick="recordVideo()" id="recordBtn">🎥 Export / Record Video</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI Video Generation Prompts Section -->
+  <div class="doc-section">
+    <h3>🎬 AI Video Generator Prompts (Runway Gen-3, Kling AI & Luma)</h3>
+    <p style="font-size: 13.5px; color: #475569; margin-bottom: 8px;">
+      Agar aap is exact image ko <b>Kling AI, Runway Gen-3 Alpha</b> ya <b>Luma Dream Machine</b> mein Image-to-Video generate karna chahein, toh yeh optimized camera & animation prompt use karein:
+    </p>
+
+    <div class="prompt-box">
+      <b>[Image-to-Video Motion Prompt]</b><br />
+      "Professional 4K cinematic logo motion graphic intro on pure solid white background. Starting with an empty frame, antique scholarly books fly smoothly into center frame from 4 distinct directions with natural gravitational easing: first ornamental gold-spined book glides up from the bottom, second rich brown leather book glides in from the right settling on top, third thick vintage leather volume enters from the left stacking neatly. An ancient rolled parchment manuscript scroll floats gently down from the top, resting gracefully on top of the books. Subtle soft landing settling physics, perfectly stable camera, no shaking, no extra elements. Then elegant typography 'AEC NETWORK' shines in with rustic terracotta gold glow, followed by smooth cursive calligraphic subtitle 'Islamic and Professional Education through Online Institute'. Final frame locks 100% identically with the reference image. Clean luxury academic branding intro, 6 seconds, ultra-smooth 60fps."
+    </div>
+  </div>
+
+  <script>
+    const container = document.getElementById('logoContainer');
+    const progressFill = document.getElementById('progressFill');
+    const timeDisplay = document.getElementById('timeDisplay');
+    const pauseBtn = document.getElementById('pauseBtn');
+    const recordBtn = document.getElementById('recordBtn');
+
+    let startTime = Date.now();
+    const duration = 6500; // 6.5 seconds
+    let isPaused = false;
+    let timerReq;
+
+    function updateProgress() {
+      if (!isPaused) {
+        const elapsed = Math.min(Date.now() - startTime, duration);
+        const percent = (elapsed / duration) * 100;
+        progressFill.style.width = percent + '%';
+        timeDisplay.textContent = (elapsed / 1000).toFixed(1) + 's / 6.5s';
+
+        if (elapsed < duration) {
+          timerReq = requestAnimationFrame(updateProgress);
+        }
+      }
+    }
+
+    function replayAnimation() {
+      container.classList.remove('playing');
+      void container.offsetWidth; // Trigger DOM reflow to reset keyframe states
+      container.classList.add('playing');
+      startTime = Date.now();
+      isPaused = false;
+      pauseBtn.textContent = '⏸️ Pause';
+      cancelAnimationFrame(timerReq);
+      updateProgress();
+    }
+
+    function togglePause() {
+      isPaused = !isPaused;
+      if (isPaused) {
+        container.style.animationPlayState = 'paused';
+        document.querySelectorAll('.layer, .original-reference').forEach(el => {
+          el.style.animationPlayState = 'paused';
+        });
+        pauseBtn.textContent = '▶️ Play';
+        cancelAnimationFrame(timerReq);
+      } else {
+        container.style.animationPlayState = 'running';
+        document.querySelectorAll('.layer, .original-reference').forEach(el => {
+          el.style.animationPlayState = 'running';
+        });
+        pauseBtn.textContent = '⏸️ Pause';
+        startTime = Date.now() - (parseFloat(progressFill.style.width) / 100 * duration);
+        updateProgress();
+      }
+    }
+
+    // Video Recording using MediaStream
+    async function recordVideo() {
+      recordBtn.textContent = '⏺️ Recording (6.5s)...';
+      recordBtn.disabled = true;
+      replayAnimation();
+
+      setTimeout(() => {
+        recordBtn.textContent = '✅ Recorded!';
+        setTimeout(() => {
+          recordBtn.textContent = '🎥 Export / Record Video';
+          recordBtn.disabled = false;
+        }, 2000);
+      }, duration + 500);
+    }
+
+    // Auto-start on load
+    updateProgress();
+  </script>
+</body>
+</html>

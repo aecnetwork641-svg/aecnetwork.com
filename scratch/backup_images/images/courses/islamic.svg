@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-islamic" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f2b3c" />
+      <stop offset="50%" stop-color="#1e3a8a" />
+      <stop offset="100%" stop-color="#064e3b" />
+    </linearGradient>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a" />
+      <stop offset="50%" stop-color="#eab308" />
+      <stop offset="100%" stop-color="#ca8a04" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="600" height="400" fill="url(#bg-islamic)" />
+
+  <!-- Geometric Arch Pattern overlay -->
+  <g opacity="0.12" fill="none" stroke="#ffffff" stroke-width="1.5">
+    <pattern id="arch-pattern" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 30,0 L 60,30 L 30,60 L 0,30 Z M 30,10 A 20,20 0 0 1 50,30 A 20,20 0 0 1 30,50 A 20,20 0 0 1 10,30 A 20,20 0 0 1 30,10 Z" />
+    </pattern>
+    <rect width="600" height="400" fill="url(#arch-pattern)" />
+  </g>
+
+  <!-- Decorative Mosque Dome Contour -->
+  <path d="M 150 400 Q 300 240 450 400 Z" fill="#ffffff" opacity="0.05" />
+
+  <!-- Central Emblem / Open Book (Rehal & Quran) -->
+  <g transform="translate(300, 180)">
+    <!-- Crescent & Star -->
+    <path d="M 0 -105 A 35 35 0 1 1 -25 -65 A 40 40 0 1 0 0 -105 Z" fill="url(#gold)" />
+    <polygon points="12,-85 16,-73 28,-73 18,-65 22,-53 12,-61 2,-53 6,-65 -4,-73 8,-73" fill="url(#gold)" />
+
+    <!-- Open Book (Quran) -->
+    <path d="M -110 30 Q -50 0 0 20 Q 50 0 110 30 L 105 70 Q 50 40 0 60 Q -50 40 -105 70 Z" fill="#f8fafc" />
+    <path d="M -105 35 Q -50 5 0 25 L 0 65 Q -50 45 -100 75 Z" fill="#f1f5f9" />
+    <path d="M 105 35 Q 50 5 0 25 L 0 65 Q 50 45 100 75 Z" fill="#ffffff" />
+    <!-- Spine -->
+    <path d="M -5 20 L 5 20 L 5 65 L -5 65 Z" fill="url(#gold)" />
+
+    <!-- Calligraphy Lines -->
+    <line x1="-80" y1="35" x2="-20" y2="28" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" />
+    <line x1="-85" y1="48" x2="-25" y2="41" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" />
+    <line x1="20" y1="28" x2="80" y2="35" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" />
+    <line x1="25" y1="41" x2="85" y2="48" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" />
+
+    <!-- Rehal (Book Stand) -->
+    <path d="M -90 65 L 90 120 M 90 65 L -90 120" stroke="url(#gold)" stroke-width="12" stroke-linecap="round" />
+  </g>
+
+  <!-- Category Label Badge -->
+  <rect x="180" y="320" width="240" height="38" rx="19" fill="#0f172a" opacity="0.8" stroke="url(#gold)" stroke-width="1.5" />
+  <text x="300" y="344" text-anchor="middle" fill="#fef08a" font-family="sans-serif" font-size="15" font-weight="bold" letter-spacing="1">ISLAMIC &amp; QURAN</text>
+</svg>

@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg-prep" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="50%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#0d9488" />
+    </linearGradient>
+    <linearGradient id="gold-bright" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef08a" />
+      <stop offset="100%" stop-color="#f59e0b" />
+    </linearGradient>
+  </defs>
+
+  <rect width="600" height="400" fill="url(#bg-prep)" />
+
+  <!-- Grid overlay -->
+  <g opacity="0.08" stroke="#ffffff" stroke-width="1">
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <rect width="40" height="40" fill="none" stroke="#ffffff" stroke-width="1" />
+    </pattern>
+    <rect width="600" height="400" fill="url(#grid)" />
+  </g>
+
+  <!-- Central Graphic: Graduation Cap & Certificate -->
+  <g transform="translate(300, 170)">
+    <!-- Certificate Paper -->
+    <rect x="-90" y="-30" width="180" height="130" rx="10" fill="#ffffff" shadow="lg" />
+    <line x1="-60" y1="0" x2="60" y2="0" stroke="#0f172a" stroke-width="4" stroke-linecap="round" />
+    <line x1="-60" y1="20" x2="40" y2="20" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" />
+    <line x1="-60" y1="35" x2="50" y2="35" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" />
+    <line x1="-60" y1="50" x2="20" y2="50" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" />
+    <!-- Seal -->
+    <circle cx="45" cy="65" r="18" fill="url(#gold-bright)" />
+    <polygon points="45,55 48,61 55,62 50,67 51,74 45,70 39,74 40,67 35,62 42,61" fill="#0f172a" />
+
+    <!-- Graduation Mortarboard Cap -->
+    <polygon points="0,-100 -120,-55 0,-10 120,-55" fill="#0f172a" stroke="url(#gold-bright)" stroke-width="4" />
+    <rect x="-45" y="-50" width="90" height="35" rx="5" fill="#1e293b" />
+    <!-- Tassel -->
+    <circle cx="0" cy="-55" r="6" fill="url(#gold-bright)" />
+    <path d="M 0 -55 Q 60 -45 65 0" stroke="url(#gold-bright)" stroke-width="3.5" fill="none" />
+    <polygon points="65,0 60,15 70,15" fill="url(#gold-bright)" />
+  </g>
+
+  <!-- Category Label Badge -->
+  <rect x="150" y="320" width="300" height="38" rx="19" fill="#0f172a" opacity="0.85" stroke="#0d9488" stroke-width="1.5" />
+  <text x="300" y="344" text-anchor="middle" fill="#5eead4" font-family="sans-serif" font-size="14" font-weight="bold" letter-spacing="1">SCHOOL &amp; BOARD EXAM PREP</text>
+</svg>

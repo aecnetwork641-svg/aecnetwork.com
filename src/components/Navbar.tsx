@@ -122,11 +122,11 @@ export default function Navbar() {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-md overflow-visible shadow-sm">
-      <div className="container-aec flex h-20 items-center justify-between overflow-visible">
-        {/* Brand Logo - Bold & Highly Readable */}
-        <Link href="/" className="flex items-center gap-2 group transition relative z-10">
-          <Logo variant="compact" size="lg" />
+    <header className="sticky top-0 z-50 border-b border-slate-200/80 bg-white/95 backdrop-blur-md shadow-sm">
+      <div className="container-aec flex h-16 items-center justify-between">
+        {/* Brand Logo */}
+        <Link href="/" className="flex items-center gap-2 group transition hover:opacity-90">
+          <Logo variant="compact" size="md" />
         </Link>
 
         {/* Desktop Navigation - Mentor Theme Hover Colors */}
