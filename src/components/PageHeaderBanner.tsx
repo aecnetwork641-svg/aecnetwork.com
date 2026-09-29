@@ -58,8 +58,8 @@ export default function PageHeaderBanner({
               {breadcrumbCurrent}
             </li>
           </ol>
-          <span className="hidden sm:inline-block text-[11px] font-semibold text-white/80 tracking-wider uppercase">
-            AEC Global Network
+          <span className="hidden sm:inline-block text-[11px] font-semibold text-white/80 tracking-wider lowercase">
+            aecnetwork
           </span>
         </div>
       </div>

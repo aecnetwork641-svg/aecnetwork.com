@@ -7,6 +7,7 @@ import { signIn, getSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Logo from "@/components/Logo";
+import PageHeaderBanner from "@/components/PageHeaderBanner";
 import { getRoleRedirectPath } from "@/lib/permissions";
 
 function LoginForm() {
@@ -164,10 +165,21 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <div className="min-h-[80vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <Suspense fallback={<div className="text-center py-12 text-sm text-slate-500">Loading secure login portal...</div>}>
-        <LoginForm />
-      </Suspense>
+    <div className="space-y-12 pb-20 bg-slate-50/50">
+      {/* Mentor Style Page Head Banner */}
+      <PageHeaderBanner
+        title="AEC Portals Access"
+        subtitle="Unified secure access point for Students, Parents, Teachers, Supervisors, and Academic Administrators."
+        badge="Portals Hub"
+        breadcrumbCurrent="Portals"
+        bgImage="/images/banner-3.png"
+      />
+
+      <div className="flex items-center justify-center px-4 sm:px-6 lg:px-8">
+        <Suspense fallback={<div className="text-center py-12 text-sm text-slate-500">Loading secure login portal...</div>}>
+          <LoginForm />
+        </Suspense>
+      </div>
     </div>
   );
 }

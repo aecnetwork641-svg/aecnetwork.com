@@ -1,17 +1,19 @@
 import Link from "next/link";
+import PageHeaderBanner from "@/components/PageHeaderBanner";
 
 export default function ResourcesHubPage() {
   return (
-    <div className="container-aec py-14 max-w-4xl space-y-12">
-      <div>
-        <span className="badge badge-info mb-2">Study Materials</span>
-        <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-aec-navy">
-          AEC Learning & Study Resources
-        </h1>
-        <p className="mt-3 text-lg text-aec-navy/70 leading-relaxed">
-          Curated worksheets, phonetics guides, Tajweed charts, and academic reference materials.
-        </p>
-      </div>
+    <div className="space-y-12 pb-16">
+      {/* Mentor Style Page Head Banner */}
+      <PageHeaderBanner
+        title="Learning & Study Resources"
+        subtitle="Curated worksheets, phonetics guides, Tajweed charts, audio pronunciation tools, and academic reference materials."
+        badge="Academic Library"
+        breadcrumbCurrent="Resources"
+        bgImage="/images/banner-2.jpg"
+      />
+
+      <div className="container-aec max-w-5xl space-y-10">
 
       <div className="grid gap-6 sm:grid-cols-3">
         <Link href="/resources/islamic" className="card group hover:border-aec-teal">
@@ -59,5 +61,6 @@ export default function ResourcesHubPage() {
         </Link>
       </div>
     </div>
-  );
+  </div>
+);
 }

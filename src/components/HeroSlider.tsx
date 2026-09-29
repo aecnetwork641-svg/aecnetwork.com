@@ -145,9 +145,9 @@ export default function HeroSlider() {
               sizes="100vw"
             />
           </div>
-          {/* Deep cinematic overlays on the text side */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#040a18]/95 via-[#040a18]/80 to-[#040a18]/30" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#040a18]/90 via-transparent to-[#040a18]/40" />
+          {/* Balanced overlay so background image is clearly visible while text stays readable */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#040a18]/65 via-[#040a18]/40 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#040a18]/50 via-transparent to-[#040a18]/20" />
         </div>
       ))}
 
@@ -158,7 +158,7 @@ export default function HeroSlider() {
           background: `radial-gradient(circle, ${slide.glowColor} 0%, transparent 70%)`,
           transition: "background 1s ease",
           zIndex: 1,
-          opacity: 0.4,
+          opacity: 0.2,
         }}
       />
 
