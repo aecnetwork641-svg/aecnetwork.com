@@ -165,3 +165,10 @@ coverage/
 
 # Local tooling
 .env.test.local
+
+# Dev-only scratch/utility directories — never commit
+scratch/
+packages/
+scripts/
+turbo.json
+yarn.lock
