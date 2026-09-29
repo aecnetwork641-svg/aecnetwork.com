@@ -3,15 +3,16 @@
 @tailwind utilities;
 
 :root {
-  --aec-navy: #310c08;
-  --aec-teal: #0e7c7b;
-  --aec-gold: #c9a24b;
-  --aec-cream: #faf7f0;
-  --aec-sand: #f4eee1;
-  --mentor-accent: #5fcf80;
-  --mentor-heading: #37423b;
-  --mentor-dark: #060606;
-  --mentor-light: #f9f9f9;
+  --aec-navy: #0B1F3A;
+  --aec-teal: #0F766E;
+  --aec-white: #FFFFFF;
+  --aec-black: #000000;
+  --aec-cream: #F8FAFC;
+  --aec-sand: #F1F5F9;
+  --mentor-accent: #0F766E;
+  --mentor-heading: #0B1F3A;
+  --mentor-dark: #000000;
+  --mentor-light: #FFFFFF;
 }
 
 html {
@@ -30,11 +31,11 @@ body {
 
 /* Mentor Theme Styles */
 .mentor-btn-primary {
-  @apply inline-flex items-center justify-center rounded-full bg-[#5fcf80] px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#46b967] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#5fcf80];
+  @apply inline-flex items-center justify-center rounded-full bg-aec-teal px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-aec-navy focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-aec-teal;
 }
 
 .mentor-btn-outline {
-  @apply inline-flex items-center justify-center rounded-full border-2 border-[#5fcf80] px-6 py-2.5 text-sm font-semibold text-[#5fcf80] transition hover:bg-[#5fcf80] hover:text-white;
+  @apply inline-flex items-center justify-center rounded-full border-2 border-aec-teal px-6 py-2.5 text-sm font-semibold text-aec-teal transition hover:bg-aec-teal hover:text-white;
 }
 
 .mentor-card {
@@ -50,7 +51,7 @@ body {
 }
 
 .btn-gold {
-  @apply inline-flex items-center justify-center rounded-xl bg-aec-gold px-5 py-2.5 text-sm font-semibold text-aec-navy shadow-sm transition hover:bg-amber-500;
+  @apply inline-flex items-center justify-center rounded-xl bg-aec-teal px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-aec-navy;
 }
 
 .card {

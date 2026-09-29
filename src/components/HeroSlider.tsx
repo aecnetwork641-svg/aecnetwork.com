@@ -26,8 +26,8 @@ const SLIDES: BannerSlide[] = [
     imageExt: "jpg",
     primaryBtn: { label: "Start Learning Today", href: "/admissions/apply" },
     secondaryBtn: { label: "Book Free Trial", href: "/admissions/free-trial" },
-    accentColor: "#C9A24B",
-    glowColor: "rgba(201,162,75,0.45)",
+    accentColor: "#0F766E",
+    glowColor: "rgba(15,118,110,0.45)",
   },
   {
     id: "s2",
@@ -37,8 +37,8 @@ const SLIDES: BannerSlide[] = [
     imageExt: "jpg",
     primaryBtn: { label: "Explore Programs", href: "/programs" },
     secondaryBtn: { label: "Book Free Trial", href: "/admissions/free-trial" },
-    accentColor: "#3b82f6",
-    glowColor: "rgba(59,130,246,0.45)",
+    accentColor: "#0F766E",
+    glowColor: "rgba(15,118,110,0.45)",
   },
   {
     id: "s3",
@@ -48,8 +48,8 @@ const SLIDES: BannerSlide[] = [
     imageExt: "png",
     primaryBtn: { label: "View All Courses", href: "/courses" },
     secondaryBtn: { label: "Book Free Trial", href: "/admissions/free-trial" },
-    accentColor: "#22c55e",
-    glowColor: "rgba(34,197,94,0.45)",
+    accentColor: "#0F766E",
+    glowColor: "rgba(15,118,110,0.45)",
   },
 ];
 
@@ -190,14 +190,14 @@ export default function HeroSlider() {
           <div className="hero-btn-anim flex flex-wrap items-center gap-4 pt-4">
             <Link
               href={slide.primaryBtn.href as never}
-              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-xl font-bold text-sm text-black shadow-2xl transition-all duration-200 hover:scale-[1.03] active:scale-[0.98]"
+              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-xl font-bold text-sm text-white shadow-2xl transition-all duration-200 hover:scale-[1.03] active:scale-[0.98]"
               style={{
-                background: `linear-gradient(135deg, ${slide.accentColor}, ${slide.accentColor}dd)`,
+                background: `linear-gradient(135deg, ${slide.accentColor}, #0c5c56)`,
                 boxShadow: `0 8px 30px ${slide.glowColor}`,
               }}
             >
               <span>{slide.primaryBtn.label}</span>
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
             </Link>
