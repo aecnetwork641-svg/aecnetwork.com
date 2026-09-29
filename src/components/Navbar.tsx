@@ -19,21 +19,10 @@ type NavItem = {
 
 const NAV: NavItem[] = [
   { label: "Home", href: "/" },
+  { label: "About AEC", href: "/about" },
   {
-    label: "About AEC",
-    href: "/about",
-    children: [
-      { label: "About Us", href: "/about", desc: "Our history and background" },
-      { label: "Mission & Vision", href: "/about/mission-vision", desc: "Our educational principles" },
-      { label: "Why AEC", href: "/about/why-aec", desc: "What sets our academy apart" },
-      { label: "Our Approach", href: "/about/approach", desc: "Pedagogical methodologies" },
-      { label: "Our Teachers", href: "/about/teachers", desc: "Vetted and qualified faculty" },
-      { label: "Our Team", href: "/about/team", desc: "Leadership and administration" }
-    ]
-  },
-  {
-    label: "Programs",
-    href: "/programs",
+    label: "All Courses",
+    href: "/courses",
     categories: [
       {
         categoryName: "Islamic Education",
@@ -75,18 +64,7 @@ const NAV: NavItem[] = [
       }
     ]
   },
-  {
-    label: "Admissions",
-    href: "/admissions",
-    children: [
-      { label: "How to Enroll", href: "/admissions/how-to-enroll", desc: "Step-by-step admission process" },
-      { label: "Book a Free Trial", href: "/admissions/free-trial", desc: "Experience a class first" },
-      { label: "Admission Form", href: "/admissions/apply", desc: "Submit formal application" },
-      { label: "Requirements", href: "/admissions/requirements", desc: "Prerequisites and guidelines" },
-      { label: "Fee Structure", href: "/admissions/fees", desc: "Transparent tuition & options" },
-      { label: "FAQs", href: "/admissions/faqs", desc: "Admissions & enrollment questions" }
-    ]
-  },
+  { label: "New Registration", href: "/admissions/apply" },
   {
     label: "Portals",
     href: "/login",
@@ -179,7 +157,7 @@ export default function Navbar() {
                 )}
               </Link>
 
-              {/* Categorized Mega Dropdown (for Programs) - Solid 100% White Background */}
+              {/* Categorized Mega Dropdown (for All Courses) - Solid 100% White Background */}
               {item.categories && activeDropdown === item.label && (
                 <div
                   style={{ backgroundColor: "#ffffff" }}
@@ -223,18 +201,18 @@ export default function Navbar() {
                       ✨ 1-on-1 personalized tutoring with qualified global faculty
                     </span>
                     <Link
-                      href="/programs"
+                      href="/courses"
                       className="font-bold text-[#0F766E] hover:text-[#0B1F3A] transition flex items-center gap-1.5"
                       onClick={() => setActiveDropdown(null)}
                     >
-                      <span>View All Programs Catalog</span>
+                      <span>View All Courses Catalog</span>
                       <span>→</span>
                     </Link>
                   </div>
                 </div>
               )}
 
-              {/* Standard Dropdown (for About, Admissions, Portals, Resources) - Solid 100% White Background */}
+              {/* Standard Dropdown (for Portals, Resources) - Solid 100% White Background */}
               {item.children && !item.categories && activeDropdown === item.label && (
                 <div
                   style={{ backgroundColor: "#ffffff" }}
@@ -272,10 +250,10 @@ export default function Navbar() {
             Explore Courses
           </Link>
           <Link
-            href="/admissions/free-trial"
+            href="/admissions/apply"
             className="inline-flex items-center justify-center rounded-full bg-[#0F766E] hover:bg-[#0B1F3A] px-5 py-2 text-xs font-bold text-white shadow-md shadow-teal-700/20 transition duration-200 hover:scale-[1.02] active:scale-[0.98]"
           >
-            Book Free Trial
+            New Registration
           </Link>
 
           {/* Mobile Hamburger Toggler */}
@@ -287,7 +265,7 @@ export default function Navbar() {
             {open ? (
               <svg className="h-5 w-5 fill-current" viewBox="0 0 20 20">
                 <polygon
-                  points="11 9 22 9 22 11 11 11 11 11 22 9 22 9 11 -2 11 -2 9 9 9 9 -2 11 -2"
+                  points="11 9 22 9 22 11 11 11 11 11 22 9 22 9 11 -2 11 -2"
                   transform="rotate(45 10 10)"
                 />
               </svg>
@@ -382,11 +360,11 @@ export default function Navbar() {
             {/* Mobile CTAs */}
             <div className="mt-4 flex flex-col gap-2.5 pt-2">
               <Link
-                href="/admissions/free-trial"
+                href="/admissions/apply"
                 className="w-full text-center rounded-full bg-[#0F766E] hover:bg-[#0B1F3A] py-2.5 text-xs font-bold text-white shadow-md shadow-teal-700/20"
                 onClick={() => setOpen(false)}
               >
-                Book a Free Trial
+                New Registration
               </Link>
               <Link
                 href="/courses"

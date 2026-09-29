@@ -35,7 +35,7 @@ const SLIDES: BannerSlide[] = [
     subtitle: "Opportunity for Every Future.",
     image: "/images/banner-2",
     imageExt: "jpg",
-    primaryBtn: { label: "Explore Programs", href: "/programs" },
+    primaryBtn: { label: "Explore All Courses", href: "/courses" },
     secondaryBtn: { label: "Book Free Trial", href: "/admissions/free-trial" },
     accentColor: "#0F766E",
     glowColor: "rgba(15,118,110,0.45)",

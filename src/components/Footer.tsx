@@ -43,10 +43,10 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Academic Programs */}
+        {/* All Courses */}
         <div>
           <p className="font-display text-xs font-bold tracking-widest text-[#0F766E] uppercase">
-            Academic Programs
+            All Courses
           </p>
           <ul className="mt-4 space-y-2.5 text-xs text-slate-300">
             <li>
@@ -100,8 +100,8 @@ export default function Footer() {
               </Link>
             </li>
             <li className="pt-1">
-              <Link href="/programs" className="font-bold text-[#0F766E] hover:underline flex items-center gap-1">
-                <span>View All 20+ Programs</span>
+              <Link href="/courses" className="font-bold text-[#0F766E] hover:underline flex items-center gap-1">
+                <span>View All Courses</span>
                 <span>→</span>
               </Link>
             </li>
@@ -242,8 +242,8 @@ export default function Footer() {
             <Link href="/about" className="hover:text-white transition">
               About Us
             </Link>
-            <Link href="/programs" className="hover:text-white transition">
-              Programs
+            <Link href="/courses" className="hover:text-white transition">
+              All Courses
             </Link>
             <Link href="/admissions/faqs" className="hover:text-white transition">
               FAQs
