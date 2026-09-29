@@ -2,6 +2,7 @@ import Link from "next/link";
 import PricingSection from "@/components/PricingSection";
 import HeroSlider from "@/components/HeroSlider";
 import MentorCountsSection from "@/components/MentorCountsSection";
+import MentorAboutSection from "@/components/MentorAboutSection";
 import PopularCoursesSection from "@/components/PopularCoursesSection";
 import { getCourseImage } from "@/lib/course-images";
 
@@ -115,71 +116,8 @@ export default function HomePage() {
       {/* 2. MENTOR COUNTS SECTION (1232 Students | 64 Courses | 42 Events | 24 Trainers) */}
       <MentorCountsSection />
 
-      {/* 3. WHAT AEC OFFERS */}
-      <section className="bg-white border-y border-slate-200/80 py-16">
-        <div className="container-aec">
-          <div className="grid gap-10 lg:grid-cols-12 items-center">
-            <div className="lg:col-span-5 space-y-3">
-              <p className="text-xs font-bold uppercase tracking-widest text-[#0F766E]">
-                Comprehensive Academy
-              </p>
-              <h2 className="font-display text-3xl font-extrabold text-[#0B1F3A]">
-                What AEC Network Delivers
-              </h2>
-              <p className="text-sm text-slate-600 leading-relaxed">
-                Whether you seek foundational Quranic recitation, linguistic proficiency in English or Arabic, or core school academic mastery, our platform combines personalized tutoring with an enterprise LMS.
-              </p>
-              <div className="pt-2 flex flex-col gap-3">
-                {[
-                  "Interactive live class rooms with verified meeting security",
-                  "Modular digital curriculum with video lessons and quizzes",
-                  "Automated attendance records with immediate parent notices",
-                  "Official verifiable completion certificates"
-                ].map((item, idx) => (
-                  <div key={idx} className="flex items-center gap-3">
-                    <div className="h-5 w-5 rounded-full bg-emerald-100 text-[#0F766E] flex items-center justify-center text-xs font-bold">
-                      ✓
-                    </div>
-                    <span className="text-sm font-semibold text-slate-700">{item}</span>
-                  </div>
-                ))}
-              </div>
-              <div className="pt-4">
-                <Link href="/admissions/how-to-enroll" className="mentor-btn-outline text-xs px-6 py-2.5">
-                  Learn How Admissions Work
-                </Link>
-              </div>
-            </div>
-
-            <div className="lg:col-span-7 grid sm:grid-cols-2 gap-5">
-              <div className="rounded-2xl border border-slate-200/90 bg-slate-50/70 p-6">
-                <p className="font-display text-base font-extrabold text-[#0B1F3A]">Quran & Islamic Studies</p>
-                <p className="mt-2 text-xs text-slate-600 leading-relaxed">
-                  Tajweed rules, articulation points (Makharij), Nazra recitation, and Hifz memorization with certified instructors.
-                </p>
-              </div>
-              <div className="rounded-2xl border border-slate-200/90 bg-slate-50/70 p-6">
-                <p className="font-display text-base font-extrabold text-[#0B1F3A]">Languages & Linguistics</p>
-                <p className="mt-2 text-xs text-slate-600 leading-relaxed">
-                  English for academic and communicative proficiency, along with classical and modern Arabic grammar.
-                </p>
-              </div>
-              <div className="rounded-2xl border border-slate-200/90 bg-slate-50/70 p-6">
-                <p className="font-display text-base font-extrabold text-[#0B1F3A]">STEM & School Tutoring</p>
-                <p className="mt-2 text-xs text-slate-600 leading-relaxed">
-                  Mathematics, Science, and board exam support customized to primary and secondary school syllabi.
-                </p>
-              </div>
-              <div className="rounded-2xl border border-slate-200/90 bg-slate-50/70 p-6">
-                <p className="font-display text-base font-extrabold text-[#0B1F3A]">One-on-One Mentorship</p>
-                <p className="mt-2 text-xs text-slate-600 leading-relaxed">
-                  Individual pacing, dedicated instructor attention, and adaptable weekly timetables for busy schedules.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* 3. MENTOR ABOUT US / WHAT AEC DELIVERS SECTION */}
+      <MentorAboutSection />
 
       {/* 4. POPULAR COURSES (Mentor Template Design with Zoom-In Animation) */}
       <PopularCoursesSection />
