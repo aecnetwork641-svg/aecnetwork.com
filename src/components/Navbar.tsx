@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Logo from "@/components/Logo";
 
 type NavItem = {
@@ -60,12 +60,39 @@ export default function Navbar() {
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
 
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const navRef = useRef<HTMLUListElement>(null);
+
+  const handleMouseEnter = (label: string) => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    setActiveDropdown(label);
+  };
+
+  const handleMouseLeave = () => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    timeoutRef.current = setTimeout(() => {
+      setActiveDropdown(null);
+    }, 250);
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    const handleClickOutside = (event: MouseEvent) => {
+      if (navRef.current && !navRef.current.contains(event.target as Node)) {
+        setActiveDropdown(null);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      document.removeEventListener("mousedown", handleClickOutside);
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
   }, []);
 
   return (
@@ -85,24 +112,30 @@ export default function Navbar() {
         </div>
 
         {/* Center Floating Pill Navigation - Solid white pill over transparent navbar */}
-        <ul className="navbar-nav hidden lg:flex items-center gap-x-1 xl:gap-x-1.5 bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-full px-4 py-1.5 shadow-md shadow-slate-900/5">
+        <ul
+          ref={navRef}
+          className="navbar-nav hidden lg:flex items-center gap-x-1 xl:gap-x-1.5 bg-white/95 backdrop-blur-md border border-slate-200/90 rounded-full px-4 py-1.5 shadow-md shadow-slate-900/5"
+        >
           {NAV.map((item) => (
             <li
               key={item.label}
               className="relative nav-item"
-              onMouseEnter={() => setActiveDropdown(item.label)}
-              onMouseLeave={() => setActiveDropdown(null)}
+              onMouseEnter={() => item.children ? handleMouseEnter(item.label) : setActiveDropdown(null)}
+              onMouseLeave={() => item.children ? handleMouseLeave() : undefined}
             >
-              <Link
-                href={item.href as never}
-                className={`nav-link inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold rounded-full transition-all duration-200 ${
-                  activeDropdown === item.label
-                    ? "text-[#0F766E] bg-slate-100 shadow-xs"
-                    : "text-[#0B1F3A] hover:text-[#0F766E] hover:bg-slate-50"
-                }`}
-              >
-                <span>{item.label}</span>
-                {item.children && (
+              {item.children ? (
+                <button
+                  type="button"
+                  onClick={() =>
+                    setActiveDropdown(activeDropdown === item.label ? null : item.label)
+                  }
+                  className={`nav-link inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold rounded-full transition-all duration-200 cursor-pointer ${
+                    activeDropdown === item.label
+                      ? "text-[#0F766E] bg-slate-100 shadow-xs"
+                      : "text-[#0B1F3A] hover:text-[#0F766E] hover:bg-slate-50"
+                  }`}
+                >
+                  <span>{item.label}</span>
                   <svg
                     className={`h-3 w-3 transition-transform duration-200 ${
                       activeDropdown === item.label ? "rotate-180 text-[#0F766E]" : "opacity-60 text-slate-500"
@@ -113,32 +146,45 @@ export default function Navbar() {
                   >
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
                   </svg>
-                )}
-              </Link>
+                </button>
+              ) : (
+                <Link
+                  href={item.href as never}
+                  className="nav-link inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold rounded-full transition-all duration-200 text-[#0B1F3A] hover:text-[#0F766E] hover:bg-slate-50"
+                >
+                  <span>{item.label}</span>
+                </Link>
+              )}
 
               {/* Standard Dropdown (for All Courses, Portals, Resources) - Solid 100% White Background */}
               {item.children && activeDropdown === item.label && (
                 <div
-                  style={{ backgroundColor: "#ffffff" }}
-                  className="absolute left-0 top-full mt-2.5 z-[100] w-72 rounded-2xl border border-slate-200 bg-white p-2.5 shadow-2xl shadow-slate-900/20 animate-in fade-in slide-in-from-top-1 duration-150"
+                  className="absolute left-0 top-full pt-2 z-[100]"
+                  onMouseEnter={() => handleMouseEnter(item.label)}
+                  onMouseLeave={handleMouseLeave}
                 >
-                  {item.children.map((child) => (
-                    <Link
-                      key={child.href}
-                      href={child.href as never}
-                      className="block rounded-xl px-3.5 py-2.5 transition hover:bg-slate-50 group"
-                      onClick={() => setActiveDropdown(null)}
-                    >
-                      <p className="text-xs font-bold text-[#0B1F3A] group-hover:text-[#0F766E] transition">
-                        {child.label}
-                      </p>
-                      {child.desc && (
-                        <p className="text-[11px] text-slate-500 line-clamp-1 mt-0.5 group-hover:text-slate-600">
-                          {child.desc}
+                  <div
+                    style={{ backgroundColor: "#ffffff" }}
+                    className="w-72 rounded-2xl border border-slate-200 bg-white p-2.5 shadow-2xl shadow-slate-900/20 animate-in fade-in slide-in-from-top-1 duration-150"
+                  >
+                    {item.children.map((child) => (
+                      <Link
+                        key={child.href + child.label}
+                        href={child.href as never}
+                        className="block rounded-xl px-3.5 py-2.5 transition hover:bg-slate-50 group cursor-pointer"
+                        onClick={() => setActiveDropdown(null)}
+                      >
+                        <p className="text-xs font-bold text-[#0B1F3A] group-hover:text-[#0F766E] transition">
+                          {child.label}
                         </p>
-                      )}
-                    </Link>
-                  ))}
+                        {child.desc && (
+                          <p className="text-[11px] text-slate-500 line-clamp-1 mt-0.5 group-hover:text-slate-600">
+                            {child.desc}
+                          </p>
+                        )}
+                      </Link>
+                    ))}
+                  </div>
                 </div>
               )}
             </li>
