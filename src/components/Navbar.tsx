@@ -97,10 +97,8 @@ export default function Navbar() {
 
   return (
     <header
-      className={`header sticky top-0 z-50 w-full transition-all duration-300 ${
-        scrolled
-          ? "py-2.5 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-md shadow-slate-900/5"
-          : "py-3.5 bg-transparent border-b border-transparent shadow-none"
+      className={`header sticky top-0 z-50 w-full transition-all duration-300 bg-white/95 backdrop-blur-md border-b border-slate-200/80 ${
+        scrolled ? "py-2.5 shadow-md shadow-slate-900/5" : "py-3 shadow-xs"
       }`}
     >
       <nav className="container-aec relative z-30 flex items-center justify-between">
