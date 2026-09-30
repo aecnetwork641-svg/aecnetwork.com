@@ -9,8 +9,8 @@ interface MentorAboutSectionProps {
 }
 
 export default function MentorAboutSection({
-  title = "Voluptatem dignissimos provident quasi corporis",
-  subtitle = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Whether you seek foundational Quranic recitation, linguistic proficiency in English or Arabic, or core school academic mastery, our platform combines personalized tutoring with an enterprise LMS.",
+  title = "Empowering Global Learners Through Academic & Spiritual Excellence",
+  subtitle = "At AEC Network, we deliver world-class online education that combines traditional pedagogical rigor with modern interactive learning. Whether you seek foundational Quranic recitation, linguistic fluency in English or Arabic, or core school academic mastery, our platform combines personalized 1-on-1 tutoring with an enterprise learning portal.",
 }: MentorAboutSectionProps) {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
@@ -87,9 +87,9 @@ export default function MentorAboutSection({
                 </div>
                 <span className="text-sm text-slate-700 leading-relaxed">
                   <strong className="text-[#0B1F3A] font-semibold">
-                    Ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Live Interactive Classrooms:
                   </strong>{" "}
-                  Interactive live class rooms with verified meeting security.
+                  Secure 1-on-1 and small group HD video sessions featuring interactive digital whiteboards, screen sharing, and real-time teacher guidance.
                 </span>
               </li>
 
@@ -116,9 +116,9 @@ export default function MentorAboutSection({
                 </div>
                 <span className="text-sm text-slate-700 leading-relaxed">
                   <strong className="text-[#0B1F3A] font-semibold">
-                    Duis aute irure dolor in reprehenderit in voluptate velit.
+                    Structured Curriculum & Progress Tracking:
                   </strong>{" "}
-                  Modular digital curriculum with video lessons and quizzes, accompanied by automated attendance records with immediate parent notices.
+                  Modular digital courses with downloadable notes, quizzes, and automated attendance reporting with immediate parent notifications.
                 </span>
               </li>
 
@@ -145,9 +145,9 @@ export default function MentorAboutSection({
                 </div>
                 <span className="text-sm text-slate-700 leading-relaxed">
                   <strong className="text-[#0B1F3A] font-semibold">
-                    Ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Certified Faculty & Verifiable Credentials:
                   </strong>{" "}
-                  Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu fugiat nulla pariatur. Official verifiable completion certificates and structured tracks across Quran & Islamic Studies, Languages, STEM Tutoring, and One-on-One Mentorship.
+                  Learn under Sanad-certified Quran scholars and experienced academic instructors, earning official verifiable certificates across Islamic Disciplines, STEM, and School Exam Prep.
                 </span>
               </li>
             </ul>
