@@ -70,7 +70,7 @@ export default function MentorCountsSection() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           {STATS.map((item, idx) => (
             <div key={item.label} className="stats-item flex flex-col items-center justify-center p-4">
-              <span className="purecounter block text-4xl sm:text-5xl font-extrabold text-[#0F766E] tracking-tight">
+              <span className="purecounter block text-4xl sm:text-5xl font-extrabold text-[#4DA3D9] tracking-tight">
                 {counts[idx]}
               </span>
               <p className="mt-2 text-sm sm:text-base font-semibold text-slate-600">

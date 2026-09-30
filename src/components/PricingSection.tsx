@@ -229,7 +229,7 @@ export default function PricingSection({ isStandalonePage = false }: { isStandal
               >
                 {isPopular && (
                   <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
-                    <span className="bg-gradient-to-r from-aec-teal to-emerald-600 text-white text-[11px] font-extrabold uppercase tracking-wider px-3.5 py-1 rounded-full shadow-md">
+                    <span className="bg-gradient-to-r from-aec-teal to-aec-navy text-white text-[11px] font-extrabold uppercase tracking-wider px-3.5 py-1 rounded-full shadow-md">
                       Most Popular
                     </span>
                   </div>
@@ -274,7 +274,7 @@ export default function PricingSection({ isStandalonePage = false }: { isStandal
                     href={`/admissions/free-trial?plan=${encodeURIComponent(plan.name)}&currency=${selectedCurrency}`}
                     className={`w-full text-center py-2.5 px-4 rounded-xl text-xs font-bold transition-all block ${
                       isPopular
-                        ? "bg-aec-teal text-white hover:bg-teal-700 shadow-md"
+                        ? "bg-aec-teal text-white hover:bg-aec-navy shadow-md"
                         : "bg-aec-navy/5 text-aec-navy hover:bg-aec-navy hover:text-white"
                     }`}
                   >
@@ -380,13 +380,13 @@ export default function PricingSection({ isStandalonePage = false }: { isStandal
         </div>
 
         {/* Sibling & Family Discount */}
-        <div className="rounded-2xl border border-aec-teal/20 bg-gradient-to-br from-teal-50 to-emerald-50/40 p-6 sm:p-7 flex flex-col justify-between">
+        <div className="rounded-2xl border border-aec-teal/20 bg-gradient-to-br from-[#EAF5FC] to-white p-6 sm:p-7 flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between">
               <span className="badge bg-aec-teal/15 text-aec-teal border-aec-teal/30 text-xs font-bold">
                 👨‍👩‍👧‍👦 Family Discount
               </span>
-              <span className="font-display text-sm font-extrabold text-emerald-800">
+              <span className="font-display text-sm font-extrabold text-aec-navy">
                 10% – 15% OFF
               </span>
             </div>

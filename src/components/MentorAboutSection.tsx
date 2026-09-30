@@ -51,7 +51,7 @@ export default function MentorAboutSection({
             }}
           >
             <div>
-              <p className="text-xs font-bold uppercase tracking-widest text-[#0F766E] mb-2">
+              <p className="text-xs font-bold uppercase tracking-widest text-[#4DA3D9] mb-2">
                 Comprehensive Academy • What AEC Network Delivers
               </p>
               <h2 className="font-display text-2xl sm:text-3xl lg:text-[2rem] font-extrabold text-[#0B1F3A] leading-tight">
@@ -73,7 +73,7 @@ export default function MentorAboutSection({
               >
                 <div className="flex-shrink-0 mt-0.5">
                   <svg
-                    className="w-5 h-5 text-[#0F766E]"
+                    className="w-5 h-5 text-[#4DA3D9]"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -102,7 +102,7 @@ export default function MentorAboutSection({
               >
                 <div className="flex-shrink-0 mt-0.5">
                   <svg
-                    className="w-5 h-5 text-[#0F766E]"
+                    className="w-5 h-5 text-[#4DA3D9]"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -131,7 +131,7 @@ export default function MentorAboutSection({
               >
                 <div className="flex-shrink-0 mt-0.5">
                   <svg
-                    className="w-5 h-5 text-[#0F766E]"
+                    className="w-5 h-5 text-[#4DA3D9]"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -156,7 +156,7 @@ export default function MentorAboutSection({
             <div className="pt-2">
               <Link
                 href="/admissions/how-to-enroll"
-                className="inline-flex items-center gap-2 rounded-full bg-[#0F766E] hover:bg-[#0B1F3A] text-white px-7 py-3 text-sm font-semibold tracking-wide shadow-sm transition-all duration-300 group hover:shadow-md active:scale-95"
+                className="inline-flex items-center gap-2 rounded-full bg-[#4DA3D9] hover:bg-[#0B1F3A] text-white px-7 py-3 text-sm font-semibold tracking-wide shadow-sm transition-all duration-300 group hover:shadow-md active:scale-95"
               >
                 <span>Read More</span>
                 <span className="transition-transform duration-300 group-hover:translate-x-1.5 text-base">
@@ -185,8 +185,8 @@ export default function MentorAboutSection({
 
               {/* Floating Animated Badge */}
               <div className="absolute bottom-4 left-4 right-4 sm:right-auto bg-white/95 backdrop-blur-md rounded-xl p-3.5 shadow-lg border border-slate-100/90 flex items-center gap-3 transition-transform duration-300 group-hover:-translate-y-1">
-                <div className="relative flex items-center justify-center h-9 w-9 rounded-full bg-[#0F766E]/10 text-[#0F766E] flex-shrink-0">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#0F766E]/30 opacity-75"></span>
+                <div className="relative flex items-center justify-center h-9 w-9 rounded-full bg-[#4DA3D9]/10 text-[#4DA3D9] flex-shrink-0">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#4DA3D9]/30 opacity-75"></span>
                   <svg
                     className="w-5 h-5"
                     fill="none"

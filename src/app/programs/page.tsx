@@ -192,19 +192,19 @@ export default function ProgramsPage() {
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <div className="absolute top-3 right-3 bg-[#0F766E] text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-md">
+                    <div className="absolute top-3 right-3 bg-[#4DA3D9] text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-md">
                       {p.level}
                     </div>
                   </div>
 
                   <div className="p-6">
                     <div className="flex items-center justify-between gap-2 mb-3">
-                      <span className="bg-teal-50 text-[#0F766E] text-xs font-bold px-3 py-1 rounded-md border border-teal-200/80">
+                      <span className="bg-[#EAF5FC] text-[#4DA3D9] text-xs font-bold px-3 py-1 rounded-md border border-[#4DA3D9]/30">
                         {p.delivery}
                       </span>
                     </div>
 
-                    <h3 className="font-display text-xl font-extrabold text-[#0B1F3A] group-hover:text-[#0F766E] transition line-clamp-2">
+                    <h3 className="font-display text-xl font-extrabold text-[#0B1F3A] group-hover:text-[#4DA3D9] transition line-clamp-2">
                       {p.title}
                     </h3>
 
@@ -217,7 +217,7 @@ export default function ProgramsPage() {
                 <div className="p-6 pt-0 border-t border-slate-100 flex items-center justify-between mt-auto">
                   <Link
                     href={`/programs/${p.slug}` as never}
-                    className="text-xs font-bold text-[#0B1F3A] group-hover:text-[#0F766E] transition flex items-center gap-1"
+                    className="text-xs font-bold text-[#0B1F3A] group-hover:text-[#4DA3D9] transition flex items-center gap-1"
                   >
                     <span>View Curriculum</span>
                     <span className="transition-transform group-hover:translate-x-1">→</span>
@@ -238,7 +238,7 @@ export default function ProgramsPage() {
       {/* Advisory Banner */}
       <div className="rounded-2xl border border-slate-200/90 bg-[#0B1F3A] text-white p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl">
         <div>
-          <p className="text-xs font-bold uppercase tracking-widest text-[#0F766E] mb-1">Academic Guidance</p>
+          <p className="text-xs font-bold uppercase tracking-widest text-[#4DA3D9] mb-1">Academic Guidance</p>
           <h2 className="font-display text-2xl font-extrabold">Unsure which program suits your learner?</h2>
           <p className="mt-1 text-sm text-slate-300 max-w-xl">
             Our academic counseling team provides personalized level evaluations and curriculum advice.

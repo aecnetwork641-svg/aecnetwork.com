@@ -85,7 +85,7 @@ export default function FacultyTeamSection({ showHeader = true }: { showHeader?:
                 <div className="absolute top-3 right-3 rounded-full bg-[#0B1F3A] text-white px-3 py-1 text-[10px] font-bold shadow-md border border-white/20">
                   {member.badge}
                 </div>
-                <div className="absolute bottom-3 left-3 rounded-md bg-[#0F766E] text-white px-2.5 py-0.5 text-[11px] font-semibold shadow-sm">
+                <div className="absolute bottom-3 left-3 rounded-md bg-[#4DA3D9] text-white px-2.5 py-0.5 text-[11px] font-semibold shadow-sm">
                   {member.experience}
                 </div>
               </div>
@@ -111,7 +111,7 @@ export default function FacultyTeamSection({ showHeader = true }: { showHeader?:
             <div className="p-5 pt-0">
               <Link
                 href="/admissions/free-trial"
-                className="inline-flex w-full items-center justify-center rounded-xl bg-slate-50 border border-slate-200 py-2.5 text-xs font-bold text-[#0B1F3A] transition group-hover:bg-[#0F766E] group-hover:text-white group-hover:border-[#0F766E]"
+                className="inline-flex w-full items-center justify-center rounded-xl bg-slate-50 border border-slate-200 py-2.5 text-xs font-bold text-[#0B1F3A] transition group-hover:bg-[#4DA3D9] group-hover:text-white group-hover:border-[#4DA3D9]"
               >
                 <span>Book Class With Instructor</span>
                 <span className="ml-1.5 transition-transform group-hover:translate-x-1">→</span>
@@ -124,7 +124,7 @@ export default function FacultyTeamSection({ showHeader = true }: { showHeader?:
       {/* Team Contact Box */}
       <div className="mt-12 rounded-2xl bg-gradient-to-r from-[#0B1F3A] to-[#06101E] p-8 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-6 border border-white/10">
         <div className="space-y-2 text-center md:text-left max-w-xl">
-          <span className="text-xs font-bold uppercase tracking-wider text-[#0F766E]">
+          <span className="text-xs font-bold uppercase tracking-wider text-[#4DA3D9]">
             Direct Academic Consultation
           </span>
           <h3 className="font-display text-2xl font-bold">
@@ -138,7 +138,7 @@ export default function FacultyTeamSection({ showHeader = true }: { showHeader?:
         <div className="flex flex-wrap items-center justify-center gap-3">
           <Link
             href="/contact"
-            className="rounded-xl bg-[#0F766E] px-6 py-3 text-xs font-bold text-white transition hover:bg-[#0b5a54] shadow-md"
+            className="rounded-xl bg-[#4DA3D9] px-6 py-3 text-xs font-bold text-white transition hover:bg-[#3b8fc2] shadow-md"
           >
             Contact Academic Team
           </Link>

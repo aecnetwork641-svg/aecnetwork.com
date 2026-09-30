@@ -17,20 +17,20 @@ export default function PageHeaderBanner({
 }: PageHeaderBannerProps) {
   return (
     <div className="relative overflow-hidden bg-[#0B1F3A] text-white">
-      {/* Background Banner Image with Dark Navy & Teal Brand Overlay */}
+      {/* Background Banner Image with Dark Navy & Sky Blue Brand Overlay */}
       <div className="absolute inset-0">
         <img
           src={bgImage}
           alt={title}
           className="h-full w-full object-cover object-center opacity-30 mix-blend-luminosity"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0B1F3A] via-[#0B1F3A]/90 to-[#0F766E]/70" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0B1F3A] via-[#0B1F3A]/90 to-[#4DA3D9]/70" />
       </div>
 
       {/* Main Heading Content (Head Banner) */}
       <div className="relative container-aec py-14 sm:py-20 text-center max-w-4xl mx-auto">
         {badge && (
-          <span className="inline-block rounded-full bg-[#0F766E]/30 border border-[#0F766E]/60 px-4 py-1 text-xs font-bold uppercase tracking-wider text-teal-200 mb-3 backdrop-blur-xs">
+          <span className="inline-block rounded-full bg-[#4DA3D9]/30 border border-[#4DA3D9]/60 px-4 py-1 text-xs font-bold uppercase tracking-wider text-sky-200 mb-3 backdrop-blur-xs">
             {badge}
           </span>
         )}
@@ -45,7 +45,7 @@ export default function PageHeaderBanner({
       </div>
 
       {/* Mentor Breadcrumbs Bar */}
-      <div className="relative border-t border-white/10 bg-[#0F766E]/80 backdrop-blur-xs py-3 text-xs">
+      <div className="relative border-t border-white/10 bg-[#4DA3D9]/85 backdrop-blur-xs py-3 text-xs">
         <div className="container-aec flex items-center justify-between text-white/90">
           <ol className="flex items-center gap-2">
             <li>

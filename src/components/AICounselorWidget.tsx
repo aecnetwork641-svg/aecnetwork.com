@@ -52,7 +52,7 @@ export default function AICounselorWidget() {
       {!isOpen ? (
         <button
           onClick={() => setIsOpen(true)}
-          className="flex items-center gap-2 rounded-full bg-aec-blue px-4 py-3 text-sm font-bold text-white shadow-lg hover:bg-aec-blue/90 transition-transform active:scale-95"
+          className="flex items-center gap-2 rounded-full bg-[#4DA3D9] hover:bg-[#0B1F3A] px-4 py-3 text-sm font-bold text-white shadow-lg transition-all active:scale-95"
         >
           <span>Ask AI Counselor</span>
         </button>
@@ -102,12 +102,12 @@ export default function AICounselorWidget() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Ask about courses, fees, or trials..."
-              className="flex-1 rounded border border-aec-navy/20 px-3 py-1.5 text-xs text-aec-navy focus:border-aec-blue focus:outline-none"
+              className="flex-1 rounded border border-aec-navy/20 px-3 py-1.5 text-xs text-aec-navy focus:border-[#4DA3D9] focus:outline-none"
             />
             <button
               type="submit"
               disabled={loading || !input.trim()}
-              className="rounded bg-aec-blue px-3 py-1.5 text-xs font-semibold text-white hover:bg-aec-blue/90 disabled:opacity-50"
+              className="rounded bg-[#4DA3D9] px-3 py-1.5 text-xs font-semibold text-white hover:bg-[#0B1F3A] disabled:opacity-50 transition"
             >
               Send
             </button>

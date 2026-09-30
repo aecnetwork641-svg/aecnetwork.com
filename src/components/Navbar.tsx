@@ -129,14 +129,14 @@ export default function Navbar() {
                   }
                   className={`nav-link inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold rounded-full transition-all duration-200 cursor-pointer ${
                     activeDropdown === item.label
-                      ? "text-[#0F766E] bg-slate-100 shadow-xs"
-                      : "text-[#0B1F3A] hover:text-[#0F766E] hover:bg-slate-50"
+                      ? "text-[#4DA3D9] bg-slate-100 shadow-xs"
+                      : "text-[#0B1F3A] hover:text-[#4DA3D9] hover:bg-slate-50"
                   }`}
                 >
                   <span>{item.label}</span>
                   <svg
                     className={`h-3 w-3 transition-transform duration-200 ${
-                      activeDropdown === item.label ? "rotate-180 text-[#0F766E]" : "opacity-60 text-slate-500"
+                      activeDropdown === item.label ? "rotate-180 text-[#4DA3D9]" : "opacity-60 text-slate-500"
                     }`}
                     fill="none"
                     viewBox="0 0 24 24"
@@ -148,7 +148,7 @@ export default function Navbar() {
               ) : (
                 <Link
                   href={item.href as never}
-                  className="nav-link inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold rounded-full transition-all duration-200 text-[#0B1F3A] hover:text-[#0F766E] hover:bg-slate-50"
+                  className="nav-link inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold rounded-full transition-all duration-200 text-[#0B1F3A] hover:text-[#4DA3D9] hover:bg-slate-50"
                 >
                   <span>{item.label}</span>
                 </Link>
@@ -172,7 +172,7 @@ export default function Navbar() {
                         className="block rounded-xl px-3.5 py-2.5 transition hover:bg-slate-50 group cursor-pointer"
                         onClick={() => setActiveDropdown(null)}
                       >
-                        <p className="text-xs font-bold text-[#0B1F3A] group-hover:text-[#0F766E] transition">
+                        <p className="text-xs font-bold text-[#0B1F3A] group-hover:text-[#4DA3D9] transition">
                           {child.label}
                         </p>
                         {child.desc && (
@@ -193,13 +193,13 @@ export default function Navbar() {
         <div className="flex items-center gap-2.5">
           <Link
             href="/courses"
-            className="hidden xl:inline-flex items-center justify-center rounded-full border-2 border-[#0F766E] bg-white px-4 py-1.5 text-xs font-bold text-[#0F766E] shadow-sm transition hover:bg-[#0F766E] hover:text-white"
+            className="hidden xl:inline-flex items-center justify-center rounded-full border-2 border-[#4DA3D9] bg-white px-4 py-1.5 text-xs font-bold text-[#4DA3D9] shadow-sm transition hover:bg-[#4DA3D9] hover:text-white"
           >
             Explore Courses
           </Link>
           <Link
             href="/admissions/apply"
-            className="inline-flex items-center justify-center rounded-full bg-[#0F766E] hover:bg-[#0B1F3A] px-5 py-2 text-xs font-bold text-white shadow-md shadow-teal-700/20 transition duration-200 hover:scale-[1.02] active:scale-[0.98]"
+            className="inline-flex items-center justify-center rounded-full bg-[#4DA3D9] hover:bg-[#0B1F3A] px-5 py-2 text-xs font-bold text-white shadow-md shadow-sky-500/20 transition duration-200 hover:scale-[1.02] active:scale-[0.98]"
           >
             New Registration
           </Link>
@@ -241,12 +241,12 @@ export default function Navbar() {
                       onClick={() =>
                         setMobileExpanded(mobileExpanded === item.label ? null : item.label)
                       }
-                      className="w-full flex items-center justify-between py-2 text-sm font-semibold text-[#0B1F3A] hover:text-[#0F766E]"
+                      className="w-full flex items-center justify-between py-2 text-sm font-semibold text-[#0B1F3A] hover:text-[#4DA3D9]"
                     >
                       <span>{item.label}</span>
                       <svg
                         className={`h-4 w-4 transition-transform ${
-                          mobileExpanded === item.label ? "rotate-180 text-[#0F766E]" : "opacity-60 text-slate-500"
+                          mobileExpanded === item.label ? "rotate-180 text-[#4DA3D9]" : "opacity-60 text-slate-500"
                         }`}
                         fill="none"
                         viewBox="0 0 24 24"
@@ -257,13 +257,13 @@ export default function Navbar() {
                     </button>
 
                     {mobileExpanded === item.label && (
-                      <div className="pl-3 pb-2 space-y-3 border-l-2 border-[#0F766E]/40 ml-2 mt-1">
+                      <div className="pl-3 pb-2 space-y-3 border-l-2 border-[#4DA3D9]/40 ml-2 mt-1">
                         {item.children &&
                           item.children.map((child) => (
                             <Link
                               key={child.href}
                               href={child.href as never}
-                              className="block py-1 text-xs text-slate-600 hover:text-[#0F766E]"
+                              className="block py-1 text-xs text-slate-600 hover:text-[#4DA3D9]"
                               onClick={() => setOpen(false)}
                             >
                               {child.label}
@@ -275,7 +275,7 @@ export default function Navbar() {
                 ) : (
                   <Link
                     href={item.href as never}
-                    className="block py-2 text-sm font-semibold text-[#0B1F3A] hover:text-[#0F766E]"
+                    className="block py-2 text-sm font-semibold text-[#0B1F3A] hover:text-[#4DA3D9]"
                     onClick={() => setOpen(false)}
                   >
                     {item.label}
@@ -288,14 +288,14 @@ export default function Navbar() {
             <div className="mt-4 flex flex-col gap-2.5 pt-2">
               <Link
                 href="/admissions/apply"
-                className="w-full text-center rounded-full bg-[#0F766E] hover:bg-[#0B1F3A] py-2.5 text-xs font-bold text-white shadow-md shadow-teal-700/20"
+                className="w-full text-center rounded-full bg-[#4DA3D9] hover:bg-[#0B1F3A] py-2.5 text-xs font-bold text-white shadow-md shadow-sky-500/20"
                 onClick={() => setOpen(false)}
               >
                 New Registration
               </Link>
               <Link
                 href="/courses"
-                className="w-full text-center rounded-full border-2 border-[#0F766E] bg-white py-2 text-xs font-bold text-[#0F766E]"
+                className="w-full text-center rounded-full border-2 border-[#4DA3D9] bg-white py-2 text-xs font-bold text-[#4DA3D9]"
                 onClick={() => setOpen(false)}
               >
                 Explore Courses

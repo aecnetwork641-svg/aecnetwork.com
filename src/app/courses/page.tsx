@@ -291,7 +291,7 @@ export default function CoursesPage() {
               placeholder="Search courses by keyword..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full rounded-full border border-slate-200 px-4 py-2.5 text-xs text-slate-900 placeholder-slate-400 focus:border-[#0F766E] focus:outline-none focus:ring-1 focus:ring-[#0F766E]"
+              className="w-full rounded-full border border-slate-200 px-4 py-2.5 text-xs text-slate-900 placeholder-slate-400 focus:border-[#4DA3D9] focus:outline-none focus:ring-1 focus:ring-[#4DA3D9]"
             />
           </div>
           <div className="w-full sm:w-2/3 flex items-center gap-2 overflow-x-auto pb-1">
@@ -301,7 +301,7 @@ export default function CoursesPage() {
                 onClick={() => setSelectedCategory(cat)}
                 className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition ${
                   selectedCategory === cat
-                    ? "bg-[#0F766E] text-white shadow-sm"
+                    ? "bg-[#4DA3D9] text-white shadow-sm"
                     : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                 }`}
               >
@@ -408,7 +408,7 @@ export default function CoursesPage() {
                   <div className="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
                     <Link
                       href={`/courses/${c.slug}` as never}
-                      className="font-bold text-[#0B1F3A] hover:text-[#0F766E] transition flex items-center gap-1"
+                      className="font-bold text-[#0B1F3A] hover:text-[#4DA3D9] transition flex items-center gap-1"
                     >
                       <span>View Details</span>
                       <span className="transition-transform group-hover:translate-x-1">→</span>
@@ -429,19 +429,19 @@ export default function CoursesPage() {
 
       {/* LMS Architecture Features */}
       <div className="rounded-2xl border border-slate-200/90 bg-white p-8 shadow-sm">
-        <p className="text-xs font-bold uppercase tracking-widest text-[#0F766E] mb-1">Interactive Learning</p>
+        <p className="text-xs font-bold uppercase tracking-widest text-[#4DA3D9] mb-1">Interactive Learning</p>
         <h2 className="font-display text-xl font-extrabold text-[#0B1F3A]">AEC Learning Management System Features</h2>
         <div className="mt-6 grid gap-6 sm:grid-cols-3 text-xs text-slate-600">
-          <div className="rounded-xl border border-slate-100 bg-slate-50/80 p-5">
-            <span className="font-bold text-[#0F766E] text-sm block mb-1">Live Classrooms</span>
+          <div className="rounded-xl border border-[#4DA3D9]/20 bg-[#EAF5FC]/50 p-5">
+            <span className="font-bold text-[#4DA3D9] text-sm block mb-1">Live Classrooms</span>
             Protected integration with video meeting platforms (Zoom, Google Meet, Teams) and automated class schedules.
           </div>
-          <div className="rounded-xl border border-slate-100 bg-slate-50/80 p-5">
-            <span className="font-bold text-[#0F766E] text-sm block mb-1">Quizzes & Progress</span>
+          <div className="rounded-xl border border-[#4DA3D9]/20 bg-[#EAF5FC]/50 p-5">
+            <span className="font-bold text-[#4DA3D9] text-sm block mb-1">Quizzes & Progress</span>
             Automated quiz evaluations with instant feedback, gradebooks, attendance logs, and progress reporting.
           </div>
-          <div className="rounded-xl border border-slate-100 bg-slate-50/80 p-5">
-            <span className="font-bold text-[#0F766E] text-sm block mb-1">Verifiable Certificates</span>
+          <div className="rounded-xl border border-[#4DA3D9]/20 bg-[#EAF5FC]/50 p-5">
+            <span className="font-bold text-[#4DA3D9] text-sm block mb-1">Verifiable Certificates</span>
             Official digital certificates issued upon completion with unique public verification credentials.
           </div>
         </div>

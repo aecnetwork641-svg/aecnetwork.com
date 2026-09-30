@@ -1,7 +1,7 @@
 import type { SVGProps } from "react";
 
 const NAVY = "#0B1F3A";
-const TEAL = "#0F766E";
+const SKY_BLUE = "#4DA3D9";
 const WHITE = "#FFFFFF";
 const FONT = "Inter, 'Segoe UI', Helvetica, Arial, sans-serif";
 
@@ -39,14 +39,14 @@ function Symbol({ dark, variant = "a" }: { dark: boolean; variant?: "a" | "b" })
     <>
       <path fill={main} d={PAGES_B.base} />
       <path fill={main} d={PAGES_B.l1} />
-      <path fill={TEAL} d={PAGES_B.l2} />
+      <path fill={SKY_BLUE} d={PAGES_B.l2} />
       <path fill={main} d={PAGES_B.l3} />
     </>
   ) : (
     <>
       <path fill={main} d={PAGES.base} />
       <path fill={main} d={PAGES.outer} />
-      <path fill={TEAL} d={PAGES.middle} />
+      <path fill={SKY_BLUE} d={PAGES.middle} />
       <path fill={main} d={PAGES.inner} />
     </>
   );
@@ -71,7 +71,7 @@ export default function AECNetworkLogo({
 }: Props) {
   const dark = theme === "dark";
   const text = dark ? WHITE : NAVY;
-  const tag = dark ? WHITE : TEAL;
+  const tag = dark ? WHITE : SKY_BLUE;
   const label = iconOnly ? "AEC Network" : "AEC Network, A Project by AEC Network";
 
   let viewBox: string;

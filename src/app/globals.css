@@ -4,12 +4,14 @@
 
 :root {
   --aec-navy: #0B1F3A;
-  --aec-teal: #0F766E;
+  --aec-teal: #4DA3D9;
+  --aec-sky: #4DA3D9;
+  --aec-lightblue: #EAF5FC;
   --aec-white: #FFFFFF;
   --aec-black: #000000;
-  --aec-cream: #F8FAFC;
-  --aec-sand: #F1F5F9;
-  --mentor-accent: #0F766E;
+  --aec-cream: #EAF5FC;
+  --aec-sand: #EAF5FC;
+  --mentor-accent: #4DA3D9;
   --mentor-heading: #0B1F3A;
   --mentor-dark: #000000;
   --mentor-light: #FFFFFF;
@@ -107,14 +109,14 @@ body {
 .mentor-course-card:hover {
   transform: translateY(-8px) scale(1.01);
   box-shadow: 0 20px 30px -10px rgba(11, 31, 58, 0.15);
-  border-color: rgba(15, 118, 110, 0.45);
+  border-color: rgba(77, 163, 217, 0.45);
 }
 
 .mentor-course-card .course-img-wrap {
   position: relative;
   overflow: hidden;
   height: 210px;
-  background-color: #f1f5f9;
+  background-color: #EAF5FC;
 }
 
 .mentor-course-card .course-img-wrap img {
@@ -136,7 +138,7 @@ body {
 }
 
 .mentor-course-card .category-pill {
-  background-color: #0F766E;
+  background-color: #4DA3D9;
   color: #ffffff;
   font-size: 0.75rem;
   font-weight: 700;
@@ -167,7 +169,7 @@ body {
 
 .mentor-course-card h3 a:hover,
 .mentor-course-card:hover h3 a {
-  color: #0F766E;
+  color: #4DA3D9;
 }
 
 .mentor-course-card .course-description {
@@ -181,7 +183,7 @@ body {
 .mentor-course-card .trainer-row {
   margin-top: 1.25rem;
   padding-top: 0.875rem;
-  border-top: 1px solid #f1f5f9;
+  border-top: 1px solid #EAF5FC;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -209,7 +211,7 @@ body {
 }
 
 .mentor-course-card:hover .trainer-name {
-  color: #0F766E;
+  color: #4DA3D9;
 }
 
 .mentor-course-card .trainer-stats {
@@ -254,7 +256,7 @@ body {
 }
 
 .badge-info {
-  @apply bg-sky-50 text-sky-700 border border-sky-200;
+  @apply bg-[#EAF5FC] text-[#4DA3D9] border border-[#4DA3D9]/30;
 }
 
 .badge-neutral {
@@ -278,7 +280,7 @@ body {
 }
 
 .table-aec tr:hover td {
-  @apply bg-slate-50/50;
+  @apply bg-[#EAF5FC]/50;
 }
 
 .input-field {

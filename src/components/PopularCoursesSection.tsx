@@ -137,7 +137,7 @@ export default function PopularCoursesSection() {
         </div>
         <Link
           href="/courses"
-          className="text-xs font-bold text-[#0F766E] hover:text-[#0B1F3A] transition flex items-center gap-1.5 group mb-2"
+          className="text-xs font-bold text-[#4DA3D9] hover:text-[#0B1F3A] transition flex items-center gap-1.5 group mb-2"
         >
           <span>View all courses catalog</span>
           <span className="transition-transform group-hover:translate-x-1 font-bold">→</span>

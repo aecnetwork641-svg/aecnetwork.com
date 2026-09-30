@@ -26,8 +26,8 @@ const SLIDES: BannerSlide[] = [
     imageExt: "png",
     primaryBtn: { label: "Start Learning Today", href: "/admissions/apply" },
     secondaryBtn: { label: "Book Free Trial", href: "/admissions/free-trial" },
-    accentColor: "#0F766E",
-    glowColor: "rgba(15,118,110,0.45)",
+    accentColor: "#4DA3D9",
+    glowColor: "rgba(77,163,217,0.45)",
   },
   {
     id: "s2",
@@ -37,8 +37,8 @@ const SLIDES: BannerSlide[] = [
     imageExt: "jpg",
     primaryBtn: { label: "Explore All Courses", href: "/courses" },
     secondaryBtn: { label: "Book Free Trial", href: "/admissions/free-trial" },
-    accentColor: "#0F766E",
-    glowColor: "rgba(15,118,110,0.45)",
+    accentColor: "#4DA3D9",
+    glowColor: "rgba(77,163,217,0.45)",
   },
   {
     id: "s3",
@@ -48,8 +48,8 @@ const SLIDES: BannerSlide[] = [
     imageExt: "png",
     primaryBtn: { label: "View All Courses", href: "/courses" },
     secondaryBtn: { label: "Book Free Trial", href: "/admissions/free-trial" },
-    accentColor: "#0F766E",
-    glowColor: "rgba(15,118,110,0.45)",
+    accentColor: "#4DA3D9",
+    glowColor: "rgba(77,163,217,0.45)",
   },
 ];
 
@@ -192,7 +192,7 @@ export default function HeroSlider() {
               href={slide.primaryBtn.href as never}
               className="inline-flex items-center gap-2.5 px-8 py-4 rounded-xl font-bold text-sm text-white shadow-2xl transition-all duration-200 hover:scale-[1.03] active:scale-[0.98]"
               style={{
-                background: `linear-gradient(135deg, ${slide.accentColor}, #0c5c56)`,
+                background: `linear-gradient(135deg, ${slide.accentColor}, #0B1F3A)`,
                 boxShadow: `0 8px 30px ${slide.glowColor}`,
               }}
             >
