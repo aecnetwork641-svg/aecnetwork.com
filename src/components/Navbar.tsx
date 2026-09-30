@@ -4,17 +4,10 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import Logo from "@/components/Logo";
 
-type CategoryItem = {
-  categoryName: string;
-  badge?: string;
-  items: { label: string; href: string; desc?: string }[];
-};
-
 type NavItem = {
   label: string;
   href: string;
   children?: { label: string; href: string; desc?: string }[];
-  categories?: CategoryItem[];
 };
 
 const NAV: NavItem[] = [
@@ -23,45 +16,11 @@ const NAV: NavItem[] = [
   {
     label: "All Courses",
     href: "/courses",
-    categories: [
-      {
-        categoryName: "Islamic Education",
-        badge: "🕌",
-        items: [
-          { label: "Quran & Tajweed Mastery", href: "/programs/quran-islamic-studies" },
-          { label: "Islamic Studies & Translation", href: "/programs/translation-of-quran" },
-          { label: "Qirat & Melodic Recitation", href: "/programs/qirat-course" }
-        ]
-      },
-      {
-        categoryName: "Academic Tutoring",
-        badge: "📚",
-        items: [
-          { label: "GCSE & IGCSE", href: "/programs/gcse" },
-          { label: "O & A Levels", href: "/programs/o-a-levels" },
-          { label: "Science & Mathematics", href: "/programs/mathematics" },
-          { label: "English Language", href: "/programs/english" }
-        ]
-      },
-      {
-        categoryName: "Test Preparation",
-        badge: "🎯",
-        items: [
-          { label: "NAPLAN Preparation", href: "/programs/naplan" },
-          { label: "SAT Preparation", href: "/programs/sat-tutoring" },
-          { label: "GRE Preparation", href: "/programs/gre-tutoring" }
-        ]
-      },
-      {
-        categoryName: "Technology & Digital Skills",
-        badge: "💻",
-        items: [
-          { label: "Computer Programming & Coding", href: "/programs/computer-programming" },
-          { label: "Web Designing & Development", href: "/programs/web-development" },
-          { label: "Digital Marketing", href: "/programs/digital-marketing" },
-          { label: "Social Media Marketing", href: "/programs/social-media-marketing-smm" }
-        ]
-      }
+    children: [
+      { label: "🕌 Islamic Education", href: "/courses?category=Islamic" },
+      { label: "📚 Academic Tutoring", href: "/courses?category=Academic+Tutoring" },
+      { label: "🎯 Test Preparation", href: "/courses?category=Test+Preparation" },
+      { label: "💻 Technology & Digital Skills", href: "/courses?category=Technology" },
     ]
   },
   { label: "New Registration", href: "/admissions/apply" },
@@ -157,61 +116,8 @@ export default function Navbar() {
                 )}
               </Link>
 
-              {/* Categorized Mega Dropdown (for All Courses) - Solid 100% White Background */}
-              {item.categories && activeDropdown === item.label && (
-                <div
-                  style={{ backgroundColor: "#ffffff" }}
-                  className="absolute -left-36 top-full mt-2.5 z-[100] w-[760px] rounded-2xl border border-slate-200 bg-white p-5 shadow-2xl shadow-slate-900/20 animate-in fade-in slide-in-from-top-2 duration-150"
-                >
-                  <div className="grid grid-cols-2 gap-x-8 gap-y-5">
-                    {item.categories.map((cat) => (
-                      <div key={cat.categoryName} className="space-y-1.5">
-                        <div className="flex items-center gap-2 border-b border-slate-100 pb-2">
-                          <span className="text-base">{cat.badge}</span>
-                          <h4 className="text-xs font-bold uppercase tracking-wider text-[#0B1F3A]">
-                            {cat.categoryName}
-                          </h4>
-                        </div>
-                        <div className="space-y-0.5">
-                          {cat.items.map((sub) => (
-                            <Link
-                              key={sub.href + sub.label}
-                              href={sub.href as never}
-                              className="group flex items-center justify-between rounded-lg px-2.5 py-1.5 transition hover:bg-slate-50"
-                              onClick={() => setActiveDropdown(null)}
-                            >
-                              <span className="text-xs font-semibold text-[#0B1F3A] group-hover:text-[#0F766E] transition">
-                                {sub.label}
-                              </span>
-                              <span className="text-xs text-[#0F766E] opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all">
-                                →
-                              </span>
-                            </Link>
-                          ))}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Mega Menu Footer */}
-                  <div className="mt-5 flex items-center justify-between border-t border-slate-100 pt-3 text-xs">
-                    <span className="text-slate-500 font-medium">
-                      ✨ 1-on-1 personalized tutoring with qualified global faculty
-                    </span>
-                    <Link
-                      href="/courses"
-                      className="font-bold text-[#0F766E] hover:text-[#0B1F3A] transition flex items-center gap-1.5"
-                      onClick={() => setActiveDropdown(null)}
-                    >
-                      <span>View All Courses Catalog</span>
-                      <span>→</span>
-                    </Link>
-                  </div>
-                </div>
-              )}
-
-              {/* Standard Dropdown (for Portals, Resources) - Solid 100% White Background */}
-              {item.children && !item.categories && activeDropdown === item.label && (
+              {/* Standard Dropdown (for All Courses, Portals, Resources) - Solid 100% White Background */}
+              {item.children && activeDropdown === item.label && (
                 <div
                   style={{ backgroundColor: "#ffffff" }}
                   className="absolute left-0 top-full mt-2.5 z-[100] w-72 rounded-2xl border border-slate-200 bg-white p-2.5 shadow-2xl shadow-slate-900/20 animate-in fade-in slide-in-from-top-1 duration-150"
@@ -308,28 +214,7 @@ export default function Navbar() {
 
                     {mobileExpanded === item.label && (
                       <div className="pl-3 pb-2 space-y-3 border-l-2 border-[#0F766E]/40 ml-2 mt-1">
-                        {item.categories &&
-                          item.categories.map((cat) => (
-                            <div key={cat.categoryName} className="space-y-1">
-                              <p className="text-[11px] font-bold uppercase tracking-wider text-[#0F766E] pt-1 flex items-center gap-1.5">
-                                <span>{cat.badge}</span>
-                                <span>{cat.categoryName}</span>
-                              </p>
-                              {cat.items.map((sub) => (
-                                <Link
-                                  key={sub.href + sub.label}
-                                  href={sub.href as never}
-                                  className="block py-1 text-xs text-slate-600 hover:text-[#0F766E]"
-                                  onClick={() => setOpen(false)}
-                                >
-                                  {sub.label}
-                                </Link>
-                              ))}
-                            </div>
-                          ))}
-
                         {item.children &&
-                          !item.categories &&
                           item.children.map((child) => (
                             <Link
                               key={child.href}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { getCourseImage } from "@/lib/course-images";
 import PageHeaderBanner from "@/components/PageHeaderBanner";
@@ -241,6 +241,25 @@ export default function CoursesPage() {
   const [searchQuery, setSearchQuery] = useState("");
 
   const categories = ["ALL", "Islamic", "School & Exam Prep", "STEM & Languages", "IT & Programming"];
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const cat = params.get("category");
+      if (cat) {
+        const lower = cat.toLowerCase();
+        if (lower.includes("islamic")) {
+          setSelectedCategory("Islamic");
+        } else if (lower.includes("academic") || lower.includes("school")) {
+          setSelectedCategory("School & Exam Prep");
+        } else if (lower.includes("test") || lower.includes("prep") || lower.includes("exam")) {
+          setSelectedCategory("School & Exam Prep");
+        } else if (lower.includes("tech") || lower.includes("it") || lower.includes("coding") || lower.includes("program")) {
+          setSelectedCategory("IT & Programming");
+        }
+      }
+    }
+  }, []);
 
   const filteredCourses = ALL_COURSES.filter((c) => {
     const matchesCat = selectedCategory === "ALL" || c.category === selectedCategory;
