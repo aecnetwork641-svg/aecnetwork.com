@@ -88,7 +88,7 @@ export default function HeroSlider() {
 
   return (
     <section
-      className="relative overflow-hidden bg-[#040a18] select-none"
+      className="relative overflow-hidden bg-[#0B1F3A] select-none"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       style={{ minHeight: "100svh" }}
@@ -145,9 +145,9 @@ export default function HeroSlider() {
               sizes="100vw"
             />
           </div>
-          {/* Balanced overlay so background image is clearly visible while text stays readable */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#040a18]/65 via-[#040a18]/40 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#040a18]/50 via-transparent to-[#040a18]/20" />
+          {/* Balanced overlay in pure Navy #0B1F3A so background image is clearly visible while text stays readable */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0B1F3A]/85 via-[#0B1F3A]/60 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F3A]/70 via-transparent to-[#0B1F3A]/30" />
         </div>
       ))}
 
@@ -221,7 +221,7 @@ export default function HeroSlider() {
             ].map((s) => (
               <div key={s.l} className="flex flex-col">
                 <span className="text-xl font-black text-white" style={{ color: slide.accentColor }}>{s.n}</span>
-                <span className="text-xs text-slate-300 font-medium">{s.l}</span>
+                <span className="text-xs text-[#EAF5FC] font-medium">{s.l}</span>
               </div>
             ))}
           </div>
@@ -255,7 +255,7 @@ export default function HeroSlider() {
             style={{
               width: i === current ? 36 : 10,
               height: 10,
-              background: i === current ? slide.accentColor : "rgba(255,255,255,0.3)",
+              background: i === current ? slide.accentColor : "rgba(234,245,252,0.35)",
               boxShadow: i === current ? `0 0 12px ${slide.glowColor}` : "none",
             }}
           />
@@ -271,7 +271,7 @@ export default function HeroSlider() {
           key={label}
           onClick={action}
           aria-label={label}
-          className={`hidden md:flex absolute ${pos} top-1/2 -translate-y-1/2 z-20 w-12 h-12 items-center justify-center rounded-full border border-white/20 bg-black/40 backdrop-blur-md text-white transition-all duration-200 hover:scale-110 hover:bg-black/70 cursor-pointer shadow-xl`}
+          className={`hidden md:flex absolute ${pos} top-1/2 -translate-y-1/2 z-20 w-12 h-12 items-center justify-center rounded-full border border-[#4DA3D9]/40 bg-[#0B1F3A]/85 backdrop-blur-md text-white transition-all duration-200 hover:scale-110 hover:bg-[#4DA3D9] cursor-pointer shadow-xl`}
         >
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d={icon} />
