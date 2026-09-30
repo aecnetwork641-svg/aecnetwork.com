@@ -102,7 +102,7 @@ export default function Navbar() {
                 }`}
               >
                 <span>{item.label}</span>
-                {(item.children || item.categories) && (
+                {item.children && (
                   <svg
                     className={`h-3 w-3 transition-transform duration-200 ${
                       activeDropdown === item.label ? "rotate-180 text-[#0F766E]" : "opacity-60 text-slate-500"
@@ -191,7 +191,7 @@ export default function Navbar() {
           <div className="flex flex-col gap-2">
             {NAV.map((item) => (
               <div key={item.label} className="border-b border-slate-100 pb-2">
-                {item.children || item.categories ? (
+                {item.children ? (
                   <div>
                     <button
                       onClick={() =>
