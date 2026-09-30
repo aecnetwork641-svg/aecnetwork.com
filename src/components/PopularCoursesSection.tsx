@@ -2,7 +2,6 @@
 
 import { useEffect, useState, useRef } from "react";
 import Link from "next/link";
-import { getCourseImage } from "@/lib/course-images";
 
 interface CourseItem {
   title: string;
@@ -21,54 +20,12 @@ interface CourseItem {
 
 const POPULAR_COURSES: CourseItem[] = [
   {
-    title: "Website Design",
-    slug: "web-development",
-    category: "Web Development",
-    price: "$169",
-    image: "/images/courses/mentor-course-1.jpg",
-    blurb: "Et architecto provident deleniti facere repellat nobis iste. Id facere quia quae dolores dolorem tempore.",
-    trainer: {
-      name: "Antonio",
-      avatar: "/images/courses/mentor-trainer-1.jpg",
-      students: 50,
-      likes: 65,
-    },
-  },
-  {
-    title: "Search Engine Optimization",
-    slug: "digital-marketing",
-    category: "Marketing",
-    price: "$250",
-    image: "/images/courses/mentor-course-2.jpg",
-    blurb: "Et architecto provident deleniti facere repellat nobis iste. Id facere quia quae dolores dolorem tempore.",
-    trainer: {
-      name: "Lana",
-      avatar: "/images/courses/mentor-trainer-2.jpg",
-      students: 35,
-      likes: 42,
-    },
-  },
-  {
-    title: "Copywriting",
-    slug: "english-foundations",
-    category: "Content",
-    price: "$180",
-    image: "/images/courses/mentor-course-3.jpg",
-    blurb: "Et architecto provident deleniti facere repellat nobis iste. Id facere quia quae dolores dolorem tempore.",
-    trainer: {
-      name: "Brandon",
-      avatar: "/images/courses/mentor-trainer-3.jpg",
-      students: 20,
-      likes: 85,
-    },
-  },
-  {
     title: "Quran & Tajweed Mastery",
-    slug: "quran-islamic-studies",
+    slug: "tajweed-course",
     category: "Islamic Studies",
     price: "$45",
-    image: getCourseImage("Islamic", "quran-islamic-studies"),
-    blurb: "Structured, teacher-led learning of Noorani Qaida, Tajweed rules, fluent Nazra recitation, and Hifz memorization.",
+    image: "/images/courses/quran.jpg",
+    blurb: "Structured, teacher-led learning of Noorani Qaida, Tajweed rules, fluent Nazra recitation, and articulation points.",
     trainer: {
       name: "Qari Ahmad",
       avatar: "/images/courses/qirat.jpg",
@@ -77,31 +34,73 @@ const POPULAR_COURSES: CourseItem[] = [
     },
   },
   {
+    title: "Islamic Studies & Translation of Quran",
+    slug: "translation-of-quran",
+    category: "Islamic Studies",
+    price: "$50",
+    image: "/images/courses/translation.jpg",
+    blurb: "Word-by-word Quran translation, contextual Tafseer comprehension, foundational Aqeedah, and practical daily Fiqh.",
+    trainer: {
+      name: "Sheikh Bilal",
+      avatar: "/images/team/member-01.jpg",
+      students: 95,
+      likes: 88,
+    },
+  },
+  {
+    title: "Hifz-ul-Quran (Quran Memorization)",
+    slug: "hifz-quran",
+    category: "Islamic Studies",
+    price: "$55",
+    image: "/images/courses/hifz.jpg",
+    blurb: "Structured daily memorization (Sabaq), revision (Sabqi), and retention (Manzil) under Sanad-certified Huffaz.",
+    trainer: {
+      name: "Hafiz Usman",
+      avatar: "/images/courses/qirat.jpg",
+      students: 85,
+      likes: 94,
+    },
+  },
+  {
     title: "Computer Programming & Coding",
     slug: "computer-programming",
     category: "Coding & IT",
     price: "$65",
-    image: getCourseImage("IT & Programming", "computer-programming"),
+    image: "/images/courses/coding.png",
     blurb: "Practical hands-on coding in Python, C++, and JavaScript with real-world game development and logic building.",
     trainer: {
       name: "Engr. Salman",
-      avatar: "/images/courses/coding.png",
+      avatar: "/images/team/member-02.jpg",
       students: 145,
       likes: 92,
     },
   },
   {
     title: "Mathematics & Analytical Thinking",
-    slug: "mathematics",
+    slug: "mathematics-foundations",
     category: "STEM Education",
     price: "$55",
-    image: getCourseImage("STEM & Languages", "mathematics"),
+    image: "/images/courses/math.jpg",
     blurb: "Curriculum-aligned mathematical instruction from fundamental numeracy and algebra to geometry, trigonometry, and calculus.",
     trainer: {
       name: "Dr. Rachel Evans",
-      avatar: "/images/courses/math.jpg",
+      avatar: "/images/team/member-03.jpg",
       students: 180,
       likes: 89,
+    },
+  },
+  {
+    title: "GCSE & IGCSE Tutoring",
+    slug: "gcse",
+    category: "School & Exam Prep",
+    price: "$60",
+    image: "/images/courses/gcse.png",
+    blurb: "Targeted subject tuition for UK GCSE/IGCSE examinations with past paper drills, examiner insights, and syllabus mastery.",
+    trainer: {
+      name: "Prof. Alistair Vance",
+      avatar: "/images/team/member-04.jpg",
+      students: 110,
+      likes: 87,
     },
   },
 ];
