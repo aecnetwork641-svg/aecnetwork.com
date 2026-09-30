@@ -145,22 +145,8 @@ export default function HeroSlider() {
               sizes="100vw"
             />
           </div>
-          {/* Balanced overlay in pure Navy #0B1F3A so background image is clearly visible while text stays readable */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0B1F3A]/85 via-[#0B1F3A]/60 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F3A]/70 via-transparent to-[#0B1F3A]/30" />
         </div>
       ))}
-
-      {/* Ambient Glow */}
-      <div
-        className="absolute top-1/3 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full pointer-events-none"
-        style={{
-          background: `radial-gradient(circle, ${slide.glowColor} 0%, transparent 70%)`,
-          transition: "background 1s ease",
-          zIndex: 1,
-          opacity: 0.2,
-        }}
-      />
 
       {/* Main Content Area */}
       <div className="relative z-10 container-aec flex flex-col justify-center min-h-[100svh] py-28 md:py-36">
