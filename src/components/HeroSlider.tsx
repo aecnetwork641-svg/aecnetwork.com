@@ -27,7 +27,7 @@ const SLIDES: BannerSlide[] = [
     primaryBtn: { label: "Start Learning Today", href: "/admissions/apply" },
     secondaryBtn: { label: "Book Free Trial", href: "/admissions/free-trial" },
     accentColor: "#4DA3D9",
-    glowColor: "rgba(77,163,217,0.45)",
+    glowColor: "#EAF5FC",
   },
   {
     id: "s2",
@@ -38,7 +38,7 @@ const SLIDES: BannerSlide[] = [
     primaryBtn: { label: "Explore All Courses", href: "/courses" },
     secondaryBtn: { label: "Book Free Trial", href: "/admissions/free-trial" },
     accentColor: "#4DA3D9",
-    glowColor: "rgba(77,163,217,0.45)",
+    glowColor: "#EAF5FC",
   },
   {
     id: "s3",
@@ -49,7 +49,7 @@ const SLIDES: BannerSlide[] = [
     primaryBtn: { label: "View All Courses", href: "/courses" },
     secondaryBtn: { label: "Book Free Trial", href: "/admissions/free-trial" },
     accentColor: "#4DA3D9",
-    glowColor: "rgba(77,163,217,0.45)",
+    glowColor: "#EAF5FC",
   },
 ];
 
