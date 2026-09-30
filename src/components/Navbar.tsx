@@ -28,38 +28,38 @@ const NAV: NavItem[] = [
         categoryName: "Islamic Education",
         badge: "🕌",
         items: [
-          { label: "Quran & Tajweed Mastery", href: "/programs/quran-islamic-studies", desc: "Noorani Qaida, Tajweed & Hifz" },
-          { label: "Islamic Studies & Translation", href: "/programs/translation-of-quran", desc: "Quran Translation, Tafseer & Fiqh" },
-          { label: "Qirat & Melodic Recitation", href: "/programs/qirat-course", desc: "Maqamat, Voice Modulation & Styles" }
+          { label: "Quran & Tajweed Mastery", href: "/programs/quran-islamic-studies" },
+          { label: "Islamic Studies & Translation", href: "/programs/translation-of-quran" },
+          { label: "Qirat & Melodic Recitation", href: "/programs/qirat-course" }
         ]
       },
       {
         categoryName: "Academic Tutoring",
         badge: "📚",
         items: [
-          { label: "GCSE & IGCSE", href: "/programs/gcse", desc: "UK National Curriculum Boards" },
-          { label: "O & A Levels", href: "/programs/o-a-levels", desc: "Cambridge & Edexcel Secondary/College" },
-          { label: "Science & Mathematics", href: "/programs/mathematics", desc: "Physics, Chem, Bio & Advanced Math" },
-          { label: "English Language", href: "/programs/english", desc: "Grammar, Composition & Fluency" }
+          { label: "GCSE & IGCSE", href: "/programs/gcse" },
+          { label: "O & A Levels", href: "/programs/o-a-levels" },
+          { label: "Science & Mathematics", href: "/programs/mathematics" },
+          { label: "English Language", href: "/programs/english" }
         ]
       },
       {
         categoryName: "Test Preparation",
         badge: "🎯",
         items: [
-          { label: "NAPLAN Preparation", href: "/programs/naplan", desc: "Australian Curriculum (Years 3, 5, 7, 9)" },
-          { label: "SAT Preparation", href: "/programs/sat-tutoring", desc: "Digital SAT Verbal & Math Strategy" },
-          { label: "GRE Preparation", href: "/programs/gre-tutoring", desc: "Quantitative & Analytical Reasoning" }
+          { label: "NAPLAN Preparation", href: "/programs/naplan" },
+          { label: "SAT Preparation", href: "/programs/sat-tutoring" },
+          { label: "GRE Preparation", href: "/programs/gre-tutoring" }
         ]
       },
       {
         categoryName: "Technology & Digital Skills",
         badge: "💻",
         items: [
-          { label: "Computer Programming & Coding", href: "/programs/computer-programming", desc: "Python, C++, JavaScript & OOP" },
-          { label: "Web Designing & Development", href: "/programs/web-development", desc: "UI/UX, Frontend & Full Stack Web" },
-          { label: "Digital Marketing", href: "/programs/digital-marketing", desc: "SEO, PPC & Inbound Campaigns" },
-          { label: "Social Media Marketing", href: "/programs/social-media-marketing-smm", desc: "Meta Ads, Content & Brand Growth" }
+          { label: "Computer Programming & Coding", href: "/programs/computer-programming" },
+          { label: "Web Designing & Development", href: "/programs/web-development" },
+          { label: "Digital Marketing", href: "/programs/digital-marketing" },
+          { label: "Social Media Marketing", href: "/programs/social-media-marketing-smm" }
         ]
       }
     ]
@@ -161,33 +161,31 @@ export default function Navbar() {
               {item.categories && activeDropdown === item.label && (
                 <div
                   style={{ backgroundColor: "#ffffff" }}
-                  className="absolute -left-36 top-full mt-2.5 z-[100] w-[840px] rounded-2xl border border-slate-200 bg-white p-6 shadow-2xl shadow-slate-900/20 animate-in fade-in slide-in-from-top-2 duration-150"
+                  className="absolute -left-36 top-full mt-2.5 z-[100] w-[760px] rounded-2xl border border-slate-200 bg-white p-5 shadow-2xl shadow-slate-900/20 animate-in fade-in slide-in-from-top-2 duration-150"
                 >
-                  <div className="grid grid-cols-2 gap-x-6 gap-y-6">
+                  <div className="grid grid-cols-2 gap-x-8 gap-y-5">
                     {item.categories.map((cat) => (
-                      <div key={cat.categoryName} className="space-y-2">
+                      <div key={cat.categoryName} className="space-y-1.5">
                         <div className="flex items-center gap-2 border-b border-slate-100 pb-2">
                           <span className="text-base">{cat.badge}</span>
                           <h4 className="text-xs font-bold uppercase tracking-wider text-[#0B1F3A]">
                             {cat.categoryName}
                           </h4>
                         </div>
-                        <div className="space-y-1">
+                        <div className="space-y-0.5">
                           {cat.items.map((sub) => (
                             <Link
                               key={sub.href + sub.label}
                               href={sub.href as never}
-                              className="group block rounded-xl px-3 py-2 transition hover:bg-slate-50 border border-transparent hover:border-slate-200"
+                              className="group flex items-center justify-between rounded-lg px-2.5 py-1.5 transition hover:bg-slate-50"
                               onClick={() => setActiveDropdown(null)}
                             >
-                              <p className="text-xs font-semibold text-[#0B1F3A] group-hover:text-[#0F766E] transition">
+                              <span className="text-xs font-semibold text-[#0B1F3A] group-hover:text-[#0F766E] transition">
                                 {sub.label}
-                              </p>
-                              {sub.desc && (
-                                <p className="text-[11px] text-slate-500 line-clamp-1 group-hover:text-slate-600">
-                                  {sub.desc}
-                                </p>
-                              )}
+                              </span>
+                              <span className="text-xs text-[#0F766E] opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all">
+                                →
+                              </span>
                             </Link>
                           ))}
                         </div>
