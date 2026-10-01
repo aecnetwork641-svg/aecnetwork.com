@@ -106,23 +106,39 @@ export default function HeroSlider() {
             transform: translateY(0);
           }
         }
-        @keyframes heroKenBurns {
-          from {
-            transform: scale(1) translate(0, 0);
+        @keyframes heroCharFlipIn {
+          0% {
+            opacity: 0;
+            transform: translateY(42px) rotateX(65deg) scale(0.92);
+            filter: blur(2px);
           }
-          to {
-            transform: scale(1.08) translate(-1%, -1%);
+          60% {
+            opacity: 1;
+            filter: blur(0px);
           }
+          100% {
+            opacity: 1;
+            transform: translateY(0) rotateX(0deg) scale(1);
+            filter: blur(0px);
+          }
+        }
+        .hero-char-anim {
+          display: inline-block;
+          opacity: 0;
+          transform-origin: 50% 100% -20px;
+          backface-visibility: hidden;
+          will-change: transform, opacity;
+          animation: heroCharFlipIn 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         .hero-title-anim {
           animation: heroSmoothFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         .hero-sub-anim {
-          animation: heroSmoothFadeUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+          animation: heroSmoothFadeUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.35s forwards;
           opacity: 0;
         }
         .hero-btn-anim {
-          animation: heroSmoothFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+          animation: heroSmoothFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.55s forwards;
           opacity: 0;
         }
         .hero-img-sharp {
@@ -161,12 +177,40 @@ export default function HeroSlider() {
       <div className="relative z-10 container-aec flex flex-col justify-center min-h-[100svh] py-28 md:py-36">
         <div key={slide.id} className="max-w-2xl lg:max-w-3xl space-y-6">
 
-          {/* Heading - Clean whole text, no scattered jumping alphabets */}
+          {/* Heading - Letter by letter 3D cascade animation */}
           <h1
-            className="hero-title-anim font-display font-extrabold text-white tracking-tight leading-[1.15] drop-shadow-2xl"
-            style={{ fontSize: "clamp(2.3rem, 5vw, 3.8rem)" }}
+            key={slide.id}
+            className="font-display font-extrabold text-white tracking-tight leading-[1.15] drop-shadow-2xl"
+            style={{
+              fontSize: "clamp(2.3rem, 5vw, 3.8rem)",
+              perspective: "800px",
+            }}
           >
-            {slide.title}
+            {(() => {
+              let charIndex = 0;
+              return slide.title.split(" ").map((word, wIdx) => {
+                const chars = Array.from(word);
+                return (
+                  <span key={wIdx} className="inline-block whitespace-nowrap mr-[0.28em]">
+                    {chars.map((char, cIdx) => {
+                      const delay = charIndex * 0.028;
+                      charIndex++;
+                      return (
+                        <span
+                          key={cIdx}
+                          className="inline-block hero-char-anim"
+                          style={{
+                            animationDelay: `${delay}s`,
+                          }}
+                        >
+                          {char}
+                        </span>
+                      );
+                    })}
+                  </span>
+                );
+              });
+            })()}
           </h1>
 
           {/* Subtitle / Description - Clean 2-3 lines with perfect readability */}
