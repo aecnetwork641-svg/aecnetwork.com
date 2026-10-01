@@ -106,39 +106,44 @@ export default function HeroSlider() {
             transform: translateY(0);
           }
         }
-        @keyframes heroCharFlipIn {
+        @keyframes sr7CharAssemble {
           0% {
             opacity: 0;
-            transform: translateY(42px) rotateX(65deg) scale(0.92);
-            filter: blur(2px);
+            transform: translate3d(0, var(--sr7-y, 60px), -60px) rotateX(72deg) rotateZ(var(--sr7-rz, 0deg));
+            filter: blur(4px);
           }
-          60% {
-            opacity: 1;
-            filter: blur(0px);
+          40% {
+            opacity: 0.9;
+            filter: blur(0.5px);
           }
           100% {
             opacity: 1;
-            transform: translateY(0) rotateX(0deg) scale(1);
+            transform: translate3d(0, 0, 0) rotateX(0deg) rotateZ(0deg);
             filter: blur(0px);
           }
         }
-        .hero-char-anim {
+        .sr7-perspective-box {
+          perspective: 800px;
+          perspective-origin: 50% 50%;
+          transform-style: preserve-3d;
+        }
+        .sr7-word-wrap {
+          display: inline-block;
+          white-space: nowrap;
+          transform-style: preserve-3d;
+          margin-right: 0.28em;
+        }
+        .sr7-char {
           display: inline-block;
           opacity: 0;
-          transform-origin: 50% 100% -20px;
+          transform-origin: 50% 50% -50px;
+          transform-style: preserve-3d;
           backface-visibility: hidden;
-          will-change: transform, opacity;
-          animation: heroCharFlipIn 0.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        .hero-title-anim {
-          animation: heroSmoothFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        .hero-sub-anim {
-          animation: heroSmoothFadeUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.35s forwards;
-          opacity: 0;
+          will-change: transform, opacity, filter;
+          animation: sr7CharAssemble 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         .hero-btn-anim {
-          animation: heroSmoothFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.55s forwards;
+          animation: heroSmoothFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.65s forwards;
           opacity: 0;
         }
         .hero-img-sharp {
@@ -177,29 +182,32 @@ export default function HeroSlider() {
       <div className="relative z-10 container-aec flex flex-col justify-center min-h-[100svh] py-28 md:py-36">
         <div key={slide.id} className="max-w-2xl lg:max-w-3xl space-y-6">
 
-          {/* Heading - Letter by letter 3D cascade animation */}
+          {/* Heading - Exact Slider Revolution 7 Letter-by-Letter 3D Animation */}
           <h1
-            key={slide.id}
-            className="font-display font-extrabold text-white tracking-tight leading-[1.15] drop-shadow-2xl"
-            style={{
-              fontSize: "clamp(2.3rem, 5vw, 3.8rem)",
-              perspective: "800px",
-            }}
+            key={`title-${slide.id}`}
+            className="font-display font-extrabold text-white tracking-tight leading-[1.15] drop-shadow-2xl sr7-perspective-box"
+            style={{ fontSize: "clamp(2.3rem, 5vw, 3.8rem)" }}
           >
             {(() => {
               let charIndex = 0;
+              const yOffsets = [-75, 60, -45, 80, -65, 50, -85, 70, -50, 65, -70, 55];
+              const rzOffsets = [-12, 10, -8, 14, -10, 8, -14, 12, -6, 10];
               return slide.title.split(" ").map((word, wIdx) => {
                 const chars = Array.from(word);
                 return (
-                  <span key={wIdx} className="inline-block whitespace-nowrap mr-[0.28em]">
+                  <span key={wIdx} className="sr7-word-wrap">
                     {chars.map((char, cIdx) => {
-                      const delay = charIndex * 0.028;
+                      const y = yOffsets[charIndex % yOffsets.length];
+                      const rz = rzOffsets[charIndex % rzOffsets.length];
+                      const delay = charIndex * 0.024;
                       charIndex++;
                       return (
                         <span
                           key={cIdx}
-                          className="inline-block hero-char-anim"
+                          className="sr7-char"
                           style={{
+                            ["--sr7-y" as any]: `${y}px`,
+                            ["--sr7-rz" as any]: `${rz}deg`,
                             animationDelay: `${delay}s`,
                           }}
                         >
@@ -213,16 +221,47 @@ export default function HeroSlider() {
             })()}
           </h1>
 
-          {/* Subtitle / Description - Clean 2-3 lines with perfect readability */}
+          {/* Subtitle - Letter-by-letter 3D cascade matching globallinkeducation */}
           <p
-            className="hero-sub-anim font-medium text-slate-100 leading-snug drop-shadow-lg"
+            key={`sub-${slide.id}`}
+            className="font-medium leading-snug drop-shadow-lg sr7-perspective-box"
             style={{
               fontSize: "clamp(1.2rem, 2.3vw, 1.85rem)",
               color: slide.accentColor,
               textShadow: `0 0 30px ${slide.glowColor}`,
             }}
           >
-            {slide.subtitle}
+            {(() => {
+              let charIndex = 0;
+              const yOffsets = [-35, 30, -25, 40, -30, 25, -40, 35, -25, 30];
+              const rzOffsets = [-8, 6, -5, 8, -6, 5, -8, 7, -4, 6];
+              return slide.subtitle.split(" ").map((word, wIdx) => {
+                const chars = Array.from(word);
+                return (
+                  <span key={wIdx} className="sr7-word-wrap">
+                    {chars.map((char, cIdx) => {
+                      const y = yOffsets[charIndex % yOffsets.length];
+                      const rz = rzOffsets[charIndex % rzOffsets.length];
+                      const delay = 0.22 + charIndex * 0.012;
+                      charIndex++;
+                      return (
+                        <span
+                          key={cIdx}
+                          className="sr7-char"
+                          style={{
+                            ["--sr7-y" as any]: `${y}px`,
+                            ["--sr7-rz" as any]: `${rz}deg`,
+                            animationDelay: `${delay}s`,
+                          }}
+                        >
+                          {char}
+                        </span>
+                      );
+                    })}
+                  </span>
+                );
+              });
+            })()}
           </p>
 
           {/* Action CTAs */}
