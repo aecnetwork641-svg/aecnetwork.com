@@ -8,10 +8,7 @@ interface MentorAboutSectionProps {
   subtitle?: string;
 }
 
-export default function MentorAboutSection({
-  title = "Empowering Global Learners Through Academic & Spiritual Excellence",
-  subtitle = "At AEC Network, we deliver world-class online education that combines traditional pedagogical rigor with modern interactive learning. Whether you seek foundational Quranic recitation, linguistic fluency in English or Arabic, or core school academic mastery, our platform combines personalized 1-on-1 tutoring with an enterprise learning portal.",
-}: MentorAboutSectionProps) {
+export default function MentorAboutSection({}: MentorAboutSectionProps) {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -24,7 +21,7 @@ export default function MentorAboutSection({
           observer.disconnect();
         }
       },
-      { threshold: 0.15 }
+      { threshold: 0.1 }
     );
 
     if (sectionRef.current) {
@@ -38,178 +35,141 @@ export default function MentorAboutSection({
     <section
       id="about"
       ref={sectionRef}
-      className="bg-white border-y border-slate-200/80 py-16 lg:py-20 overflow-hidden"
+      className="bg-white border-y border-slate-100 py-14 lg:py-20 overflow-hidden"
     >
       <div className="container-aec">
-        <div className="grid gap-12 lg:grid-cols-12 items-center">
-          {/* Left: Content & Bullet Details */}
+        <div className="grid gap-10 lg:gap-14 lg:grid-cols-12 items-start">
+          {/* Left: Globallink-style vertical student photo with rounded corners */}
           <div
-            className="lg:col-span-6 space-y-6 transition-all duration-700 ease-out"
+            className="lg:col-span-5 transition-all duration-700 ease-out"
             style={{
               opacity: isVisible ? 1 : 0,
-              transform: isVisible ? "translateY(0)" : "translateY(36px)",
+              transform: isVisible ? "translateY(0)" : "translateY(24px)",
             }}
           >
+            <div className="relative mx-auto max-w-md lg:max-w-none overflow-hidden rounded-2xl md:rounded-3xl shadow-lg border border-slate-100 group">
+              <img
+                src="/images/about-student.jpg"
+                alt="AEC Network Student"
+                className="w-full h-auto object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+              />
+            </div>
+          </div>
+
+          {/* Right: Content & Sections */}
+          <div
+            className="lg:col-span-7 space-y-6 transition-all duration-700 delay-150 ease-out text-slate-700"
+            style={{
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible ? "translateY(0)" : "translateY(24px)",
+            }}
+          >
+            {/* Header & Intro */}
             <div>
-              <p className="text-xs font-bold uppercase tracking-widest text-[#4DA3D9] mb-2">
-                Comprehensive Academy • What AEC Network Delivers
-              </p>
-              <h2 className="font-display text-2xl sm:text-3xl lg:text-[2rem] font-extrabold text-[#0B1F3A] leading-tight">
-                {title}
+              <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-[#0B1F3A] tracking-tight">
+                Welcome to AEC Network
               </h2>
+              <div className="h-1 w-16 bg-[#4DA3D9] rounded-full mt-2 mb-4" />
+              <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+                Welcome to AEC Network! We provide professional, Islamic, and academic education to students worldwide through flexible and accessible online learning. Our qualified and dedicated teachers are committed to supporting students in their educational journey, developing their skills, and helping them achieve their academic and personal goals.
+              </p>
             </div>
 
-            <p className="text-sm italic text-slate-600 leading-relaxed">
-              {subtitle}
-            </p>
-
-            <ul className="space-y-4 pt-1">
-              <li
-                className="flex items-start gap-3 transition-all duration-500 delay-150"
-                style={{
-                  opacity: isVisible ? 1 : 0,
-                  transform: isVisible ? "translateX(0)" : "translateX(-20px)",
-                }}
-              >
-                <div className="flex-shrink-0 mt-0.5">
-                  <svg
-                    className="w-5 h-5 text-[#4DA3D9]"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                    <polyline points="22 4 12 14.01 9 11.01" />
-                  </svg>
-                </div>
-                <span className="text-sm text-slate-700 leading-relaxed">
-                  <strong className="text-[#0B1F3A] font-semibold">
-                    Live Interactive Classrooms:
+            {/* What We Do */}
+            <div className="space-y-3 pt-1">
+              <h3 className="font-bold text-[#0B1F3A] text-base sm:text-lg">
+                What We Do:
+              </h3>
+              <ul className="list-disc pl-5 space-y-2.5 text-sm sm:text-base text-slate-600 leading-relaxed marker:text-[#4DA3D9]">
+                <li>
+                  <strong className="text-slate-900 font-semibold">
+                    Islamic Education:
                   </strong>{" "}
-                  Secure 1-on-1 and small group HD video sessions featuring interactive digital whiteboards, screen sharing, and real-time teacher guidance.
-                </span>
-              </li>
-
-              <li
-                className="flex items-start gap-3 transition-all duration-500 delay-300"
-                style={{
-                  opacity: isVisible ? 1 : 0,
-                  transform: isVisible ? "translateX(0)" : "translateX(-20px)",
-                }}
-              >
-                <div className="flex-shrink-0 mt-0.5">
-                  <svg
-                    className="w-5 h-5 text-[#4DA3D9]"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                    <polyline points="22 4 12 14.01 9 11.01" />
-                  </svg>
-                </div>
-                <span className="text-sm text-slate-700 leading-relaxed">
-                  <strong className="text-[#0B1F3A] font-semibold">
-                    Structured Curriculum & Progress Tracking:
+                  We provide Quran Reading, Quran Memorization with Tajweed, Quran Translation, Hadith, Islamic Studies, and other essential Islamic subjects.
+                </li>
+                <li>
+                  <strong className="text-slate-900 font-semibold">
+                    Academic Education:
                   </strong>{" "}
-                  Modular digital courses with downloadable notes, quizzes, and automated attendance reporting with immediate parent notifications.
-                </span>
-              </li>
-
-              <li
-                className="flex items-start gap-3 transition-all duration-500 delay-450"
-                style={{
-                  opacity: isVisible ? 1 : 0,
-                  transform: isVisible ? "translateX(0)" : "translateX(-20px)",
-                }}
-              >
-                <div className="flex-shrink-0 mt-0.5">
-                  <svg
-                    className="w-5 h-5 text-[#4DA3D9]"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                    <polyline points="22 4 12 14.01 9 11.01" />
-                  </svg>
-                </div>
-                <span className="text-sm text-slate-700 leading-relaxed">
-                  <strong className="text-[#0B1F3A] font-semibold">
-                    Certified Faculty & Verifiable Credentials:
+                  We offer quality academic support in subjects including English, Mathematics, Arabic, and basic education for students from different grade levels.
+                </li>
+                <li>
+                  <strong className="text-slate-900 font-semibold">
+                    Professional Learning:
                   </strong>{" "}
-                  Learn under Sanad-certified Quran scholars and experienced academic instructors, earning official verifiable certificates across Islamic Disciplines, STEM, and School Exam Prep.
-                </span>
-              </li>
-            </ul>
+                  AEC Network also promotes professional and skill-based learning opportunities designed to help students develop useful knowledge and abilities for their future.
+                </li>
+                <li>
+                  <strong className="text-slate-900 font-semibold">
+                    Qualified Teachers:
+                  </strong>{" "}
+                  Our experienced and trained teachers provide personalized online classes according to each student&apos;s learning needs, level, and schedule.
+                </li>
+                <li>
+                  <strong className="text-slate-900 font-semibold">
+                    Online Learning Worldwide:
+                  </strong>{" "}
+                  We provide flexible online education for students around the world, making quality Islamic, academic, and professional education accessible from anywhere.
+                </li>
+              </ul>
+            </div>
 
-            {/* Read More Pill Button */}
-            <div className="pt-2">
+            {/* Our Mission */}
+            <div className="space-y-2 pt-1">
+              <h3 className="font-bold text-[#0B1F3A] text-base sm:text-lg">
+                Our Mission
+              </h3>
+              <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+                Our mission is to provide accessible, quality, and values-based education that combines Islamic teachings, academic knowledge, and professional development. We aim to help students learn with confidence, develop strong character, and prepare for a successful future.
+              </p>
+            </div>
+
+            {/* Our Values */}
+            <div className="space-y-2 pt-1 bg-slate-50/80 rounded-xl p-4 border border-slate-100">
+              <h3 className="font-bold text-[#0B1F3A] text-base sm:text-lg">
+                Our Values
+              </h3>
+              <p className="text-sm sm:text-base text-slate-700 font-medium leading-relaxed">
+                Quality Education <span className="text-[#4DA3D9] mx-1.5">•</span> 
+                Islamic Values <span className="text-[#4DA3D9] mx-1.5">•</span> 
+                Professionalism <span className="text-[#4DA3D9] mx-1.5">•</span> 
+                Personal Attention <span className="text-[#4DA3D9] mx-1.5">•</span> 
+                Integrity <span className="text-[#4DA3D9] mx-1.5">•</span> 
+                Continuous Learning <span className="text-[#4DA3D9] mx-1.5">•</span> 
+                Student Success
+              </p>
+            </div>
+
+            {/* Join AEC Network */}
+            <div className="space-y-2 pt-1">
+              <h3 className="font-bold text-[#0B1F3A] text-base sm:text-lg">
+                Join AEC Network
+              </h3>
+              <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
+                Join AEC Network and become part of a growing global learning community. Whether you are looking for Quranic education, academic support, Arabic and English learning, or professional development, our dedicated teachers are here to guide you.
+              </p>
+              <p className="text-sm sm:text-base text-[#0B1F3A] font-medium leading-relaxed pt-1">
+                Start your learning journey with AEC Network today and take a step toward a brighter and better future.
+              </p>
+            </div>
+
+            {/* Read More / Enroll Buttons */}
+            <div className="pt-3 flex flex-wrap gap-4">
               <Link
                 href="/admissions/how-to-enroll"
                 className="inline-flex items-center gap-2 rounded-full bg-[#4DA3D9] hover:bg-[#0B1F3A] text-white px-7 py-3 text-sm font-semibold tracking-wide shadow-sm transition-all duration-300 group hover:shadow-md active:scale-95"
               >
-                <span>Read More</span>
+                <span>Enroll Now</span>
                 <span className="transition-transform duration-300 group-hover:translate-x-1.5 text-base">
                   →
                 </span>
               </Link>
-            </div>
-          </div>
-
-          {/* Right: Mentor About Image with Smooth Zoom / Floating Badge */}
-          <div
-            className="lg:col-span-6 transition-all duration-700 delay-200 ease-out"
-            style={{
-              opacity: isVisible ? 1 : 0,
-              transform: isVisible
-                ? "scale(1) translateX(0)"
-                : "scale(0.92) translateX(30px)",
-            }}
-          >
-            <div className="relative group overflow-hidden rounded-2xl border border-slate-200/90 shadow-xl bg-slate-100">
-              <img
-                src="/images/mentor-about.jpg"
-                alt="Students learning and collaborating"
-                className="w-full h-auto object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-              />
-
-              {/* Floating Animated Badge */}
-              <div className="absolute bottom-4 left-4 right-4 sm:right-auto bg-white/95 backdrop-blur-md rounded-xl p-3.5 shadow-lg border border-slate-100/90 flex items-center gap-3 transition-transform duration-300 group-hover:-translate-y-1">
-                <div className="relative flex items-center justify-center h-9 w-9 rounded-full bg-[#4DA3D9]/10 text-[#4DA3D9] flex-shrink-0">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#4DA3D9]/30 opacity-75"></span>
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
-                </div>
-                <div>
-                  <p className="text-xs font-bold text-[#0B1F3A]">
-                    Verified Academic Programs
-                  </p>
-                  <p className="text-[11px] text-slate-500 font-medium">
-                    Quran • Languages • STEM • Mentorship
-                  </p>
-                </div>
-              </div>
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2 rounded-full border border-slate-300 hover:border-[#4DA3D9] text-slate-700 hover:text-[#4DA3D9] px-7 py-3 text-sm font-semibold tracking-wide transition-all duration-300 active:scale-95"
+              >
+                <span>Contact Us</span>
+              </Link>
             </div>
           </div>
         </div>
