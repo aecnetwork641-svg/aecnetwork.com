@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function FeesPage() {
   return (
-    <div className="flex flex-col gap-12 pt-28 pb-16">
+    <div className="flex flex-col gap-12 py-12">
       {/* Header */}
       <div className="container-aec text-center max-w-3xl">
         <span className="badge bg-aec-teal/10 text-aec-teal border-aec-teal/30 font-semibold px-3 py-1">

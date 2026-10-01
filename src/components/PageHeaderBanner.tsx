@@ -28,7 +28,7 @@ export default function PageHeaderBanner({
       </div>
 
       {/* Main Heading Content (Head Banner) */}
-      <div className="relative container-aec pt-28 sm:pt-36 pb-14 sm:pb-20 text-center max-w-4xl mx-auto">
+      <div className="relative container-aec py-14 sm:py-20 text-center max-w-4xl mx-auto">
         {badge && (
           <span className="inline-block rounded-full bg-[#4DA3D9]/30 border border-[#4DA3D9]/60 px-4 py-1 text-xs font-bold uppercase tracking-wider text-sky-200 mb-3 backdrop-blur-xs">
             {badge}

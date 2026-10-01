@@ -97,17 +97,15 @@ export default function Navbar() {
 
   return (
     <header
-      className={`header sticky top-0 z-50 w-full transition-all duration-300 ${
-        scrolled
-          ? "bg-[#0B1F3A]/95 backdrop-blur-md border-b border-white/10 shadow-lg shadow-black/20 py-2.5"
-          : "bg-transparent border-b border-transparent py-3 -mb-[76px]"
+      className={`header sticky top-0 z-50 w-full transition-all duration-300 bg-white/95 backdrop-blur-md border-b border-slate-200/80 ${
+        scrolled ? "py-2.5 shadow-md shadow-slate-900/5" : "py-3 shadow-xs"
       }`}
     >
       <nav className="container-aec relative z-30 flex items-center justify-between">
         {/* Brand Logo (Left) */}
         <div className="flex items-center">
           <Link href="/" className="navbar-brand inline-flex items-center transition hover:opacity-90">
-            <Logo variant="compact" theme="dark" size="md" />
+            <Logo variant="compact" theme="light" size="md" />
           </Link>
         </div>
 
@@ -195,13 +193,13 @@ export default function Navbar() {
         <div className="flex items-center gap-2.5">
           <Link
             href="/courses"
-            className="hidden xl:inline-flex items-center justify-center rounded-full border border-white/30 bg-white/10 px-4 py-1.5 text-xs font-bold text-white backdrop-blur-md shadow-sm transition hover:bg-white hover:text-[#0B1F3A]"
+            className="hidden xl:inline-flex items-center justify-center rounded-full border-2 border-[#4DA3D9] bg-white px-4 py-1.5 text-xs font-bold text-[#4DA3D9] shadow-sm transition hover:bg-[#4DA3D9] hover:text-white"
           >
             Explore Courses
           </Link>
           <Link
             href="/admissions/apply"
-            className="inline-flex items-center justify-center rounded-full bg-[#4DA3D9] hover:bg-white hover:text-[#0B1F3A] px-5 py-2 text-xs font-bold text-white shadow-md shadow-sky-500/20 transition duration-200 hover:scale-[1.02] active:scale-[0.98]"
+            className="inline-flex items-center justify-center rounded-full bg-[#4DA3D9] hover:bg-[#0B1F3A] px-5 py-2 text-xs font-bold text-white shadow-md shadow-sky-500/20 transition duration-200 hover:scale-[1.02] active:scale-[0.98]"
           >
             New Registration
           </Link>
@@ -209,7 +207,7 @@ export default function Navbar() {
           {/* Mobile Hamburger Toggler */}
           <button
             onClick={() => setOpen((prev) => !prev)}
-            className="cursor-pointer flex items-center lg:hidden text-white bg-white/10 backdrop-blur-md w-10 h-10 rounded-xl justify-center border border-white/20 hover:bg-white/20 transition ml-2 shadow-sm"
+            className="cursor-pointer flex items-center lg:hidden text-[#0B1F3A] bg-white/95 backdrop-blur-md w-10 h-10 rounded-xl justify-center border border-slate-200 hover:bg-slate-100 transition ml-2 shadow-sm"
             aria-label="Toggle navigation menu"
           >
             {open ? (

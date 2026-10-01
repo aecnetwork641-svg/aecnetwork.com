@@ -54,13 +54,9 @@ export default function FreeTrialPage() {
   };
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-b from-[#0B1F3A] via-[#0E274A] to-[#0B1F3A] pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden">
-      {/* Ambient background brand glows */}
-      <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-[#4DA3D9]/15 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute -bottom-20 -left-20 w-[450px] h-[450px] bg-[#4DA3D9]/10 rounded-full blur-3xl pointer-events-none" />
-
-      <div className="relative z-10 container-aec max-w-2xl">
-        <div className="rounded-2xl border border-white/20 bg-white p-6 md:p-10 shadow-2xl shadow-black/40">
+    <div className="min-h-[80vh] bg-slate-50/60 py-12 md:py-16">
+      <div className="container-aec max-w-2xl">
+        <div className="rounded-2xl border border-aec-navy/10 bg-white p-6 md:p-10 shadow-xl shadow-aec-navy/5">
           {successData ? (
             <div className="text-center py-6">
               <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100 text-emerald-600 mb-6">
