@@ -123,8 +123,12 @@ export default function HeroSlider() {
           animation: heroSmoothFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
           opacity: 0;
         }
-        .hero-ken-burns {
-          animation: heroKenBurns 8s ease-out infinite alternate;
+        .hero-img-sharp {
+          image-rendering: -webkit-optimize-contrast;
+          image-rendering: crisp-edges;
+          -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+          transform: translateZ(0);
         }
       `}</style>
 
@@ -132,16 +136,18 @@ export default function HeroSlider() {
       {SLIDES.map((s, i) => (
         <div
           key={s.id}
-          className="absolute inset-0 transition-opacity duration-1000"
+          className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
           style={{ opacity: i === current ? 1 : 0, zIndex: 0 }}
         >
-          <div className={i === current ? "hero-ken-burns w-full h-full" : "w-full h-full"}>
+          <div className="w-full h-full relative">
             <Image
               src={`${s.image}.${s.imageExt}`}
               alt={s.title}
               fill
               priority={i === 0}
-              className="object-cover object-center"
+              unoptimized
+              quality={100}
+              className="object-cover object-right md:object-center hero-img-sharp"
               sizes="100vw"
             />
           </div>
