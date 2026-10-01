@@ -55,12 +55,11 @@ const SLIDES: BannerSlide[] = [
   },
 ];
 
-const DURATION = 7000;
+const DURATION = 7500;
 
 export default function HeroSlider() {
   const [current, setCurrent] = useState(0);
   const [progress, setProgress] = useState(0);
-  const [paused, setPaused] = useState(false);
 
   const next = useCallback(() => {
     setCurrent((p) => (p + 1) % SLIDES.length);
@@ -73,7 +72,6 @@ export default function HeroSlider() {
   }, []);
 
   useEffect(() => {
-    if (paused) return;
     const tick = setInterval(() => {
       setProgress((p) => {
         if (p >= 100) {
@@ -84,22 +82,20 @@ export default function HeroSlider() {
       });
     }, 50);
     return () => clearInterval(tick);
-  }, [paused, next]);
+  }, [next]);
 
   const slide = SLIDES[current]!;
 
   return (
     <section
       className="relative overflow-hidden bg-[#0B1F3A] select-none"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
       style={{ minHeight: "100svh" }}
     >
       <style jsx global>{`
         @keyframes heroSmoothFadeUp {
           0% {
             opacity: 0;
-            transform: translateY(28px);
+            transform: translateY(24px);
           }
           100% {
             opacity: 1;
@@ -109,17 +105,11 @@ export default function HeroSlider() {
         @keyframes sr7CharAssemble {
           0% {
             opacity: 0;
-            transform: translate3d(0, var(--sr7-y, 60px), -60px) rotateX(72deg) rotateZ(var(--sr7-rz, 0deg));
-            filter: blur(4px);
-          }
-          40% {
-            opacity: 0.9;
-            filter: blur(0.5px);
+            transform: translate3d(0, var(--sr7-y, 45px), -35px) rotateX(65deg) rotateZ(var(--sr7-rz, 0deg));
           }
           100% {
             opacity: 1;
             transform: translate3d(0, 0, 0) rotateX(0deg) rotateZ(0deg);
-            filter: blur(0px);
           }
         }
         .sr7-perspective-box {
@@ -136,14 +126,14 @@ export default function HeroSlider() {
         .sr7-char {
           display: inline-block;
           opacity: 0;
-          transform-origin: 50% 50% -50px;
+          transform-origin: 50% 50% -35px;
           transform-style: preserve-3d;
           backface-visibility: hidden;
-          will-change: transform, opacity, filter;
-          animation: sr7CharAssemble 1.1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+          will-change: transform, opacity;
+          animation: sr7CharAssemble 1.15s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
         .hero-btn-anim {
-          animation: heroSmoothFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.65s forwards;
+          animation: heroSmoothFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.2s forwards;
           opacity: 0;
         }
         .hero-img-sharp {
@@ -190,8 +180,8 @@ export default function HeroSlider() {
           >
             {(() => {
               let charIndex = 0;
-              const yOffsets = [-75, 60, -45, 80, -65, 50, -85, 70, -50, 65, -70, 55];
-              const rzOffsets = [-12, 10, -8, 14, -10, 8, -14, 12, -6, 10];
+              const yOffsets = [-42, 38, -32, 44, -36, 32, -45, 40, -30, 36];
+              const rzOffsets = [-8, 7, -6, 9, -7, 6, -9, 8, -5, 7];
               return slide.title.split(" ").map((word, wIdx) => {
                 const chars = Array.from(word);
                 return (
@@ -199,7 +189,7 @@ export default function HeroSlider() {
                     {chars.map((char, cIdx) => {
                       const y = yOffsets[charIndex % yOffsets.length];
                       const rz = rzOffsets[charIndex % rzOffsets.length];
-                      const delay = charIndex * 0.024;
+                      const delay = charIndex * 0.045;
                       charIndex++;
                       return (
                         <span
@@ -233,8 +223,8 @@ export default function HeroSlider() {
           >
             {(() => {
               let charIndex = 0;
-              const yOffsets = [-35, 30, -25, 40, -30, 25, -40, 35, -25, 30];
-              const rzOffsets = [-8, 6, -5, 8, -6, 5, -8, 7, -4, 6];
+              const yOffsets = [-22, 20, -18, 24, -20, 16, -24, 22];
+              const rzOffsets = [-5, 4, -4, 6, -4, 4, -6, 5];
               return slide.subtitle.split(" ").map((word, wIdx) => {
                 const chars = Array.from(word);
                 return (
@@ -242,7 +232,7 @@ export default function HeroSlider() {
                     {chars.map((char, cIdx) => {
                       const y = yOffsets[charIndex % yOffsets.length];
                       const rz = rzOffsets[charIndex % rzOffsets.length];
-                      const delay = 0.22 + charIndex * 0.012;
+                      const delay = 0.5 + charIndex * 0.018;
                       charIndex++;
                       return (
                         <span
