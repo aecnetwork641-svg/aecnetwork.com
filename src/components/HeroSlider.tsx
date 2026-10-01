@@ -23,7 +23,7 @@ const SLIDES: BannerSlide[] = [
     subtitle:
       "Where Learning Inspires Growth, Knowledge Builds Confidence, and Every Student Matters.",
     image: "/images/banner-1",
-    imageExt: "png",
+    imageExt: "jpg",
     primaryBtn: { label: "Start Learning Today", href: "/admissions/apply" },
     secondaryBtn: { label: "Book Free Trial", href: "/admissions/free-trial" },
     accentColor: "#4DA3D9",
@@ -45,7 +45,7 @@ const SLIDES: BannerSlide[] = [
     title: "Unlock Your Potential",
     subtitle: "Through Quality Education.",
     image: "/images/banner-3",
-    imageExt: "png",
+    imageExt: "jpg",
     primaryBtn: { label: "View All Courses", href: "/courses" },
     secondaryBtn: { label: "Book Free Trial", href: "/admissions/free-trial" },
     accentColor: "#4DA3D9",
