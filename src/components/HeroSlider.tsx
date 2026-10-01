@@ -23,7 +23,7 @@ const SLIDES: BannerSlide[] = [
     subtitle:
       "Where Learning Inspires Growth, Knowledge Builds Confidence, and Every Student Matters.",
     image: "/images/banner-1",
-    imageExt: "jpg",
+    imageExt: "png",
     primaryBtn: { label: "Start Learning Today", href: "/admissions/apply" },
     secondaryBtn: { label: "Book Free Trial", href: "/admissions/free-trial" },
     accentColor: "#4DA3D9",
@@ -34,7 +34,7 @@ const SLIDES: BannerSlide[] = [
     title: "Education for Every Mind,",
     subtitle: "Opportunity for Every Future.",
     image: "/images/banner-2",
-    imageExt: "jpg",
+    imageExt: "png",
     primaryBtn: { label: "Explore All Courses", href: "/courses" },
     secondaryBtn: { label: "Book Free Trial", href: "/admissions/free-trial" },
     accentColor: "#4DA3D9",
@@ -45,7 +45,7 @@ const SLIDES: BannerSlide[] = [
     title: "Unlock Your Potential",
     subtitle: "Through Quality Education.",
     image: "/images/banner-3",
-    imageExt: "jpg",
+    imageExt: "png",
     primaryBtn: { label: "View All Courses", href: "/courses" },
     secondaryBtn: { label: "Book Free Trial", href: "/admissions/free-trial" },
     accentColor: "#4DA3D9",
@@ -129,6 +129,7 @@ export default function HeroSlider() {
           -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
           transform: translateZ(0);
+          filter: contrast(1.03) saturate(1.02);
         }
       `}</style>
 
@@ -144,10 +145,10 @@ export default function HeroSlider() {
               src={`${s.image}.${s.imageExt}`}
               alt={s.title}
               fill
-              priority={i === 0}
+              priority
               unoptimized
               quality={100}
-              className="object-cover object-right md:object-center hero-img-sharp"
+              className="object-cover object-right hero-img-sharp"
               sizes="100vw"
             />
           </div>
