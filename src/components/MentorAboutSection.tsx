@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
 
 interface MentorAboutSectionProps {
   title?: string;
@@ -35,142 +34,104 @@ export default function MentorAboutSection({}: MentorAboutSectionProps) {
     <section
       id="about"
       ref={sectionRef}
-      className="bg-white border-y border-slate-100 py-14 lg:py-20 overflow-hidden"
+      className="bg-white py-10 sm:py-14 lg:py-16 font-['Source_Sans_3',_'Roboto',_sans-serif]"
     >
       <div className="container-aec">
-        <div className="grid gap-10 lg:gap-14 lg:grid-cols-12 items-start">
-          {/* Left: Globallink-style vertical student photo with rounded corners */}
+        <div className="grid gap-8 lg:gap-12 lg:grid-cols-12 items-center">
+          {/* Left Column: Student Image (Globallink Style) */}
           <div
             className="lg:col-span-5 transition-all duration-700 ease-out"
             style={{
               opacity: isVisible ? 1 : 0,
-              transform: isVisible ? "translateY(0)" : "translateY(24px)",
+              transform: isVisible ? "translateY(0)" : "translateY(20px)",
             }}
           >
-            <div className="relative mx-auto max-w-md lg:max-w-none overflow-hidden rounded-2xl md:rounded-3xl shadow-lg border border-slate-100 group">
+            <div className="relative mx-auto max-w-[420px] lg:max-w-none overflow-hidden rounded-2xl shadow-sm">
               <img
                 src="/images/about-student.jpg"
                 alt="AEC Network Student"
-                className="w-full h-auto object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                className="w-full h-auto object-cover rounded-2xl"
               />
             </div>
           </div>
 
-          {/* Right: Content & Sections */}
+          {/* Right Column: AEC Network Information (Globallink Font & Size Style) */}
           <div
-            className="lg:col-span-7 space-y-6 transition-all duration-700 delay-150 ease-out text-slate-700"
+            className="lg:col-span-7 transition-all duration-700 delay-100 ease-out text-[#555555] text-[13.5px] sm:text-[14px] leading-[1.75]"
             style={{
               opacity: isVisible ? 1 : 0,
-              transform: isVisible ? "translateY(0)" : "translateY(24px)",
+              transform: isVisible ? "translateY(0)" : "translateY(20px)",
             }}
           >
-            {/* Header & Intro */}
-            <div>
-              <h2 className="font-display text-2xl sm:text-3xl font-extrabold text-[#0B1F3A] tracking-tight">
-                Welcome to AEC Network
-              </h2>
-              <div className="h-1 w-16 bg-[#4DA3D9] rounded-full mt-2 mb-4" />
-              <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
-                Welcome to AEC Network! We provide professional, Islamic, and academic education to students worldwide through flexible and accessible online learning. Our qualified and dedicated teachers are committed to supporting students in their educational journey, developing their skills, and helping them achieve their academic and personal goals.
-              </p>
-            </div>
+            {/* Title & Introduction */}
+            <p className="font-bold text-[#2a2a2a] text-[15px] sm:text-[16px] mb-2">
+              Welcome to AEC Network
+            </p>
+            <p className="mb-4">
+              Welcome to AEC Network! We provide professional, Islamic, and academic education to students worldwide through flexible and accessible online learning. Our qualified and dedicated teachers are committed to supporting students in their educational journey, developing their skills, and helping them achieve their academic and personal goals.
+            </p>
 
             {/* What We Do */}
-            <div className="space-y-3 pt-1">
-              <h3 className="font-bold text-[#0B1F3A] text-base sm:text-lg">
-                What We Do:
-              </h3>
-              <ul className="list-disc pl-5 space-y-2.5 text-sm sm:text-base text-slate-600 leading-relaxed marker:text-[#4DA3D9]">
-                <li>
-                  <strong className="text-slate-900 font-semibold">
-                    Islamic Education:
-                  </strong>{" "}
-                  We provide Quran Reading, Quran Memorization with Tajweed, Quran Translation, Hadith, Islamic Studies, and other essential Islamic subjects.
-                </li>
-                <li>
-                  <strong className="text-slate-900 font-semibold">
-                    Academic Education:
-                  </strong>{" "}
-                  We offer quality academic support in subjects including English, Mathematics, Arabic, and basic education for students from different grade levels.
-                </li>
-                <li>
-                  <strong className="text-slate-900 font-semibold">
-                    Professional Learning:
-                  </strong>{" "}
-                  AEC Network also promotes professional and skill-based learning opportunities designed to help students develop useful knowledge and abilities for their future.
-                </li>
-                <li>
-                  <strong className="text-slate-900 font-semibold">
-                    Qualified Teachers:
-                  </strong>{" "}
-                  Our experienced and trained teachers provide personalized online classes according to each student&apos;s learning needs, level, and schedule.
-                </li>
-                <li>
-                  <strong className="text-slate-900 font-semibold">
-                    Online Learning Worldwide:
-                  </strong>{" "}
-                  We provide flexible online education for students around the world, making quality Islamic, academic, and professional education accessible from anywhere.
-                </li>
-              </ul>
-            </div>
+            <p className="font-bold text-[#2a2a2a] text-[14px] sm:text-[14.5px] mt-4 mb-2">
+              What We Do:
+            </p>
+            <ul className="list-disc pl-5 space-y-2 mb-4 marker:text-slate-400">
+              <li>
+                <strong className="font-bold text-[#2a2a2a]">
+                  Islamic Education:
+                </strong>{" "}
+                We provide Quran Reading, Quran Memorization with Tajweed, Quran Translation, Hadith, Islamic Studies, and other essential Islamic subjects.
+              </li>
+              <li>
+                <strong className="font-bold text-[#2a2a2a]">
+                  Academic Education:
+                </strong>{" "}
+                We offer quality academic support in subjects including English, Mathematics, Arabic, and basic education for students from different grade levels.
+              </li>
+              <li>
+                <strong className="font-bold text-[#2a2a2a]">
+                  Professional Learning:
+                </strong>{" "}
+                AEC Network also promotes professional and skill-based learning opportunities designed to help students develop useful knowledge and abilities for their future.
+              </li>
+              <li>
+                <strong className="font-bold text-[#2a2a2a]">
+                  Qualified Teachers:
+                </strong>{" "}
+                Our experienced and trained teachers provide personalized online classes according to each student&apos;s learning needs, level, and schedule.
+              </li>
+              <li>
+                <strong className="font-bold text-[#2a2a2a]">
+                  Online Learning Worldwide:
+                </strong>{" "}
+                We provide flexible online education for students around the world, making quality Islamic, academic, and professional education accessible from anywhere.
+              </li>
+            </ul>
 
             {/* Our Mission */}
-            <div className="space-y-2 pt-1">
-              <h3 className="font-bold text-[#0B1F3A] text-base sm:text-lg">
-                Our Mission
-              </h3>
-              <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
-                Our mission is to provide accessible, quality, and values-based education that combines Islamic teachings, academic knowledge, and professional development. We aim to help students learn with confidence, develop strong character, and prepare for a successful future.
-              </p>
-            </div>
+            <p className="font-bold text-[#2a2a2a] text-[14px] sm:text-[14.5px] mt-4 mb-2">
+              Our Mission
+            </p>
+            <p className="mb-4">
+              Our mission is to provide accessible, quality, and values-based education that combines Islamic teachings, academic knowledge, and professional development. We aim to help students learn with confidence, develop strong character, and prepare for a successful future.
+            </p>
 
             {/* Our Values */}
-            <div className="space-y-2 pt-1 bg-slate-50/80 rounded-xl p-4 border border-slate-100">
-              <h3 className="font-bold text-[#0B1F3A] text-base sm:text-lg">
-                Our Values
-              </h3>
-              <p className="text-sm sm:text-base text-slate-700 font-medium leading-relaxed">
-                Quality Education <span className="text-[#4DA3D9] mx-1.5">•</span> 
-                Islamic Values <span className="text-[#4DA3D9] mx-1.5">•</span> 
-                Professionalism <span className="text-[#4DA3D9] mx-1.5">•</span> 
-                Personal Attention <span className="text-[#4DA3D9] mx-1.5">•</span> 
-                Integrity <span className="text-[#4DA3D9] mx-1.5">•</span> 
-                Continuous Learning <span className="text-[#4DA3D9] mx-1.5">•</span> 
-                Student Success
-              </p>
-            </div>
+            <p className="mt-4 mb-4">
+              <strong className="font-bold text-[#2a2a2a]">Our Values:</strong>{" "}
+              Quality Education • Islamic Values • Professionalism • Personal Attention • Integrity • Continuous Learning • Student Success
+            </p>
 
             {/* Join AEC Network */}
-            <div className="space-y-2 pt-1">
-              <h3 className="font-bold text-[#0B1F3A] text-base sm:text-lg">
-                Join AEC Network
-              </h3>
-              <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
-                Join AEC Network and become part of a growing global learning community. Whether you are looking for Quranic education, academic support, Arabic and English learning, or professional development, our dedicated teachers are here to guide you.
-              </p>
-              <p className="text-sm sm:text-base text-[#0B1F3A] font-medium leading-relaxed pt-1">
-                Start your learning journey with AEC Network today and take a step toward a brighter and better future.
-              </p>
-            </div>
-
-            {/* Read More / Enroll Buttons */}
-            <div className="pt-3 flex flex-wrap gap-4">
-              <Link
-                href="/admissions/how-to-enroll"
-                className="inline-flex items-center gap-2 rounded-full bg-[#4DA3D9] hover:bg-[#0B1F3A] text-white px-7 py-3 text-sm font-semibold tracking-wide shadow-sm transition-all duration-300 group hover:shadow-md active:scale-95"
-              >
-                <span>Enroll Now</span>
-                <span className="transition-transform duration-300 group-hover:translate-x-1.5 text-base">
-                  →
-                </span>
-              </Link>
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 rounded-full border border-slate-300 hover:border-[#4DA3D9] text-slate-700 hover:text-[#4DA3D9] px-7 py-3 text-sm font-semibold tracking-wide transition-all duration-300 active:scale-95"
-              >
-                <span>Contact Us</span>
-              </Link>
-            </div>
+            <p className="font-bold text-[#2a2a2a] text-[14px] sm:text-[14.5px] mt-4 mb-2">
+              Join AEC Network
+            </p>
+            <p className="mb-3">
+              Join AEC Network and become part of a growing global learning community. Whether you are looking for Quranic education, academic support, Arabic and English learning, or professional development, our dedicated teachers are here to guide you.
+            </p>
+            <p className="text-[#333333] font-medium">
+              Start your learning journey with AEC Network today and take a step toward a brighter and better future.
+            </p>
           </div>
         </div>
       </div>
