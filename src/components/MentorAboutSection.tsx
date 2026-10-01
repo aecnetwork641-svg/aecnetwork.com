@@ -48,8 +48,8 @@ export default function MentorAboutSection({}: MentorAboutSectionProps) {
           >
             <div className="relative mx-auto max-w-[420px] lg:max-w-none overflow-hidden rounded-2xl shadow-sm">
               <img
-                src="/images/about-student.jpg"
-                alt="AEC Network Student"
+                src="/images/about-aec.jpg"
+                alt="AEC Network Students Online Learning"
                 className="w-full h-auto object-cover rounded-2xl"
               />
             </div>
