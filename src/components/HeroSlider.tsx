@@ -31,8 +31,9 @@ const SLIDES: BannerSlide[] = [
   },
   {
     id: "s2",
-    title: "Education for Every Mind,",
-    subtitle: "Opportunity for Every Future.",
+    title: "Where Knowledge Meets Opportunity",
+    subtitle:
+      "A modern learning experience designed to inspire growth, excellence, and lifelong success.",
     image: "/images/banner-2",
     imageExt: "png",
     primaryBtn: { label: "Explore All Courses", href: "/courses" },
@@ -42,8 +43,9 @@ const SLIDES: BannerSlide[] = [
   },
   {
     id: "s3",
-    title: "Unlock Your Potential",
-    subtitle: "Through Quality Education.",
+    title: "Empowering Minds, Shaping Futures",
+    subtitle:
+      "Where Knowledge Inspires Growth, Skills Build Confidence, and Learning Creates New Opportunities.",
     image: "/images/banner-3",
     imageExt: "png",
     primaryBtn: { label: "View All Courses", href: "/courses" },
