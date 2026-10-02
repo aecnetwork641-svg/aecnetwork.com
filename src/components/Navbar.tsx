@@ -175,7 +175,7 @@ export default function Navbar() {
             </a>
 
             <a
-              href="https://www.youtube.com/@globallinkeducationInt"
+              href="https://www.youtube.com/@AEC-Network"
               target="_blank"
               rel="noopener noreferrer"
               className="text-white/80 hover:text-white hover:scale-110 transition-all p-0.5"
