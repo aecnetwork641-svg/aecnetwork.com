@@ -112,9 +112,6 @@ export default function HomePage() {
       {/* 4. POPULAR COURSES (Mentor Template Design with Zoom-In Animation) */}
       <PopularCoursesSection />
 
-      {/* 4B. SCHOLAR TEAM SECTION (From Scholar Template - 1st Picture) */}
-      <ScholarTeamSection />
-
       {/* ONE-TO-ONE LEARNING SHOWCASE (Medicloud Style with Animations) */}
       <OneToOneShowcaseSection />
 
@@ -141,6 +138,9 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* 12B. SCHOLAR TEAM SECTION (Our Expert Instructors) */}
+      <ScholarTeamSection />
 
       {/* 13. FAQS */}
       <section className="container-aec max-w-4xl">

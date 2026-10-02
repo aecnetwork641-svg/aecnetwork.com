@@ -152,19 +152,19 @@ export default function PricingSection({ isStandalonePage = false }: { isStandal
   return (
     <section id="pricing" className={isStandalonePage ? "py-4" : "container-aec"}>
       {/* Header */}
-      <div className="text-center max-w-3xl mx-auto">
-        <span className="badge bg-aec-teal/10 text-aec-teal border-aec-teal/30 font-semibold px-3 py-1">
+      <div className="text-center max-w-2xl mx-auto">
+        <span className="badge bg-aec-teal/10 text-aec-teal border-aec-teal/30 text-[11px] font-semibold px-2.5 py-0.5">
           Affordable & Transparent Pricing
         </span>
-        <h2 className="mt-3 font-display text-2xl sm:text-4xl font-extrabold text-aec-navy">
+        <h2 className="mt-2.5 font-display text-xl sm:text-2xl lg:text-3xl font-bold text-aec-navy">
           Fee Structure & Monthly Packages
         </h2>
-        <p className="mt-3 text-sm sm:text-base text-aec-navy/70 leading-relaxed">
-          High-quality online education tailored to your schedule. Select your country currency below to view our affordable monthly rates. Every plan comes with a <span className="font-bold text-aec-navy">100% Free 3-Day Trial</span> with no credit card required.
+        <p className="mt-2 text-xs sm:text-sm text-aec-navy/70 leading-relaxed">
+          High-quality online education tailored to your schedule. Select your country currency below to view our affordable monthly rates. Every plan comes with a <span className="font-semibold text-aec-navy">100% Free 3-Day Trial</span> with no credit card required.
         </p>
 
         {/* Currency Selector Bar */}
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-2 p-1.5 bg-aec-cream rounded-2xl border border-aec-navy/10 inline-flex">
+        <div className="mt-6 flex flex-wrap items-center justify-center gap-1.5 p-1 bg-aec-cream rounded-2xl border border-aec-navy/10 inline-flex">
           {CURRENCIES.map((c) => {
             const isActive = selectedCurrency === c.key;
             return (
@@ -172,9 +172,9 @@ export default function PricingSection({ isStandalonePage = false }: { isStandal
                 key={c.key}
                 type="button"
                 onClick={() => setSelectedCurrency(c.key)}
-                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all ${
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
                   isActive
-                    ? "bg-aec-navy text-white shadow-md"
+                    ? "bg-aec-navy text-white shadow-sm"
                     : "text-aec-navy/70 hover:text-aec-navy hover:bg-white/60"
                 }`}
               >
@@ -187,11 +187,11 @@ export default function PricingSection({ isStandalonePage = false }: { isStandal
         </div>
 
         {/* Program Category Toggle */}
-        <div className="mt-4 flex justify-center gap-3">
+        <div className="mt-3.5 flex justify-center gap-2.5">
           <button
             type="button"
             onClick={() => setActiveCategory("quran")}
-            className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all border ${
+            className={`px-3.5 py-1 rounded-full text-xs font-semibold transition-all border ${
               activeCategory === "quran"
                 ? "bg-aec-teal text-white border-aec-teal shadow-sm"
                 : "bg-white text-aec-navy/70 border-aec-navy/15 hover:bg-aec-cream"
@@ -202,7 +202,7 @@ export default function PricingSection({ isStandalonePage = false }: { isStandal
           <button
             type="button"
             onClick={() => setActiveCategory("academic")}
-            className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all border ${
+            className={`px-3.5 py-1 rounded-full text-xs font-semibold transition-all border ${
               activeCategory === "academic"
                 ? "bg-aec-teal text-white border-aec-teal shadow-sm"
                 : "bg-white text-aec-navy/70 border-aec-navy/15 hover:bg-aec-cream"
@@ -215,21 +215,21 @@ export default function PricingSection({ isStandalonePage = false }: { isStandal
 
       {/* Pricing Cards Grid */}
       {activeCategory === "quran" ? (
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {STANDARD_PLANS.map((plan) => {
             const isPopular = plan.popular;
             return (
               <div
                 key={plan.id}
-                className={`relative rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 ${
+                className={`relative rounded-2xl p-5 flex flex-col justify-between transition-all duration-300 ${
                   isPopular
-                    ? "bg-white border-2 border-aec-teal shadow-xl ring-2 ring-aec-teal/20 scale-[1.02] sm:-translate-y-1 z-10"
+                    ? "bg-white border-2 border-aec-teal shadow-xl ring-2 ring-aec-teal/20 scale-[1.01] sm:-translate-y-1 z-10"
                     : "bg-white border border-aec-navy/10 shadow-sm hover:shadow-md hover:border-aec-navy/20"
                 }`}
               >
                 {isPopular && (
-                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
-                    <span className="bg-gradient-to-r from-aec-teal to-aec-navy text-white text-[11px] font-extrabold uppercase tracking-wider px-3.5 py-1 rounded-full shadow-md">
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                    <span className="bg-gradient-to-r from-aec-teal to-aec-navy text-white text-[10px] font-bold uppercase tracking-wider px-3 py-0.5 rounded-full shadow-md">
                       Most Popular
                     </span>
                   </div>
@@ -238,30 +238,30 @@ export default function PricingSection({ isStandalonePage = false }: { isStandal
                 <div>
                   <div className="flex items-start justify-between">
                     <div>
-                      <h3 className="font-display text-lg font-bold text-aec-navy">{plan.name}</h3>
-                      <p className="text-xs text-aec-navy/60 mt-0.5">{plan.tagline}</p>
+                      <h3 className="font-display text-base font-bold text-aec-navy">{plan.name}</h3>
+                      <p className="text-[11px] text-aec-navy/60 mt-0.5">{plan.tagline}</p>
                     </div>
                   </div>
 
                   {/* Price */}
-                  <div className="mt-5 pb-5 border-b border-aec-navy/10">
+                  <div className="mt-4 pb-4 border-b border-aec-navy/10">
                     <div className="flex items-baseline gap-1">
-                      <span className="font-display text-4xl font-black text-aec-navy tracking-tight">
+                      <span className="font-display text-2xl sm:text-3xl font-extrabold text-aec-navy tracking-tight">
                         {plan.prices[selectedCurrency]}
                       </span>
-                      <span className="text-xs font-semibold text-aec-navy/60">/ month</span>
+                      <span className="text-[11px] font-medium text-aec-navy/60">/ month</span>
                     </div>
-                    <div className="mt-2 flex flex-wrap gap-1.5 text-[11px] text-aec-navy/70">
-                      <span className="bg-aec-cream px-2 py-0.5 rounded font-medium">{plan.monthlyClasses}</span>
-                      <span className="bg-aec-cream px-2 py-0.5 rounded font-medium">{plan.duration}</span>
+                    <div className="mt-1.5 flex flex-wrap gap-1 text-[10px] text-aec-navy/70">
+                      <span className="bg-aec-cream px-1.5 py-0.5 rounded font-medium">{plan.monthlyClasses}</span>
+                      <span className="bg-aec-cream px-1.5 py-0.5 rounded font-medium">{plan.duration}</span>
                     </div>
                   </div>
 
                   {/* Features */}
-                  <ul className="mt-5 space-y-2.5 text-xs text-aec-navy/80">
+                  <ul className="mt-4 space-y-2 text-[11px] text-aec-navy/80">
                     {plan.features.map((feat, idx) => (
-                      <li key={idx} className="flex items-start gap-2">
-                        <span className="text-aec-teal font-bold shrink-0 mt-0.5">✓</span>
+                      <li key={idx} className="flex items-start gap-1.5">
+                        <span className="text-aec-teal font-bold shrink-0">✓</span>
                         <span>{feat}</span>
                       </li>
                     ))}
@@ -269,12 +269,12 @@ export default function PricingSection({ isStandalonePage = false }: { isStandal
                 </div>
 
                 {/* Card Action */}
-                <div className="mt-8 pt-4 border-t border-aec-navy/10">
+                <div className="mt-6 pt-3.5 border-t border-aec-navy/10">
                   <Link
                     href={`/admissions/free-trial?plan=${encodeURIComponent(plan.name)}&currency=${selectedCurrency}`}
-                    className={`w-full text-center py-2.5 px-4 rounded-xl text-xs font-bold transition-all block ${
+                    className={`w-full text-center py-2 px-3 rounded-xl text-xs font-semibold transition-all block ${
                       isPopular
-                        ? "bg-aec-teal text-white hover:bg-aec-navy shadow-md"
+                        ? "bg-aec-teal text-white hover:bg-aec-navy shadow-sm"
                         : "bg-aec-navy/5 text-aec-navy hover:bg-aec-navy hover:text-white"
                     }`}
                   >
@@ -287,57 +287,57 @@ export default function PricingSection({ isStandalonePage = false }: { isStandal
         </div>
       ) : (
         /* Academic Tutoring Pricing View */
-        <div className="mt-10">
-          <div className="grid gap-6 sm:grid-cols-3">
+        <div className="mt-8">
+          <div className="grid gap-5 sm:grid-cols-3">
             {ACADEMIC_SUBJECT_RATES.map((item, idx) => (
               <div
                 key={idx}
-                className="bg-white rounded-2xl border border-aec-navy/15 p-6 shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
+                className="bg-white rounded-2xl border border-aec-navy/15 p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
               >
                 <div>
-                  <span className="badge bg-aec-gold/15 text-aec-navy border-aec-gold/30 text-xs font-bold">
+                  <span className="badge bg-aec-gold/15 text-aec-navy border-aec-gold/30 text-[11px] font-semibold px-2 py-0.5">
                     {item.days}
                   </span>
-                  <h3 className="mt-3 font-display text-lg font-bold text-aec-navy">{item.plan}</h3>
-                  <p className="text-xs text-aec-navy/60 mt-1">{item.classes}</p>
+                  <h3 className="mt-2.5 font-display text-base font-bold text-aec-navy">{item.plan}</h3>
+                  <p className="text-[11px] text-aec-navy/60 mt-0.5">{item.classes}</p>
 
-                  <div className="mt-5 pb-5 border-b border-aec-navy/10">
+                  <div className="mt-4 pb-4 border-b border-aec-navy/10">
                     <div className="flex items-baseline gap-1">
-                      <span className="font-display text-4xl font-black text-aec-navy">
+                      <span className="font-display text-2xl sm:text-3xl font-extrabold text-aec-navy">
                         {item.prices[selectedCurrency]}
                       </span>
-                      <span className="text-xs font-semibold text-aec-navy/60">/ month</span>
+                      <span className="text-[11px] font-medium text-aec-navy/60">/ month</span>
                     </div>
                   </div>
 
-                  <ul className="mt-5 space-y-2.5 text-xs text-aec-navy/80">
-                    <li className="flex items-center gap-2">
-                      <span className="text-aec-teal font-bold">✓</span>
+                  <ul className="mt-4 space-y-2 text-[11px] text-aec-navy/80">
+                    <li className="flex items-center gap-1.5">
+                      <span className="text-aec-teal font-bold shrink-0">✓</span>
                       <span>1-on-1 Customized Academic Tutoring</span>
                     </li>
-                    <li className="flex items-center gap-2">
-                      <span className="text-aec-teal font-bold">✓</span>
+                    <li className="flex items-center gap-1.5">
+                      <span className="text-aec-teal font-bold shrink-0">✓</span>
                       <span>Mathematics, Physics, Chemistry, Biology & English</span>
                     </li>
-                    <li className="flex items-center gap-2">
-                      <span className="text-aec-teal font-bold">✓</span>
+                    <li className="flex items-center gap-1.5">
+                      <span className="text-aec-teal font-bold shrink-0">✓</span>
                       <span>Past Paper Solving & Exam Grade Boosters</span>
                     </li>
-                    <li className="flex items-center gap-2">
-                      <span className="text-aec-teal font-bold">✓</span>
+                    <li className="flex items-center gap-1.5">
+                      <span className="text-aec-teal font-bold shrink-0">✓</span>
                       <span>Weekly Homework & Topic Assessments</span>
                     </li>
-                    <li className="flex items-center gap-2">
-                      <span className="text-aec-teal font-bold">✓</span>
+                    <li className="flex items-center gap-1.5">
+                      <span className="text-aec-teal font-bold shrink-0">✓</span>
                       <span>Free Diagnostic & Trial Session</span>
                     </li>
                   </ul>
                 </div>
 
-                <div className="mt-8 pt-4 border-t border-aec-navy/10">
+                <div className="mt-6 pt-3.5 border-t border-aec-navy/10">
                   <Link
                     href={`/admissions/free-trial?plan=${encodeURIComponent(item.plan)}&currency=${selectedCurrency}`}
-                    className="w-full text-center py-2.5 px-4 rounded-xl text-xs font-bold bg-aec-navy text-white hover:bg-slate-800 transition-all block"
+                    className="w-full text-center py-2 px-3 rounded-xl text-xs font-semibold bg-aec-navy text-white hover:bg-slate-800 transition-all block"
                   >
                     Start Academic Trial
                   </Link>
@@ -363,27 +363,27 @@ export default function PricingSection({ isStandalonePage = false }: { isStandal
           {/* Special Weekend Plan & Sibling Discount Banner */}
           <div className="grid gap-6 md:grid-cols-2">
             {/* Weekend Special - Transparent Glass */}
-            <div className="rounded-2xl border border-white/25 bg-white/[0.12] backdrop-blur-md p-6 sm:p-7 flex flex-col justify-between shadow-xl transition-all duration-300 hover:bg-white/[0.18] hover:border-white/40 hover:-translate-y-1">
+            <div className="rounded-2xl border border-white/25 bg-white/[0.12] backdrop-blur-md p-5 sm:p-6 flex flex-col justify-between shadow-xl transition-all duration-300 hover:bg-white/[0.18] hover:border-white/40 hover:-translate-y-1">
               <div>
                 <div className="flex items-center justify-between">
-                  <span className="badge bg-amber-400/25 text-amber-200 border border-amber-300/40 text-xs font-bold px-3 py-1 rounded-full backdrop-blur-sm">
+                  <span className="badge bg-amber-400/25 text-amber-200 border border-amber-300/40 text-[11px] font-semibold px-2.5 py-0.5 rounded-full backdrop-blur-sm">
                     ⭐ Weekend Special
                   </span>
-                  <span className="font-display text-xl font-extrabold text-white drop-shadow-sm">
+                  <span className="font-display text-lg font-bold text-white drop-shadow-sm">
                     {selectedCurrency === "GBP" ? "£25" : selectedCurrency === "USD" ? "$35" : selectedCurrency === "AUD" ? "A$50" : "C$45"} / mo
                   </span>
                 </div>
-                <h4 className="mt-3 font-display text-lg font-bold text-white drop-shadow-sm">
+                <h4 className="mt-2.5 font-display text-base font-bold text-white drop-shadow-sm">
                   Saturday & Sunday Weekend Cohort
                 </h4>
-                <p className="mt-1.5 text-xs sm:text-sm text-blue-50/90 leading-relaxed font-normal">
+                <p className="mt-1 text-xs text-blue-50/90 leading-relaxed font-normal">
                   Perfect for students busy with regular school on weekdays. Intensive 2 weekend sessions (Saturday & Sunday) covering Tajweed, Quran, or core revision.
                 </p>
               </div>
-              <div className="mt-5">
+              <div className="mt-4">
                 <Link
                   href={`/admissions/free-trial?plan=Weekend-Cohort&currency=${selectedCurrency}`}
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-sky-200 hover:text-white transition-colors"
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-sky-200 hover:text-white transition-colors"
                 >
                   <span>Enroll in Weekend Cohort</span>
                   <span>→</span>
@@ -392,27 +392,27 @@ export default function PricingSection({ isStandalonePage = false }: { isStandal
             </div>
 
             {/* Sibling & Family Discount - Transparent Glass */}
-            <div className="rounded-2xl border border-white/25 bg-white/[0.12] backdrop-blur-md p-6 sm:p-7 flex flex-col justify-between shadow-xl transition-all duration-300 hover:bg-white/[0.18] hover:border-white/40 hover:-translate-y-1">
+            <div className="rounded-2xl border border-white/25 bg-white/[0.12] backdrop-blur-md p-5 sm:p-6 flex flex-col justify-between shadow-xl transition-all duration-300 hover:bg-white/[0.18] hover:border-white/40 hover:-translate-y-1">
               <div>
                 <div className="flex items-center justify-between">
-                  <span className="badge bg-sky-400/25 text-sky-100 border border-sky-300/40 text-xs font-bold px-3 py-1 rounded-full backdrop-blur-sm">
+                  <span className="badge bg-sky-400/25 text-sky-100 border border-sky-300/40 text-[11px] font-semibold px-2.5 py-0.5 rounded-full backdrop-blur-sm">
                     👨‍👩‍👧‍👦 Family Discount
                   </span>
-                  <span className="font-display text-base font-extrabold text-white drop-shadow-sm">
+                  <span className="font-display text-sm font-bold text-white drop-shadow-sm">
                     10% – 15% OFF
                   </span>
                 </div>
-                <h4 className="mt-3 font-display text-lg font-bold text-white drop-shadow-sm">
+                <h4 className="mt-2.5 font-display text-base font-bold text-white drop-shadow-sm">
                   Multiple Children / Family Packages
                 </h4>
-                <p className="mt-1.5 text-xs sm:text-sm text-blue-50/90 leading-relaxed font-normal">
+                <p className="mt-1 text-xs text-blue-50/90 leading-relaxed font-normal">
                   Enrolling 2 or more siblings? Enjoy special discounted monthly tuition rates across all our Quran and Academic courses with synchronized family schedules.
                 </p>
               </div>
-              <div className="mt-5">
+              <div className="mt-4">
                 <Link
                   href="/contact?subject=Family-Discount-Inquiry"
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-sky-200 hover:text-white transition-colors"
+                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-sky-200 hover:text-white transition-colors"
                 >
                   <span>Inquire for Family Discount</span>
                   <span>→</span>
