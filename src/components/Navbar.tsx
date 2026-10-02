@@ -149,7 +149,7 @@ export default function Navbar() {
           {/* Social Media Links */}
           <div className="flex items-center gap-3 sm:gap-4">
             <a
-              href="https://www.facebook.com/Globallinkeducation"
+              href="https://www.facebook.com/AECNETWORK2021"
               target="_blank"
               rel="noopener noreferrer"
               className="text-white/80 hover:text-white hover:scale-110 transition-all p-0.5"
@@ -161,7 +161,7 @@ export default function Navbar() {
             </a>
 
             <a
-              href="https://www.instagram.com/globallinkeducation/"
+              href="https://www.instagram.com/aec_network/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-white/80 hover:text-white hover:scale-110 transition-all p-0.5"
