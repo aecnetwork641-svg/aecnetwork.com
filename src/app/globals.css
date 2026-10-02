@@ -72,17 +72,17 @@ body {
 }
 
 .mentor-section-title p {
-  margin-top: 0.35rem;
-  font-size: 2rem;
+  margin-top: 0.25rem;
+  font-size: 1.35rem;
   font-weight: 800;
   text-transform: uppercase;
   color: var(--aec-navy);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
 }
 
 @media (min-width: 640px) {
   .mentor-section-title p {
-    font-size: 2.25rem;
+    font-size: 1.6rem;
   }
 }
 
@@ -142,9 +142,9 @@ body {
 .mentor-course-card .category-pill {
   background-color: #4DA3D9;
   color: #ffffff;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   font-weight: 700;
-  padding: 0.35rem 0.85rem;
+  padding: 0.2rem 0.6rem;
   border-radius: 4px;
   display: inline-block;
   line-height: 1.2;
@@ -152,15 +152,15 @@ body {
 
 .mentor-course-card .price-tag {
   font-weight: 800;
-  font-size: 1.15rem;
+  font-size: 0.95rem;
   color: #334155;
   margin: 0;
 }
 
 .mentor-course-card h3 {
   font-weight: 700;
-  font-size: 1.25rem;
-  margin-top: 0.75rem;
+  font-size: 0.95rem;
+  margin-top: 0.5rem;
   line-height: 1.35;
 }
 
@@ -175,10 +175,10 @@ body {
 }
 
 .mentor-course-card .course-description {
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   color: #64748b;
-  margin-top: 0.5rem;
-  line-height: 1.55;
+  margin-top: 0.35rem;
+  line-height: 1.5;
   flex-grow: 1;
 }
 

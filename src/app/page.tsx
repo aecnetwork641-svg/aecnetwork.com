@@ -126,20 +126,20 @@ export default function HomePage() {
       <ScholarTeamSection />
 
       {/* 13. FAQS */}
-      <section className="container-aec max-w-4xl">
+      <section className="container-aec max-w-3xl">
         <div className="text-center">
-          <h2 className="font-display text-xs font-bold uppercase tracking-wider text-aec-teal">Clear Answers</h2>
-          <p className="mt-2 font-display text-2xl sm:text-3xl font-bold text-aec-navy">Frequently Asked Questions</p>
+          <h2 className="font-display text-[11px] font-bold uppercase tracking-wider text-aec-teal">Clear Answers</h2>
+          <p className="mt-1 font-display text-lg sm:text-xl lg:text-2xl font-bold text-aec-navy">Frequently Asked Questions</p>
         </div>
 
-        <div className="mt-10 space-y-4">
+        <div className="mt-6 space-y-3">
           {FAQS.map((faq, idx) => (
-            <details key={idx} className="card group cursor-pointer">
-              <summary className="font-display text-base font-bold text-aec-navy flex items-center justify-between list-none">
+            <details key={idx} className="rounded-xl border border-aec-navy/10 bg-white p-4 sm:p-4.5 shadow-sm hover:shadow transition group cursor-pointer">
+              <summary className="font-display text-xs sm:text-sm font-semibold text-aec-navy flex items-center justify-between list-none gap-2">
                 <span>{faq.q}</span>
-                <span className="text-aec-teal group-open:rotate-180 transition-transform">▼</span>
+                <span className="text-[10px] text-aec-teal group-open:rotate-180 transition-transform shrink-0">▼</span>
               </summary>
-              <p className="mt-3 text-sm text-aec-navy/75 leading-relaxed border-t border-aec-navy/5 pt-3">
+              <p className="mt-2.5 text-xs text-aec-navy/70 leading-relaxed border-t border-aec-navy/5 pt-2.5">
                 {faq.a}
               </p>
             </details>
