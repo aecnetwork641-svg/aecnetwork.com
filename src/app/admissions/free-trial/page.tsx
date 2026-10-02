@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function FreeTrialPage() {
   const [formData, setFormData] = useState({
@@ -54,9 +55,30 @@ export default function FreeTrialPage() {
   };
 
   return (
-    <div className="min-h-[80vh] bg-slate-50/60 py-12 md:py-16">
-      <div className="container-aec max-w-2xl">
-        <div className="rounded-2xl border border-aec-navy/10 bg-white p-6 md:p-10 shadow-xl shadow-aec-navy/5">
+    <div className="relative min-h-[90vh] py-12 md:py-20 overflow-hidden bg-gradient-to-br from-slate-100 via-sky-50/70 to-slate-200/80">
+      {/* Ambient Crystal Light Orbs */}
+      <div className="absolute top-12 left-1/4 w-[420px] h-[420px] bg-[#4DA3D9]/20 rounded-full blur-[90px] pointer-events-none" />
+      <div className="absolute bottom-16 right-1/4 w-[460px] h-[460px] bg-aec-navy/15 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-sky-200/25 rounded-full blur-[110px] pointer-events-none" />
+
+      <div className="container-aec max-w-2xl relative z-10">
+        <div className="rounded-3xl border border-white/80 bg-white/60 backdrop-blur-2xl p-6 sm:p-8 md:p-11 shadow-[0_25px_60px_-15px_rgba(11,31,58,0.15),0_0_0_1px_rgba(255,255,255,0.7)_inset] relative overflow-hidden transition-all duration-300">
+          {/* Top Crystal Highlight */}
+          <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-white to-transparent" />
+
+          {/* Top Official Brand Logo */}
+          <div className="flex justify-center pb-5 mb-5 border-b border-slate-200/50">
+            <Link href="/" className="inline-block hover:opacity-90 transition">
+              <Image
+                src="/images/aec-network-logo-horizontal.svg"
+                alt="AEC Network - A Project by AEC Network"
+                width={360}
+                height={105}
+                className="w-auto h-12 sm:h-14 object-contain"
+                priority
+              />
+            </Link>
+          </div>
           {successData ? (
             <div className="text-center py-6">
               <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100 text-emerald-600 mb-6">

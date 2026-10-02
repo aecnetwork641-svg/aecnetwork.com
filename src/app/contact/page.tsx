@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import PageHeaderBanner from "@/components/PageHeaderBanner";
 
 export default function ContactPage() {
@@ -138,6 +139,19 @@ export default function ContactPage() {
           {/* Right Column: Interactive Form */}
           <div className="lg:col-span-7">
             <div className="rounded-2xl border border-aec-navy/10 bg-white p-6 md:p-8 shadow-xl shadow-aec-navy/5">
+              {/* Top Official Brand Logo */}
+              <div className="flex justify-center pb-5 mb-5 border-b border-slate-200/50">
+                <Link href="/" className="inline-block hover:opacity-90 transition">
+                  <Image
+                    src="/images/aec-network-logo-horizontal.svg"
+                    alt="AEC Network - A Project by AEC Network"
+                    width={320}
+                    height={94}
+                    className="w-auto h-11 sm:h-12 object-contain"
+                    priority
+                  />
+                </Link>
+              </div>
               {successData ? (
                 <div className="text-center py-8">
                   <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100 text-emerald-600 mb-6">

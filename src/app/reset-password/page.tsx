@@ -3,6 +3,7 @@
 import { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import Logo from "@/components/Logo";
 
 function ResetPasswordForm() {
@@ -170,7 +171,14 @@ export default function ResetPasswordPage() {
       <div className="w-full max-w-md space-y-8 bg-white p-8 rounded-2xl border border-slate-200/80 shadow-xl">
         <div className="text-center">
           <Link href="/" className="inline-flex justify-center transition hover:opacity-95">
-            <Logo variant="full" size="md" />
+            <Image
+              src="/images/aec-network-logo-horizontal.svg"
+              alt="AEC Network - A Project by AEC Network"
+              width={280}
+              height={82}
+              className="w-auto h-12 sm:h-14 object-contain mx-auto"
+              priority
+            />
           </Link>
           <h2 className="mt-4 font-display text-2xl font-bold tracking-tight text-slate-900">
             Reset Your Password
