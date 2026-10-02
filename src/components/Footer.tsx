@@ -3,10 +3,35 @@ import Logo from "@/components/Logo";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-slate-200/80 bg-[#0B1F3A] text-white">
-      <div className="container-aec grid gap-10 py-16 md:grid-cols-2 lg:grid-cols-5">
-        {/* Brand & Mission */}
-        <div className="lg:col-span-2 space-y-4">
+    <footer className="relative text-white">
+      {/* Animated Liquid Wave Divider */}
+      <div className="wave-divider w-full overflow-hidden leading-none pointer-events-none -mb-[1px]">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 24 150 28"
+          preserveAspectRatio="none"
+          style={{ color: "#0B1F3A" }}
+        >
+          <defs>
+            <path
+              id="wave"
+              d="M-160 44c30 0 58-18 88-18s58 18 88 18 58-18 88-18 58 18 88 18v44h-352z"
+              style={{ color: "#0B1F3A" }}
+            />
+          </defs>
+          <g>
+            <use href="#wave" x="50" y="3" fill="currentColor" style={{ color: "#0B1F3A" }} />
+            <use href="#wave" x="50" y="0" fill="currentColor" style={{ color: "#0B1F3A" }} />
+            <use href="#wave" x="50" y="9" fill="currentColor" style={{ color: "#0B1F3A" }} />
+            <use href="#wave" x="50" y="6" fill="currentColor" style={{ color: "#0B1F3A" }} />
+          </g>
+        </svg>
+      </div>
+
+      <div className="bg-[#0B1F3A]">
+        <div className="container-aec grid gap-10 py-16 md:grid-cols-2 lg:grid-cols-5">
+          {/* Brand & Mission */}
+          <div className="lg:col-span-2 space-y-4">
           <Link href="/" className="inline-block transition hover:opacity-95">
             <Logo variant="full" theme="dark" size="md" />
           </Link>
@@ -261,6 +286,7 @@ export default function Footer() {
             </a>
           </div>
         </div>
+      </div>
       </div>
     </footer>
   );
