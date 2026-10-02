@@ -77,36 +77,36 @@ export default function OneToOneShowcaseSection() {
             className="lg:col-span-5"
           >
             {/* Top pill badges */}
-            <div className="flex flex-wrap items-center gap-2.5">
-              <span className="inline-flex items-center rounded-full bg-sky-50 px-3 py-1 text-xs font-semibold text-sky-700 border border-sky-200/70">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center rounded-full bg-sky-50 px-2.5 py-0.5 text-[11px] font-semibold text-sky-700 border border-sky-200/70">
                 Personalized Tutoring
               </span>
-              <span className="inline-flex items-center rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600">
+              <span className="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-0.5 text-[11px] font-medium text-slate-600">
                 Flexible Timetable
               </span>
             </div>
 
-            {/* Title */}
-            <h2 className="mt-4 font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-aec-navy leading-tight">
+            {/* Title - Reduced Font Size */}
+            <h2 className="mt-3 font-display text-xl sm:text-2xl lg:text-[26px] font-bold tracking-tight text-aec-navy leading-snug">
               Personalized One-to-One Online Classes
             </h2>
 
-            {/* Lead Description */}
-            <p className="mt-4 text-base sm:text-lg text-slate-600 leading-relaxed font-normal">
+            {/* Lead Description - Reduced Font Size */}
+            <p className="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">
               Ideal for students who thrive with individual attention, customized pacing, and targeted support in specific subjects like Quran Tajweed or advanced Mathematics.
             </p>
 
             {/* Feature List with hover shift & animated checks */}
-            <ul className="mt-6 space-y-4">
+            <ul className="mt-5 space-y-3">
               {FEATURES.map((item, index) => (
                 <motion.li
                   key={item.title}
-                  initial={{ opacity: 0, y: 24 }}
+                  initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: 0.2 + index * 0.1, duration: 0.6, ease: "easeOut" }}
-                  whileHover={{ x: 8 }}
-                  className="group flex items-start gap-3.5 rounded-xl p-2 transition-colors duration-200 hover:bg-slate-50/80 cursor-default"
+                  transition={{ delay: 0.15 + index * 0.08, duration: 0.5, ease: "easeOut" }}
+                  whileHover={{ x: 6 }}
+                  className="group flex items-start gap-3 rounded-lg p-1.5 transition-colors duration-200 hover:bg-slate-50/80 cursor-default"
                 >
                   {/* Pulsing Green Circle Checkmark icon matching medicloud */}
                   <motion.span
@@ -121,11 +121,11 @@ export default function OneToOneShowcaseSection() {
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      width="22"
-                      height="22"
+                      width="18"
+                      height="18"
                       viewBox="0 0 24 24"
                       fill="currentColor"
-                      className="drop-shadow-sm"
+                      className="drop-shadow-xs"
                     >
                       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                       <path d="M17 3.34a10 10 0 1 1 -14.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 14.995 -8.336zm-1.293 5.953a1 1 0 0 0 -1.32 -.083l-.094 .083l-3.293 3.292l-1.293 -1.292l-.094 -.083a1 1 0 0 0 -1.403 1.403l.083 .094l2 2l.094 .083a1 1 0 0 0 1.226 0l.094 -.083l4 -4l.083 -.094a1 1 0 0 0 -.083 -1.32z" />
@@ -133,10 +133,10 @@ export default function OneToOneShowcaseSection() {
                   </motion.span>
 
                   <div>
-                    <h3 className="text-sm font-semibold text-aec-navy group-hover:text-aec-teal transition-colors">
+                    <h3 className="text-xs sm:text-[13px] font-semibold text-aec-navy group-hover:text-aec-teal transition-colors">
                       {item.title}
                     </h3>
-                    <p className="mt-0.5 text-xs text-slate-500 leading-normal">
+                    <p className="mt-0.5 text-[11px] text-slate-500 leading-normal">
                       {item.desc}
                     </p>
                   </div>
@@ -145,16 +145,16 @@ export default function OneToOneShowcaseSection() {
             </ul>
 
             {/* CTAs */}
-            <div className="mt-8 flex flex-wrap items-center gap-4">
+            <div className="mt-6 flex flex-wrap items-center gap-3">
               <Link
                 href="/admissions/free-trial"
-                className="inline-flex items-center justify-center rounded-xl bg-aec-teal px-6 py-3 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:bg-aec-navy hover:shadow-lg hover:-translate-y-0.5"
+                className="inline-flex items-center justify-center rounded-lg bg-aec-teal px-5 py-2.5 text-xs font-semibold text-white shadow-sm transition-all duration-300 hover:bg-aec-navy hover:shadow-md hover:-translate-y-0.5"
               >
                 Explore 1-on-1 Tutoring
               </Link>
               <Link
                 href="/admissions/free-trial"
-                className="inline-flex items-center justify-center rounded-xl border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-700 transition-all duration-300 hover:bg-slate-50 hover:border-aec-teal hover:text-aec-teal hover:-translate-y-0.5"
+                className="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-xs font-semibold text-slate-700 transition-all duration-300 hover:bg-slate-50 hover:border-aec-teal hover:text-aec-teal hover:-translate-y-0.5"
               >
                 Book a Free Trial
               </Link>
