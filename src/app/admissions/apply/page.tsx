@@ -69,8 +69,22 @@ export default function ApplyPage() {
           {/* Top Crystal Highlight */}
           <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-white to-transparent" />
 
+          {/* Top Official Logo - Placed on Top */}
+          <div className="flex justify-center pb-5 mb-5 border-b border-slate-200/50">
+            <Link href="/" className="inline-block hover:opacity-90 transition">
+              <Image
+                src="/images/aec-network-logo-horizontal.svg"
+                alt="AEC Network - A Project by AEC Network"
+                width={360}
+                height={105}
+                className="w-auto h-12 sm:h-14 object-contain"
+                priority
+              />
+            </Link>
+          </div>
+
           {successData ? (
-            <div className="text-center py-6">
+            <div className="text-center py-4">
               <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100 text-emerald-600 mb-6 shadow-sm">
                 <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
@@ -129,23 +143,6 @@ export default function ApplyPage() {
                 >
                   Return to Home
                 </Link>
-              </div>
-
-              {/* Official AEC Network Accreditation Banner */}
-              <div className="mt-8 pt-6 border-t border-slate-200/60 flex flex-col items-center justify-center">
-                <div className="w-full max-w-[320px] rounded-2xl overflow-hidden shadow-lg border border-white/60">
-                  <Image
-                    src="/images/aec-network-banner.svg"
-                    alt="AEC Network - A Project by AEC Network"
-                    width={1640}
-                    height={624}
-                    className="w-full h-auto block"
-                    priority
-                  />
-                </div>
-                <p className="text-[11px] text-slate-500 mt-2.5 font-medium">
-                  Akbar Education Communication (AEC) Network • Verified Admissions
-                </p>
               </div>
             </div>
           ) : (
@@ -338,23 +335,6 @@ export default function ApplyPage() {
                   </button>
                 </div>
               </form>
-
-              {/* Official AEC Network Accreditation Logo Banner Below the Form Fields */}
-              <div className="mt-8 pt-6 border-t border-slate-200/50 flex flex-col items-center justify-center">
-                <div className="w-full max-w-[340px] rounded-2xl overflow-hidden shadow-lg border border-white/80 hover:scale-[1.02] transition-transform duration-300">
-                  <Image
-                    src="/images/aec-network-banner.svg"
-                    alt="AEC Network - A Project by AEC Network"
-                    width={1640}
-                    height={624}
-                    className="w-full h-auto block"
-                    priority
-                  />
-                </div>
-                <p className="text-[11px] text-slate-500 mt-2.5 font-medium tracking-wide">
-                  Akbar Education Communication (AEC) Network • Official Admissions
-                </p>
-              </div>
             </>
           )}
         </div>

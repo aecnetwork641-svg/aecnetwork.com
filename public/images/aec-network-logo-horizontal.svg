@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 140" role="img" aria-label="AEC Network, A Project by AEC Network">
+  <g transform="translate(16 20) scale(1.15)">
+    <g>
+      <path fill="#0B1F3A" d="M58 92L6 76L6 60L58 76Z"/>
+      <path fill="#0B1F3A" d="M58 70L14 56L14 46L58 60Z"/>
+      <path fill="#0F766E" d="M58 54L24 43L24 34L58 45Z"/>
+      <path fill="#0B1F3A" d="M58 39L34 31L34 23L58 31Z"/>
+    </g>
+    <g transform="matrix(-1 0 0 1 120 0)">
+      <path fill="#0B1F3A" d="M58 92L6 76L6 60L58 76Z"/>
+      <path fill="#0B1F3A" d="M58 70L14 56L14 46L58 60Z"/>
+      <path fill="#0F766E" d="M58 54L24 43L24 34L58 45Z"/>
+      <path fill="#0B1F3A" d="M58 39L34 31L34 23L58 31Z"/>
+    </g>
+  </g>
+  <text x="310" y="80" text-anchor="middle" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="50" letter-spacing="-0.5" fill="#0B1F3A">
+    <tspan font-weight="800">AEC</tspan>
+    <tspan font-weight="400" dx="9">Network</tspan>
+  </text>
+  <text x="310" y="106" text-anchor="middle" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="15" letter-spacing="1" fill="#0F766E">
+    A Project by AEC Network
+  </text>
+</svg>
