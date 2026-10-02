@@ -349,21 +349,21 @@ export default function PricingSection({ isStandalonePage = false }: { isStandal
       )}
 
       {/* Special Weekend Plan, Sibling Discount & Trust Badges Section with Educational Background */}
-      <div className="relative mt-12 overflow-hidden rounded-3xl p-6 sm:p-10 border border-white/20 shadow-2xl">
+      <div className="relative mt-12 overflow-hidden rounded-3xl p-6 sm:p-10 border border-slate-200/80 shadow-2xl">
         {/* Background Image with Slow Zoom */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-1000 scale-105"
           style={{ backgroundImage: "url('/images/pricing-bg.jpg')" }}
         />
-        {/* Dark moody overlay to ensure crisp contrast and readability (matching WhatSetsUsApart) */}
-        <div className="absolute inset-0 bg-slate-950/75 sm:bg-slate-950/70 backdrop-blur-[0.5px]" />
+        {/* Subtle atmospheric overlay so educational elements (laptop, globe, network map) remain visible */}
+        <div className="absolute inset-0 bg-gradient-to-br from-aec-navy/40 via-sky-950/25 to-slate-900/35 backdrop-blur-[0.5px]" />
 
         {/* Content Container */}
         <div className="relative z-10 space-y-8">
           {/* Special Weekend Plan & Sibling Discount Banner */}
           <div className="grid gap-6 md:grid-cols-2">
             {/* Weekend Special - Transparent Dark Glass with Hover Animation */}
-            <div className="group rounded-2xl border border-white/20 bg-slate-950/65 hover:bg-slate-900/80 backdrop-blur-md p-5 sm:p-6 flex flex-col justify-between shadow-xl transition-all duration-300 hover:border-white/35 hover:-translate-y-1 hover:shadow-2xl">
+            <div className="group rounded-2xl border border-white/25 bg-slate-950/80 hover:bg-slate-900/90 backdrop-blur-md p-5 sm:p-6 flex flex-col justify-between shadow-xl transition-all duration-300 hover:border-white/40 hover:-translate-y-1 hover:shadow-2xl">
               <div>
                 <div className="flex items-center justify-between gap-2">
                   <span className="badge bg-amber-400/20 text-amber-300 border border-amber-300/35 text-[11px] font-semibold px-2.5 py-0.5 rounded-full backdrop-blur-sm">
@@ -392,7 +392,7 @@ export default function PricingSection({ isStandalonePage = false }: { isStandal
             </div>
 
             {/* Sibling & Family Discount - Transparent Dark Glass with Hover Animation */}
-            <div className="group rounded-2xl border border-white/20 bg-slate-950/65 hover:bg-slate-900/80 backdrop-blur-md p-5 sm:p-6 flex flex-col justify-between shadow-xl transition-all duration-300 hover:border-white/35 hover:-translate-y-1 hover:shadow-2xl">
+            <div className="group rounded-2xl border border-white/25 bg-slate-950/80 hover:bg-slate-900/90 backdrop-blur-md p-5 sm:p-6 flex flex-col justify-between shadow-xl transition-all duration-300 hover:border-white/40 hover:-translate-y-1 hover:shadow-2xl">
               <div>
                 <div className="flex items-center justify-between gap-2">
                   <span className="badge bg-sky-400/20 text-sky-200 border border-sky-300/35 text-[11px] font-semibold px-2.5 py-0.5 rounded-full backdrop-blur-sm">
@@ -422,7 +422,7 @@ export default function PricingSection({ isStandalonePage = false }: { isStandal
           </div>
 
           {/* Trust Badges & Accepted Payment Gateways - Transparent Dark Glass with Animation */}
-          <div className="rounded-2xl border border-white/20 bg-slate-950/65 backdrop-blur-md p-6 sm:p-7 shadow-xl">
+          <div className="rounded-2xl border border-white/25 bg-slate-950/80 backdrop-blur-md p-6 sm:p-7 shadow-xl">
             <div className="grid gap-6 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/15">
               {/* Badge 1 */}
               <div className="group/badge flex items-start gap-3.5 pr-4 transition-all duration-300">
