@@ -143,7 +143,8 @@ export default async function StudentDashboard() {
 
       {/* 2. Key Performance Metric Cards */}
       <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <div className="rounded-xl border border-slate-200/80 bg-white p-5 shadow-sm">
+        <div className="card p-5 relative overflow-hidden">
+          <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-white to-transparent" />
           <div className="flex items-center justify-between">
             <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">Attendance Rate</p>
             <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-100 text-emerald-600 text-xs font-bold">
@@ -156,7 +157,8 @@ export default async function StudentDashboard() {
           </div>
         </div>
 
-        <div className="rounded-xl border border-slate-200/80 bg-white p-5 shadow-sm">
+        <div className="card p-5 relative overflow-hidden">
+          <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-white to-transparent" />
           <div className="flex items-center justify-between">
             <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">Enrolled Courses</p>
             <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-sky-100 text-sky-600 text-xs font-bold">
@@ -167,7 +169,8 @@ export default async function StudentDashboard() {
           <p className="mt-1 text-[11px] text-slate-500">Structured LMS curriculum</p>
         </div>
 
-        <div className="rounded-xl border border-slate-200/80 bg-white p-5 shadow-sm">
+        <div className="card p-5 relative overflow-hidden">
+          <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-white to-transparent" />
           <div className="flex items-center justify-between">
             <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">Academic Standing</p>
             <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-amber-100 text-amber-700 text-xs font-bold">
@@ -178,7 +181,8 @@ export default async function StudentDashboard() {
           <p className="mt-1 text-[11px] text-emerald-600 font-medium">{results.length} Exam(s) Recorded</p>
         </div>
 
-        <div className="rounded-xl border border-slate-200/80 bg-white p-5 shadow-sm">
+        <div className="card p-5 relative overflow-hidden">
+          <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-white to-transparent" />
           <div className="flex items-center justify-between">
             <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">Fee Status</p>
             <span className={`flex h-8 w-8 items-center justify-center rounded-lg text-xs font-bold ${

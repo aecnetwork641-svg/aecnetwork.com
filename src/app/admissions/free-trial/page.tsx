@@ -166,7 +166,7 @@ export default function FreeTrialPage() {
 
               <form onSubmit={handleSubmit} className="mt-6 space-y-4">
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">
+                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-700/90 mb-1.5">
                     Student / Parent Full Name <span className="text-rose-500">*</span>
                   </label>
                   <input
@@ -175,13 +175,13 @@ export default function FreeTrialPage() {
                     value={formData.fullName}
                     onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                     placeholder="e.g. Muhammad Ali"
-                    className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-slate-900 placeholder-slate-400 focus:border-aec-navy focus:outline-none focus:ring-2 focus:ring-aec-navy/10 transition"
+                    className="w-full rounded-xl border border-white/80 bg-white/70 backdrop-blur-md px-4 py-2.5 text-slate-900 placeholder-slate-400 shadow-[0_2px_4px_rgba(0,0,0,0.02)_inset] focus:bg-white/95 focus:border-[#4DA3D9] focus:ring-4 focus:ring-[#4DA3D9]/20 focus:outline-none transition-all duration-200"
                   />
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">
+                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-700/90 mb-1.5">
                       Email Address <span className="text-rose-500">*</span>
                     </label>
                     <input
@@ -190,12 +190,12 @@ export default function FreeTrialPage() {
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       placeholder="e.g. yourname@example.com"
-                      className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-slate-900 placeholder-slate-400 focus:border-aec-navy focus:outline-none focus:ring-2 focus:ring-aec-navy/10 transition"
+                      className="w-full rounded-xl border border-white/80 bg-white/70 backdrop-blur-md px-4 py-2.5 text-slate-900 placeholder-slate-400 shadow-[0_2px_4px_rgba(0,0,0,0.02)_inset] focus:bg-white/95 focus:border-[#4DA3D9] focus:ring-4 focus:ring-[#4DA3D9]/20 focus:outline-none transition-all duration-200"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">
+                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-700/90 mb-1.5">
                       WhatsApp / Phone Number <span className="text-rose-500">*</span>
                     </label>
                     <input
@@ -204,20 +204,20 @@ export default function FreeTrialPage() {
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       placeholder="e.g. +92 300 1234567"
-                      className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-slate-900 placeholder-slate-400 focus:border-aec-navy focus:outline-none focus:ring-2 focus:ring-aec-navy/10 transition"
+                      className="w-full rounded-xl border border-white/80 bg-white/70 backdrop-blur-md px-4 py-2.5 text-slate-900 placeholder-slate-400 shadow-[0_2px_4px_rgba(0,0,0,0.02)_inset] focus:bg-white/95 focus:border-[#4DA3D9] focus:ring-4 focus:ring-[#4DA3D9]/20 focus:outline-none transition-all duration-200"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">
+                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-700/90 mb-1.5">
                       Program of Interest <span className="text-rose-500">*</span>
                     </label>
                     <select
                       value={formData.programSlug}
                       onChange={(e) => setFormData({ ...formData, programSlug: e.target.value })}
-                      className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-slate-900 bg-white focus:border-aec-navy focus:outline-none focus:ring-2 focus:ring-aec-navy/10 transition text-sm"
+                      className="w-full rounded-xl border border-white/80 bg-white/70 backdrop-blur-md px-4 py-2.5 text-slate-900 shadow-[0_2px_4px_rgba(0,0,0,0.02)_inset] focus:bg-white/95 focus:border-[#4DA3D9] focus:ring-4 focus:ring-[#4DA3D9]/20 focus:outline-none transition-all duration-200 text-sm"
                     >
                       <optgroup label="📖 Islamic & Quranic Studies">
                         <option value="Tajweed Course">Tajweed Course</option>
@@ -255,13 +255,13 @@ export default function FreeTrialPage() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">
+                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-700/90 mb-1.5">
                       Preferred Schedule Time
                     </label>
                     <select
                       value={formData.preferredTime}
                       onChange={(e) => setFormData({ ...formData, preferredTime: e.target.value })}
-                      className="w-full rounded-xl border border-slate-200 px-4 py-2.5 text-slate-900 bg-white focus:border-aec-navy focus:outline-none focus:ring-2 focus:ring-aec-navy/10 transition"
+                      className="w-full rounded-xl border border-white/80 bg-white/70 backdrop-blur-md px-4 py-2.5 text-slate-900 shadow-[0_2px_4px_rgba(0,0,0,0.02)_inset] focus:bg-white/95 focus:border-[#4DA3D9] focus:ring-4 focus:ring-[#4DA3D9]/20 focus:outline-none transition-all duration-200 text-sm"
                     >
                       <option value="Morning (9:00 AM - 12:00 PM)">Morning (9:00 AM - 12:00 PM)</option>
                       <option value="Afternoon (1:00 PM - 5:00 PM)">Afternoon (1:00 PM - 5:00 PM)</option>
@@ -273,7 +273,7 @@ export default function FreeTrialPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1">
+                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-700/90 mb-1.5">
                     Special Requirements or Student Level (Optional)
                   </label>
                   <textarea
@@ -281,7 +281,7 @@ export default function FreeTrialPage() {
                     value={formData.notes}
                     onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                     placeholder="e.g. Student is 8 years old, beginner level..."
-                    className="w-full rounded-xl border border-slate-200 px-4 py-2 text-slate-900 placeholder-slate-400 focus:border-aec-navy focus:outline-none focus:ring-2 focus:ring-aec-navy/10 transition text-sm"
+                    className="w-full rounded-xl border border-white/80 bg-white/70 backdrop-blur-md px-4 py-2 text-slate-900 placeholder-slate-400 shadow-[0_2px_4px_rgba(0,0,0,0.02)_inset] focus:bg-white/95 focus:border-[#4DA3D9] focus:ring-4 focus:ring-[#4DA3D9]/20 focus:outline-none transition-all duration-200 text-sm"
                   />
                 </div>
 

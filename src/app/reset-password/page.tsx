@@ -108,7 +108,7 @@ function ResetPasswordForm() {
         </div>
       ) : (
         <form className="mt-4 space-y-5" onSubmit={handleSubmit}>
-          <div className="text-xs text-slate-500 bg-slate-50 p-3 rounded-lg border border-slate-200">
+          <div className="text-xs text-slate-600 bg-white/60 backdrop-blur-md p-3.5 rounded-xl border border-white/80 shadow-2xs">
             Resetting password for: <strong className="text-slate-900">{email}</strong>
           </div>
 
@@ -123,7 +123,7 @@ function ResetPasswordForm() {
               placeholder="••••••••••••"
               required
               minLength={6}
-              className="w-full rounded-xl border border-slate-300 px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:border-aec-navy focus:outline-none focus:ring-1 focus:ring-aec-navy transition"
+              className="w-full rounded-xl border border-white/80 bg-white/70 backdrop-blur-md px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 shadow-[0_2px_4px_rgba(0,0,0,0.02)_inset] focus:bg-white/95 focus:border-[#4DA3D9] focus:outline-none focus:ring-4 focus:ring-[#4DA3D9]/20 transition-all duration-200"
             />
           </div>
 
@@ -138,14 +138,14 @@ function ResetPasswordForm() {
               placeholder="••••••••••••"
               required
               minLength={6}
-              className="w-full rounded-xl border border-slate-300 px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:border-aec-navy focus:outline-none focus:ring-1 focus:ring-aec-navy transition"
+              className="w-full rounded-xl border border-white/80 bg-white/70 backdrop-blur-md px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 shadow-[0_2px_4px_rgba(0,0,0,0.02)_inset] focus:bg-white/95 focus:border-[#4DA3D9] focus:outline-none focus:ring-4 focus:ring-[#4DA3D9]/20 transition-all duration-200"
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full flex justify-center items-center gap-2 rounded-xl bg-aec-navy px-4 py-3 text-sm font-bold text-white shadow-md hover:bg-aec-navy/90 focus:outline-none focus:ring-2 focus:ring-aec-navy focus:ring-offset-2 transition disabled:opacity-60"
+            className="w-full flex justify-center items-center gap-2 rounded-xl bg-aec-navy px-4 py-3 text-sm font-bold text-white shadow-lg hover:bg-aec-navy/90 focus:outline-none focus:ring-2 focus:ring-aec-navy focus:ring-offset-2 transition disabled:opacity-60 cursor-pointer"
           >
             {loading ? (
               <>
@@ -167,8 +167,16 @@ function ResetPasswordForm() {
 
 export default function ResetPasswordPage() {
   return (
-    <div className="min-h-[80vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-      <div className="w-full max-w-md space-y-8 bg-white p-8 rounded-2xl border border-slate-200/80 shadow-xl">
+    <div className="relative min-h-[85vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-slate-100 via-sky-50/70 to-slate-200/80 overflow-hidden">
+      {/* Ambient luminous crystal orbs */}
+      <div className="pointer-events-none absolute -top-32 -left-32 w-96 h-96 rounded-full bg-[#4DA3D9]/20 blur-[90px]" />
+      <div className="pointer-events-none absolute top-1/2 -right-32 w-96 h-96 rounded-full bg-aec-navy/15 blur-[100px]" />
+      <div className="pointer-events-none absolute -bottom-32 left-1/3 w-96 h-96 rounded-full bg-sky-200/25 blur-[110px]" />
+
+      <div className="relative z-10 w-full max-w-md space-y-8 rounded-3xl border border-white/80 bg-white/65 backdrop-blur-2xl p-8 sm:p-10 shadow-[0_25px_60px_-15px_rgba(11,31,58,0.15),0_0_0_1px_rgba(255,255,255,0.7)_inset] overflow-hidden">
+        {/* Top Crystal Highlight */}
+        <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-white to-transparent" />
+
         <div className="text-center">
           <Link href="/" className="inline-flex justify-center transition hover:opacity-95">
             <Image
