@@ -88,7 +88,7 @@ export default function OneToOneShowcaseSection() {
 
             {/* Title */}
             <h2 className="mt-4 font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-aec-navy leading-tight">
-              One-to-One Learning Mode
+              Personalized One-to-One Online Classes
             </h2>
 
             {/* Lead Description */}
