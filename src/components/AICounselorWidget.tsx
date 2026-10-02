@@ -48,7 +48,7 @@ export default function AICounselorWidget() {
   };
 
   return (
-    <div className={`fixed right-[22px] max-md:right-[14px] z-50 ${isOpen ? "bottom-[22px] max-md:bottom-[18px]" : "bottom-[104px] max-md:bottom-[86px]"}`}>
+    <div className={`fixed right-[22px] max-md:right-[14px] z-50 ${isOpen ? "bottom-[20px] max-md:bottom-[16px]" : "bottom-[78px] max-md:bottom-[70px]"}`}>
       {!isOpen ? (
         <button
           onClick={() => setIsOpen(true)}

@@ -12,64 +12,50 @@ export default function WhatsAppFloatingButton() {
         .dg-whatsapp {
           position: fixed;
           right: 22px;
-          bottom: 22px;
+          bottom: 20px;
           display: flex;
           align-items: center;
-          gap: 14px;
-          padding: 14px 20px;
+          gap: 10px;
+          padding: 8px 16px 8px 10px;
           background: #25d366;
           color: #fff;
           text-decoration: none;
           border-radius: 999px;
-          font-size: 15px;
-          font-weight: 700;
-          box-shadow: 0 15px 35px rgba(37, 211, 102, 0.35);
+          box-shadow: 0 10px 25px rgba(37, 211, 102, 0.35);
           z-index: 49;
-          transition: 0.35s ease;
+          transition: all 0.3s ease;
           animation: dgWhatsappFloat 2.5s infinite;
         }
 
         .dg-whatsapp:hover {
-          transform: translateY(-4px) scale(1.03);
-          box-shadow: 0 22px 45px rgba(37, 211, 102, 0.45);
+          transform: translateY(-3px) scale(1.02);
+          box-shadow: 0 16px 32px rgba(37, 211, 102, 0.45);
         }
 
         .dg-whatsapp-icon {
-          width: 46px;
-          height: 46px;
+          width: 32px;
+          height: 32px;
           display: flex;
           align-items: center;
           justify-content: center;
-          background: rgba(255, 255, 255, 0.18);
+          background: rgba(255, 255, 255, 0.22);
           border-radius: 50%;
-          font-size: 24px;
-          backdrop-filter: blur(8px);
+          backdrop-filter: blur(6px);
           flex-shrink: 0;
         }
 
         .dg-whatsapp-icon svg {
-          width: 28px;
-          height: 28px;
+          width: 20px;
+          height: 20px;
           display: block;
         }
 
         .dg-whatsapp-text {
-          display: flex;
-          flex-direction: column;
-          line-height: 1.2;
-          text-align: left;
-        }
-
-        .dg-whatsapp-text small {
-          font-size: 11px;
-          font-weight: 500;
-          opacity: 0.85;
-        }
-
-        .dg-whatsapp-text strong {
-          font-size: 15px;
-          font-weight: 800;
+          font-size: 13px;
+          font-weight: 700;
+          letter-spacing: -0.01em;
           white-space: nowrap;
+          color: #fff;
         }
 
         @keyframes dgWhatsappFloat {
@@ -77,7 +63,7 @@ export default function WhatsAppFloatingButton() {
             transform: translateY(0);
           }
           50% {
-            transform: translateY(-6px);
+            transform: translateY(-5px);
           }
           100% {
             transform: translateY(0);
@@ -88,7 +74,7 @@ export default function WhatsAppFloatingButton() {
         .dg-whatsapp::before {
           content: "";
           position: absolute;
-          inset: -8px;
+          inset: -5px;
           border-radius: 999px;
           border: 2px solid rgba(37, 211, 102, 0.35);
           animation: dgPulse 2.5s infinite;
@@ -97,11 +83,11 @@ export default function WhatsAppFloatingButton() {
 
         @keyframes dgPulse {
           0% {
-            transform: scale(0.95);
+            transform: scale(0.96);
             opacity: 0.8;
           }
           70% {
-            transform: scale(1.15);
+            transform: scale(1.12);
             opacity: 0;
           }
           100% {
@@ -113,27 +99,23 @@ export default function WhatsAppFloatingButton() {
         @media (max-width: 768px) {
           .dg-whatsapp {
             right: 14px;
-            bottom: 18px;
-            padding: 12px 16px;
-            gap: 10px;
+            bottom: 16px;
+            padding: 7px 14px 7px 8px;
+            gap: 8px;
           }
 
           .dg-whatsapp-icon {
-            width: 40px;
-            height: 40px;
+            width: 28px;
+            height: 28px;
           }
 
           .dg-whatsapp-icon svg {
-            width: 24px;
-            height: 24px;
+            width: 17px;
+            height: 17px;
           }
 
-          .dg-whatsapp-text small {
-            display: none;
-          }
-
-          .dg-whatsapp-text strong {
-            font-size: 13.5px;
+          .dg-whatsapp-text {
+            font-size: 12px;
           }
         }
       `}</style>
@@ -222,10 +204,7 @@ export default function WhatsAppFloatingButton() {
           </svg>
         </div>
 
-        <div className="dg-whatsapp-text">
-          <small>Need Help?</small>
-          <strong>Chat with AEC Network</strong>
-        </div>
+        <span className="dg-whatsapp-text">Chat with AEC Network</span>
       </a>
     </>
   );
