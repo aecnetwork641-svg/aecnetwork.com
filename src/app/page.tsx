@@ -5,6 +5,7 @@ import MentorCountsSection from "@/components/MentorCountsSection";
 import MentorAboutSection from "@/components/MentorAboutSection";
 import PopularCoursesSection from "@/components/PopularCoursesSection";
 import ScholarTeamSection from "@/components/ScholarTeamSection";
+import OneToOneShowcaseSection from "@/components/OneToOneShowcaseSection";
 import { getCourseImage } from "@/lib/course-images";
 
 const PROGRAMS = [
@@ -73,18 +74,6 @@ const PROGRAMS = [
   }
 ];
 
-const JOURNEY_STEPS = [
-  { step: "Discover", desc: "Explore academic programs, syllabus outlines, and flexible delivery formats." },
-  { step: "Ask AI", desc: "Consult the AEC AI Counselor for instant guidance on courses and study pacing." },
-  { step: "Enquire", desc: "Connect with our academic advisory team to assess student readiness." },
-  { step: "Register", desc: "Book a complimentary free trial session or submit an admission form." },
-  { step: "Learn", desc: "Attend interactive live one-to-one sessions or group class cohorts." },
-  { step: "Assess", desc: "Complete modular quizzes, assignments, and periodic milestone evaluations." },
-  { step: "Pay", desc: "Manage transparent monthly fee billing through secure digital payment invoices." },
-  { step: "Progress", desc: "Review continuous attendance, grades, and detailed teacher feedback reports." },
-  { step: "Complete", desc: "Receive verifiable academic certificates upon mastery and program completion." }
-];
-
 const FAQS = [
   {
     q: "How does the AEC Network Free Trial class work?",
@@ -126,118 +115,8 @@ export default function HomePage() {
       {/* 4B. SCHOLAR TEAM SECTION (From Scholar Template - 1st Picture) */}
       <ScholarTeamSection />
 
-      {/* 5. HOW LEARNING WORKS / 6. WHY CHOOSE AEC */}
-      <section className="bg-aec-navy py-16 text-white">
-        <div className="container-aec">
-          <div className="max-w-2xl">
-            <h2 className="font-display text-xs font-bold uppercase tracking-wider text-aec-gold">Methodology & Rigor</h2>
-            <p className="mt-2 font-display text-2xl sm:text-3xl font-bold">How Learning Works at AEC Network</p>
-            <p className="mt-4 text-sm text-white/70 leading-relaxed">
-              We eliminate friction from online education with a cohesive pathway designed for accountability, engagement, and measurable progress.
-            </p>
-          </div>
-
-          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
-              <span className="text-2xl font-black text-aec-gold">01</span>
-              <h3 className="mt-3 font-display text-base font-bold">Assessment & Placement</h3>
-              <p className="mt-2 text-xs text-white/70 leading-relaxed">
-                Initial evaluation by academic advisors to determine current proficiency level and learning targets.
-              </p>
-            </div>
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
-              <span className="text-2xl font-black text-aec-gold">02</span>
-              <h3 className="mt-3 font-display text-base font-bold">Tailored Scheduling</h3>
-              <p className="mt-2 text-xs text-white/70 leading-relaxed">
-                Assigning qualified teachers and creating customized timetable slots matching the student&apos;s time zone.
-              </p>
-            </div>
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
-              <span className="text-2xl font-black text-aec-gold">03</span>
-              <h3 className="mt-3 font-display text-base font-bold">Interactive Instruction</h3>
-              <p className="mt-2 text-xs text-white/70 leading-relaxed">
-                Live classes with digital whiteboards, screen sharing, practical drills, and immediate teacher feedback.
-              </p>
-            </div>
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
-              <span className="text-2xl font-black text-aec-gold">04</span>
-              <h3 className="mt-3 font-display text-base font-bold">Continuous Evaluation</h3>
-              <p className="mt-2 text-xs text-white/70 leading-relaxed">
-                Regular quizzes, attendance tracking, and term reports accessible via the Student and Parent portals.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 7. ONE-TO-ONE LEARNING & 8. GROUP CLASSES */}
-      <section className="container-aec">
-        <div className="grid gap-8 lg:grid-cols-2">
-          {/* One to One */}
-          <div className="card border-aec-teal/30 bg-gradient-to-br from-white to-aec-teal/5">
-            <div className="flex items-center justify-between">
-              <span className="badge badge-info">Personalized Tutoring</span>
-              <span className="text-xs font-semibold text-aec-navy/60">Flexible Timetable</span>
-            </div>
-            <h3 className="mt-4 font-display text-xl font-bold text-aec-navy">One-to-One Learning Mode</h3>
-            <p className="mt-2 text-sm text-aec-navy/70 leading-relaxed">
-              Ideal for students who thrive with individual attention, customized pacing, and targeted support in specific subjects like Quran Tajweed or advanced Mathematics.
-            </p>
-            <ul className="mt-5 space-y-2 text-xs text-aec-navy/80">
-              <li className="flex items-center gap-2">✓ Dedicated individual instructor</li>
-              <li className="flex items-center gap-2">✓ Pacing customized to student capability</li>
-              <li className="flex items-center gap-2">✓ Flexible rescheduling options</li>
-            </ul>
-            <div className="mt-6">
-              <Link href="/programs/one-to-one" className="btn-primary w-full text-center">
-                Explore 1-on-1 Tutoring
-              </Link>
-            </div>
-          </div>
-
-          {/* Group Cohorts */}
-          <div className="card border-aec-gold/30 bg-gradient-to-br from-white to-amber-50/40">
-            <div className="flex items-center justify-between">
-              <span className="badge badge-warning">Collaborative Cohorts</span>
-              <span className="text-xs font-semibold text-aec-navy/60">Structured Schedule</span>
-            </div>
-            <h3 className="mt-4 font-display text-xl font-bold text-aec-navy">Group Class Cohorts</h3>
-            <p className="mt-2 text-sm text-aec-navy/70 leading-relaxed">
-              Designed for interactive peer learning, language conversational practice, and structured syllabus progression alongside fellow learners.
-            </p>
-            <ul className="mt-5 space-y-2 text-xs text-aec-navy/80">
-              <li className="flex items-center gap-2">✓ Small interactive group sizes</li>
-              <li className="flex items-center gap-2">✓ Collaborative exercises and peer discussions</li>
-              <li className="flex items-center gap-2">✓ Cost-effective tuition structure</li>
-            </ul>
-            <div className="mt-6">
-              <Link href="/programs/group-classes" className="btn-secondary w-full text-center">
-                Explore Group Classes
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 10. STUDENT LEARNING JOURNEY */}
-      <section className="container-aec">
-        <div className="text-center max-w-2xl mx-auto">
-          <h2 className="font-display text-xs font-bold uppercase tracking-wider text-aec-gold">Structured Progression</h2>
-          <p className="mt-2 font-display text-2xl sm:text-3xl font-bold text-aec-navy">The Complete Learning Journey</p>
-        </div>
-
-        <div className="mt-10 grid gap-3 sm:grid-cols-3 lg:grid-cols-9">
-          {JOURNEY_STEPS.map((j, i) => (
-            <div key={j.step} className="rounded-xl border border-aec-navy/10 bg-white p-4 flex flex-col justify-between">
-              <div>
-                <span className="text-xs font-black text-aec-gold">0{i + 1}</span>
-                <p className="mt-1 font-display text-xs font-bold text-aec-navy">{j.step}</p>
-                <p className="mt-1.5 text-[11px] text-aec-navy/70 leading-snug">{j.desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+      {/* ONE-TO-ONE LEARNING SHOWCASE (Medicloud Style with Animations) */}
+      <OneToOneShowcaseSection />
 
       {/* 10B. PRICING & FEE STRUCTURE */}
       <PricingSection />
@@ -282,26 +161,6 @@ export default function HomePage() {
               </p>
             </details>
           ))}
-        </div>
-      </section>
-
-      {/* 14. FINAL CTA */}
-      <section className="container-aec mb-12">
-        <div className="rounded-2xl2 border border-aec-teal/20 bg-aec-cream p-8 sm:p-12 text-center">
-          <h2 className="font-display text-2xl sm:text-3xl font-bold text-aec-navy">
-            Ready to Begin Your Educational Journey?
-          </h2>
-          <p className="mt-3 max-w-xl mx-auto text-sm text-aec-navy/70 leading-relaxed">
-            Connect with our admissions counselors today for course advisory, assessment scheduling, and tailored fee packages.
-          </p>
-          <div className="mt-6 flex flex-wrap justify-center gap-4">
-            <Link href="/admissions/free-trial" className="btn-primary">
-              Book a Free Trial
-            </Link>
-            <Link href="/contact" className="btn-secondary">
-              Contact AEC Advisory
-            </Link>
-          </div>
         </div>
       </section>
     </div>
