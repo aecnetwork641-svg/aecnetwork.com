@@ -175,8 +175,8 @@ export default function HeroSlider() {
           {/* Heading - Exact Slider Revolution 7 Letter-by-Letter 3D Animation */}
           <h1
             key={`title-${slide.id}`}
-            className="font-display font-extrabold text-white tracking-tight leading-[1.15] drop-shadow-2xl sr7-perspective-box"
-            style={{ fontSize: "clamp(2.3rem, 5vw, 3.8rem)" }}
+            className="font-display font-extrabold text-white tracking-tight leading-[1.18] drop-shadow-2xl sr7-perspective-box"
+            style={{ fontSize: "clamp(1.75rem, 3.5vw, 2.65rem)" }}
           >
             {(() => {
               let charIndex = 0;
@@ -216,7 +216,7 @@ export default function HeroSlider() {
             key={`sub-${slide.id}`}
             className="font-medium leading-snug drop-shadow-lg sr7-perspective-box"
             style={{
-              fontSize: "clamp(1.2rem, 2.3vw, 1.85rem)",
+              fontSize: "clamp(0.95rem, 1.6vw, 1.25rem)",
               color: slide.accentColor,
               textShadow: `0 0 30px ${slide.glowColor}`,
             }}
@@ -255,10 +255,10 @@ export default function HeroSlider() {
           </p>
 
           {/* Action CTAs */}
-          <div className="hero-btn-anim flex flex-wrap items-center gap-4 pt-4">
+          <div className="hero-btn-anim flex flex-wrap items-center gap-3.5 pt-3">
             <Link
               href={slide.primaryBtn.href as never}
-              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-xl font-bold text-sm text-white shadow-2xl transition-all duration-200 hover:scale-[1.03] active:scale-[0.98]"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-xs sm:text-sm text-white shadow-2xl transition-all duration-200 hover:scale-[1.03] active:scale-[0.98]"
               style={{
                 background: `linear-gradient(135deg, ${slide.accentColor}, #0B1F3A)`,
                 boxShadow: `0 8px 30px ${slide.glowColor}`,
@@ -272,7 +272,7 @@ export default function HeroSlider() {
 
             <Link
               href={slide.secondaryBtn.href as never}
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold text-sm text-white border border-white/25 bg-white/10 backdrop-blur-md transition-all duration-200 hover:bg-white/20 hover:scale-[1.03] active:scale-[0.98] shadow-lg"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-bold text-xs sm:text-sm text-white border border-white/25 bg-white/10 backdrop-blur-md transition-all duration-200 hover:bg-white/20 hover:scale-[1.03] active:scale-[0.98] shadow-lg"
             >
               {slide.secondaryBtn.label}
             </Link>
@@ -280,16 +280,16 @@ export default function HeroSlider() {
 
           {/* Clean minimal stats */}
           <div
-            className="hero-btn-anim flex flex-wrap gap-8 pt-6 border-t border-white/10"
+            className="hero-btn-anim flex flex-wrap gap-7 pt-5 border-t border-white/10"
           >
             {[
-              { n: "5,000+", l: "Students Enrolled" },
-              { n: "150+", l: "Expert Instructors" },
+              { n: "1232+", l: "Students Enrolled" },
+              { n: "60+", l: "Expert Instructors" },
               { n: "50+", l: "Global Countries" },
             ].map((s) => (
               <div key={s.l} className="flex flex-col">
-                <span className="text-xl font-black text-white" style={{ color: slide.accentColor }}>{s.n}</span>
-                <span className="text-xs text-[#EAF5FC] font-medium">{s.l}</span>
+                <span className="text-lg sm:text-xl font-extrabold text-white" style={{ color: slide.accentColor }}>{s.n}</span>
+                <span className="text-[11px] sm:text-xs text-[#EAF5FC] font-medium">{s.l}</span>
               </div>
             ))}
           </div>

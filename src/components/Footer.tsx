@@ -282,7 +282,7 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="text-[#4DA3D9] hover:text-white font-semibold transition"
             >
-              WhatsApp Us
+              Chat with AEC Network
             </a>
           </div>
         </div>
