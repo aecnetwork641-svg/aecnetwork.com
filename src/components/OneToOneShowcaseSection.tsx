@@ -48,10 +48,10 @@ export default function OneToOneShowcaseSection() {
             >
               <div className="group relative overflow-hidden rounded-3xl border border-slate-200/80 bg-slate-900/5 p-2 shadow-[0_20px_60px_-15px_rgba(11,31,58,0.18)] transition-all duration-500 hover:shadow-[0_25px_70px_-12px_rgba(11,31,58,0.25)]">
                 <Image
-                  src="/images/about-one-on-one.png"
+                  src="/images/about-one-on-one.jpg"
                   alt="AEC Network Live One-to-One Interactive Consultation and Learning Session"
-                  width={720}
-                  height={480}
+                  width={960}
+                  height={540}
                   className="w-full h-auto rounded-2xl object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
                   priority
                 />
