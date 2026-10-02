@@ -6,6 +6,7 @@ import MentorAboutSection from "@/components/MentorAboutSection";
 import PopularCoursesSection from "@/components/PopularCoursesSection";
 import ScholarTeamSection from "@/components/ScholarTeamSection";
 import OneToOneShowcaseSection from "@/components/OneToOneShowcaseSection";
+import WhatSetsUsApartSection from "@/components/WhatSetsUsApartSection";
 import { getCourseImage } from "@/lib/course-images";
 
 const PROGRAMS = [
@@ -118,26 +119,8 @@ export default function HomePage() {
       {/* 10B. PRICING & FEE STRUCTURE */}
       <PricingSection />
 
-      {/* 11. FREE TRIAL CTA & 12. LEARNING RESOURCES */}
-      <section className="bg-gradient-to-r from-aec-navy to-slate-900 py-16 text-white">
-        <div className="container-aec text-center max-w-3xl">
-          <span className="badge bg-aec-gold/20 text-aec-gold border-aec-gold/30 text-xs">No Obligation</span>
-          <h2 className="mt-4 font-display text-3xl sm:text-4xl font-extrabold">
-            Experience Our Teaching with a Free Trial Class
-          </h2>
-          <p className="mt-4 text-sm sm:text-base text-white/75 leading-relaxed">
-            Take the first step today. Meet an instructor, discuss your academic goals, and see firsthand how our structured online classes operate.
-          </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <Link href="/admissions/free-trial" className="btn-primary text-base px-8 py-3.5 shadow-lg">
-              Book a Free Trial Class
-            </Link>
-            <Link href="/courses" className="btn-secondary bg-white/10 text-white border-white/20 hover:bg-white/20 text-base px-8 py-3.5">
-              Browse Course Catalog
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* 11. WHAT SETS US APART */}
+      <WhatSetsUsApartSection />
 
       {/* 12B. SCHOLAR TEAM SECTION (Our Expert Instructors) */}
       <ScholarTeamSection />
