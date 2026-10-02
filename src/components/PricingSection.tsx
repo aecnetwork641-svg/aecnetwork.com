@@ -362,28 +362,28 @@ export default function PricingSection({ isStandalonePage = false }: { isStandal
         <div className="relative z-10 space-y-8">
           {/* Special Weekend Plan & Sibling Discount Banner */}
           <div className="grid gap-6 md:grid-cols-2">
-            {/* Weekend Special - Transparent / Glassmorphic */}
-            <div className="rounded-2xl border border-white/40 bg-white/60 backdrop-blur-md p-6 sm:p-7 flex flex-col justify-between shadow-lg transition-all duration-300 hover:bg-white/75 hover:shadow-xl hover:-translate-y-1">
+            {/* Weekend Special - Transparent Glass */}
+            <div className="rounded-2xl border border-white/25 bg-white/[0.12] backdrop-blur-md p-6 sm:p-7 flex flex-col justify-between shadow-xl transition-all duration-300 hover:bg-white/[0.18] hover:border-white/40 hover:-translate-y-1">
               <div>
                 <div className="flex items-center justify-between">
-                  <span className="badge bg-amber-500/20 text-amber-950 border border-amber-500/30 text-xs font-bold px-2.5 py-1 rounded-full">
+                  <span className="badge bg-amber-400/25 text-amber-200 border border-amber-300/40 text-xs font-bold px-3 py-1 rounded-full backdrop-blur-sm">
                     ⭐ Weekend Special
                   </span>
-                  <span className="font-display text-lg font-extrabold text-aec-navy">
+                  <span className="font-display text-xl font-extrabold text-white drop-shadow-sm">
                     {selectedCurrency === "GBP" ? "£25" : selectedCurrency === "USD" ? "$35" : selectedCurrency === "AUD" ? "A$50" : "C$45"} / mo
                   </span>
                 </div>
-                <h4 className="mt-3 font-display text-base sm:text-lg font-bold text-aec-navy">
+                <h4 className="mt-3 font-display text-lg font-bold text-white drop-shadow-sm">
                   Saturday & Sunday Weekend Cohort
                 </h4>
-                <p className="mt-1.5 text-xs sm:text-sm text-slate-800 leading-relaxed font-medium">
+                <p className="mt-1.5 text-xs sm:text-sm text-blue-50/90 leading-relaxed font-normal">
                   Perfect for students busy with regular school on weekdays. Intensive 2 weekend sessions (Saturday & Sunday) covering Tajweed, Quran, or core revision.
                 </p>
               </div>
               <div className="mt-5">
                 <Link
                   href={`/admissions/free-trial?plan=Weekend-Cohort&currency=${selectedCurrency}`}
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-aec-navy hover:text-aec-teal transition-colors"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-sky-200 hover:text-white transition-colors"
                 >
                   <span>Enroll in Weekend Cohort</span>
                   <span>→</span>
@@ -391,28 +391,28 @@ export default function PricingSection({ isStandalonePage = false }: { isStandal
               </div>
             </div>
 
-            {/* Sibling & Family Discount - Transparent / Glassmorphic */}
-            <div className="rounded-2xl border border-white/40 bg-white/60 backdrop-blur-md p-6 sm:p-7 flex flex-col justify-between shadow-lg transition-all duration-300 hover:bg-white/75 hover:shadow-xl hover:-translate-y-1">
+            {/* Sibling & Family Discount - Transparent Glass */}
+            <div className="rounded-2xl border border-white/25 bg-white/[0.12] backdrop-blur-md p-6 sm:p-7 flex flex-col justify-between shadow-xl transition-all duration-300 hover:bg-white/[0.18] hover:border-white/40 hover:-translate-y-1">
               <div>
                 <div className="flex items-center justify-between">
-                  <span className="badge bg-sky-500/20 text-sky-950 border border-sky-500/30 text-xs font-bold px-2.5 py-1 rounded-full">
+                  <span className="badge bg-sky-400/25 text-sky-100 border border-sky-300/40 text-xs font-bold px-3 py-1 rounded-full backdrop-blur-sm">
                     👨‍👩‍👧‍👦 Family Discount
                   </span>
-                  <span className="font-display text-sm font-extrabold text-aec-navy">
+                  <span className="font-display text-base font-extrabold text-white drop-shadow-sm">
                     10% – 15% OFF
                   </span>
                 </div>
-                <h4 className="mt-3 font-display text-base sm:text-lg font-bold text-aec-navy">
+                <h4 className="mt-3 font-display text-lg font-bold text-white drop-shadow-sm">
                   Multiple Children / Family Packages
                 </h4>
-                <p className="mt-1.5 text-xs sm:text-sm text-slate-800 leading-relaxed font-medium">
+                <p className="mt-1.5 text-xs sm:text-sm text-blue-50/90 leading-relaxed font-normal">
                   Enrolling 2 or more siblings? Enjoy special discounted monthly tuition rates across all our Quran and Academic courses with synchronized family schedules.
                 </p>
               </div>
               <div className="mt-5">
                 <Link
                   href="/contact?subject=Family-Discount-Inquiry"
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-aec-navy hover:text-aec-teal transition-colors"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-sky-200 hover:text-white transition-colors"
                 >
                   <span>Inquire for Family Discount</span>
                   <span>→</span>
@@ -421,17 +421,17 @@ export default function PricingSection({ isStandalonePage = false }: { isStandal
             </div>
           </div>
 
-          {/* Trust Badges & Accepted Payment Gateways - Transparent / Glassmorphic */}
-          <div className="rounded-2xl border border-white/40 bg-white/70 backdrop-blur-md p-6 sm:p-8 shadow-lg">
-            <div className="grid gap-6 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-slate-200/60">
+          {/* Trust Badges & Accepted Payment Gateways - Transparent Glass */}
+          <div className="rounded-2xl border border-white/25 bg-white/[0.12] backdrop-blur-md p-6 sm:p-8 shadow-xl">
+            <div className="grid gap-6 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/15">
               {/* Badge 1 */}
               <div className="flex items-start gap-3.5 pr-4">
-                <div className="w-10 h-10 rounded-xl bg-sky-500/20 text-sky-900 flex items-center justify-center font-bold text-lg shrink-0 border border-sky-400/30">
+                <div className="w-10 h-10 rounded-xl bg-white/15 text-white flex items-center justify-center font-bold text-lg shrink-0 border border-white/25 backdrop-blur-sm shadow-sm">
                   🎁
                 </div>
                 <div>
-                  <p className="font-display text-sm font-bold text-aec-navy">100% Free 3-Day Trial</p>
-                  <p className="mt-1 text-xs text-slate-700 leading-relaxed font-medium">
+                  <p className="font-display text-sm font-bold text-white">100% Free 3-Day Trial</p>
+                  <p className="mt-1 text-xs text-blue-50/85 leading-relaxed font-normal">
                     Take 3 full trial classes with a dedicated tutor before paying anything. No credit card required.
                   </p>
                 </div>
@@ -439,12 +439,12 @@ export default function PricingSection({ isStandalonePage = false }: { isStandal
 
               {/* Badge 2 */}
               <div className="flex items-start gap-3.5 pt-6 md:pt-0 md:px-4">
-                <div className="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-900 flex items-center justify-center font-bold text-lg shrink-0 border border-amber-400/30">
+                <div className="w-10 h-10 rounded-xl bg-white/15 text-white flex items-center justify-center font-bold text-lg shrink-0 border border-white/25 backdrop-blur-sm shadow-sm">
                   🛡️
                 </div>
                 <div>
-                  <p className="font-display text-sm font-bold text-aec-navy">Money-Back Guarantee</p>
-                  <p className="mt-1 text-xs text-slate-700 leading-relaxed font-medium">
+                  <p className="font-display text-sm font-bold text-white">Money-Back Guarantee</p>
+                  <p className="mt-1 text-xs text-blue-50/85 leading-relaxed font-normal">
                     If you are not satisfied with your instructor or progress within the first month, we offer a refund or tutor reassignment.
                   </p>
                 </div>
@@ -452,12 +452,12 @@ export default function PricingSection({ isStandalonePage = false }: { isStandal
 
               {/* Badge 3 */}
               <div className="flex items-start gap-3.5 pt-6 md:pt-0 md:pl-4">
-                <div className="w-10 h-10 rounded-xl bg-aec-navy/15 text-aec-navy flex items-center justify-center font-bold text-lg shrink-0 border border-slate-300/50">
+                <div className="w-10 h-10 rounded-xl bg-white/15 text-white flex items-center justify-center font-bold text-lg shrink-0 border border-white/25 backdrop-blur-sm shadow-sm">
                   💳
                 </div>
                 <div>
-                  <p className="font-display text-sm font-bold text-aec-navy">Secure Global Payments</p>
-                  <p className="mt-1 text-xs text-slate-700 leading-relaxed font-medium">
+                  <p className="font-display text-sm font-bold text-white">Secure Global Payments</p>
+                  <p className="mt-1 text-xs text-blue-50/85 leading-relaxed font-normal">
                     Bank Transfer, Wise, Western Union, MoneyGram, Ria, and Debit/Credit Cards accepted worldwide.
                   </p>
                 </div>
@@ -465,15 +465,15 @@ export default function PricingSection({ isStandalonePage = false }: { isStandal
             </div>
 
             {/* Payment Methods Badges */}
-            <div className="mt-6 pt-6 border-t border-slate-200/60 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-700">
-              <span className="font-bold text-aec-navy">Accepted Global Payment Methods:</span>
+            <div className="mt-6 pt-6 border-t border-white/15 flex flex-wrap items-center justify-between gap-4 text-xs text-blue-50/90">
+              <span className="font-bold text-white">Accepted Global Payment Methods:</span>
               <div className="flex flex-wrap items-center gap-2 font-medium">
-                <span className="px-2.5 py-1 rounded bg-white/80 border border-white/60 text-aec-navy font-semibold shadow-sm backdrop-blur-sm">Direct Bank Wire</span>
-                <span className="px-2.5 py-1 rounded bg-white/80 border border-white/60 text-aec-navy font-semibold shadow-sm backdrop-blur-sm">Wise (TransferWise)</span>
-                <span className="px-2.5 py-1 rounded bg-white/80 border border-white/60 text-aec-navy font-semibold shadow-sm backdrop-blur-sm">Western Union</span>
-                <span className="px-2.5 py-1 rounded bg-white/80 border border-white/60 text-aec-navy font-semibold shadow-sm backdrop-blur-sm">MoneyGram</span>
-                <span className="px-2.5 py-1 rounded bg-white/80 border border-white/60 text-aec-navy font-semibold shadow-sm backdrop-blur-sm">Ria Money</span>
-                <span className="px-2.5 py-1 rounded bg-white/80 border border-white/60 text-aec-navy font-semibold shadow-sm backdrop-blur-sm">Credit / Debit Cards</span>
+                <span className="px-2.5 py-1 rounded bg-white/15 border border-white/25 text-white font-semibold shadow-sm backdrop-blur-sm">Direct Bank Wire</span>
+                <span className="px-2.5 py-1 rounded bg-white/15 border border-white/25 text-white font-semibold shadow-sm backdrop-blur-sm">Wise (TransferWise)</span>
+                <span className="px-2.5 py-1 rounded bg-white/15 border border-white/25 text-white font-semibold shadow-sm backdrop-blur-sm">Western Union</span>
+                <span className="px-2.5 py-1 rounded bg-white/15 border border-white/25 text-white font-semibold shadow-sm backdrop-blur-sm">MoneyGram</span>
+                <span className="px-2.5 py-1 rounded bg-white/15 border border-white/25 text-white font-semibold shadow-sm backdrop-blur-sm">Ria Money</span>
+                <span className="px-2.5 py-1 rounded bg-white/15 border border-white/25 text-white font-semibold shadow-sm backdrop-blur-sm">Credit / Debit Cards</span>
               </div>
             </div>
           </div>
