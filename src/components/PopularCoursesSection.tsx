@@ -132,8 +132,7 @@ export default function PopularCoursesSection() {
     <section id="courses" ref={sectionRef} className="container-aec py-14 space-y-10">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div className="mentor-section-title">
-          <h2>Courses</h2>
-          <p>Top Courses</p>
+          <h2>Top Courses</h2>
         </div>
         <Link
           href="/courses"

@@ -366,7 +366,7 @@ export default function PricingSection({ isStandalonePage = false }: { isStandal
             <div className="group rounded-2xl border border-white/20 bg-[#0B1F3A]/85 hover:bg-[#0B1F3A] backdrop-blur-xl p-5 sm:p-6 flex flex-col justify-between shadow-2xl transition-all duration-300 hover:border-[#4DA3D9]/50 hover:-translate-y-1">
               <div>
                 <div className="flex items-center justify-between gap-2">
-                  <span className="badge bg-amber-400/20 text-amber-300 border border-amber-400/40 text-[11px] font-bold px-3 py-1 rounded-full backdrop-blur-md shadow-sm">
+                  <span className="badge bg-[#4DA3D9]/25 text-sky-100 border border-[#4DA3D9]/40 text-[11px] font-bold px-3 py-1 rounded-full backdrop-blur-md shadow-sm">
                     ⭐ Weekend Special
                   </span>
                   <span className="font-display text-lg sm:text-xl font-bold text-white drop-shadow-sm">
