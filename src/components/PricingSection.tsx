@@ -355,35 +355,35 @@ export default function PricingSection({ isStandalonePage = false }: { isStandal
           className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-1000 scale-105"
           style={{ backgroundImage: "url('/images/pricing-bg.jpg')" }}
         />
-        {/* Subtle atmospheric overlay so educational elements (laptop, globe, network map) remain visible */}
-        <div className="absolute inset-0 bg-gradient-to-br from-aec-navy/40 via-sky-950/25 to-slate-900/35 backdrop-blur-[0.5px]" />
+        {/* Deep atmospheric overlay so educational background blends harmoniously with AEC Brand Colors */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0B1F3A]/90 via-[#0a2347]/85 to-[#061426]/92 backdrop-blur-[1px]" />
 
         {/* Content Container */}
         <div className="relative z-10 space-y-8">
           {/* Special Weekend Plan & Sibling Discount Banner */}
           <div className="grid gap-6 md:grid-cols-2">
             {/* Weekend Special - Transparent Dark Glass with Hover Animation */}
-            <div className="group rounded-2xl border border-white/25 bg-slate-950/35 hover:bg-slate-950/50 backdrop-blur-md p-5 sm:p-6 flex flex-col justify-between shadow-xl transition-all duration-300 hover:border-white/40 hover:-translate-y-1 hover:shadow-2xl">
+            <div className="group rounded-2xl border border-white/20 bg-[#0B1F3A]/85 hover:bg-[#0B1F3A] backdrop-blur-xl p-5 sm:p-6 flex flex-col justify-between shadow-2xl transition-all duration-300 hover:border-[#4DA3D9]/50 hover:-translate-y-1">
               <div>
                 <div className="flex items-center justify-between gap-2">
-                  <span className="badge bg-amber-400/20 text-amber-300 border border-amber-300/35 text-[11px] font-semibold px-2.5 py-0.5 rounded-full backdrop-blur-sm">
+                  <span className="badge bg-amber-400/20 text-amber-300 border border-amber-400/40 text-[11px] font-bold px-3 py-1 rounded-full backdrop-blur-md shadow-sm">
                     ⭐ Weekend Special
                   </span>
-                  <span className="font-display text-lg font-bold text-white drop-shadow-sm">
+                  <span className="font-display text-lg sm:text-xl font-bold text-white drop-shadow-sm">
                     {selectedCurrency === "GBP" ? "£25" : selectedCurrency === "USD" ? "$35" : selectedCurrency === "AUD" ? "A$50" : "C$45"} / mo
                   </span>
                 </div>
-                <h4 className="mt-3 font-display text-base font-bold text-white tracking-wide group-hover:text-sky-300 transition-colors drop-shadow-sm">
+                <h4 className="mt-3 font-display text-base sm:text-lg font-bold text-white tracking-wide group-hover:text-sky-300 transition-colors drop-shadow-sm">
                   Saturday & Sunday Weekend Cohort
                 </h4>
-                <p className="mt-1.5 text-xs text-white/80 leading-relaxed font-normal">
+                <p className="mt-1.5 text-xs text-blue-100/80 leading-relaxed font-normal">
                   Perfect for students busy with regular school on weekdays. Intensive 2 weekend sessions (Saturday & Sunday) covering Tajweed, Quran, or core revision.
                 </p>
               </div>
               <div className="mt-4">
                 <Link
                   href={`/admissions/free-trial?plan=Weekend-Cohort&currency=${selectedCurrency}`}
-                  className="group/link inline-flex items-center gap-1.5 text-xs font-semibold text-sky-400 hover:text-sky-300 transition-colors"
+                  className="group/link inline-flex items-center gap-1.5 text-xs font-semibold text-[#4DA3D9] hover:text-white transition-colors"
                 >
                   <span>Enroll in Weekend Cohort</span>
                   <span className="transition-transform group-hover/link:translate-x-1.5 font-bold">→</span>
@@ -392,27 +392,27 @@ export default function PricingSection({ isStandalonePage = false }: { isStandal
             </div>
 
             {/* Sibling & Family Discount - Transparent Dark Glass with Hover Animation */}
-            <div className="group rounded-2xl border border-white/25 bg-slate-950/35 hover:bg-slate-950/50 backdrop-blur-md p-5 sm:p-6 flex flex-col justify-between shadow-xl transition-all duration-300 hover:border-white/40 hover:-translate-y-1 hover:shadow-2xl">
+            <div className="group rounded-2xl border border-white/20 bg-[#0B1F3A]/85 hover:bg-[#0B1F3A] backdrop-blur-xl p-5 sm:p-6 flex flex-col justify-between shadow-2xl transition-all duration-300 hover:border-[#4DA3D9]/50 hover:-translate-y-1">
               <div>
                 <div className="flex items-center justify-between gap-2">
-                  <span className="badge bg-sky-400/20 text-sky-200 border border-sky-300/35 text-[11px] font-semibold px-2.5 py-0.5 rounded-full backdrop-blur-sm">
+                  <span className="badge bg-[#4DA3D9]/25 text-sky-100 border border-[#4DA3D9]/40 text-[11px] font-bold px-3 py-1 rounded-full backdrop-blur-md shadow-sm">
                     👨‍👩‍👧‍👦 Family Discount
                   </span>
-                  <span className="font-display text-xs sm:text-sm font-bold text-emerald-300 bg-emerald-400/15 border border-emerald-400/30 px-2.5 py-0.5 rounded-full drop-shadow-sm">
+                  <span className="font-display text-xs sm:text-sm font-bold text-emerald-300 bg-emerald-500/20 border border-emerald-400/40 px-3 py-1 rounded-full drop-shadow-sm shadow-sm">
                     10% – 15% OFF
                   </span>
                 </div>
-                <h4 className="mt-3 font-display text-base font-bold text-white tracking-wide group-hover:text-sky-300 transition-colors drop-shadow-sm">
+                <h4 className="mt-3 font-display text-base sm:text-lg font-bold text-white tracking-wide group-hover:text-sky-300 transition-colors drop-shadow-sm">
                   Multiple Children / Family Packages
                 </h4>
-                <p className="mt-1.5 text-xs text-white/80 leading-relaxed font-normal">
+                <p className="mt-1.5 text-xs text-blue-100/80 leading-relaxed font-normal">
                   Enrolling 2 or more siblings? Enjoy special discounted monthly tuition rates across all our Quran and Academic courses with synchronized family schedules.
                 </p>
               </div>
               <div className="mt-4">
                 <Link
                   href="/contact?subject=Family-Discount-Inquiry"
-                  className="group/link inline-flex items-center gap-1.5 text-xs font-semibold text-sky-400 hover:text-sky-300 transition-colors"
+                  className="group/link inline-flex items-center gap-1.5 text-xs font-semibold text-[#4DA3D9] hover:text-white transition-colors"
                 >
                   <span>Inquire for Family Discount</span>
                   <span className="transition-transform group-hover/link:translate-x-1.5 font-bold">→</span>
@@ -422,16 +422,16 @@ export default function PricingSection({ isStandalonePage = false }: { isStandal
           </div>
 
           {/* Trust Badges & Accepted Payment Gateways - Transparent Dark Glass with Animation */}
-          <div className="rounded-2xl border border-white/25 bg-slate-950/35 backdrop-blur-md p-6 sm:p-7 shadow-xl">
+          <div className="rounded-2xl border border-white/20 bg-[#0B1F3A]/80 backdrop-blur-xl p-6 sm:p-7 shadow-2xl">
             <div className="grid gap-6 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/15">
               {/* Badge 1 */}
               <div className="group/badge flex items-start gap-3.5 pr-4 transition-all duration-300">
-                <div className="w-11 h-11 rounded-xl bg-white/10 text-sky-400 flex items-center justify-center text-xl shrink-0 border border-white/15 backdrop-blur-sm group-hover/badge:scale-110 group-hover/badge:text-sky-300 group-hover/badge:bg-sky-500/20 transition-all duration-300 shadow-sm">
+                <div className="w-11 h-11 rounded-xl bg-[#4DA3D9]/20 text-[#4DA3D9] flex items-center justify-center text-xl shrink-0 border border-[#4DA3D9]/30 backdrop-blur-sm group-hover/badge:scale-110 group-hover/badge:text-white group-hover/badge:bg-[#4DA3D9] transition-all duration-300 shadow-sm">
                   🎁
                 </div>
                 <div>
                   <p className="font-display text-sm font-bold text-white tracking-wide group-hover/badge:text-sky-300 transition-colors">100% Free 3-Day Trial</p>
-                  <p className="mt-1 text-xs text-white/80 leading-relaxed font-normal">
+                  <p className="mt-1 text-xs text-blue-100/80 leading-relaxed font-normal">
                     Take 3 full trial classes with a dedicated tutor before paying anything. No credit card required.
                   </p>
                 </div>
@@ -439,12 +439,12 @@ export default function PricingSection({ isStandalonePage = false }: { isStandal
 
               {/* Badge 2 */}
               <div className="group/badge flex items-start gap-3.5 pt-6 md:pt-0 md:px-4 transition-all duration-300">
-                <div className="w-11 h-11 rounded-xl bg-white/10 text-sky-400 flex items-center justify-center text-xl shrink-0 border border-white/15 backdrop-blur-sm group-hover/badge:scale-110 group-hover/badge:text-sky-300 group-hover/badge:bg-sky-500/20 transition-all duration-300 shadow-sm">
+                <div className="w-11 h-11 rounded-xl bg-[#4DA3D9]/20 text-[#4DA3D9] flex items-center justify-center text-xl shrink-0 border border-[#4DA3D9]/30 backdrop-blur-sm group-hover/badge:scale-110 group-hover/badge:text-white group-hover/badge:bg-[#4DA3D9] transition-all duration-300 shadow-sm">
                   🛡️
                 </div>
                 <div>
                   <p className="font-display text-sm font-bold text-white tracking-wide group-hover/badge:text-sky-300 transition-colors">Money-Back Guarantee</p>
-                  <p className="mt-1 text-xs text-white/80 leading-relaxed font-normal">
+                  <p className="mt-1 text-xs text-blue-100/80 leading-relaxed font-normal">
                     If you are not satisfied with your instructor or progress within the first month, we offer a refund or tutor reassignment.
                   </p>
                 </div>
@@ -452,12 +452,12 @@ export default function PricingSection({ isStandalonePage = false }: { isStandal
 
               {/* Badge 3 */}
               <div className="group/badge flex items-start gap-3.5 pt-6 md:pt-0 md:pl-4 transition-all duration-300">
-                <div className="w-11 h-11 rounded-xl bg-white/10 text-sky-400 flex items-center justify-center text-xl shrink-0 border border-white/15 backdrop-blur-sm group-hover/badge:scale-110 group-hover/badge:text-sky-300 group-hover/badge:bg-sky-500/20 transition-all duration-300 shadow-sm">
+                <div className="w-11 h-11 rounded-xl bg-[#4DA3D9]/20 text-[#4DA3D9] flex items-center justify-center text-xl shrink-0 border border-[#4DA3D9]/30 backdrop-blur-sm group-hover/badge:scale-110 group-hover/badge:text-white group-hover/badge:bg-[#4DA3D9] transition-all duration-300 shadow-sm">
                   💳
                 </div>
                 <div>
                   <p className="font-display text-sm font-bold text-white tracking-wide group-hover/badge:text-sky-300 transition-colors">Secure Global Payments</p>
-                  <p className="mt-1 text-xs text-white/80 leading-relaxed font-normal">
+                  <p className="mt-1 text-xs text-blue-100/80 leading-relaxed font-normal">
                     Bank Transfer, Wise, Western Union, MoneyGram, Ria, and Debit/Credit Cards accepted worldwide.
                   </p>
                 </div>
@@ -465,15 +465,15 @@ export default function PricingSection({ isStandalonePage = false }: { isStandal
             </div>
 
             {/* Payment Methods Badges */}
-            <div className="mt-6 pt-5 border-t border-white/15 flex flex-wrap items-center justify-between gap-3 text-xs text-white/80">
+            <div className="mt-6 pt-5 border-t border-white/15 flex flex-wrap items-center justify-between gap-3 text-xs text-blue-100/80">
               <span className="font-semibold text-white tracking-wide">Accepted Global Payment Methods:</span>
               <div className="flex flex-wrap items-center gap-2 font-medium">
-                <span className="px-2.5 py-1 rounded-lg bg-white/[0.08] hover:bg-white/[0.18] hover:scale-105 border border-white/15 text-white/90 text-[11px] font-medium transition-all duration-200 shadow-sm backdrop-blur-sm">Direct Bank Wire</span>
-                <span className="px-2.5 py-1 rounded-lg bg-white/[0.08] hover:bg-white/[0.18] hover:scale-105 border border-white/15 text-white/90 text-[11px] font-medium transition-all duration-200 shadow-sm backdrop-blur-sm">Wise (TransferWise)</span>
-                <span className="px-2.5 py-1 rounded-lg bg-white/[0.08] hover:bg-white/[0.18] hover:scale-105 border border-white/15 text-white/90 text-[11px] font-medium transition-all duration-200 shadow-sm backdrop-blur-sm">Western Union</span>
-                <span className="px-2.5 py-1 rounded-lg bg-white/[0.08] hover:bg-white/[0.18] hover:scale-105 border border-white/15 text-white/90 text-[11px] font-medium transition-all duration-200 shadow-sm backdrop-blur-sm">MoneyGram</span>
-                <span className="px-2.5 py-1 rounded-lg bg-white/[0.08] hover:bg-white/[0.18] hover:scale-105 border border-white/15 text-white/90 text-[11px] font-medium transition-all duration-200 shadow-sm backdrop-blur-sm">Ria Money</span>
-                <span className="px-2.5 py-1 rounded-lg bg-white/[0.08] hover:bg-white/[0.18] hover:scale-105 border border-white/15 text-white/90 text-[11px] font-medium transition-all duration-200 shadow-sm backdrop-blur-sm">Credit / Debit Cards</span>
+                <span className="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 hover:scale-105 border border-white/15 text-white/90 text-[11px] font-medium transition-all duration-200 shadow-sm backdrop-blur-sm">Direct Bank Wire</span>
+                <span className="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 hover:scale-105 border border-white/15 text-white/90 text-[11px] font-medium transition-all duration-200 shadow-sm backdrop-blur-sm">Wise (TransferWise)</span>
+                <span className="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 hover:scale-105 border border-white/15 text-white/90 text-[11px] font-medium transition-all duration-200 shadow-sm backdrop-blur-sm">Western Union</span>
+                <span className="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 hover:scale-105 border border-white/15 text-white/90 text-[11px] font-medium transition-all duration-200 shadow-sm backdrop-blur-sm">MoneyGram</span>
+                <span className="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 hover:scale-105 border border-white/15 text-white/90 text-[11px] font-medium transition-all duration-200 shadow-sm backdrop-blur-sm">Ria Money</span>
+                <span className="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 hover:scale-105 border border-white/15 text-white/90 text-[11px] font-medium transition-all duration-200 shadow-sm backdrop-blur-sm">Credit / Debit Cards</span>
               </div>
             </div>
           </div>

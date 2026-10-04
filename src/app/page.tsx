@@ -110,7 +110,7 @@ export default function HomePage() {
       {/* 3. MENTOR ABOUT US / WHAT AEC DELIVERS SECTION */}
       <MentorAboutSection />
 
-      {/* 4. POPULAR COURSES (Mentor Template Design with Zoom-In Animation) */}
+      {/* 4. TOP COURSES (Mentor Template Design with Zoom-In Animation) */}
       <PopularCoursesSection />
 
       {/* ONE-TO-ONE LEARNING SHOWCASE (Medicloud Style with Animations) */}

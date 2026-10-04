@@ -133,7 +133,7 @@ export default function PopularCoursesSection() {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div className="mentor-section-title">
           <h2>Courses</h2>
-          <p>Popular Courses</p>
+          <p>Top Courses</p>
         </div>
         <Link
           href="/courses"
