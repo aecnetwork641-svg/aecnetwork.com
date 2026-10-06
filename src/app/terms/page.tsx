@@ -22,7 +22,7 @@ export default function TermsPage() {
           <section className="space-y-3">
             <h2 className="font-display text-xl font-bold text-aec-navy">1. Acceptance of Terms</h2>
             <p>
-              By accessing or enrolling in courses offered by Akbar Education Communication (AEC) Network (&quot;AEC Network&quot;, &quot;we&quot;, &quot;our&quot;), you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.
+              By accessing or enrolling in courses offered by Akbar Educational Communication (AEC) Network (&quot;AEC Network&quot;, &quot;we&quot;, &quot;our&quot;), you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our services.
             </p>
           </section>
 

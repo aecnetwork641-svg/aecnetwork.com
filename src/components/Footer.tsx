@@ -131,7 +131,7 @@ export default function Footer() {
         <div className="border-t border-white/10 bg-black/25 py-5">
           <div className="container-aec flex flex-col items-center justify-between gap-4 text-xs text-slate-400 sm:flex-row">
             <p>
-              © {new Date().getFullYear()} AEC Network — Akbar Education Communication Network. All rights reserved.
+              © {new Date().getFullYear()} AEC Network — Akbar Educational Communication Network. All rights reserved.
             </p>
             <div className="flex flex-wrap items-center gap-5">
               <Link href={"/privacy" as never} className="hover:text-white transition">

@@ -3,7 +3,7 @@ import PageHeaderBanner from "@/components/PageHeaderBanner";
 
 export const metadata = {
   title: "About Us | AEC Network - Empowering Learners Through Knowledge, Structure & Opportunity",
-  description: "Learn about Akbar Education Communication (AEC) Network, our mission, vision, structured educational approach, vetted educators, and comprehensive learning tracks.",
+  description: "Learn about Akbar Educational Communication (AEC) Network, our mission, vision, structured educational approach, vetted educators, and comprehensive learning tracks.",
 };
 
 export default function AboutPage() {
@@ -28,7 +28,7 @@ export default function AboutPage() {
             Empowering Learners Through Knowledge, Structure & Opportunity
           </h2>
           <p className="mt-5 text-base md:text-lg text-slate-700 leading-relaxed max-w-4xl">
-            <strong>Akbar Education Communication (AEC) Network</strong> is an online educational institution committed to providing accessible, structured, and learner-focused education to students across different age groups and locations worldwide.
+            <strong>Akbar Educational Communication (AEC) Network</strong> is an online educational institution committed to providing accessible, structured, and learner-focused education to students across different age groups and locations worldwide.
           </p>
           <p className="mt-4 text-sm md:text-base text-slate-600 leading-relaxed max-w-4xl">
             AEC brings together Islamic education, academic tutoring, language learning, examination preparation, and technology-focused education through flexible online learning programs. Our aim is to connect students with dedicated educators and provide a structured learning environment that supports continuous academic and personal development.

@@ -9,7 +9,7 @@ import AuthProvider from "@/components/AuthProvider";
 export const metadata: Metadata = {
   title: "AEC Network — Learn. Grow. Achieve.",
   description:
-    "AEC Network (Akbar Education Communication Network) — accessible online education, qualified teachers, structured learning, and academic support."
+    "AEC Network (Akbar Educational Communication Network) — accessible online education, qualified teachers, structured learning, and academic support."
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
