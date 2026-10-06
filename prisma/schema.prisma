@@ -891,3 +891,51 @@ model AuditLog {
   ipAddress String?
   timestamp DateTime @default(now())
 }
+
+// ---------- CMS & HOMEPAGE BUILDER ----------
+
+model PageConfig {
+  id               String         @id @default(cuid())
+  slug             String         @unique @default("home") // e.g. "home"
+  title            String         @default("Homepage")
+  publishedContent Json           // array of section configurations published live
+  draftContent     Json           // array of section configurations currently being drafted
+  globalSettings   Json?          // theme, fonts, custom colors, seo metadata
+  isPublished      Boolean        @default(true)
+  updatedBy        String?
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+  revisions        PageRevision[]
+}
+
+model PageRevision {
+  id           String     @id @default(cuid())
+  pageConfigId String
+  pageConfig   PageConfig @relation(fields: [pageConfigId], references: [id], onDelete: Cascade)
+  version      Int
+  note         String?    // e.g. "Published by Admin", "Auto-saved snapshot"
+  sections     Json       // snapshot of sections data
+  createdBy    String?
+  createdAt    DateTime   @default(now())
+
+  @@index([pageConfigId, createdAt])
+}
+
+model MediaAsset {
+  id         String   @id @default(cuid())
+  filename   String
+  url        String
+  folder     String   @default("homepage") // /homepage, /courses, /teachers, etc.
+  mimeType   String?
+  size       Int?
+  width      Int?
+  height     Int?
+  altText    String?
+  title      String?
+  caption    String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([folder])
+}
+

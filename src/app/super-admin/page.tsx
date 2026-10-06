@@ -7,6 +7,7 @@ import { isOneOf } from "@/lib/permissions";
 
 const SUPER_ADMIN_NAV = [
   { label: "👑 Super Admin", href: "/super-admin" },
+  { label: "🎨 Homepage Builder", href: "/super-admin/homepage-builder" },
   { label: "🛡️ Admin Portal", href: "/admin" },
   { label: "🎓 Student Portal", href: "/student" },
   { label: "👨‍🏫 Teacher Portal", href: "/teacher" },
@@ -159,6 +160,13 @@ export default async function SuperAdminDashboardPage() {
       href: "/hr",
       badge: `${totalEmployees} Employees`,
       desc: "Staff files, attendance tracking, leave sign-offs, and monthly payroll."
+    },
+    {
+      id: 10,
+      title: "🎨 Homepage Builder CMS",
+      href: "/super-admin/homepage-builder",
+      badge: "Visual Editor",
+      desc: "Visual page editor, section library, drag-and-drop order, revisions, and media manager."
     }
   ];
 

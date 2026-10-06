@@ -11,6 +11,7 @@ import NotificationBell from "@/components/NotificationBell";
 
 const SUPER_ADMIN_PORTALS = [
   { label: "👑 Super Admin", href: "/super-admin" },
+  { label: "🎨 Homepage Builder", href: "/super-admin/homepage-builder" },
   { label: "🛡️ Admin Portal", href: "/admin" },
   { label: "🎓 Student Portal", href: "/student" },
   { label: "👨‍🏫 Teacher Portal", href: "/teacher" },
